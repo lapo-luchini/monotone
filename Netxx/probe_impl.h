@@ -31,38 +31,52 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains the defintion of the Netxx::Probe_impl class.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+#ifndef _netxx_probe_impl_h_
+#define _netxx_probe_impl_h_
 
-#include "compat.h"
-#include "osutil.h"
+// Netxx includes
+#include <netxx/types.h>
+#include <netxx/probe.h>
+#include <netxx/timeout.h>
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+// system includes
+#include <vector>
+#include <utility>
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+namespace Netxx {
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+/**
+ * Probe_impl is the class that does the actuall probing of socket file
+ * descriptors. The implementation is chosen at compile time, an example
+ * would be Probe_select.cxx that calls select(2).
+**/
+class Probe_impl {
+public:
+    typedef std::vector< std::pair<socket_type, Probe::ready_type> > probe_type;
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
+    Probe_impl (void);
 
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
+    Probe_impl (const Probe_impl &other);
 
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
+    Probe_impl& operator= (const Probe_impl &other);
 
+    void swap (Probe_impl &other);
 
+    ~Probe_impl (void);
+
+    void add (socket_type socketfd, Probe::ready_type rt=Probe::ready_none);
+
+    void remove (socket_type socketfd);
+
+    void clear (void);
+
+    probe_type probe (const Timeout &timeout, Probe::ready_type rt=Probe::ready_none);
+private:
+    void *pimpl_;
+
+}; // end Netxx::Probe_impl class
+} // end Netxx namespace
 #endif

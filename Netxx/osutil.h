@@ -31,38 +31,67 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains definitions for OS error functions.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+#ifndef _netxx_osutil_h_
+#define _netxx_osutil_h_
 
-#include "compat.h"
-#include "osutil.h"
+#if defined (WIN32)
+# include <winsock2.h>
+# include <winbase.h>
+# include <errno.h>
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
+# undef  EINTR
+# define EINTR WSAEINTR
+
+# undef  EWOULDBLOCK
+# define EWOULDBLOCK WSAEWOULDBLOCK
+
+# undef  EINPROGRESS
+# define EINPROGRESS WSAEINPROGRESS
+
+# undef  EAFNOSUPPORT
+# define EAFNOSUPPORT WSAEAFNOSUPPORT
+
+# undef  ENOSPC
+# define ENOSPC WSAENOSPC
+
+# undef  ECONNRESET
+# define ECONNRESET WSAECONNRESET
+
+# undef  ECONNABORTED
+# define ECONNABORTED WSAECONNABORTED
+#else
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <netinet/in.h>
+# include <arpa/inet.h>
+# include <sys/param.h>
+# include <sys/un.h>
+# include <unistd.h>
+# include <sys/stat.h>
+# include <netdb.h>
+# include <fcntl.h>
+# include <errno.h>
 #endif
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
+namespace Netxx 
+{
+    typedef int error_type;
+    error_type get_last_error (void);
+
+
+#if defined(WIN32) || defined(__APPLE__) || defined (__CYGWIN__)
+    typedef int  os_socklen_type;
+    typedef int* os_socklen_ptr_type;
+#   define get_socklen_ptr(x) reinterpret_cast<int*>(&x)
+#else
+    typedef socklen_t  os_socklen_type;
+    typedef socklen_t* os_socklen_ptr_type;
+#   define get_socklen_ptr(x) &x
 #endif
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
-
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
-
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
-
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
-
+} // end Netxx namespace
 
 #endif

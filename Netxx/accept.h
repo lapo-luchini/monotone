@@ -31,38 +31,30 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains the definition for the call_accept function.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+#ifndef _netxx_accept_h_
+#define _netxx_accept_h_
 
-#include "compat.h"
-#include "osutil.h"
+// Netxx includes
+#include "netxx/peer.h"
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+namespace Netxx {
+    class Socket;
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+    //####################################################################
+    /** 
+     * Make a call to accept(2). The given socket must have been created in
+     * such a way as to have a valid Socket::Type.
+     *
+     * @param socket The server socket to accept for.
+     * @param dont_block Set to true to avoid having this call block.
+     * @return The connected Peer or an invalid peer for timeout.
+     * @author Peter Jones
+    **/
+    //####################################################################
+    Peer call_accept (Socket &socket, bool dont_block=false);
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
-
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
-
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
-
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
-
-
+} // end Netxx namespace
 #endif

@@ -31,38 +31,27 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains the implementation of the resolve_service function
+ * using the getservbyname system call.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+// common header
+#include "common.h"
 
-#include "compat.h"
-#include "osutil.h"
+// Netxx includes
+#include "resolve.h"
+#include "netxx/types.h"
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+// standard includes
+#include <cstring>
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+//####################################################################
+Netxx::port_type Netxx::resolve_service (const char *service)
+{
+    servent *se;
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
-
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
-
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
-
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
-
-
-#endif
+    // WARNING not thread safe :-(
+    if ( (se = getservbyname(service, "tcp")) != 0) return ntohs(se->s_port);
+    return 0;
+}
+//####################################################################

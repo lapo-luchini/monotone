@@ -30,39 +30,21 @@
  * SUCH DAMAGE.
  */
 
-/** @file
- * This file contains common stuff needed by Netxx.
-**/
+#ifndef _netxx_netxx_h_
+#define _netxx_netxx_h_
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
-
-#include "compat.h"
-#include "osutil.h"
-
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
-
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
-
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
-
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
-
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
-
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
-
+#include <netxx/address.h>
+#include <netxx/datagram.h>
+#include <netxx/datagramserver.h>
+#include <netxx/netbuf.h>
+#include <netxx/peer.h>
+#include <netxx/probe.h>
+#include <netxx/probeinfo.h>
+#include <netxx/sockopt.h>
+#include <netxx/stream.h>
+#include <netxx/streambase.h>
+#include <netxx/streamserver.h>
+#include <netxx/timeout.h>
+#include <netxx/types.h>
 
 #endif

@@ -31,38 +31,53 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file defines the Netxx::SockAddr class.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+#ifndef _netxx_sockaddr_h_
+#define _netxx_sockaddr_h_
 
-#include "compat.h"
-#include "osutil.h"
+// Netxx includes
+#include "common.h"
+#include "socket.h"
+#include "netxx/types.h"
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+namespace Netxx {
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+/**
+ * The SockAddr class is a thin wrapper around the sockaddr_* structs. It is
+ * mainly used to create and cleanup after these structs.
+**/
+class SockAddr {
+public:
+    explicit SockAddr (Socket::Type type, port_type port=0);
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+    explicit SockAddr (int af_type, port_type port=0);
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
+    sockaddr* get_sa (void);
+    size_type get_sa_size (void);
+    
+    void setup (int af_type, port_type port);
+private:
+    union {
+	sockaddr_in sa_in;
 
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
+#   ifndef NETXX_NO_INET6
+	sockaddr_in6 sa_in6;
+#   endif
 
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
+#   ifndef WIN32
+	sockaddr_un sa_un;
+#   endif
 
+    } sa_union_;
 
+    sockaddr *sa_;
+    size_type sa_size_;
+
+    SockAddr (const SockAddr &);
+    SockAddr& operator= (const SockAddr &);
+
+}; // end Netxx::SockAddr class
+} // end Netxx namespace
 #endif

@@ -31,38 +31,34 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains the definition of the Netxx::call_recvfrom function.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+#ifndef _netxx_recvfrom_h_
+#define _netxx_recvfrom_h_
 
-#include "compat.h"
-#include "osutil.h"
+// local includes
+#include "netxx/types.h"
+#include "netxx/peer.h"
+#include "socket.h"
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+// standard includes
+#include <utility>
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+namespace Netxx {
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+    //####################################################################
+    /** 
+     * Wrapper around the recvfrom(2) system call.
+     *
+     * @param socket The server socket
+     * @param buffer Where to place the new datagram
+     * @param length The size of the datagram buffer
+     * @return A std::pair<bytes received, peer address>
+     * @author Peter Jones
+    **/
+    //####################################################################
+    std::pair<signed_size_type, Peer> call_recvfrom (Socket &socket, void *buffer, size_type length);
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
-
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
-
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
-
-
+} // end Netxx namespace
 #endif
