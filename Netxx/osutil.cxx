@@ -31,38 +31,23 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains definitions for OS utility functions.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+// declaration include
+#include "common.h"
 
-#include "compat.h"
-#include "osutil.h"
+//####################################################################
+Netxx::error_type Netxx::get_last_error (void) 
+{
+#if defined (WIN32)
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+    return WSAGetLastError();
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+#else
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
-
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
-
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
-
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
-
+    return errno;
 
 #endif
+}
+//####################################################################

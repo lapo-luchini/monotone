@@ -31,38 +31,51 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains the implementation of the call_accept function.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+// common header
+#include "common.h"
 
-#include "compat.h"
-#include "osutil.h"
+// Netxx includes
+#include "accept.h"
+#include "netxx/sockopt.h"
+#include "netxx/types.h"
+#include "sockaddr.h"
+#include "socket.h"
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+//####################################################################
+Netxx::Peer Netxx::call_accept (Socket &socket, bool dont_block) 
+{
+    SockOpt socket_options(socket.get_socketfd(), true);
+    if (dont_block) socket_options.set_non_blocking();
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+    SockAddr socket_address(socket.get_type());
+    sockaddr *sa = socket_address.get_sa();
+    os_socklen_type sa_size = socket_address.get_sa_size();
+    os_socklen_ptr_type sa_size_ptr = get_socklen_ptr(sa_size);
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+    for (;;) {
+	socket_type client = accept(socket.get_socketfd(), sa, sa_size_ptr);
+	if (client >= 0) return Peer(client, sa, sa_size);
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
+	error_type error_code = get_last_error();
 
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
+	switch (error_code) {
+	    case EINTR:
+		continue;
 
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
+	    case EWOULDBLOCK:
+	    case ECONNABORTED:
+		return Peer();
 
-
-#endif
+	    default:
+	    {
+		std::string error("accept(2) error: ");
+		error += strerror(error_code);
+		throw Netxx::Exception(error);
+	    }
+	}
+    }
+}
+//####################################################################

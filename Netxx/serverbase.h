@@ -31,38 +31,65 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains the defintion of the Netxx::ServerBase class.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+#ifndef _netxx_serverbase_h_
+#define _netxx_serverbase_h_
 
-#include "compat.h"
-#include "osutil.h"
+// Netxx includes
+#include <netxx/types.h>
+#include <netxx/timeout.h>
+#include <netxx/probe.h>
+#include <netxx/probeinfo.h>
+#include "socket.h"
+#include "probe_impl.h"
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+// standard includes
+#include <string>
+#include <vector>
+#include <map>
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+namespace Netxx {
+    class Address;
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+/**
+ * The Netxx::ServerBase class implements common server code for other Netxx
+ * server classes.
+**/
+class ServerBase {
+public:
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
+    explicit ServerBase (const Timeout &timeout=Timeout());
 
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
+    virtual ~ServerBase (void);
 
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
+    void bind_to(const Address &addr, bool stream_server);
 
+    void get_socket_list (Socket *&sockets, size_type &size);
 
+    Socket* get_readable_socket (void);
+
+    void set_timeout (const Timeout &timeout);
+
+    const Timeout& get_timeout (void) const;
+
+    bool has_socket (socket_type socketfd) const;
+
+    const ProbeInfo* get_probe_info (void) const;
+private:
+    Timeout timeout_;
+    Socket *sockets_;
+    size_type sockets_size_;
+    std::map<socket_type, Socket*> sockets_map_;
+    std::vector<std::string> files_;
+
+    ProbeInfo pi_;
+    Probe probe_;
+
+    ServerBase (const ServerBase&);
+    ServerBase& operator= (const ServerBase&);
+
+}; // end Netxx::ServerBase class
+} // end Netxx namespace
 #endif

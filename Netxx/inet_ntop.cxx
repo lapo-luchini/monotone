@@ -30,39 +30,43 @@
  * SUCH DAMAGE.
  */
 
-/** @file
- * This file contains common stuff needed by Netxx.
-**/
+// local includes
+#include "common.h"
+#include "inet_ntop.h"
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+// standard includes
+#include <stdio.h>
+#include <cstring>
 
-#include "compat.h"
-#include "osutil.h"
-
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
+// need snprintf
+#if defined(WIN32)
+# define snprintf _snprintf
 #endif
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+//####################################################################
+const char *inet_ntop (int family, const void *addrptr, char *strptr, std::size_t len) 
+{
+    const unsigned char *p = reinterpret_cast<const unsigned char*>(addrptr);
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+    if (family == AF_INET) {
+	char temp[INET_ADDRSTRLEN];
+	snprintf(temp, sizeof(temp), "%d.%d.%d.%d", p[0], p[1], p[2], p[3]);
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
+	if (std::strlen(temp) >= len) {
+#	    ifndef WIN32
+		errno = ENOSPC;
+#	    endif
+	    return 0;
+	}
 
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
+	std::strcpy(strptr, temp);
+	return strptr;
+    }
 
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
+#   ifndef WIN32
+	errno = EAFNOSUPPORT;
+#   endif
 
-
-#endif
+    return 0;
+}
+//####################################################################

@@ -31,38 +31,57 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file contains the implementation of the Netxx::call_recvfrom function.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+// common header
+#include "common.h"
 
-#include "compat.h"
-#include "osutil.h"
+// Netxx includes
+#include "recvfrom.h"
+#include "sockaddr.h"
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+// standard includes
+#include <utility>
+#include <string>
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+//####################################################################
+std::pair<Netxx::signed_size_type, Netxx::Peer> Netxx::call_recvfrom (Socket &socket, void *buffer, size_type length)
+{
+#   if defined(WIN32)
+	char *buffer_ptr = static_cast<char*>(buffer);
+#   else
+	void *buffer_ptr(buffer);
+#   endif
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+    SockAddr socket_address(socket.get_type());
+    sockaddr *sa = socket_address.get_sa();
+    os_socklen_type sa_size = socket_address.get_sa_size();
+    os_socklen_ptr_type sa_size_ptr = get_socklen_ptr(sa_size);
+    signed_size_type rc;
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
+    for (;;) {
+	if ( (rc = recvfrom(socket.get_socketfd(), buffer_ptr, length, 0, sa, sa_size_ptr)) < 0) {
+	    error_type error_code = get_last_error();
+	    if (error_code == EWOULDBLOCK) error_code = EAGAIN;
 
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
+	    switch (error_code) {
+		case EAGAIN:
+		    return std::make_pair(static_cast<signed_size_type>(-1), Peer());
 
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
+		case EINTR:
+		    continue;
 
+		default:
+		{
+		    std::string error("recvfrom(2) failed: ");
+		    error += strerror(error_code);
+		    throw Exception(error);
+		}
+	    }
+	}
 
-#endif
+	return std::make_pair(rc, Peer(socket.get_socketfd(), sa, sa_size));
+    }
+}
+//####################################################################

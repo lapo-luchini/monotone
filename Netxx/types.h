@@ -31,38 +31,40 @@
  */
 
 /** @file
- * This file contains common stuff needed by Netxx.
+ * This file defines some common types for Netxx.
 **/
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+#ifndef _netxx_types_h_
+#define _netxx_types_h_
 
-#include "compat.h"
-#include "osutil.h"
+// standard includes
+#include <stdexcept>
+#include <string>
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+namespace Netxx {
+    
+    /// unsigned size type (used for object sizes)
+    typedef unsigned int size_type;
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+    /// signed size type (used for objects with possible negative values)
+    typedef signed int signed_size_type;
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+    /// type for representing port numbers
+    typedef unsigned short port_type;
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
+    /// type for representing socket file descriptors
+    typedef signed int socket_type;
 
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
+    /**
+     * The Netxx::Exception class is used by the Netxx library to signal
+     * some error condition. It is derived from std::runtime_error which is
+     * dervied from std::exception. This makes it suitable to only catch
+     * std::exception objects if you wish.
+    **/
+    struct Exception : public std::runtime_error {
+	Exception (const std::string &what_arg) :
+	    std::runtime_error(what_arg) { }
+    }; // end Netxx::Exception
 
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
-
-
+} // end Netxx namespace
 #endif

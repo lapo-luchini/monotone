@@ -30,39 +30,34 @@
  * SUCH DAMAGE.
  */
 
-/** @file
- * This file contains common stuff needed by Netxx.
-**/
+// local includes
+#include "common.h"
+#include "inet_pton.h"
 
-#ifndef _netxx_common_h_
-#define _netxx_common_h_
+// standard includes
+#include <cstring>
 
-#include "compat.h"
-#include "osutil.h"
+//####################################################################
+int inet_pton (int family, const char *strptr, void *addrptr) 
+{
+    if (family == AF_INET) {
+	unsigned long in_val;
 
-#if defined(NETXX_NO_NTOP)
-# include "inet_ntop.h"
-#endif
+	if ( (in_val = inet_addr(strptr)) != INADDR_NONE) {
+	    in_addr in_struct;
+	    std::memset(&in_struct, 0, sizeof(in_struct));
+	    in_struct.s_addr = in_val;
+	    std::memcpy(addrptr, &in_struct, sizeof(in_struct));
+	    return 1;
+	}
 
-#if defined(NETXX_NO_PTON)
-# include "inet_pton.h"
-#endif
+	return 0;
+    }
 
-#ifndef AF_LOCAL
-# define AF_LOCAL AF_UNIX
-#endif
+#   ifndef WIN32
+	errno = EAFNOSUPPORT;
+#   endif
 
-#ifndef PF_LOCAL
-# define PF_LOCAL PF_UNIX
-#endif
-
-#ifndef INET_ADDRSTRLEN
-# define INET_ADDRSTRLEN 16
-#endif
-
-#ifndef INADDR_NONE
-# define INADDR_NONE static_cast<unsigned long>(-1)
-#endif
-
-
-#endif
+    return -1;
+}
+//####################################################################
