@@ -8348,6 +8348,8 @@ $VAR1 = [
           'ffee1cc3953e31ba713f722223299a64983a047b',
           'fff5dc58f79e696858a39004c8d125a35e182e6a'
         ];
+
+get_error_message() method returned `'
  ========== ancestry_difference ==========
 $VAR1 = [
           '1d848e1155d9c78c0810c7cacf3fdca53cd21b5c',
@@ -8371,6 +8373,8 @@ $VAR1 = [
           '3b20f1a82690cdb8fc6570637fe0526a7aeb1872',
           'f06e40cb1d2b4f5c0db387e7a6c37681f1f89294'
         ];
+
+get_error_message() method returned `'
  ========== branches ==========
 $VAR1 = [
           'net.venge.monotone',
@@ -8494,8 +8498,12 @@ $VAR1 = [
           'net.venge.monotone.workspace-merge.conflict1',
           'net.venge.monotone.ws_automate'
         ];
+
+get_error_message() method returned `'
  ========== cert ==========
 Added the daleks cert
+
+get_error_message() method returned `'
  ========== certs ==========
   ---------- Raw Data ----------
       key [7fe029d85af4de40700778b9784ef488fac2c79c]
@@ -8569,11 +8577,15 @@ not use.
             'key' => '7fe029d85af4de40700778b9784ef488fac2c79c'
           }
         ];
+
+get_error_message() method returned `'
  ========== children ==========
 $VAR1 = [
           '05cb265ad778107218701fa76a91bdf4770b85a8',
           '110816e646d42ca45e8205778255cece9c8f2159'
         ];
+
+get_error_message() method returned `'
  ========== common_ancestors ==========
 $VAR1 = [
           '0005a23e30a9c2d3024d94773eec433bf9acb770',
@@ -16879,37 +16891,9 @@ $VAR1 = [
           'ffee1cc3953e31ba713f722223299a64983a047b',
           'fff5dc58f79e696858a39004c8d125a35e182e6a'
         ];
+
+get_error_message() method returned `'
  ========== content_diff (revision) ==========
-============================================================
---- DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
-+++ DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
-============================================================
---- README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
-+++ README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
-@@ -0,0 +1,5 @@
-+This is a test branch for the Monotone::AutomateStdio Perl library. This branch
-+is branched off from Monotone version 0.41 and contains random changes in order
-+to exercise specific bits of the automate stdio interface and the
-+Monotone::AutomateStdio library. This branch must in no way ever be merged back
-+to the main Monotone branch.
-============================================================
---- script1	cd89bae8485ee5a3532bb35c764ef43239098af8
-+++ script1	cd89bae8485ee5a3532bb35c764ef43239098af8
-@@ -0,0 +1,3 @@
-+#!/bin/sh
-+ls -la
-+exit 0
-============================================================
---- script2	cd89bae8485ee5a3532bb35c764ef43239098af8
-+++ script2	cd89bae8485ee5a3532bb35c764ef43239098af8
-@@ -0,0 +1,3 @@
-+#!/bin/sh
-+ls -la
-+exit 0
-============================================================
-# snowdonia.jpg is binary
-============================================================
-# snowdonia.xcf is binary
 ============================================================
 --- COPYING	06877624ea5c77efe3b7e39b0f909eda6e25a4ec
 +++ COPYING	7d7e3bd4448ca5450c1a211675734ed6a5eae18a
@@ -17423,6 +17407,173 @@ $VAR1 = [
  	$(SANITY_CORE_SOURCES) $(LUAEXT_SOURCES) platform-wrapped.hh	\
  	rev_types.hh mtn-sanity.cc mtn-sanity.hh ui.cc ui.hh		\
 ============================================================
+--- platform.hh	7b09b4e28d7c7379e6336a3fa8d76cf937d3ac1f
++++ /dev/null	
+@@ -1,163 +0,0 @@
+-#ifndef __PLATFORM_HH__
+-#define __PLATFORM_HH__
+-
+-// Copyright (C) 2002 Graydon Hoare <graydon@pobox.com>
+-//
+-// This program is made available under the GNU GPL version 2.0 or
+-// greater. See the accompanying file COPYING for details.
+-//
+-// This program is distributed WITHOUT ANY WARRANTY; without even the
+-// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+-// PURPOSE.
+-
+-// this describes functions to be found, alternatively, in win32/* or unix/*
+-// directories.
+-
+-
+-#include <stdio.h>
+-
+-void read_password(std::string const & prompt, char * buf, size_t bufsz);
+-void get_system_flavour(std::string & ident);
+-bool is_executable(const char *path);
+-
+-// For LUA
+-int existsonpath(const char *exe);
+-int make_executable(const char *path);
+-pid_t process_spawn(const char * const argv[]);
+-pid_t process_spawn_redirected(char const * in,
+-                               char const * out,
+-                               char const * err,
+-                               char const * const argv[]);
+-pid_t process_spawn_pipe(char const * const argv[], FILE** in, FILE** out);
+-int process_wait(pid_t pid, int *res, int timeout = -1);// default infinite
+-int process_kill(pid_t pid, int signal);
+-int process_sleep(unsigned int seconds);
+-
+-// stop "\n"->"\r\n" from breaking automate on Windows
+-void make_io_binary();
+-
+-#ifdef WIN32
+-std::string munge_argv_into_cmdline(const char* const argv[]);
+-#endif
+-// for term selection
+-bool have_smart_terminal();
+-// this function cannot call W/P/L, because it is called by the tick printing
+-// code.
+-// return value of 0 means "unlimited"
+-unsigned int terminal_width();
+-
+-// for "reckless mode" workspace change detection.
+-// returns 'true' if it has generated a valid inodeprint; returns 'false' if
+-// there was a problem, in which case we should act as if the inodeprint has
+-// changed.
+-class inodeprint_calculator
+-{
+-public:
+-  template<typename T> void add_item(T obj)
+-  {
+-    size_t size(sizeof(obj));
+-    add_item(&size, sizeof(size));
+-    add_item(&obj, sizeof(obj));
+-  }
+-  // When adding a time to the print use these to note if it's
+-  // close to the current time (within about 3 seconds) or
+-  // in the future.
+-  // To make this more robust, there are some tricks:
+-  //   -- we refuse to inodeprint files whose times are within a few seconds of
+-  //      'now'.  This is because, we might memorize the inodeprint, then
+-  //      someone writes to the file, and this write does not update the
+-  //      timestamp -- or rather, it does update the timestamp, but nothing
+-  //      happens, because the new value is the same as the old value.  We use
+-  //      "a few seconds" to make sure that it is larger than whatever the
+-  //      filesystem's timekeeping granularity is (rounding to 2 seconds is
+-  //      known to exist in the wild).
+-  //   -- by the same reasoning, we should also refuse to inodeprint files whose
+-  //      time is in the future, because it is possible that someone will write
+-  //      to that file exactly when that future second arrives, and we will
+-  //      never notice.  However, this would create persistent and hard to
+-  //      diagnosis slowdowns, whenever a tree accidentally had its times set
+-  //      into the future.  Therefore, to handle this case, we include a "is
+-  //      this time in the future?" bit in the hashed information.  This bit
+-  //      will change when we pass the future point, and trigger a re-check of
+-  //      the file's contents.
+-  //
+-  // This is, of course, still not perfect.  There is no way to make our stat
+-  // atomic with the actual read of the file, so there's always a race condition
+-  // there.  Additionally, this handling means that checkout will never actually
+-  // inodeprint anything, but rather the first command after checkout will be
+-  // slow.  There doesn't seem to be anything that could be done about this.
+-  virtual void note_future(bool f = true) = 0;
+-  virtual void note_nowish(bool f = true) = 0;
+-  virtual ~inodeprint_calculator() {};
+-protected:
+-  virtual void add_item(void *dat, size_t size) = 0;
+-};
+-bool inodeprint_file(std::string const & file, inodeprint_calculator & calc);
+-
+-// for netsync 'serve' pidfile support
+-pid_t get_process_id();
+-
+-// netsync wants to ignore sigpipe; this is meaningless on Win32
+-#ifdef WIN32
+-inline void ignore_sigpipe() {}
+-#else
+-void ignore_sigpipe(); // in unix/process.cc
+-#endif
+-
+-// filesystem stuff
+-// FIXME: BUG: this returns a string in the filesystem charset/encoding
+-std::string get_current_working_dir();
+-// calls N() if fails
+-void change_current_working_dir(std::string const & to);
+-std::string tilde_expand(std::string const & path);
+-std::string get_default_confdir();
+-
+-inline std::string get_default_keydir()
+-{ return get_default_confdir() + "/keys"; }
+-
+-std::string get_homedir();
+-namespace path
+-{
+-  typedef enum { nonexistent, directory, file } status;
+-};
+-path::status get_path_status(std::string const & path);
+-
+-struct dirent_consumer
+-{
+-  virtual ~dirent_consumer() {}
+-  virtual void consume(const char *) = 0;
+-};
+-void do_read_directory(std::string const & path,
+-                       dirent_consumer & files,
+-                       dirent_consumer & dirs,
+-                       dirent_consumer & other_files);
+-
+-void rename_clobberingly(std::string const & from, std::string const & to);
+-void do_remove(std::string const & path);
+-
+-void do_mkdir(std::string const & path);
+-void write_data_worker(std::string const & p,
+-                       std::string const & dat,
+-                       std::string const & tmpdir,
+-                       bool user_private);
+-
+-// strerror wrapper for OS-specific errors (e.g. use FormatMessage on Win32)
+-std::string os_strerror(os_err_t errnum);
+-
+-// for running cpu benchmarks
+-// Returns the processor time used by the current process, plus some
+-// arbitrary constant, measured in seconds.
+-double cpu_now();
+-
+-// determine directory to load locale data from
+-std::string get_locale_dir();
+-
+-// Local Variables:
+-// mode: C++
+-// fill-column: 76
+-// c-file-style: "gnu"
+-// indent-tabs-mode: nil
+-// End:
+-// vim: et:sw=2:sts=2:ts=2:cino=>2s,{s,\:s,+s,t0,g0,^-2,e-2,n-2,p2s,(0,=s:
+-
+-#endif // __PLATFORM_HH__
+============================================================
 --- options.cc	e89af04e97c53b86bbfff144e567a6bfd7535357
 +++ options.cc	4b4e070919a897c989788b825f477d9683c5bcc3
 @@ -15,15 +15,6 @@ using std::string;
@@ -17441,6 +17592,38 @@ $VAR1 = [
  std::map<options::static_options_fun, std::set<options::static_options_fun> > &
  options::children()
  {
+============================================================
+--- /dev/null	
++++ README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
+@@ -0,0 +1,5 @@
++This is a test branch for the Monotone::AutomateStdio Perl library. This branch
++is branched off from Monotone version 0.41 and contains random changes in order
++to exercise specific bits of the automate stdio interface and the
++Monotone::AutomateStdio library. This branch must in no way ever be merged back
++to the main Monotone branch.
+============================================================
+--- /dev/null	
++++ script1	cd89bae8485ee5a3532bb35c764ef43239098af8
+@@ -0,0 +1,3 @@
++#!/bin/sh
++ls -la
++exit 0
+============================================================
+--- /dev/null	
++++ script2	cd89bae8485ee5a3532bb35c764ef43239098af8
+@@ -0,0 +1,3 @@
++#!/bin/sh
++ls -la
++exit 0
+============================================================
+# snowdonia.jpg is binary
+============================================================
+# snowdonia.xcf is binary
+============================================================
+--- /dev/null	
++++ DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
+
+get_error_message() method returned `'
  ========== content_diff (file) ==========
 ============================================================
 --- Makefile.am	1fb3c2eee0fbdba632764b1eaa1aa61c5596665a
@@ -17473,37 +17656,9 @@ $VAR1 = [
  MOST_SOURCES = 								\
  	$(SANITY_CORE_SOURCES) $(LUAEXT_SOURCES) platform-wrapped.hh	\
  	rev_types.hh mtn-sanity.cc mtn-sanity.hh ui.cc ui.hh		\
+
+get_error_message() method returned `including missing parent '''
  ========== content_diff (file - options excluding options.cc) ==========
-============================================================
---- DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
-+++ DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
-============================================================
---- README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
-+++ README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
-@@ -0,0 +1,5 @@
-+This is a test branch for the Monotone::AutomateStdio Perl library. This branch
-+is branched off from Monotone version 0.41 and contains random changes in order
-+to exercise specific bits of the automate stdio interface and the
-+Monotone::AutomateStdio library. This branch must in no way ever be merged back
-+to the main Monotone branch.
-============================================================
---- script1	cd89bae8485ee5a3532bb35c764ef43239098af8
-+++ script1	cd89bae8485ee5a3532bb35c764ef43239098af8
-@@ -0,0 +1,3 @@
-+#!/bin/sh
-+ls -la
-+exit 0
-============================================================
---- script2	cd89bae8485ee5a3532bb35c764ef43239098af8
-+++ script2	cd89bae8485ee5a3532bb35c764ef43239098af8
-@@ -0,0 +1,3 @@
-+#!/bin/sh
-+ls -la
-+exit 0
-============================================================
-# snowdonia.jpg is binary
-============================================================
-# snowdonia.xcf is binary
 ============================================================
 --- COPYING	06877624ea5c77efe3b7e39b0f909eda6e25a4ec
 +++ COPYING	7d7e3bd4448ca5450c1a211675734ed6a5eae18a
@@ -18016,6 +18171,205 @@ $VAR1 = [
  MOST_SOURCES = 								\
  	$(SANITY_CORE_SOURCES) $(LUAEXT_SOURCES) platform-wrapped.hh	\
  	rev_types.hh mtn-sanity.cc mtn-sanity.hh ui.cc ui.hh		\
+============================================================
+--- platform.hh	7b09b4e28d7c7379e6336a3fa8d76cf937d3ac1f
++++ /dev/null	
+@@ -1,163 +0,0 @@
+-#ifndef __PLATFORM_HH__
+-#define __PLATFORM_HH__
+-
+-// Copyright (C) 2002 Graydon Hoare <graydon@pobox.com>
+-//
+-// This program is made available under the GNU GPL version 2.0 or
+-// greater. See the accompanying file COPYING for details.
+-//
+-// This program is distributed WITHOUT ANY WARRANTY; without even the
+-// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+-// PURPOSE.
+-
+-// this describes functions to be found, alternatively, in win32/* or unix/*
+-// directories.
+-
+-
+-#include <stdio.h>
+-
+-void read_password(std::string const & prompt, char * buf, size_t bufsz);
+-void get_system_flavour(std::string & ident);
+-bool is_executable(const char *path);
+-
+-// For LUA
+-int existsonpath(const char *exe);
+-int make_executable(const char *path);
+-pid_t process_spawn(const char * const argv[]);
+-pid_t process_spawn_redirected(char const * in,
+-                               char const * out,
+-                               char const * err,
+-                               char const * const argv[]);
+-pid_t process_spawn_pipe(char const * const argv[], FILE** in, FILE** out);
+-int process_wait(pid_t pid, int *res, int timeout = -1);// default infinite
+-int process_kill(pid_t pid, int signal);
+-int process_sleep(unsigned int seconds);
+-
+-// stop "\n"->"\r\n" from breaking automate on Windows
+-void make_io_binary();
+-
+-#ifdef WIN32
+-std::string munge_argv_into_cmdline(const char* const argv[]);
+-#endif
+-// for term selection
+-bool have_smart_terminal();
+-// this function cannot call W/P/L, because it is called by the tick printing
+-// code.
+-// return value of 0 means "unlimited"
+-unsigned int terminal_width();
+-
+-// for "reckless mode" workspace change detection.
+-// returns 'true' if it has generated a valid inodeprint; returns 'false' if
+-// there was a problem, in which case we should act as if the inodeprint has
+-// changed.
+-class inodeprint_calculator
+-{
+-public:
+-  template<typename T> void add_item(T obj)
+-  {
+-    size_t size(sizeof(obj));
+-    add_item(&size, sizeof(size));
+-    add_item(&obj, sizeof(obj));
+-  }
+-  // When adding a time to the print use these to note if it's
+-  // close to the current time (within about 3 seconds) or
+-  // in the future.
+-  // To make this more robust, there are some tricks:
+-  //   -- we refuse to inodeprint files whose times are within a few seconds of
+-  //      'now'.  This is because, we might memorize the inodeprint, then
+-  //      someone writes to the file, and this write does not update the
+-  //      timestamp -- or rather, it does update the timestamp, but nothing
+-  //      happens, because the new value is the same as the old value.  We use
+-  //      "a few seconds" to make sure that it is larger than whatever the
+-  //      filesystem's timekeeping granularity is (rounding to 2 seconds is
+-  //      known to exist in the wild).
+-  //   -- by the same reasoning, we should also refuse to inodeprint files whose
+-  //      time is in the future, because it is possible that someone will write
+-  //      to that file exactly when that future second arrives, and we will
+-  //      never notice.  However, this would create persistent and hard to
+-  //      diagnosis slowdowns, whenever a tree accidentally had its times set
+-  //      into the future.  Therefore, to handle this case, we include a "is
+-  //      this time in the future?" bit in the hashed information.  This bit
+-  //      will change when we pass the future point, and trigger a re-check of
+-  //      the file's contents.
+-  //
+-  // This is, of course, still not perfect.  There is no way to make our stat
+-  // atomic with the actual read of the file, so there's always a race condition
+-  // there.  Additionally, this handling means that checkout will never actually
+-  // inodeprint anything, but rather the first command after checkout will be
+-  // slow.  There doesn't seem to be anything that could be done about this.
+-  virtual void note_future(bool f = true) = 0;
+-  virtual void note_nowish(bool f = true) = 0;
+-  virtual ~inodeprint_calculator() {};
+-protected:
+-  virtual void add_item(void *dat, size_t size) = 0;
+-};
+-bool inodeprint_file(std::string const & file, inodeprint_calculator & calc);
+-
+-// for netsync 'serve' pidfile support
+-pid_t get_process_id();
+-
+-// netsync wants to ignore sigpipe; this is meaningless on Win32
+-#ifdef WIN32
+-inline void ignore_sigpipe() {}
+-#else
+-void ignore_sigpipe(); // in unix/process.cc
+-#endif
+-
+-// filesystem stuff
+-// FIXME: BUG: this returns a string in the filesystem charset/encoding
+-std::string get_current_working_dir();
+-// calls N() if fails
+-void change_current_working_dir(std::string const & to);
+-std::string tilde_expand(std::string const & path);
+-std::string get_default_confdir();
+-
+-inline std::string get_default_keydir()
+-{ return get_default_confdir() + "/keys"; }
+-
+-std::string get_homedir();
+-namespace path
+-{
+-  typedef enum { nonexistent, directory, file } status;
+-};
+-path::status get_path_status(std::string const & path);
+-
+-struct dirent_consumer
+-{
+-  virtual ~dirent_consumer() {}
+-  virtual void consume(const char *) = 0;
+-};
+-void do_read_directory(std::string const & path,
+-                       dirent_consumer & files,
+-                       dirent_consumer & dirs,
+-                       dirent_consumer & other_files);
+-
+-void rename_clobberingly(std::string const & from, std::string const & to);
+-void do_remove(std::string const & path);
+-
+-void do_mkdir(std::string const & path);
+-void write_data_worker(std::string const & p,
+-                       std::string const & dat,
+-                       std::string const & tmpdir,
+-                       bool user_private);
+-
+-// strerror wrapper for OS-specific errors (e.g. use FormatMessage on Win32)
+-std::string os_strerror(os_err_t errnum);
+-
+-// for running cpu benchmarks
+-// Returns the processor time used by the current process, plus some
+-// arbitrary constant, measured in seconds.
+-double cpu_now();
+-
+-// determine directory to load locale data from
+-std::string get_locale_dir();
+-
+-// Local Variables:
+-// mode: C++
+-// fill-column: 76
+-// c-file-style: "gnu"
+-// indent-tabs-mode: nil
+-// End:
+-// vim: et:sw=2:sts=2:ts=2:cino=>2s,{s,\:s,+s,t0,g0,^-2,e-2,n-2,p2s,(0,=s:
+-
+-#endif // __PLATFORM_HH__
+============================================================
+--- /dev/null	
++++ README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
+@@ -0,0 +1,5 @@
++This is a test branch for the Monotone::AutomateStdio Perl library. This branch
++is branched off from Monotone version 0.41 and contains random changes in order
++to exercise specific bits of the automate stdio interface and the
++Monotone::AutomateStdio library. This branch must in no way ever be merged back
++to the main Monotone branch.
+============================================================
+--- /dev/null	
++++ script1	cd89bae8485ee5a3532bb35c764ef43239098af8
+@@ -0,0 +1,3 @@
++#!/bin/sh
++ls -la
++exit 0
+============================================================
+--- /dev/null	
++++ script2	cd89bae8485ee5a3532bb35c764ef43239098af8
+@@ -0,0 +1,3 @@
++#!/bin/sh
++ls -la
++exit 0
+============================================================
+# snowdonia.jpg is binary
+============================================================
+# snowdonia.xcf is binary
+============================================================
+--- /dev/null	
++++ DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
+
+get_error_message() method returned `including missing parent '''
  ========== content_diff (file - options excluding options.cc) ==========
 #
 #
@@ -18069,36 +18423,6 @@ $VAR1 = [
 # value "true"
 #
 ============================================================
---- DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
-+++ DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
-============================================================
---- README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
-+++ README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
-@@ -0,0 +1,5 @@
-+This is a test branch for the Monotone::AutomateStdio Perl library. This branch
-+is branched off from Monotone version 0.41 and contains random changes in order
-+to exercise specific bits of the automate stdio interface and the
-+Monotone::AutomateStdio library. This branch must in no way ever be merged back
-+to the main Monotone branch.
-============================================================
---- script1	cd89bae8485ee5a3532bb35c764ef43239098af8
-+++ script1	cd89bae8485ee5a3532bb35c764ef43239098af8
-@@ -0,0 +1,3 @@
-+#!/bin/sh
-+ls -la
-+exit 0
-============================================================
---- script2	cd89bae8485ee5a3532bb35c764ef43239098af8
-+++ script2	cd89bae8485ee5a3532bb35c764ef43239098af8
-@@ -0,0 +1,3 @@
-+#!/bin/sh
-+ls -la
-+exit 0
-============================================================
-# snowdonia.jpg is binary
-============================================================
-# snowdonia.xcf is binary
-============================================================
 --- COPYING	06877624ea5c77efe3b7e39b0f909eda6e25a4ec
 +++ COPYING	7d7e3bd4448ca5450c1a211675734ed6a5eae18a
 @@ -1,8 +1,8 @@
@@ -18610,6 +18934,205 @@ $VAR1 = [
  MOST_SOURCES = 								\
  	$(SANITY_CORE_SOURCES) $(LUAEXT_SOURCES) platform-wrapped.hh	\
  	rev_types.hh mtn-sanity.cc mtn-sanity.hh ui.cc ui.hh		\
+============================================================
+--- platform.hh	7b09b4e28d7c7379e6336a3fa8d76cf937d3ac1f
++++ /dev/null	
+@@ -1,163 +0,0 @@
+-#ifndef __PLATFORM_HH__
+-#define __PLATFORM_HH__
+-
+-// Copyright (C) 2002 Graydon Hoare <graydon@pobox.com>
+-//
+-// This program is made available under the GNU GPL version 2.0 or
+-// greater. See the accompanying file COPYING for details.
+-//
+-// This program is distributed WITHOUT ANY WARRANTY; without even the
+-// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+-// PURPOSE.
+-
+-// this describes functions to be found, alternatively, in win32/* or unix/*
+-// directories.
+-
+-
+-#include <stdio.h>
+-
+-void read_password(std::string const & prompt, char * buf, size_t bufsz);
+-void get_system_flavour(std::string & ident);
+-bool is_executable(const char *path);
+-
+-// For LUA
+-int existsonpath(const char *exe);
+-int make_executable(const char *path);
+-pid_t process_spawn(const char * const argv[]);
+-pid_t process_spawn_redirected(char const * in,
+-                               char const * out,
+-                               char const * err,
+-                               char const * const argv[]);
+-pid_t process_spawn_pipe(char const * const argv[], FILE** in, FILE** out);
+-int process_wait(pid_t pid, int *res, int timeout = -1);// default infinite
+-int process_kill(pid_t pid, int signal);
+-int process_sleep(unsigned int seconds);
+-
+-// stop "\n"->"\r\n" from breaking automate on Windows
+-void make_io_binary();
+-
+-#ifdef WIN32
+-std::string munge_argv_into_cmdline(const char* const argv[]);
+-#endif
+-// for term selection
+-bool have_smart_terminal();
+-// this function cannot call W/P/L, because it is called by the tick printing
+-// code.
+-// return value of 0 means "unlimited"
+-unsigned int terminal_width();
+-
+-// for "reckless mode" workspace change detection.
+-// returns 'true' if it has generated a valid inodeprint; returns 'false' if
+-// there was a problem, in which case we should act as if the inodeprint has
+-// changed.
+-class inodeprint_calculator
+-{
+-public:
+-  template<typename T> void add_item(T obj)
+-  {
+-    size_t size(sizeof(obj));
+-    add_item(&size, sizeof(size));
+-    add_item(&obj, sizeof(obj));
+-  }
+-  // When adding a time to the print use these to note if it's
+-  // close to the current time (within about 3 seconds) or
+-  // in the future.
+-  // To make this more robust, there are some tricks:
+-  //   -- we refuse to inodeprint files whose times are within a few seconds of
+-  //      'now'.  This is because, we might memorize the inodeprint, then
+-  //      someone writes to the file, and this write does not update the
+-  //      timestamp -- or rather, it does update the timestamp, but nothing
+-  //      happens, because the new value is the same as the old value.  We use
+-  //      "a few seconds" to make sure that it is larger than whatever the
+-  //      filesystem's timekeeping granularity is (rounding to 2 seconds is
+-  //      known to exist in the wild).
+-  //   -- by the same reasoning, we should also refuse to inodeprint files whose
+-  //      time is in the future, because it is possible that someone will write
+-  //      to that file exactly when that future second arrives, and we will
+-  //      never notice.  However, this would create persistent and hard to
+-  //      diagnosis slowdowns, whenever a tree accidentally had its times set
+-  //      into the future.  Therefore, to handle this case, we include a "is
+-  //      this time in the future?" bit in the hashed information.  This bit
+-  //      will change when we pass the future point, and trigger a re-check of
+-  //      the file's contents.
+-  //
+-  // This is, of course, still not perfect.  There is no way to make our stat
+-  // atomic with the actual read of the file, so there's always a race condition
+-  // there.  Additionally, this handling means that checkout will never actually
+-  // inodeprint anything, but rather the first command after checkout will be
+-  // slow.  There doesn't seem to be anything that could be done about this.
+-  virtual void note_future(bool f = true) = 0;
+-  virtual void note_nowish(bool f = true) = 0;
+-  virtual ~inodeprint_calculator() {};
+-protected:
+-  virtual void add_item(void *dat, size_t size) = 0;
+-};
+-bool inodeprint_file(std::string const & file, inodeprint_calculator & calc);
+-
+-// for netsync 'serve' pidfile support
+-pid_t get_process_id();
+-
+-// netsync wants to ignore sigpipe; this is meaningless on Win32
+-#ifdef WIN32
+-inline void ignore_sigpipe() {}
+-#else
+-void ignore_sigpipe(); // in unix/process.cc
+-#endif
+-
+-// filesystem stuff
+-// FIXME: BUG: this returns a string in the filesystem charset/encoding
+-std::string get_current_working_dir();
+-// calls N() if fails
+-void change_current_working_dir(std::string const & to);
+-std::string tilde_expand(std::string const & path);
+-std::string get_default_confdir();
+-
+-inline std::string get_default_keydir()
+-{ return get_default_confdir() + "/keys"; }
+-
+-std::string get_homedir();
+-namespace path
+-{
+-  typedef enum { nonexistent, directory, file } status;
+-};
+-path::status get_path_status(std::string const & path);
+-
+-struct dirent_consumer
+-{
+-  virtual ~dirent_consumer() {}
+-  virtual void consume(const char *) = 0;
+-};
+-void do_read_directory(std::string const & path,
+-                       dirent_consumer & files,
+-                       dirent_consumer & dirs,
+-                       dirent_consumer & other_files);
+-
+-void rename_clobberingly(std::string const & from, std::string const & to);
+-void do_remove(std::string const & path);
+-
+-void do_mkdir(std::string const & path);
+-void write_data_worker(std::string const & p,
+-                       std::string const & dat,
+-                       std::string const & tmpdir,
+-                       bool user_private);
+-
+-// strerror wrapper for OS-specific errors (e.g. use FormatMessage on Win32)
+-std::string os_strerror(os_err_t errnum);
+-
+-// for running cpu benchmarks
+-// Returns the processor time used by the current process, plus some
+-// arbitrary constant, measured in seconds.
+-double cpu_now();
+-
+-// determine directory to load locale data from
+-std::string get_locale_dir();
+-
+-// Local Variables:
+-// mode: C++
+-// fill-column: 76
+-// c-file-style: "gnu"
+-// indent-tabs-mode: nil
+-// End:
+-// vim: et:sw=2:sts=2:ts=2:cino=>2s,{s,\:s,+s,t0,g0,^-2,e-2,n-2,p2s,(0,=s:
+-
+-#endif // __PLATFORM_HH__
+============================================================
+--- /dev/null	
++++ README-FIRST	fa4a0466d6c105cf3984af5fe3416c3097452be5
+@@ -0,0 +1,5 @@
++This is a test branch for the Monotone::AutomateStdio Perl library. This branch
++is branched off from Monotone version 0.41 and contains random changes in order
++to exercise specific bits of the automate stdio interface and the
++Monotone::AutomateStdio library. This branch must in no way ever be merged back
++to the main Monotone branch.
+============================================================
+--- /dev/null	
++++ script1	cd89bae8485ee5a3532bb35c764ef43239098af8
+@@ -0,0 +1,3 @@
++#!/bin/sh
++ls -la
++exit 0
+============================================================
+--- /dev/null	
++++ script2	cd89bae8485ee5a3532bb35c764ef43239098af8
+@@ -0,0 +1,3 @@
++#!/bin/sh
++ls -la
++exit 0
+============================================================
+# snowdonia.jpg is binary
+============================================================
+# snowdonia.xcf is binary
+============================================================
+--- /dev/null	
++++ DO-NOT-USE	da39a3ee5e6b4b0d3255bfef95601890afd80709
+
+get_error_message() method returned `including missing parent '''
  ========== descendents ==========
 $VAR1 = [
           '05cb265ad778107218701fa76a91bdf4770b85a8',
@@ -18640,8 +19163,12 @@ $VAR1 = [
           'ef0223d004c4d8d6a71899d603b508a558437ea7',
           'f06e40cb1d2b4f5c0db387e7a6c37681f1f89294'
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== drop_attribute ==========
 Dropped attributes on contrib/dtrace2calltree.py and contrib/colorize
+
+get_error_message() method returned `including missing parent '''
  ========== drop_db_variables ==========
 Adding test variables.
 TST-vars: greeting good day
@@ -18650,11 +19177,15 @@ test-vars: var2 good bye
 Removing all TST-vars variables and test-vars:var1.
 test-vars: var2 good bye
 Removing all test-vars variables.
+
+get_error_message() method returned `including missing parent '''
  ========== erase_ancestors ==========
 $VAR1 = [
           '05cb265ad778107218701fa76a91bdf4770b85a8',
           '110816e646d42ca45e8205778255cece9c8f2159'
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== file_merge (on a mergeable conflict) ==========
 AUTOMAKE_OPTIONS=subdir-objects 1.7.1
 ACLOCAL_AMFLAGS = -I m4
@@ -19492,21 +20023,25 @@ html: monotone.texi version.texi std_hooks.lua texinfo.css
 		sed -e 's,<head>,<head><link type="text/css" rel="stylesheet" href="texinfo.css" />,' $$f.bak >$$f; \
 		rm -f $$f.bak; \
 	done
+
+get_error_message() method returned `including missing parent '''
  ========== file_merge (on an unmergeable conflict) ==========
 
 
 ====================
 PROBLEM (2): misuse: internal line merger failed
- at ../mtn-tester line 756
-	main::__ANON__(2, 'misuse: internal line merger failed', 'undef') called at /home/aecoope/code/monotone.ca/automate-stdio/lib/Monotone/AutomateStdio.pm line 5414
-	Monotone::AutomateStdio::warning_handler_wrapper('misuse: internal line merger failed') called at /home/aecoope/code/monotone.ca/automate-stdio/lib/Monotone/AutomateStdio.pm line 4389
-	Monotone::AutomateStdio::mtn_command_with_options('Monotone::AutomateStdio=HASH(0x9dbef8c)', 'file_merge', 1, 1, 'SCALAR(0x9bbc0c4)', 'ARRAY(0xa08de84)', '5fee1e9c463d3cd7439bea9c483d9d88d0b057d5', 'ui.cc', 'b9a5862a8ba577538f27c69656d8a6bb60ecb777', ...) called at /home/aecoope/code/monotone.ca/automate-stdio/lib/Monotone/AutomateStdio.pm line 4135
-	Monotone::AutomateStdio::mtn_command('Monotone::AutomateStdio=HASH(0x9dbef8c)', 'file_merge', 1, 1, 'SCALAR(0x9bbc0c4)', '5fee1e9c463d3cd7439bea9c483d9d88d0b057d5', 'ui.cc', 'b9a5862a8ba577538f27c69656d8a6bb60ecb777', 'ui.cc', ...) called at /home/aecoope/code/monotone.ca/automate-stdio/lib/Monotone/AutomateStdio.pm line 1127
-	Monotone::AutomateStdio::file_merge('Monotone::AutomateStdio=HASH(0x9dbef8c)', 'SCALAR(0x9bbc0c4)', '5fee1e9c463d3cd7439bea9c483d9d88d0b057d5', 'ui.cc', 'b9a5862a8ba577538f27c69656d8a6bb60ecb777', 'ui.cc') called at ../mtn-tester line 768
+ at ../mtn-tester line 795
+	main::__ANON__(2, 'misuse: internal line merger failed', 'undef') called at /home/aecoope/code/monotone.ca/automate-stdio/lib/Monotone/AutomateStdio.pm line 5554
+	Monotone::AutomateStdio::warning_handler_wrapper('misuse: internal line merger failed') called at /home/aecoope/code/monotone.ca/automate-stdio/lib/Monotone/AutomateStdio.pm line 4502
+	Monotone::AutomateStdio::mtn_command_with_options('Monotone::AutomateStdio=HASH(0x8911590)', 'file_merge', 1, 1, 'SCALAR(0x871139c)', 'ARRAY(0x8a92754)', '5fee1e9c463d3cd7439bea9c483d9d88d0b057d5', 'ui.cc', 'b9a5862a8ba577538f27c69656d8a6bb60ecb777', ...) called at /home/aecoope/code/monotone.ca/automate-stdio/lib/Monotone/AutomateStdio.pm line 4248
+	Monotone::AutomateStdio::mtn_command('Monotone::AutomateStdio=HASH(0x8911590)', 'file_merge', 1, 1, 'SCALAR(0x871139c)', '5fee1e9c463d3cd7439bea9c483d9d88d0b057d5', 'ui.cc', 'b9a5862a8ba577538f27c69656d8a6bb60ecb777', 'ui.cc', ...) called at /home/aecoope/code/monotone.ca/automate-stdio/lib/Monotone/AutomateStdio.pm line 1136
+	Monotone::AutomateStdio::file_merge('Monotone::AutomateStdio=HASH(0x8911590)', 'SCALAR(0x871139c)', '5fee1e9c463d3cd7439bea9c483d9d88d0b057d5', 'ui.cc', 'b9a5862a8ba577538f27c69656d8a6bb60ecb777', 'ui.cc') called at ../mtn-tester line 807
 OOPS: misuse: internal line merger failed
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== genkey ==========
 $VAR1 = {
-          'hash' => '78c79bc28735632a9b7580fc5501de05ec8b9304',
+          'hash' => '15621a44f4a94a91c7e545082ed46eeac5ad6eda',
           'public_location' => [
                                  'database',
                                  'keystore'
@@ -19516,10 +20051,14 @@ $VAR1 = {
                                   'keystore'
                                 ]
         };
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== get_attributes (on a file that has none) ==========
   ---------- Raw Data ----------
   ---------- Structured Data ----------
 $VAR1 = [];
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== get_attributes (on a file that now has none) ==========
   ---------- Raw Data ----------
  attr "mtn:execute" "true"
@@ -19532,6 +20071,8 @@ $VAR1 = [
             'state' => 'dropped'
           }
         ];
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== get_attributes (on a file that has a few) ==========
   ---------- Raw Data ----------
  attr "mtn:gimp-native-format" "true"
@@ -19552,15 +20093,23 @@ $VAR1 = [
             'state' => 'unchanged'
           }
         ];
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== get_base_revision_id ==========
 Variable = `ee9d2b736adc24fb9a5926f68304814e93ee8726'
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== get_content_changed ==========
 $VAR1 = [
           '7053bc5eec5dcee834e126ebd276ecbb37e9224b',
           'db648027acbe37599c1be2c4f6d52d9a7d492864'
         ];
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== get_corresponding_path ==========
 Variable = `play.cc'
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== get_current_revision (no options) ==========
 mtn: dropping work.hh from workspace manifest
 mtn: dropping unix/README from workspace manifest
@@ -19628,6 +20177,8 @@ $VAR1 = [
             'type' => 'clear'
           }
         ];
+
+get_error_message() method returned `misuse: internal line merger failed'
  ========== get_current_revision (file restriction) ==========
 mtn: dropping work.hh from workspace manifest
 mtn: dropping unix/README from workspace manifest
@@ -19657,6 +20208,8 @@ $VAR1 = [
             'type' => 'add_file'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== get_current_revision (file restriction and depth option) ==========
 mtn: dropping work.hh from workspace manifest
 mtn: dropping unix/README from workspace manifest
@@ -19686,6 +20239,8 @@ $VAR1 = [
             'type' => 'add_file'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== get_current_revision (exclude option) ==========
 mtn: dropping work.hh from workspace manifest
 mtn: dropping unix/README from workspace manifest
@@ -19727,6 +20282,8 @@ $VAR1 = [
             'type' => 'add_file'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== get_current_revision (depth and exclude option) ==========
 mtn: dropping work.hh from workspace manifest
 mtn: dropping unix/README from workspace manifest
@@ -19768,10 +20325,16 @@ $VAR1 = [
             'type' => 'add_file'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== get_current_revision_id ==========
 Variable = `f9043efc147db34e12c6a6e5e46349f9e0ce742d'
+
+get_error_message() method returned `including missing parent '''
  ========== get_db_name ==========
 Database name = `<Workspace>'
+
+get_error_message() method returned `including missing parent '''
  ========== get_db_variables ==========
 Adding test variables.
 TST-vars: greeting good day
@@ -19803,6 +20366,8 @@ $VAR1 = [
           }
         ];
 Removing all test-vars and TST-vars variables.
+
+get_error_message() method returned `including missing parent '''
  ========== get_file (fetching the COPYING file) ==========
 		    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
@@ -20528,6 +21093,8 @@ recommend releasing these examples in parallel under your choice of
 free software license, such as the GNU General Public License, to
 permit their use in free software.
 
+
+get_error_message() method returned `including missing parent '''
  ========== get_file_of (fetching the INSTALL file) ==========
 building and installation process for monotone
 ==============================================
@@ -20703,6 +21270,8 @@ building and installation process for monotone
     perform some additional steps to migrate your data to the newest
     version; see the file UPGRADE for details.
 
+
+get_error_message() method returned `including missing parent '''
  ========== get_manifest_of ==========
   ---------- Raw Data ----------
 format_version "1"
@@ -41856,10 +42425,16 @@ $VAR1 = [
             'attributes' => []
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== get_option (getting the branch option value) ==========
 Variable = `net.venge.monotone.contrib.lib.automate-stdio.test'
+
+get_error_message() method returned `including missing parent '''
  ========== get_pid ==========
-MTN process id = `1257'
+MTN process id = `19405'
+
+get_error_message() method returned `including missing parent '''
  ========== get_revision ==========
   ---------- Raw Data ----------
 format_version "1"
@@ -41894,8 +42469,12 @@ $VAR1 = [
             'type' => 'old_revision'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== get_workspace_root ==========
-Variable = `/home/aecoope/code/monotone.ca/automate-stdio/MTN-0.46'
+Variable = `/home/aecoope/code/monotone.ca/automate-stdio/MTN-0.48'
+
+get_error_message() method returned `including missing parent '''
  ========== graph ==========
   ---------- Raw Data ----------
 0005a23e30a9c2d3024d94773eec433bf9acb770 5bdcfee44a3e2da5fb0e437d3623f2227ea2fed4 9e65e330c0d76769296452d68d0c52335edb5f1a
@@ -151184,12 +151763,18 @@ $VAR1 = [
                             ]
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== heads ==========
 $VAR1 = [
           'ee9d2b736adc24fb9a5926f68304814e93ee8726'
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== identify (file database.cc) ==========
 Variable = `a66238a6b633d82f988003ae8c114bf19366b6a1'
+
+get_error_message() method returned `including missing parent '''
  ========== inventory (no options) ==========
   ---------- Raw Data ----------
     path ""
@@ -192878,6 +193463,8 @@ $VAR1 = [
             'birth_id' => '276264b0b3f1e70fc1835a700e6e61bdbe4c3f2f'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== inventory (depth option) ==========
   ---------- Raw Data ----------
     path ""
@@ -197081,6 +197668,8 @@ $VAR1 = [
             'birth_id' => '276264b0b3f1e70fc1835a700e6e61bdbe4c3f2f'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== inventory (depth + exclude play.cc options) ==========
   ---------- Raw Data ----------
     path ""
@@ -238752,6 +239341,8 @@ $VAR1 = [
             'birth_id' => '276264b0b3f1e70fc1835a700e6e61bdbe4c3f2f'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== inventory (most options) ==========
   ---------- Raw Data ----------
     path ""
@@ -280423,10 +281014,14 @@ $VAR1 = [
             'birth_id' => '276264b0b3f1e70fc1835a700e6e61bdbe4c3f2f'
           }
         ];
+
+get_error_message() method returned `including missing parent '''
  ========== inventory (all options generates nothing) ==========
   ---------- Raw Data ----------
   ---------- Structured Data ----------
 $VAR1 = [];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== inventory (just changed unknown files) ==========
   ---------- Raw Data ----------
    path "another-file"
@@ -280453,8 +281048,17 @@ $VAR1 = [
             'path' => 'log'
           }
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== inventory (restrict output to those files under unix) ==========
   ---------- Raw Data ----------
+    path ""
+old_type "directory"
+new_type "directory"
+ fs_type "directory"
+   birth [276264b0b3f1e70fc1835a700e6e61bdbe4c3f2f]
+  status "known"
+
     path "unix"
 old_type "directory"
 new_type "directory"
@@ -280568,6 +281172,16 @@ new_type "file"
   status "known"
   ---------- Structured Data ----------
 $VAR1 = [
+          {
+            'status' => [
+                          'known'
+                        ],
+            'fs_type' => 'directory',
+            'old_type' => 'directory',
+            'new_type' => 'directory',
+            'path' => '',
+            'birth_id' => '276264b0b3f1e70fc1835a700e6e61bdbe4c3f2f'
+          },
           {
             'status' => [
                           'known'
@@ -280729,6 +281343,8 @@ $VAR1 = [
             'birth_id' => '919f3b4541b6edba7b8b45ef0cda717e5ea2d8b0'
           }
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== keys ==========
   ---------- Raw Data ----------
            hash [001b3d7fe46175069970c725e5d91eb6ce5bc784]
@@ -280755,6 +281371,12 @@ public_location "database"
      given_name "graydon@pobox.com"
      local_name "graydon@pobox.com"
 public_location "database"
+
+            hash [15621a44f4a94a91c7e545082ed46eeac5ad6eda]
+      given_name "pooh.bear_XxX_1234@test-id.com"
+      local_name "pooh.bear_XxX_1234@test-id.com"
+ public_location "database" "keystore"
+private_location "keystore"
 
            hash [1aaecf3a7c227e5545b0504aea5d3716d3128117]
      given_name "me@thomaskeller.biz"
@@ -280855,12 +281477,6 @@ public_location "database"
      given_name "christof.petig@arcor.de"
      local_name "christof.petig@arcor.de"
 public_location "database"
-
-            hash [78c79bc28735632a9b7580fc5501de05ec8b9304]
-      given_name "pooh.bear_XxX_1234@test-id.com"
-      local_name "pooh.bear_XxX_1234@test-id.com"
- public_location "database" "keystore"
-private_location "keystore"
 
            hash [7a9425a8910bc98b1671ceea937b8ee31e21d3eb]
      given_name "anderse-monotone@cello.hpl.hp.com"
@@ -281075,6 +281691,18 @@ $VAR1 = [
             'given_name' => 'graydon@pobox.com'
           },
           {
+            'hash' => '15621a44f4a94a91c7e545082ed46eeac5ad6eda',
+            'public_location' => [
+                                   'database',
+                                   'keystore'
+                                 ],
+            'local_name' => 'pooh.bear_XxX_1234@test-id.com',
+            'private_location' => [
+                                    'keystore'
+                                  ],
+            'given_name' => 'pooh.bear_XxX_1234@test-id.com'
+          },
+          {
             'hash' => '1aaecf3a7c227e5545b0504aea5d3716d3128117',
             'public_location' => [
                                    'database'
@@ -281233,18 +281861,6 @@ $VAR1 = [
                                  ],
             'local_name' => 'christof.petig@arcor.de',
             'given_name' => 'christof.petig@arcor.de'
-          },
-          {
-            'hash' => '78c79bc28735632a9b7580fc5501de05ec8b9304',
-            'public_location' => [
-                                   'database',
-                                   'keystore'
-                                 ],
-            'local_name' => 'pooh.bear_XxX_1234@test-id.com',
-            'private_location' => [
-                                    'keystore'
-                                  ],
-            'given_name' => 'pooh.bear_XxX_1234@test-id.com'
           },
           {
             'hash' => '7a9425a8910bc98b1671ceea937b8ee31e21d3eb',
@@ -281523,6 +282139,8 @@ $VAR1 = [
             'given_name' => 'kinetik@flim.org'
           }
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== leaves ==========
 $VAR1 = [
           '00b93c775f49d7164ee6cee751e37084da5fae59',
@@ -281680,21 +282298,31 @@ $VAR1 = [
           'fc349607d18f384b4b4d424b34d60bc99f417dbe',
           'fe9a23fad30929b5b03569a7425e48672c2585cc'
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== lua ==========
 [1] = false;
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== packet_for_fdata ==========
 [fdata 8d87e9368e3f3ebd63df11e12610ac90ac2ee4e5]
 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
 [end]
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== packet_for_fdelta ==========
 [fdelta 0682f911f2598d229d218fd28cc5964534bd3c65
         8d87e9368e3f3ebd63df11e12610ac90ac2ee4e5]
 H4sIAAAAAAAA/x2NwQ6CMBiD7/9TVL1siSabA4QYvXDyKYiBIUtwS35ASQzv7qCHpoevbQmFxOiMHjgrOjhf91NjsR/56Yc28HugcgU0klSlkUoMEaJ+mwOuhXDNLOqJueLwPcJJ7G54dWEYZSzneaahLybGQpkUpijMuqPI+jo0tursHJNg+zndnfeWhRRSyut2sNBC9AfxUq0GpQAAAA==
 [end]
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== packet_for_rdata ==========
 [rdata ec5d40149421cbd1b6984de0806d323f9e1e6e60]
 H4sIAAAAAAAA/2WOW2rEMAwA/30KkwMU+SFbOssSgiXLNKVJlmzYXr+hv/2fGWYc59au5W3naz12P4XJud1+lq3t67DX5R+kIxkwaDIMSswtI2shAmzEtTKnbpbG7Nzx3ZfT3utf6lEBkyiaKXY1o5QtxGLSYy2mIqkax5jlFp/t0k8/Pc/jy/T6UJ2cH+ex+QcrUeilWtdoJQNigCA6CrZE0iA0ZDDR2Xnvr+MWbERMPEYexBiC1FCb5kwFOhRJQSsQYvy326VkgnjDYqkiswaxqHmUjrFzqz1zpJJn9wtxpSOHNAEAAA==
 [end]
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== packets_for_certs ==========
 [rcert ec5d40149421cbd1b6984de0806d323f9e1e6e60
        branch
@@ -281726,9 +282354,13 @@ nZcKMhN3QiWoe4Jj4D0VJ8jRIJUrX2YPQxnBfSZrPX2l2bWOKlSpbsSVvB6P0pyCSvugSbRXyPHLRvU6
        VGhpcyBpcyBhIHRlc3QgYnJhbmNoIGZvciB0aGUgTW9ub3RvbmU6OkF1dG9tYXRlU3RkaW8gUGVybCBsaWJyYXJ5LiBQbGVhc2UgZG8Kbm90IHVzZS4K]
 fuKsBRBvze9GbNJcg9zDpX1zxWzE3u30mFXqdmUMQVY7r2e0eAULa0wsBTTHR+C9MZ5j7RMElbSdNpkTaqr4roULg3tCw04mWwQceMt3Vpd2JXifpp2cPrGD6BFQtVw3AwQpSE8S2U2b6BxlN8xwMY2tnmwfYhmk9i6GFMHFnZI=
 [end]
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== parents ==========
 7053bc5eec5dcee834e126ebd276ecbb37e9224b
 db648027acbe37599c1be2c4f6d52d9a7d492864
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== put_file ==========
 Put test-put-file.txt, file id = e203d4ef09d404fa5c03cf6590e44231665be689
 Put revision, revision id = 15f654b3568e451093fe4b16f04bbafe4a7f3812
@@ -281741,81 +282373,94 @@ mtn: [left]  42ed9d4d3c7da06d47977ad877404b03b73fc177
 mtn: [right] 8f9fefdb9507abe03dae2fc95a1c3fcd2c930868
 mtn: adding test-put-file.txt
 mtn: updated to base revision 8f9fefdb9507abe03dae2fc95a1c3fcd2c930868
------------------------------------------------------------------
+----------------------------------------------------------------------
 Revision: 8f9fefdb9507abe03dae2fc95a1c3fcd2c930868
-Ancestor: 15f654b3568e451093fe4b16f04bbafe4a7f3812
-Author: aecooper@coosoft.plus.com
-Date: 10/16/08 19:42:35
-Branch: net.venge.monotone.contrib.lib.automate-stdio.test
+Parent:   15f654b3568e451093fe4b16f04bbafe4a7f3812
+Author:   aecooper@coosoft.plus.com
+Date:     10/16/08 19:42:35
+Branch:   net.venge.monotone.contrib.lib.automate-stdio.test
 
-Modified files:
-        test-put-file.txt
-
-ChangeLog: 
+Changelog: 
 
 Automated checkin #2.
------------------------------------------------------------------
+
+Changes against parent 15f654b3568e451093fe4b16f04bbafe4a7f3812
+
+  patched  test-put-file.txt
+
+----------------------------------------------------------------------
 Revision: 15f654b3568e451093fe4b16f04bbafe4a7f3812
-Ancestor: ee9d2b736adc24fb9a5926f68304814e93ee8726
-Author: aecooper@coosoft.plus.com
-Date: 10/16/08 19:42:30
-Branch: net.venge.monotone.contrib.lib.automate-stdio.test
+Parent:   ee9d2b736adc24fb9a5926f68304814e93ee8726
+Author:   aecooper@coosoft.plus.com
+Date:     10/16/08 19:42:30
+Branch:   net.venge.monotone.contrib.lib.automate-stdio.test
 
-Added files:
-        test-put-file.txt
-
-ChangeLog: 
+Changelog: 
 
 Automated checkin.
------------------------------------------------------------------
+
+Changes against parent ee9d2b736adc24fb9a5926f68304814e93ee8726
+
+  added    test-put-file.txt
+
+----------------------------------------------------------------------
 Revision: ee9d2b736adc24fb9a5926f68304814e93ee8726
-Ancestor: 5fee1e9c463d3cd7439bea9c483d9d88d0b057d5
-Ancestor: b9a5862a8ba577538f27c69656d8a6bb60ecb777
-Author: aecooper@coosoft.plus.com
-Date: 01/05/09 16:57:47
-Branch: net.venge.monotone.contrib.lib.automate-stdio.test
+Parent:   5fee1e9c463d3cd7439bea9c483d9d88d0b057d5
+Parent:   b9a5862a8ba577538f27c69656d8a6bb60ecb777
+Author:   aecooper@coosoft.plus.com
+Date:     01/05/09 16:57:47
+Branch:   net.venge.monotone.contrib.lib.automate-stdio.test
 
-Modified files:
-        ui.cc
-
-ChangeLog: 
+Changelog: 
 
 merge of '5fee1e9c463d3cd7439bea9c483d9d88d0b057d5'
      and 'b9a5862a8ba577538f27c69656d8a6bb60ecb777'
 
-ChangeLog: 
+Changelog: 
 
 This is a test branch for the Monotone::AutomateStdio Perl library. Please do
 not use.
 
------------------------------------------------------------------
+Changes against parent 5fee1e9c463d3cd7439bea9c483d9d88d0b057d5
+
+no changes
+
+Changes against parent b9a5862a8ba577538f27c69656d8a6bb60ecb777
+
+  patched  ui.cc
+
+----------------------------------------------------------------------
 Revision: 5fee1e9c463d3cd7439bea9c483d9d88d0b057d5
-Ancestor: a52a5d08f7e8b4052c23e80ea5e554125c5ee49c
-Author: aecooper@coosoft.plus.com
-Date: 01/05/09 16:56:02
-Branch: net.venge.monotone.contrib.lib.automate-stdio.test
+Parent:   a52a5d08f7e8b4052c23e80ea5e554125c5ee49c
+Author:   aecooper@coosoft.plus.com
+Date:     01/05/09 16:56:02
+Branch:   net.venge.monotone.contrib.lib.automate-stdio.test
 
-Modified files:
-        ui.cc
-
-ChangeLog: 
+Changelog: 
 
 Conflict 1.
 
------------------------------------------------------------------
+Changes against parent a52a5d08f7e8b4052c23e80ea5e554125c5ee49c
+
+  patched  ui.cc
+
+----------------------------------------------------------------------
 Revision: b9a5862a8ba577538f27c69656d8a6bb60ecb777
-Ancestor: a52a5d08f7e8b4052c23e80ea5e554125c5ee49c
-Author: aecooper@coosoft.plus.com
-Date: 01/05/09 16:55:45
-Branch: net.venge.monotone.contrib.lib.automate-stdio.test
+Parent:   a52a5d08f7e8b4052c23e80ea5e554125c5ee49c
+Author:   aecooper@coosoft.plus.com
+Date:     01/05/09 16:55:45
+Branch:   net.venge.monotone.contrib.lib.automate-stdio.test
 
-Modified files:
-        ui.cc
-
-ChangeLog: 
+Changelog: 
 
 Conflict 2.
 
+Changes against parent a52a5d08f7e8b4052c23e80ea5e554125c5ee49c
+
+  patched  ui.cc
+
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== read_packets ==========
 Added the piglet@aamilne.com key
 
@@ -281866,7 +282511,7 @@ de84b575d5e47254393eba49dce9dc4db98ed42d njs@pobox.com
 9af372ca893b885a0388a540b0de3bd7b7db9bc9 patrick@georgi-clan.de
 e5d7097b0d1064ee61732996fa6b79d4e23749b0 paul@ciphergoth.org
 3005403ab8d3e3f20badb1aefb4e0a5f5f940648 piglet@aamilne.com
-78c79bc28735632a9b7580fc5501de05ec8b9304 pooh.bear_XxX_1234@test-id.com
+15621a44f4a94a91c7e545082ed46eeac5ad6eda pooh.bear_XxX_1234@test-id.com
 d37d08fafaece16e9a79b4ea853326624e185cbd richard@levitte.org
 bc80b5567c22e4de9adbe60e2b0ece6480d6367f ripley@lapo.it
 8ad89008af9db804b7cc26045f9c0f4b1e059c7a rse@engelschall.com
@@ -281885,8 +282530,10 @@ a75aa5f03482ac103ff8b9c9004f3881dcd0e4a5 ventonegro@ventonegro.org
 
 [private keys]
 7fe029d85af4de40700778b9784ef488fac2c79c aecooper@coosoft.plus.com
-78c79bc28735632a9b7580fc5501de05ec8b9304 pooh.bear_XxX_1234@test-id.com
+15621a44f4a94a91c7e545082ed46eeac5ad6eda pooh.bear_XxX_1234@test-id.com
 
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== roots ==========
 $VAR1 = [
           '056ef6fca3deb45b0bbcc04b9844dd4955388f80',
@@ -281923,6 +282570,8 @@ $VAR1 = [
           'fa669d0e0f56316c1d9f5a6d2c4ab15ad8bc509d',
           'fe4231352d7cabad1e8df6cea8d913771bbb7e66'
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== select ==========
 $VAR1 = [
           '05cb265ad778107218701fa76a91bdf4770b85a8',
@@ -281958,8 +282607,12 @@ $VAR1 = [
           'ef0223d004c4d8d6a71899d603b508a558437ea7',
           'f06e40cb1d2b4f5c0db387e7a6c37681f1f89294'
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== set_attribute ==========
 Added mtn:test-attr to file database.cc.
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== show_conflicts ==========
   ---------- Raw Data ----------
     left [26cfbb87b400321bda71277e1d2c0ba1d5e9898f]
@@ -281992,6 +282645,8 @@ $VAR1 = [
             'ancestor_name' => 'NEWS'
           }
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== show_conflicts (with internal merge resolution) ==========
   ---------- Raw Data ----------
     left [05cb265ad778107218701fa76a91bdf4770b85a8]
@@ -282026,6 +282681,8 @@ $VAR1 = [
             'ancestor_name' => 'Makefile.am'
           }
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== tags (no branch restrictions) ==========
   ---------- Raw Data ----------
      tag "0.5-release"
@@ -283731,6 +284388,8 @@ $VAR1 = [
             'tag' => 'viewmtn-0.10'
           }
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== tags (with branch restriction) ==========
   ---------- Raw Data ----------
      tag "automate-stdio-duplicate-test-tag"
@@ -283774,15 +284433,19 @@ $VAR1 = [
             'tag' => 'automate-stdio-test-merge-point-1'
           }
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== toposort ==========
 $VAR1 = [
           '805c482bc9bb80cd393be7d3ba01a65377d91d9c',
           'b8e6b77245cf29caa1f69bfb13749d785b13eac7',
           'afd43cf2ce01fa4513fb1673eae47be3b48008f6'
         ];
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== sync/pull/push ==========
  ----- Output of sync progress stream -----
-114:p:35:setting default server to localhost114:p:45:setting default branch include pattern to '*'114:p:44:setting default branch exclude pattern to ''114:p:23:connecting to localhost114:p:172:first time connecting to server localhost
+114:p:35:setting default server to localhost114:p:45:setting default branch include pattern to '*'114:p:44:setting default branch exclude pattern to ''114:p:61:setting default include pattern for server 'localhost' to '*'114:p:60:setting default exclude pattern for server 'localhost' to ''114:p:23:connecting to localhost114:p:172:first time connecting to server localhost
 I'll assume it's really them, but you might want to double-check
 their key's fingerprint: 7fe029d85af4de40700778b9784ef488fac2c79c114:p:29:finding items to synchronize:114:p:34:successful exchange with localhost114:l:1:0
  ----------
@@ -283801,6 +284464,8 @@ their key's fingerprint: 7fe029d85af4de40700778b9784ef488fac2c79c114:p:29:findin
  ----- Output of push ticker stream -----
 116:t:34:c:certificates;k:keys;r:revisions;116:t:12:c=0;k=0;r=0;116:t:13:c#0;k#0;r#64;116:t:14:c#0;k#0;r#128;116:t:14:c#0;k#0;r#192;116:t:14:c#0;k#0;r#256;116:t:14:c#0;k#0;r#320;116:t:14:c#0;k#0;r#384;116:t:14:c#0;k#0;r#448;116:t:14:c#0;k#0;r#512;116:t:14:c#0;k#0;r#576;116:t:14:c#0;k#0;r#640;116:t:14:c#0;k#0;r#704;116:t:14:c#0;k#0;r#768;116:t:14:c#0;k#0;r#832;116:t:14:c#0;k#0;r#896;116:t:14:c#0;k#0;r#960;116:t:15:c#0;k#0;r#1024;116:t:15:c#0;k#0;r#1088;116:t:15:c#0;k#0;r#1152;116:t:15:c#0;k#0;r#1216;116:t:15:c#0;k#0;r#1280;116:t:15:c#0;k#0;r#1344;116:t:15:c#0;k#0;r#1408;116:t:15:c#0;k#0;r#1472;116:t:15:c#0;k#0;r#1536;116:t:15:c#0;k#0;r#1600;116:t:15:c#0;k#0;r#1664;116:t:15:c#0;k#0;r#1728;116:t:15:c#0;k#0;r#1792;116:t:15:c#0;k#0;r#1856;116:t:15:c#0;k#0;r#1920;116:t:15:c#0;k#0;r#1984;116:t:15:c#0;k#0;r#2048;116:t:15:c#0;k#0;r#2112;116:t:15:c#0;k#0;r#2176;116:t:15:c#0;k#0;r#2240;116:t:15:c#0;k#0;r#2304;116:t:15:c#0;k#0;r#2368;116:t:15:c#0;k#0;r#2432;116:t:15:c#0;k#0;r#2496;116:t:15:c#0;k#0;r#2560;116:t:15:c#0;k#0;r#2624;116:t:15:c#0;k#0;r#2688;116:t:15:c#0;k#0;r#2752;116:t:15:c#0;k#0;r#2816;116:t:15:c#0;k#0;r#2880;116:t:15:c#0;k#0;r#2944;116:t:15:c#0;k#0;r#3008;116:t:15:c#0;k#0;r#3072;116:t:15:c#0;k#0;r#3136;116:t:15:c#0;k#0;r#3200;116:t:15:c#0;k#0;r#3264;116:t:15:c#0;k#0;r#3328;116:t:15:c#0;k#0;r#3392;116:t:15:c#0;k#0;r#3456;116:t:15:c#0;k#0;r#3520;116:t:15:c#0;k#0;r#3584;116:t:15:c#0;k#0;r#3648;116:t:15:c#0;k#0;r#3712;116:t:15:c#0;k#0;r#3776;116:t:15:c#0;k#0;r#3840;116:t:15:c#0;k#0;r#3904;116:t:15:c#0;k#0;r#3968;116:t:15:c#0;k#0;r#4032;116:t:15:c#0;k#0;r#4096;116:t:15:c#0;k#0;r#4160;116:t:15:c#0;k#0;r#4224;116:t:15:c#0;k#0;r#4288;116:t:15:c#0;k#0;r#4352;116:t:15:c#0;k#0;r#4416;116:t:15:c#0;k#0;r#4480;116:t:15:c#0;k#0;r#4544;116:t:15:c#0;k#0;r#4608;116:t:15:c#0;k#0;r#4672;116:t:15:c#0;k#0;r#4736;116:t:15:c#0;k#0;r#4800;116:t:15:c#0;k#0;r#4864;116:t:15:c#0;k#0;r#4928;116:t:15:c#0;k#0;r#4992;116:t:15:c#0;k#0;r#5056;116:t:15:c#0;k#0;r#5120;116:t:15:c#0;k#0;r#5184;116:t:15:c#0;k#0;r#5248;116:t:15:c#0;k#0;r#5312;116:t:15:c#0;k#0;r#5376;116:t:15:c#0;k#0;r#5440;116:t:15:c#0;k#0;r#5504;116:t:15:c#0;k#0;r#5568;116:t:15:c#0;k#0;r#5632;116:t:15:c#0;k#0;r#5696;116:t:15:c#0;k#0;r#5760;116:t:15:c#0;k#0;r#5824;116:t:15:c#0;k#0;r#5888;116:t:15:c#0;k#0;r#5952;116:t:15:c#0;k#0;r#6016;116:t:15:c#0;k#0;r#6080;116:t:15:c#0;k#0;r#6144;116:t:15:c#0;k#0;r#6208;116:t:15:c#0;k#0;r#6272;116:t:15:c#0;k#0;r#6336;116:t:15:c#0;k#0;r#6400;116:t:15:c#0;k#0;r#6464;116:t:15:c#0;k#0;r#6528;116:t:15:c#0;k#0;r#6592;116:t:15:c#0;k#0;r#6656;116:t:15:c#0;k#0;r#6720;116:t:15:c#0;k#0;r#6784;116:t:15:c#0;k#0;r#6848;116:t:15:c#0;k#0;r#6912;116:t:15:c#0;k#0;r#6976;116:t:15:c#0;k#0;r#7040;116:t:15:c#0;k#0;r#7104;116:t:15:c#0;k#0;r#7168;116:t:15:c#0;k#0;r#7232;116:t:15:c#0;k#0;r#7296;116:t:15:c#0;k#0;r#7360;116:t:15:c#0;k#0;r#7424;116:t:15:c#0;k#0;r#7488;116:t:15:c#0;k#0;r#7552;116:t:15:c#0;k#0;r#7616;116:t:15:c#0;k#0;r#7680;116:t:15:c#0;k#0;r#7744;116:t:15:c#0;k#0;r#7808;116:t:15:c#0;k#0;r#7872;116:t:15:c#0;k#0;r#7936;116:t:15:c#0;k#0;r#8000;116:t:15:c#0;k#0;r#8064;116:t:15:c#0;k#0;r#8128;116:t:15:c#0;k#0;r#8192;116:t:15:c#0;k#0;r#8256;116:t:15:c#0;k#0;r#8320;116:t:15:c#0;k#0;r#8384;116:t:15:c#0;k#0;r#8448;116:t:15:c#0;k#0;r#8512;116:t:15:c#0;k#0;r#8576;116:t:15:c#0;k#0;r#8640;116:t:15:c#0;k#0;r#8704;116:t:15:c#0;k#0;r#8768;116:t:15:c#0;k#0;r#8832;116:t:15:c#0;k#0;r#8896;116:t:15:c#0;k#0;r#8960;116:t:15:c#0;k#0;r#9024;116:t:15:c#0;k#0;r#9088;116:t:15:c#0;k#0;r#9152;116:t:15:c#0;k#0;r#9216;116:t:15:c#0;k#0;r#9280;116:t:15:c#0;k#0;r#9344;116:t:15:c#0;k#0;r#9408;116:t:15:c#0;k#0;r#9472;116:t:15:c#0;k#0;r#9536;116:t:15:c#0;k#0;r#9600;116:t:15:c#0;k#0;r#9664;116:t:15:c#0;k#0;r#9728;116:t:15:c#0;k#0;r#9792;116:t:15:c#0;k#0;r#9856;116:t:15:c#0;k#0;r#9920;116:t:15:c#0;k#0;r#9984;116:t:16:c#0;k#0;r#10048;116:t:16:c#0;k#0;r#10112;116:t:16:c#0;k#0;r#10176;116:t:16:c#0;k#0;r#10240;116:t:16:c#0;k#0;r#10304;116:t:16:c#0;k#0;r#10368;116:t:16:c#0;k#0;r#10432;116:t:16:c#0;k#0;r#10496;116:t:16:c#0;k#0;r#10560;116:t:16:c#0;k#0;r#10624;116:t:16:c#0;k#0;r#10688;116:t:16:c#0;k#0;r#10752;116:t:16:c#0;k#0;r#10816;116:t:16:c#0;k#0;r#10880;116:t:16:c#0;k#0;r#10944;116:t:16:c#0;k#0;r#11008;116:t:16:c#0;k#0;r#11072;116:t:16:c#0;k#0;r#11136;116:t:16:c#0;k#0;r#11200;116:t:16:c#0;k#0;r#11264;116:t:16:c#0;k#0;r#11328;116:t:16:c#0;k#0;r#11392;116:t:16:c#0;k#0;r#11456;116:t:16:c#0;k#0;r#11520;116:t:16:c#0;k#0;r#11584;116:t:16:c#0;k#0;r#11648;116:t:16:c#0;k#0;r#11712;116:t:16:c#0;k#0;r#11776;116:t:16:c#0;k#0;r#11840;116:t:16:c#0;k#0;r#11904;116:t:16:c#0;k#0;r#11968;116:t:16:c#0;k#0;r#12032;116:t:16:c#0;k#0;r#12096;116:t:16:c#0;k#0;r#12160;116:t:16:c#0;k#0;r#12224;116:t:16:c#0;k#0;r#12288;116:t:16:c#0;k#0;r#12352;116:t:16:c#0;k#0;r#12416;116:t:16:c#0;k#0;r#12480;116:t:16:c#0;k#0;r#12544;116:t:16:c#0;k#0;r#12608;116:t:16:c#0;k#0;r#12672;116:t:16:c#0;k#0;r#12736;116:t:16:c#0;k#0;r#12800;116:t:16:c#0;k#0;r#12864;116:t:16:c#0;k#0;r#12928;116:t:16:c#0;k#0;r#12992;116:t:16:c#0;k#0;r#13056;116:t:16:c#0;k#0;r#13120;116:t:16:c#0;k#0;r#13184;116:t:16:c#0;k#0;r#13248;116:t:16:c#0;k#0;r#13312;116:t:16:c#0;k#0;r#13376;116:t:16:c#0;k#0;r#13440;116:t:16:c#0;k#0;r#13504;116:t:16:c#0;k#0;r#13568;116:t:16:c#0;k#0;r#13632;116:t:16:c#0;k#0;r#13696;116:t:16:c#0;k#0;r#13760;116:t:16:c#0;k#0;r#13824;116:t:16:c#0;k#0;r#13888;116:t:16:c#0;k#0;r#13952;116:t:16:c#0;k#0;r#14016;116:t:16:c#0;k#0;r#14080;116:t:16:c#0;k#0;r#14144;116:t:16:c#0;k#0;r#14208;116:t:16:c#0;k#0;r#14272;116:t:16:c#0;k#0;r#14336;116:t:16:c#0;k#0;r#14400;116:t:16:c#0;k#0;r#14464;116:t:16:c#0;k#0;r#14528;116:t:16:c#0;k#0;r#14592;116:t:16:c#0;k#0;r#14656;116:t:16:c#0;k#0;r#14720;116:t:16:c#0;k#0;r#14784;116:t:16:c#0;k#0;r#14848;116:t:16:c#0;k#0;r#14912;116:t:16:c#0;k#0;r#14976;116:t:16:c#0;k#0;r#15040;116:t:18:c#256;k#0;r#15078;116:t:18:c#512;k#0;r#15078;116:t:18:c#768;k#0;r#15078;116:t:19:c#1024;k#0;r#15078;116:t:19:c#1280;k#0;r#15078;116:t:19:c#1536;k#0;r#15078;116:t:19:c#1792;k#0;r#15078;116:t:19:c#2048;k#0;r#15078;116:t:19:c#2304;k#0;r#15078;116:t:19:c#2560;k#0;r#15078;116:t:19:c#2816;k#0;r#15078;116:t:19:c#3072;k#0;r#15078;116:t:19:c#3328;k#0;r#15078;116:t:19:c#3584;k#0;r#15078;116:t:19:c#3840;k#0;r#15078;116:t:19:c#4096;k#0;r#15078;116:t:19:c#4352;k#0;r#15078;116:t:19:c#4608;k#0;r#15078;116:t:19:c#4864;k#0;r#15078;116:t:19:c#5120;k#0;r#15078;116:t:19:c#5376;k#0;r#15078;116:t:19:c#5632;k#0;r#15078;116:t:19:c#5888;k#0;r#15078;116:t:19:c#6144;k#0;r#15078;116:t:19:c#6400;k#0;r#15078;116:t:19:c#6656;k#0;r#15078;116:t:19:c#6912;k#0;r#15078;116:t:19:c#7168;k#0;r#15078;116:t:19:c#7424;k#0;r#15078;116:t:19:c#7680;k#0;r#15078;116:t:19:c#7936;k#0;r#15078;116:t:19:c#8192;k#0;r#15078;116:t:19:c#8448;k#0;r#15078;116:t:19:c#8704;k#0;r#15078;116:t:19:c#8960;k#0;r#15078;116:t:19:c#9216;k#0;r#15078;116:t:19:c#9472;k#0;r#15078;116:t:19:c#9728;k#0;r#15078;116:t:19:c#9984;k#0;r#15078;116:t:20:c#10240;k#0;r#15078;116:t:20:c#10496;k#0;r#15078;116:t:20:c#10752;k#0;r#15078;116:t:20:c#11008;k#0;r#15078;116:t:20:c#11264;k#0;r#15078;116:t:20:c#11520;k#0;r#15078;116:t:20:c#11776;k#0;r#15078;116:t:20:c#12032;k#0;r#15078;116:t:20:c#12288;k#0;r#15078;116:t:20:c#12544;k#0;r#15078;116:t:20:c#12800;k#0;r#15078;116:t:20:c#13056;k#0;r#15078;116:t:20:c#13312;k#0;r#15078;116:t:20:c#13568;k#0;r#15078;116:t:20:c#13824;k#0;r#15078;116:t:20:c#14080;k#0;r#15078;116:t:20:c#14336;k#0;r#15078;116:t:20:c#14592;k#0;r#15078;116:t:20:c#14848;k#0;r#15078;116:t:20:c#15104;k#0;r#15078;116:t:20:c#15360;k#0;r#15078;116:t:20:c#15616;k#0;r#15078;116:t:20:c#15872;k#0;r#15078;116:t:20:c#16128;k#0;r#15078;116:t:20:c#16384;k#0;r#15078;116:t:20:c#16640;k#0;r#15078;116:t:20:c#16896;k#0;r#15078;116:t:20:c#17152;k#0;r#15078;116:t:20:c#17408;k#0;r#15078;116:t:20:c#17664;k#0;r#15078;116:t:20:c#17920;k#0;r#15078;116:t:20:c#18176;k#0;r#15078;116:t:20:c#18432;k#0;r#15078;116:t:20:c#18688;k#0;r#15078;116:t:20:c#18944;k#0;r#15078;116:t:20:c#19200;k#0;r#15078;116:t:20:c#19456;k#0;r#15078;116:t:20:c#19712;k#0;r#15078;116:t:20:c#19968;k#0;r#15078;116:t:20:c#20224;k#0;r#15078;116:t:20:c#20480;k#0;r#15078;116:t:20:c#20736;k#0;r#15078;116:t:20:c#20992;k#0;r#15078;116:t:20:c#21248;k#0;r#15078;116:t:20:c#21504;k#0;r#15078;116:t:20:c#21760;k#0;r#15078;116:t:20:c#22016;k#0;r#15078;116:t:20:c#22272;k#0;r#15078;116:t:20:c#22528;k#0;r#15078;116:t:20:c#22784;k#0;r#15078;116:t:20:c#23040;k#0;r#15078;116:t:20:c#23296;k#0;r#15078;116:t:20:c#23552;k#0;r#15078;116:t:20:c#23808;k#0;r#15078;116:t:20:c#24064;k#0;r#15078;116:t:20:c#24320;k#0;r#15078;116:t:20:c#24576;k#0;r#15078;116:t:20:c#24832;k#0;r#15078;116:t:20:c#25088;k#0;r#15078;116:t:20:c#25344;k#0;r#15078;116:t:20:c#25600;k#0;r#15078;116:t:20:c#25856;k#0;r#15078;116:t:20:c#26112;k#0;r#15078;116:t:20:c#26368;k#0;r#15078;116:t:20:c#26624;k#0;r#15078;116:t:20:c#26880;k#0;r#15078;116:t:20:c#27136;k#0;r#15078;116:t:20:c#27392;k#0;r#15078;116:t:20:c#27648;k#0;r#15078;116:t:20:c#27904;k#0;r#15078;116:t:20:c#28160;k#0;r#15078;116:t:20:c#28416;k#0;r#15078;116:t:20:c#28672;k#0;r#15078;116:t:20:c#28928;k#0;r#15078;116:t:20:c#29184;k#0;r#15078;116:t:20:c#29440;k#0;r#15078;116:t:20:c#29696;k#0;r#15078;116:t:20:c#29952;k#0;r#15078;116:t:20:c#30208;k#0;r#15078;116:t:20:c#30464;k#0;r#15078;116:t:20:c#30720;k#0;r#15078;116:t:20:c#30976;k#0;r#15078;116:t:20:c#31232;k#0;r#15078;116:t:20:c#31488;k#0;r#15078;116:t:20:c#31744;k#0;r#15078;116:t:20:c#32000;k#0;r#15078;116:t:20:c#32256;k#0;r#15078;116:t:20:c#32512;k#0;r#15078;116:t:20:c#32768;k#0;r#15078;116:t:20:c#33024;k#0;r#15078;116:t:20:c#33280;k#0;r#15078;116:t:20:c#33536;k#0;r#15078;116:t:20:c#33792;k#0;r#15078;116:t:20:c#34048;k#0;r#15078;116:t:20:c#34304;k#0;r#15078;116:t:20:c#34560;k#0;r#15078;116:t:20:c#34816;k#0;r#15078;116:t:20:c#35072;k#0;r#15078;116:t:20:c#35328;k#0;r#15078;116:t:20:c#35584;k#0;r#15078;116:t:20:c#35840;k#0;r#15078;116:t:20:c#36096;k#0;r#15078;116:t:20:c#36352;k#0;r#15078;116:t:20:c#36608;k#0;r#15078;116:t:20:c#36864;k#0;r#15078;116:t:20:c#37120;k#0;r#15078;116:t:20:c#37376;k#0;r#15078;116:t:20:c#37632;k#0;r#15078;116:t:20:c#37888;k#0;r#15078;116:t:20:c#38144;k#0;r#15078;116:t:20:c#38400;k#0;r#15078;116:t:20:c#38656;k#0;r#15078;116:t:20:c#38912;k#0;r#15078;116:t:20:c#39168;k#0;r#15078;116:t:20:c#39424;k#0;r#15078;116:t:20:c#39680;k#0;r#15078;116:t:20:c#39936;k#0;r#15078;116:t:20:c#40192;k#0;r#15078;116:t:20:c#40448;k#0;r#15078;116:t:20:c#40704;k#0;r#15078;116:t:20:c#40960;k#0;r#15078;116:t:20:c#41216;k#0;r#15078;116:t:20:c#41472;k#0;r#15078;116:t:20:c#41728;k#0;r#15078;116:t:20:c#41984;k#0;r#15078;116:t:20:c#42240;k#0;r#15078;116:t:20:c#42496;k#0;r#15078;116:t:20:c#42752;k#0;r#15078;116:t:20:c#43008;k#0;r#15078;116:t:20:c#43264;k#0;r#15078;116:t:20:c#43520;k#0;r#15078;116:t:20:c#43776;k#0;r#15078;116:t:20:c#44032;k#0;r#15078;116:t:20:c#44288;k#0;r#15078;116:t:20:c#44544;k#0;r#15078;116:t:20:c#44800;k#0;r#15078;116:t:20:c#45056;k#0;r#15078;116:t:20:c#45312;k#0;r#15078;116:t:20:c#45568;k#0;r#15078;116:t:20:c#45791;k#1;r#15078;116:t:20:c#45791;k#2;r#15078;116:t:20:c#45791;k#3;r#15078;116:t:20:c#45791;k#4;r#15078;116:t:20:c#45791;k#5;r#15078;116:t:20:c#45791;k#6;r#15078;116:t:20:c#45791;k#7;r#15078;116:t:20:c#45791;k#8;r#15078;116:t:20:c#45791;k#9;r#15078;116:t:21:c#45791;k#10;r#15078;116:t:21:c#45791;k#11;r#15078;116:t:21:c#45791;k#12;r#15078;116:t:21:c#45791;k#13;r#15078;116:t:21:c#45791;k#14;r#15078;116:t:21:c#45791;k#15;r#15078;116:t:21:c#45791;k#16;r#15078;116:t:21:c#45791;k#17;r#15078;116:t:21:c#45791;k#18;r#15078;116:t:21:c#45791;k#19;r#15078;116:t:21:c#45791;k#20;r#15078;116:t:21:c#45791;k#21;r#15078;116:t:21:c#45791;k#22;r#15078;116:t:21:c#45791;k#23;r#15078;116:t:21:c#45791;k#24;r#15078;116:t:21:c#45791;k#25;r#15078;116:t:21:c#45791;k#26;r#15078;116:t:21:c#45791;k#27;r#15078;116:t:21:c#45791;k#28;r#15078;116:t:21:c#45791;k#29;r#15078;116:t:21:c#45791;k#30;r#15078;116:t:21:c#45791;k#31;r#15078;116:t:21:c#45791;k#32;r#15078;116:t:21:c#45791;k#33;r#15078;116:t:21:c#45791;k#34;r#15078;116:t:21:c#45791;k#35;r#15078;116:t:21:c#45791;k#36;r#15078;116:t:21:c#45791;k#37;r#15078;116:t:21:c#45791;k#38;r#15078;116:t:21:c#45791;k#39;r#15078;116:t:21:c#45791;k#40;r#15078;116:t:21:c#45791;k#41;r#15078;116:t:21:c#45791;k#42;r#15078;116:t:21:c#45791;k#43;r#15078;116:t:21:c#45791;k#44;r#15078;116:t:21:c#45791;k#45;r#15078;116:t:21:c#45791;k#46;r#15078;116:t:21:c#45791;k#47;r#15078;116:t:21:c#45791;k#48;r#15078;116:t:21:c#45791;k#49;r#15078;116:t:21:c#45791;k#50;r#15078;116:t:21:c#45791;k#51;r#15078;116:t:21:c#45791;k#52;r#15078;116:t:21:c#45791;k#53;r#15078;116:t:21:c#45791;k#54;r#15078;116:t:21:c#45791;k#55;r#15078;116:t:21:c#45791;k#56;r#15078;116:t:21:c#45791;k#57;r#15078;116:t:21:c#45791;k#58;r#15078;116:t:6:c;k;r;116:t:67:>:bytes in;<:bytes out;c:certs in;C:certs out;r:revs in;R:revs out;116:t:24:>=0;<=0;c=0;C=0;r=0;R=0;116:t:29:>#420;<#1097;c#0;C#0;r#0;R#0;116:t:30:>#1164;<#1866;c#0;C#0;r#0;R#0;116:t:30:>#1635;<#1964;c#0;C#0;r#0;R#0;116:t:12:<;>;C;R;c;r;116:l:1:0
  ----------
+
+get_error_message() method returned `including missing parent ''including missing parent '''
  ========== remote connections (getting a branch listing) ==========
 net.venge.monotone
 net.venge.monotone-viz
@@ -283922,8 +284587,10 @@ net.venge.monotone.workspace-merge
 net.venge.monotone.workspace-merge.api
 net.venge.monotone.workspace-merge.conflict1
 net.venge.monotone.ws_automate
-Last error message `misuse: internal line merger failed'
+
+get_error_message() method returned `including missing parent ''including missing parent '''
+Last error message `including missing parent ''including missing parent '''
 $VAR1 = \bless( {
-                   'Monotone::AutomateStdio' => 138345382
+                   'Monotone::AutomateStdio' => 1550076498
                  }, 'Monotone::AutomateStdio' );
 Destroying object.
