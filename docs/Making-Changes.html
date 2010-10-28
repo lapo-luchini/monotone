@@ -64,8 +64,8 @@ forgotten what he changed. He can ask monotone for details:
 #    to [e2c64f6bde75a192d48d2256385df3dd7a963349]
 #
 ============================================================
---- src/apple.c	1ce885d2cc59842ff16785834391e864068fbc3c
-+++ src/apple.c	e2c64f6bde75a192d48d2256385df3dd7a963349
+--- src/apple.c 1ce885d2cc59842ff16785834391e864068fbc3c
++++ src/apple.c e2c64f6bde75a192d48d2256385df3dd7a963349
 @ -3,5 +3,8 @ dispense_apple_juice()
  void
  dispense_apple_juice()
@@ -82,38 +82,29 @@ forgotten what he changed. He can ask monotone for details:
 <pre class="smallexample">$ mtn commit
 </pre>
 <p>Abe neglected to provide a <samp><span class="option">--message</span></samp> option specifying the
-change log on the command line and the file <samp><span class="file">_MTN/log</span></samp> is empty
-because he did not document his changes there.  Monotone therefore
-invokes an external &ldquo;log message editor&rdquo; &mdash; typically an editor
-like <samp><span class="command">vi</span></samp> &mdash; with an explanation of the changes being
-committed and the opportunity to enter a log message.
+change log on the command line.  Monotone therefore invokes an
+external &ldquo;log message editor&rdquo; &mdash; typically an editor like
+<samp><span class="command">vi</span></samp> &mdash; with an explanation of the changes being committed
+and the opportunity to enter a log message.
 
-<pre class="smallexample">Enter a description of this change following the Changelog line below.
-The values of Author, Date and Branch may be modified as required.
+<pre class="smallexample">
 
 *** REMOVE THIS LINE TO CANCEL THE COMMIT ***
-----------------------------------------------------------------------
-Revision: 42eae36587508faa664b111cefc291f0b85ef83a
-Parent:   493bda86628fd72c992eb56f73899db9ead3cf6f
-Author:   abe@juicebot.co.jp
-Date:     2004-10-26T02:53:08
-Branch:   jp.co.juicebot.jb7
+-- Enter a description of this change above --
+-- Edit fields below to modify certificate values --
+Branch:    right
+Author:    tester@test.net
+Date:      2010-09-11T12:03:15
 
-Changelog:
-
-polling implementation of src/apple.c
-
-----------------------------------------------------------------------
+-- Modifications below this line are ignored --
 Changes against parent 493bda86628fd72c992eb56f73899db9ead3cf6f
 
   patched  src/apple.c
 </pre>
-<p>Abe enters a single line below the Changelog: header, saying &ldquo;polling
+<p>Abe enters a single line at the top of the file, saying &ldquo;polling
 implementation of src/apple.c&rdquo;. He then saves the file and quits the
-editor. Monotone confirms that no other lines have been changed and
-extracts the message to be stored in the associated &ldquo;changelog&rdquo;
-cert, leaving only Abe's short message. Returning to the shell, Abe's
-commit completes:
+editor. Monotone extracts the message to be stored in the associated
+&ldquo;changelog&rdquo; cert. Returning to the shell, Abe's commit completes:
 
 <pre class="smallexample">mtn: beginning commit on branch 'jp.co.juicebot.jb7'
 mtn: committed revision 42eae36587508faa664b111cefc291f0b85ef83a
@@ -121,23 +112,20 @@ mtn: committed revision 42eae36587508faa664b111cefc291f0b85ef83a
 <p>Abe then sends his new revision back to Jim:
 
 <pre class="smallexample">$ mtn sync
-mtn: connecting to jim-laptop.juicebot.co.jp
+mtn: connecting to mtn://jim-laptop.juicebot.co.jp
 mtn: finding items to synchronize:
 mtn:   certs |    keys | revisions
 mtn:       8 |       2 |         2
 mtn: bytes in | bytes out | revs in | revs out | revs written
 mtn:      615 |      2822 |       0 |        1 |            0
-mtn: successful exchange with jim-laptop.juicebot.co.jp
+mtn: successful exchange with mtn://jim-laptop.juicebot.co.jp
 </pre>
 <p>Beth does a similar sequence. First she syncs her database with
 Jim's:
 
-<pre class="smallexample">$ mtn --db=:beth sync jim-laptop.juicebot.co.jp "jp.co.juicebot.jb7*"
-mtn: setting default server to jim-laptop.juicebot.co.jp
-mtn: setting default branch include pattern to 'jp.co.juicebot.jb7*'
-mtn: setting default branch exclude pattern to ''
-mtn: connecting to jim-laptop.juicebot.co.jp
-mtn: first time connecting to server jim-laptop.juicebot.co.jp:4691
+<pre class="smallexample">$ mtn --db=:beth sync "mtn://jim-laptop.juicebot.co.jp?jp.co.juicebot.jb7*"
+mtn: connecting to mtn://jim-laptop.juicebot.co.jp
+mtn: first time connecting to server mtn://jim-laptop.juicebot.co.jp
 mtn: I'll assume it's really them, but you might want to double-check
 mtn: their key's fingerprint: 9e9e9ef1d515ad58bfaa5cf282b4a872d8fda00c
 mtn: warning: saving public key for jim@juicebot.co.jp to database
@@ -147,7 +135,7 @@ mtn:     4601 |      1239 |       2 |        0 |            1
 mtn: verifying new revisions (this may take a while)
 mtn: bytes in | bytes out | revs in | revs out | revs written
 mtn:     4601 |      1285 |       2 |        0 |            2
-mtn: successful exchange with jim-laptop.juicebot.co.jp
+mtn: successful exchange with mtn://jim-laptop.juicebot.co.jp
 </pre>
 <p>She checks out a copy of the tree from her database:
 
@@ -189,13 +177,13 @@ mtn: committed revision 85573a54105cd3220db10aa6a0713643cdf5ce6f
 <p>And she syncs with Jim again:
 
 <pre class="smallexample">$ mtn sync
-mtn: connecting to jim-laptop.juicebot.co.jp
+mtn: connecting to mtn://jim-laptop.juicebot.co.jp
 mtn: finding items to synchronize:
 mtn:   certs |    keys | revisions
 mtn:      12 |       3 |         3
 mtn: bytes in | bytes out | revs in | revs out | revs written
 mtn:      709 |      2879 |       0 |        1 |            0
-mtn: successful exchange with jim-laptop.juicebot.co.jp
+mtn: successful exchange with mtn://jim-laptop.juicebot.co.jp
 </pre>
 </body></html>
 

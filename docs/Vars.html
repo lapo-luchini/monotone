@@ -62,13 +62,14 @@ details.
 
      <dl>
 <dt><code>database</code><dd>Contains database-global configuration information.  Defined names are:
+
           <dl>
-<dt><code>default-exclude-pattern</code><dd>The default branch exclusion glob pattern for netsync operations to
-use. Automatically set by first use of netsync, and by any netsync
-that uses the <samp><span class="option">--set-default</span></samp> option. 
-<br><dt><code>default-include-pattern</code><dd>The default branch glob pattern for netsync operations to use. 
+<dt><code>default-include-pattern</code><dd>The default global branch glob pattern for netsync operations to use. 
 Automatically set by first use of netsync, and by any netsync that
 uses the <samp><span class="option">--set-default</span></samp> option. 
+<br><dt><code>default-exclude-pattern</code><dd>The default global branch exclusion glob pattern for netsync operations to
+use. Automatically set by first use of netsync, and by any netsync
+that uses the <samp><span class="option">--set-default</span></samp> option. 
 <br><dt><code>default-server</code><dd>The default server for netsync operations to use.  Automatically set
 by first use of netsync, and by any netsync that uses the
 <samp><span class="option">--set-default</span></samp> option. 
@@ -84,6 +85,8 @@ receiving new revisions unless your particular history graph is highly
 linear.
 
           <p>Changing this value does not affect deltas that have already been stored. 
+<br><dt><code>known-workspaces</code><dd>Records all registered workspaces for the current databases.  monotone will
+track the contents of this variable automatically for you in the background. 
 </dl>
 
      <br><dt><code>known-servers</code><dd>Contains key hashes for servers that we have netsynced with in the
@@ -92,6 +95,16 @@ needed to detect man-in-the-middle attacks.  Automatically set the first
 time you netsync with any given server.  If that server's key later
 changes, monotone will notice, and refuse to connect until you have run
 <samp><span class="command">mtn unset known-servers </span><var>server-name</var></samp>.
+
+     <br><dt><code>server-include</code><dd>Contains server-specific branch inclusion globs.  These overrule
+<var>default-include-pattern</var> if existant and are recorded automatically
+the first time you connect to a specific server or use the
+<samp><span class="option">--set-default</span></samp> option for a netsync operation.
+
+     <br><dt><code>server-exclude</code><dd>Likewise, this variable contains server-specific branch exclusion
+globs, which overrule <var>default-exclude-pattern</var> if existant and
+are also automatically set on the first connection or when the option
+<samp><span class="option">--set-default</span></samp> is present.
 
 </dl>
 

@@ -1,3 +1,345 @@
+Thu Oct 28 21:07:18 UTC 2010
+
+        0.99 release.
+
+        Changes
+
+        - The database scheme was changed; please execute 'mtn db mgirate'
+          on all your local and remote databases.
+
+        - Normal and automate sync, push, and pull now take a
+          --dry-run option; no data is transferred, but the connection
+          is made and a summary of what would be transferred is
+          output.
+
+        - The changelog editor format was simplified; user entered text
+          is back at the top of file and the instructions have been reduced.
+          The edited text is saved now even if a commit is canceled.
+
+        - Selectors are much more powerful now and selector functions to
+          calculate common sets of revisions have been introduced.
+          The characters '(', ')', and ';' need to be quoted if mean literally
+          (just like '/') because of this. See section 3.2 in the documentation
+          for details.
+          (fixes monotone bug #18302).
+
+        - The SERVER [BRANCH] call syntax for network-related commands
+          has been deprecated in favour of the existing, universal
+          URI syntax.  Additionally, file:// and ssh:// URIs are now
+          parsed for include and exclude patterns just as the native
+          mtn:// URIs.
+
+          The possibility to specify include patterns by using
+          'include=' and exclude patterns by using 'exclude='
+          in the query string has been removed. Patterns are separated
+          by ';' and will be treated as include patterns unless prefixed
+          with '-'. Where you could previously specify
+          'mtn://host/?include=foo,exclude=bar', you would now give
+          'mtn://host/?foo;-bar' instead.
+
+          The URI parser was made a bit more standards compliant and
+          treats the scheme and host in a case insensitive manner.
+          The path and query parts are now automatically URL-decoded.
+
+          We deviate from RFC 3986 however by recognizing the authority
+          part in scheme-less URLs, where the standard would force us
+          to recognize a path instead.  For example, for the URL
+
+              'code.monotone.ca/monotone'
+
+          we'd normally parse 'code.monotone.ca/monotone' as path, but our
+          implementation parses 'code.monotone.ca' as authority and
+          '/monotone' as path, so you are not forced to type 'mtn://' on
+          command line, just as you are not forced to type 'http://' in
+          your browser.  Monotone's native scheme / protocol 'mtn' is by
+          the way set as default in cases like this.
+
+          The format for the server part of the 'default-server',
+          'known-server', 'server-include' and 'server-exclude'
+          database variables has been changed and now always includes
+          the complete (normalized) URI resource, consisting of the
+          used protocol, user, host, port and path parts.  Older entries
+          in existing databases which do not match the new format are
+          preserved and not changed by monotone.
+
+          Please check the manual section 5.3 for more details on the
+          URI syntax.
+
+        - Naturally, the 'clone' command now also accepts mtn:// URIs,
+          though the use of branch globs is forbidden unless a branch is
+          specified separately with the new --branch option.
+
+          To avoid confusion with an existing workspace, clone no longer
+          looks for and loads the options of such a workspace, therefor
+          it now also falls back to the configured default database and
+          no longer to the database used in the workspace if no explicit
+          database is given.
+
+        - Server defaults for netsync operations are now only saved if
+          the exchange was successful.  The progress messages which have
+          been issued for this previously have been removed, since they
+          would come up now unexpectedly and would clutter the output of
+          commands such as 'clone', 'automate remote' and
+          'automate remote_stdio'.
+
+        - The following characters have been deprecated in branch names
+
+                ?,;*%+{}[]!^
+
+          as they denote either meta characters in monotone's URI syntax
+          or are used in globs to resolve branch patterns.
+          Furthermore, branch names should no longer start with a dash
+          (-), since this character is used to denote an exclude pattern
+          in the aforementioned URI syntax.
+
+          monotone warns on the creation of branches which violate these
+          restrictions and gives further directions.
+
+        - The 'cert' command can now operate on multiple revisions at once.
+
+        - The command 'db kill_rev_locally' has been renamed to
+          'local kill_revision', and 'db kill_tag_locally' and
+          'db kill_branch_certs_locally' have been replaced with a more
+          flexible command 'local kill_certs'.
+
+        - The 'import' command now keeps the created bookkeeping root if
+          --dry-run is not specified.  This makes it possible to re-use
+          the import directory as workspace and is also more closely
+          to what our documentation states, when it says that import
+          is basically "setup with a twist".
+
+        - On Win32 native, the option '--no-format-dates' which disables
+          the localized date format, is now the default for 'commit', since
+          dates are not parseable on Win32 native.
+
+        - The automate commands sync, push, and pull now output information
+          about each transferred revision, cert and key, in basic_io format.
+
+        - monotone no longer passes syntactically correct, but non-existent
+          revision ids through the selector machinery.  The most visible
+          place for this change is 'automate select', which no longer
+          echoes every possible 40 hex-byte string.
+
+        - The 'automate genkey' command has been renamed to
+          'automate generate_key'
+
+        New features
+
+        - Options can now be overridden; you can specify '--no-unknown
+          --unknown' on the command line and effectively get back the original
+          state in the application.  Similarly, you can specify '--no-unknown'
+          in the 'get_default_command_options' hook and then override that
+          with '--unknown' on the command line.
+
+        - New global options:
+          --no-ignore-suspend-certs     undo previous --ignore-suspend-certs
+          --use-default-key             undo previous --key
+          --allow-default-confdir       undo previous --no-default-confdir
+          --allow-workspace             undo previous --no-workspace
+          --interactive                 undo previous --non-interactive
+          --no-standard-rcfiles         replaces --norc
+          --standard-rcfiles            undo previous --no-standard-rcfiles
+          --no-builtin-rcfile           replaces --nostd
+          --builtin-rcfile              undo previous --no-builtin-rcfile
+          --clear-rcfiles               undo previous --rcfile
+          --verbose [-v]                increase verbosity (opposite of --quiet)
+
+        - Global options now hidden:
+          --roster-cache-performance-log
+
+        - New command options:
+          add
+            --no-recursive                  undo previous --recursive
+            --respect-ignore                undo previous --no-respect-ignore
+            --no-unknown                    undo previous --unknown
+          bisect *, checkout, pivot_root, pluck, update, automate update
+            --no-move-conflicting-paths     undo previous --move-conflicting-paths
+          diff
+            --without-header                undo previous --with-header
+            --show-encloser                 undo previous --no-show-encloser
+          disapprove, suspend
+            --no-update                     undo previous --update
+          drop
+            --no-recursive                  undo previous --recursive
+          explicit_merge, merge, merge_into_dir propagate
+            --no-resolve-conflicts          undo previous --resolve-conflicts
+            --no-update                     undo previous --update
+          log
+            --no-brief                      undo previous --brief
+            --no-diffs                      undo previous --diffs
+            --clear-from                    undo previous --from
+            --files                         undo previous --no-files
+            --graph                         undo previous --no-graph
+            --merges                        undo previous --no-merges
+            --clear-to                      undo previous --to
+          import
+            --no-dry-run                    undo previous --dry-run
+            --respect-ignore                undo previous --no-respect-ignore
+          mkdir
+            --respect-ignore                undo previous --no-respect-ignore
+          serve
+            --no-pid-file                   undo previous --pid-file
+          sync, pull, push, automate remote_stdio, automate remote
+          automate pull, automate push, automate sync
+            --no-set-default                undo previous --set-default
+          sync, pull, push, automate pull, automate push, automate sync
+            --dry-run                       just report what would be sent/received
+          automate inventory
+            --corresponding-renames         undo previous --no-corresponding-renames
+            --ignored                       undo previous --no-ignored
+            --unchanged                     undo previous --no-unchanged
+            --unknown                       undo previous --no-unknown
+          automate content_diff
+            --without-header                undo previous --with-header
+          automate show_conflicts
+            --no-ignore-suspend-certs       undo previous --ignore-suspend-certs
+          automate log
+            --clear-from                    undo previous --from
+            --merges                        undo previous --no-merges
+            --clear-to                      undo previous --to
+
+        - Command options now hidden:
+          (several commands) --no-prefix
+          serve    --stdio --no-transport-auth
+          (all netsync/remote commands) --min-netsync-version --max-netsync-version
+
+        - Deprecated options:
+          --norc         use --no-standard-rcfiles
+          --nostd        use --no-builtin-rcfile
+          --reallyquiet  use --quiet --quiet
+          --debug        use --verbose
+
+        - To aid command line typing, partial option names are tried to
+          be expanded; if the expansion leads to multiple possibilities,
+          all matches and an accompanying short description of the
+          particular expansion are displayed.
+
+          Two types of expansions are available: simple prefix matching
+          and word abbreviation matching. Single-word options like '--update'
+          are easier to expand from prefixes, as they're unique after a few
+          characters, in this example '--up' already matches.
+
+          Multi-word options like for example '--ignore-suspend-certs' might
+          collide however with single-worded ones and are best expanded from
+          abbreviations, in this case '--isc'.
+
+        - The 'disapprove' command now accepts a revision range in
+          addition to a single revision.
+
+        - A new 'manpage' command has been added which dumps the monotone
+          command help including all global and command specific options in
+          standard troff format.  If this command is used interactively, its
+          output is automatically processed through nroff and less, in case
+          both are available on your system.  If not, you can change the default
+          command by overwriting the 'get_man_page_formatter_command' hook.
+
+          The 'manpage' command is also used to create a static version of
+          mtn(1) which is now installed with the rest of monotone's docs.
+
+        - New 'k:' selector type to query revisions where at least one
+          certificate was signed with the given key.
+
+        - New automate command 'log' which behaves identical to the
+          normal 'log' command, except that it only outputs the
+          revision ids.
+
+        - New automate command 'checkout' which works just as its
+          non-automate counterpart.
+
+        - Monotone now tracks file size information (hence the previously
+          mentioned schema change).
+          File sizes are currently only queryable via the automation
+          interface, directly for specific files via 'get_file_size' or
+          as part of the extended manifest (see below), but these
+          information may become visible as part of the user UI later on
+          as well.
+
+        - New automate command 'get_extended_manifest_of', which prints
+          a beefed-up manifest format with file size and extensive marking
+          information.  This can be used to easily determine when specific
+          nodes have been changed or moved at last.
+
+        - New automate commands 'put_public_key', 'get_public_key' and
+          'drop_public_key'. (closes monotone bug #30345)
+
+        Bugs fixed
+
+        - The 'mv' command now warns when a source is being renamed onto
+          itself or one of its children (fixes monotone bug #29484).
+
+        - The 'mv' command now also handles this usage properly, where
+          'foo' is a directory:
+
+             $ mv foo bar
+             $ mtn mv --bookkeep-only foo bar
+
+        - monotone no longer asks to pick a branch from a set of branches
+          of a revision in which all but one branch have been suspended
+          (fixes monotone bug #29843)
+
+        - The annotate command no longer fails if it should print out
+          empty or untrusted date cert values
+          (fixes monotone bug #30150)
+
+        - monotone now tries harder to find the cancel hint in a commit
+          message and only aborts if it can't find it anywhere
+          (fixes monotone bug #30215)
+
+        - The import command no longer warns about not being able
+          to write out _MTN/options on --dry-run
+          (fixes monotone bug #30225)
+
+        - 'automate remote' and 'automate remote_stdio' can now be used
+          without transport authentication (e.g. on file:// or ssh://
+          transports) as well as anonymously over netsync
+          (fixes monotone bug #30237)
+
+        - monotone does no longer warn about missing implicit includes
+          when dealing with restricted file sets
+          (fixes monotone bug #30291)
+
+        - The 'passphrase' and 'dropkey' commands now handle private keys
+          in old-style key files (without the hash part in the file name)
+          properly.
+          monotone also makes it very sure now that the key file of a
+          private key which is about to be deleted really and only
+          contains the key which should be deleted and nothing else
+          (fixes monotone bug #30376)
+
+        - monotone no longer throws an unrecoverable error if a public or
+          private key is addressed with some non-existing key id
+          (fixes monotone bug #30462)
+
+        - A globish that contains a bracket pair with an empty sub-pattern
+          such as "{,.foo}", "{.foo,}" or even "{.foo,,.bar}" now correctly
+          expands the empty target, so e.g. the branch pattern
+
+             "net.venge.monotone{,.*}"
+
+          now matches "net.venge.monotone" and "net.venge.monotone.*"
+          as expected. (fixes monotone bug #30655)
+
+        - A regression in 0.48 made a path-restricted 'mtn log' show
+          revisions, in which not the picked path(s), but one of its parents
+          were changed.  This has been fixed.
+
+        - 'mtn trusted' will no longer accept single bogus revision ids,
+          but instead validates if the given revision really exists in the
+          current database.
+
+        - 'mtn read' (and also 'mtn automate read_packets') now tests public
+          and private key data more thoroughly and aborts if it encounters
+          invalid data.
+
+        - 'mtn conflicts store' now gives a proper error message when
+          run outside a workspace (fixes monotone bug #30473)
+
+        - monotone did not properly parse URIs which missed a scheme or
+          which did not mark the start of the authority with a double slash.
+          This has been fixed.
+          (fixes monotone issue 94)
+
+
 Thu Oct 21 23:45:45 UTC 2010
 
         0.48.1 bugfix release.
@@ -192,6 +534,13 @@ Sun Jun 13 22:13:53 UTC 2010
           sufficiently large items (files, diffs, revisions). This was fixed
           in 0.47 but not noted in the release notes at that time
           (fixes monotone bug #28991).
+
+        - monotone on Windows will now have a non-zero exit code when
+          interrupted (^C). This was broken in 0.47 when it was fixed to not
+          throw an exception on being interrupted.
+
+        - the 'mv' command now warns when a source is being renamed onto
+          itself (fixes monotone bug #29484).
 
         Other
 

@@ -36,7 +36,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Lua-Reference.html#Lua-Reference">Lua R
 Lua libraries.
 
      <dl>
-<dt><code>print, io.write</code><a name="index-print_002c-io_002ewrite-300"></a><dd>
+<dt><code>print, io.write</code><a name="index-print_002c-io_002ewrite-316"></a><dd>
 Both functions are overwritten to print to standard error (instead of
 standard output), formatted as monotone progress message with the prefix
 "lua:" in front of every line.
@@ -50,7 +50,7 @@ progress messages, and prevents unexpected out-of-band output in the
      <p>If you explicitely need to write to either stdout or stderr, please use
 <code>io.stdout:write</code> and <code>io.stderr.write</code>.
 
-     <br><dt><code>os.execute, io.popen</code><a name="index-os_002eexecute_002c-io_002epopen-301"></a><dd>
+     <br><dt><code>os.execute, io.popen</code><a name="index-os_002eexecute_002c-io_002epopen-317"></a><dd>
 Both functions have been disabled for security reasons. You should use
 their replacements <code>spawn</code> and <code>spawn_pipe</code>.
 

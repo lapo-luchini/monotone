@@ -37,19 +37,16 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Tutorial.html#Tutorial">Tutorial</a>
 <p>With Jim's server preparations done, now Abe is ready to fetch Jim's
 code. To do this he issues the monotone <samp><span class="command">sync</span></samp> command:
 
-<pre class="smallexample">$ mtn --db=abe.mtn sync jim-laptop.juicebot.co.jp "jp.co.juicebot.jb7*"
-mtn: setting default server to jim-laptop.juicebot.co.jp
-mtn: setting default branch include pattern to 'jp.co.juicebot.jb7*'
-mtn: setting default branch exclude pattern to ''
-mtn: connecting to jim-laptop.juicebot.co.jp
-mtn: first time connecting to server jim-laptop.juicebot.co.jp:4691
+<pre class="smallexample">$ mtn --db=abe.mtn sync "mtn://jim-laptop.juicebot.co.jp?jp.co.juicebot.jb7*"
+mtn: connecting to mtn://jim-laptop.juicebot.co.jp
+mtn: first time connecting to server mtn://jim-laptop.juicebot.co.jp
 mtn: I'll assume it's really them, but you might want to double-check
 mtn: their key's fingerprint: 9e9e9ef1d515ad58bfaa5cf282b4a872d8fda00c
 mtn: warning: saving public key for jim@juicebot.co.jp to database
 mtn: finding items to synchronize:
 mtn: bytes in | bytes out | revs in | revs out | revs written
 mtn:     2587 |      1025 |       1 |        0 |            1
-mtn: successful exchange with jim-laptop.juicebot.co.jp
+mtn: successful exchange with mtn://jim-laptop.juicebot.co.jp
 </pre>
 <p>Abe now has, in his database, a copy of everything Jim put in the
 branch. Therefore Abe can disconnect from the expensive network

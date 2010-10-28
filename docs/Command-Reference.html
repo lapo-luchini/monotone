@@ -36,6 +36,23 @@ Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
 <p>Monotone has a large number of commands. To help navigate through them
 all, commands are grouped into logical categories.
 
+<p>Many command options come in pairs that affect the same value. For example,
+<samp><span class="command">mtn log</span></samp> takes a <var>brief</var> option; this can be reversed by
+<var>no-brief</var>. This is convenient when building command strings
+automatically; <samp><span class="command">mtn log --brief --no-brief</span></samp> is the same as
+<samp><span class="command">mtn log</span></samp>.
+
+<p>It also helps when setting options in the
+<var>get_default_command_options</var> hook; those options can be
+overridden on the command line. For example, if
+<var>get_default_command_options</var> specifies <var>brief</var> for
+<samp><span class="command">log</span></samp>, you can override that with <samp><span class="command">mtn log
+--no-brief</span></samp>.
+
+<p>The command descriptions describe the most important options for each
+command, and only one of each pair of options. For a complete list of
+options, see the online help (<samp><span class="command">mtn help cmd</span></samp>), or the manpage.
+
 <ul class="menu">
 <li><a accesskey="1" href="Tree.html#Tree">Tree</a>:                         Operations on tree states in your database
 <li><a accesskey="2" href="Workspace.html#Workspace">Workspace</a>:                    Operations on your workspace

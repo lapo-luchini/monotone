@@ -44,7 +44,7 @@ reference.
 $ cvs -d $CVSROOT checkout -r 1.2
 </pre>
 <p></td><td valign="top" width="40%">
-<pre class="smallexample">$ mtn pull www.foo.com com.foo.wobbler*
+<pre class="smallexample">$ mtn pull "mtn://www.foo.com?com.foo.wobbler*"
 $ mtn checkout --revision=fe37 wobbler
 </pre>
 <p><br></td></tr></table>
@@ -70,7 +70,7 @@ directory.
 </pre>
 <p></td><td valign="top" width="40%">
 <pre class="smallexample">$ mtn commit --message="log message"
-$ mtn push www.foo.com com.foo.wobbler*
+$ mtn push "mtn://www.foo.com?com.foo.wobbler*"
 </pre>
 <p><br></td></tr></table>
 
@@ -110,7 +110,7 @@ the workspace to a different (usually newer) base revision.
 <pre class="smallexample">$ cvs update -d
 </pre>
 <p></td><td valign="top" width="40%">
-<pre class="smallexample">$ mtn pull www.foo.com com.foo.wobbler*
+<pre class="smallexample">$ mtn pull "mtn://www.foo.com?com.foo.wobbler*"
 $ mtn merge
 $ mtn update
 </pre>
