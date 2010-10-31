@@ -221,7 +221,7 @@ $self = "http://{$_SERVER['SERVER_NAME']}{$_SERVER['SCRIPT_NAME']}";
                            '/monotone issues?(?:(?:, |, and | and | )#?\d+)+/',
                            create_function('$matches', '
                                 return preg_replace(
-                                   "/#(\d+)/",
+                                   "/#?(\d+)/",
                                    "<a href=\"http://code.mtnserv.thomaskeller.biz/index.php/p/monotone/issues/$1/\">#$1</a>",
                                    $matches[0]
                                 );
