@@ -53,6 +53,7 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
                 <li><a href="http://code.monotone.ca/p/monotone/issues/"><strong>bugs</strong></a></li>
                 <li><a href="http://lists.nongnu.org/mailman/listinfo/monotone-devel">developers mailing list</a></li>
                 <li><a href="irc://irc.oftc.net/#monotone">IRC</a> (<a class="lesser" href="http://colabti.org/irclogger/irclogger_logs/monotone">logs</a>)</li>
+		<li><a href="http://cia.vc/stats/project/monotone">CIA.vc commit log</a>
                 <li><a href="http://monotone.thomaskeller.biz/docbuild/html">nightly documentation build</a> (<a href="http://monotone.thomaskeller.biz/docbuild/monotone.html">one page</a>)</li>
                 <li><a href="http://monotone.thomaskeller.biz/autobuild/index.php"><strong>nightly builds for openSUSE and Fedora</strong></a></li>
                 <li><a href="http://wiki.monotone.ca/SelfHostingInfo/">self-hosting info</a></li>
