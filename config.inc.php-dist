@@ -15,6 +15,7 @@ $CFG["aggregated_feeds"] = array(
     "http://www.thomaskeller.biz/blog/category/coding/monotone/feed/",
     "http://tero.stronglytyped.org/blosxom.cgi/monotone/index.atom",
     "http://identi.ca/lapo/tag/monotone/rss",
+    "http://journal.richard.levitte.org/tags/monotone/index.atom",
 );
 
 $CFG['new_msgs_from_feeds_count'] = 3;
