@@ -91,8 +91,10 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
                 ? $author->get_name() : "unknown";
 ?>
             <div class="feed-msg">
-                <h2><?php echo $item->get_title() ?></h2>
-                <h3>by <?php echo $author ?>, <?php echo $item->get_date("j F Y | g:i a") ?></h3>
+                <h2>
+                    <?php echo $item->get_title() ?>
+                    <span>by <?php echo $author ?>, <?php echo $item->get_date("j F Y | g:i a") ?></span>
+                </h2>
                 <p>
                     <?php 
                         $desc = strip_tags($item->get_description());

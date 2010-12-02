@@ -150,17 +150,19 @@ h1.intheblogs {
 
 .feed-msg h2 {
     font-size: 0.9em;
-    padding-right: 15em;
 }
 
-.feed-msg h3 {
-    font-size: 0.7em;
+.feed-msg h2 span {
+    font-size: 0.8em;
+    line-height: 2em;
     font-weight: normal;
     float: right;
-    margin-top: -2.5em;
+    display: inline-block;
+    padding-left: 1em;
 }
 
 .feed-msg p {
+    clear: both;
     font-size: 0.8em;
 }
 
