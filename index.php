@@ -43,7 +43,7 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
 
             <p style="text-align: center">
                 <strong>Need help?</strong><br />
-                Just <a href="irc://irc.oftc.net/monotone">join irc</a>... we're friendly!
+                Just <a href="irc://irc.oftc.net/monotone">join irc</a>... we're friendly! <!-- ' plays naughty with emacs -->
             </p>
         </div>
 
@@ -62,7 +62,8 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
                 <li>commit mailing list:<br />
                   <a href="http://lists.nongnu.org/mailman/listinfo/monotone-commits-diffs">with</a> /
                   <a href="http://lists.nongnu.org/mailman/listinfo/monotone-commits-nodiffs">without</a> diffs</li>
-                <li><a href="buildbot/">build status</a></li>
+                <li><a href="http://monotone.ca:9000/">build status</a> using buildbot 0.7.12<br />
+		  (local manual <a class="lesser" href="buildbot-doc/buildbot.html">one page</a>, <a class="lesser" href="buildbot-doc/buildbot.pdf">PDF</a>)</li> </li>
                 <li><a href="http://wiki.monotone.ca/QuickieTasks/">quickie tasks</a></li>
             </ul>
         </div>
