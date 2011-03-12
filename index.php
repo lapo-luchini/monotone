@@ -62,8 +62,7 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
                 <li>commit mailing list:<br />
                   <a href="http://lists.nongnu.org/mailman/listinfo/monotone-commits-diffs">with</a> /
                   <a href="http://lists.nongnu.org/mailman/listinfo/monotone-commits-nodiffs">without</a> diffs</li>
-                <li><a href="http://monotone.ca:9000/">build status</a></br />
-		  using <a class="lesser" href="buildbot-doc/buildbot.html">buildbot 0.7.12</a> (<a class="lesser" href="buildbot-doc/buildbot.pdf">PDF</a>)</li>
+		<li><a href="http://monotone.ca:9000/">build status</a> (<a class="lesser" href="http://wiki.monotone.ca/BuildBot/">more info...</a>)</li>
 		<li><a href="http://wiki.monotone.ca/QuickieTasks/">quickie tasks</a></li>
             </ul>
         </div>
