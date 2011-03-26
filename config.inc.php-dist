@@ -29,7 +29,7 @@ $CFG["download_webdir"] = "/downloads";
 // the specific monotone version which is tried to match
 // The ordering applied here is kept for the final list!
 $CFG["download_matchers"] = array(
-    "Tarball"               => "/monotone-%version%\.tar\.gz/",
+    "Tarball"               => "/monotone-%version%\.tar\.(gz|bz2)/",
     "Linux x86/glibc 2.3"   => "/mtn-%version%-linux-x86\.bz2/",
     "Windows Installer"     => "/monotone-%version%-setup\.exe/",
     "Mac OS X Installer"    => "/monotone-%version%\.dmg/",
