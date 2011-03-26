@@ -1,0 +1,68 @@
+<html lang="en">
+<head>
+<title>GIT Export Hooks - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="Attribute-Handling.html#Attribute-Handling" title="Attribute Handling">
+<link rel="next" href="Validation-Hooks.html#Validation-Hooks" title="Validation Hooks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="GIT-Export-Hooks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Validation-Hooks.html#Validation-Hooks">Validation Hooks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Attribute-Handling.html#Attribute-Handling">Attribute Handling</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.11 GIT Export Hooks</h4>
+
+<p>Exporting monotone revisions in git-fast-import(1) format often
+requires translation of monotone author cert values and associated
+signing keys into corresponding git author and committer
+values. Translation of author and committer values and validation of
+the results is controlled by these hooks. See <samp><span class="command"><a href="mtn-git_005fexport.html#mtn-git_005fexport">mtn git_export</a></span></samp>.
+
+     <dl>
+<dt><code>unmapped_git_author(</code><var>author</var><code>)</code><a name="index-unmapped_005fgit_005fauthor_0028_0040var_007bauthor_007d_0029-311"></a><dd>
+This hook is called for any git author or committer value that does
+not come from the current <em>author map</em> file, specified by
+<samp><span class="option">--authors-file</span></samp>. If no <em>author map</em> file is specified
+this hook will be called for <em>every</em> unique git author and
+committer value.  It may return the value unchanged or modify it in
+some way in an effort to ensure that it is valid. The default
+implementation attempts several common pattern replacements to produce
+valid authors from monotone authors.
+
+     <br><dt><code>validate_git_author(</code><var>author</var><code>)</code><a name="index-validate_005fgit_005fauthor_0028_0040var_007bauthor_007d_0029-312"></a><dd>
+This hook is called before the git author or committer value is
+written to the export output stream. The <var>author</var> value is either
+the mapped value from the current <em>author map</em> file or the value
+produced by the <code>unmapped_git_author</code> hook. This hook may return
+true if the author is valid or false if it is not. The export will be
+aborted if this hook returns false for any value.
+
+     <p>The default definition enforces the <code>Name &lt;email&gt;</code> pattern.
+
+</dl>
+
+</body></html>
+

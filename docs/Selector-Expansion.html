@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+<title>Selector Expansion - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="External-Merge-Tools.html#External-Merge-Tools" title="External Merge Tools">
+<link rel="next" href="Attribute-Handling.html#Attribute-Handling" title="Attribute Handling">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Selector-Expansion"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Attribute-Handling.html#Attribute-Handling">Attribute Handling</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="External-Merge-Tools.html#External-Merge-Tools">External Merge Tools</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.9 Selector Expansion</h4>
+
+<p>Monotone's selectors are a powerful mechanism used to refer to revisions
+with symbolic names or groupings. Thanks to the hooks described in this
+section, it is possible to use various forms of shorthand in selection
+strings; these hooks are designed to recognise shorthand patterns and
+expand them to their full form.
+
+<p>For more detail on the use of selectors, see <a href="Selectors.html#Selectors">Selectors</a>.
+
+     <dl>
+<a name="expand_005fselector"></a><dt><code>expand_selector (</code><var>str</var><code>)</code><a name="index-expand_005fselector-_0028_0040var_007bstr_007d_0029-307"></a><dd>
+Called by any command that can take a selector argument, for each
+element of a combined selector string (between <code>/</code> separators).
+
+     <p>The input <var>str</var> is the command line argument. The hook should return
+a string that is a valid monotone selector.
+
+     <p>Expansion generally means providing a type prefix for the selector,
+such as <code>a:</code> for authors or <code>d:</code> for dates.
+
+     <p>The default definition of this hook attempts to recognize certs, email
+addresses, branch names, hex ids, and dates, and adds the appropriate
+prefix. See <a href="Default-hooks.html#Default-hooks">Default hooks</a>.
+
+     <p><a name="expand_005fdate"></a><br><dt><code>expand_date (</code><var>str</var><code>)</code><a name="index-expand_005fdate-_0028_0040var_007bstr_007d_0029-308"></a><dd>Called when processing a date selector (<samp><span class="command">d:</span></samp>).
+
+     <p>The input <var>str</var> is the command line selector, after processing by
+<samp><span class="command">expand_selector</span></samp>. The hook should return a date that can be
+used by a standard SQL select statement.
+
+     <p>The default hook recognizes special words such as <code>yesterday</code> or
+<code>6 months ago</code> and converts them into well formed date
+expressions. See <a href="Default-hooks.html#Default-hooks">Default hooks</a>.
+
+</dl>
+
+</body></html>
+

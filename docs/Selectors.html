@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Selectors - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -21,6 +21,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -209,7 +210,7 @@ will always choose a single head, and not fail if there is more than one.
 <h3 class="heading">Selector expansion</h3>
 
 <p>Before selectors are passed to the database, they are expanded using a
-Lua hook: <code>expand_selector</code>. The default definition of this hook
+Lua hook: <a href="expand_005fselector.html#expand_005fselector">expand_selector</a>. The default definition of this hook
 attempts to guess a number of common forms for selection, allowing you
 to omit selector types in many cases. For example, the hook guesses
 that the typeless selector <code>jrh@example.org</code> is an author
@@ -217,13 +218,13 @@ selector, due to its syntactic form, so modifies it to read
 <code>a:jrh@example.org</code>. This hook will generally assign a selector
 type to values which &ldquo;look like&rdquo; partial hex strings, email
 addresses, branch names, or date specifications. For the complete
-source code of the hook, see <a href="Lua-Reference.html#Lua-Reference">Lua Reference</a>.
+source code of the hook, see <a href="Default-hooks.html#Default-hooks">Default hooks</a>.
 
 <h3 class="heading">Expanding dates</h3>
 
 <p>All date-related selectors (<code>d</code>, <code>e</code>, <code>l</code>) support an
 English-like syntax similar to CVS.  This syntax is expanded to the
-numeric format by a Lua hook: <code>expand_date</code>. 
+numeric format by the Lua hook <a href="expand_005fdate.html#expand_005fdate">expand_date</a>. 
 The allowed date formats are:
      <dl>
 <dt><code>now</code><dd>Expands to the current date and time. 
@@ -240,8 +241,6 @@ optional. If missing, <code>e</code> and <code>l</code> selectors assume the fir
 day of month and time 00:00:00. 
 The time component, if supplied, must be complete to the second. 
 </dl>
-
-<p>For the complete source code of the hook, see <a href="Lua-Reference.html#Lua-Reference">Lua Reference</a>.
 
 <h3 class="heading">Typeless selection</h3>
 

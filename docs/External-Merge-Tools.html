@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>External Merge Tools - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="External-Diff-Tools.html#External-Diff-Tools" title="External Diff Tools">
+<link rel="next" href="Selector-Expansion.html#Selector-Expansion" title="Selector Expansion">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="External-Merge-Tools"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Selector-Expansion.html#Selector-Expansion">Selector Expansion</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="External-Diff-Tools.html#External-Diff-Tools">External Diff Tools</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.8 External Merge Tools</h4>
+
+<p>These hooks allow the user to use their favorite tools when resolving
+<a href="File-Content-Conflict.html#File-Content-Conflict">File Content Conflict</a>s.
+
+<p>The <a href="Default-hooks.html#Default-hooks">Default hooks</a> include helper functions used by the hooks below
+to invoke a number of external merge tools known to monotone, and you
+can override or extend these hooks if you have a preferred tool, or if
+you have a tool specific to certain file types.
+
+     <dl>
+<a name="merge3"></a><dt><code>merge3 (</code><var>ancestor_path</var><code>, </code><var>left_path</var><code>, </code><var>right_path</var><code>, </code><var>merged_path</var><code>, </code><var>ancestor_text</var><code>, </code><var>left_text</var><code>, </code><var>right_text</var><code>)</code><a name="index-merge3-_0028_0040var_007bancestor_005fpath_007d_002c-_0040var_007bleft_005fpath_007d_002c-_0040var_007bright_005fpath_007d_002c-_0040var_007bmerged_005fpath_007d_002c-_0040var_007bancestor_005ftext_007d_002c-_0040var_007bleft_005ftext_007d_002c-_0040var_007bright_005ftext_007d_0029-305"></a><dd>
+Called by <samp><span class="command"><a href="mtn-conflicts-resolve_005ffirst.html#mtn-conflicts-resolve_005ffirst">mtn conflicts resolve_first</a></span></samp> when
+<samp><span class="command">interactive</span></samp> is given; by <samp><span class="command"><a href="mtn-merge.html#mtn-merge">mtn merge</a></span></samp>,
+<samp><span class="command"><a href="mtn-explicit_005fmerge.html#mtn-explicit_005fmerge">mtn explicit_merge</a></span></samp> when <samp><span class="option">--resolve-conflicts</span></samp>
+is not specified and the internal merger fails for a file content
+conflict; and by <samp><span class="command"><a href="mtn-update.html#mtn-update">mtn update</a></span></samp> or any command that
+accepts <samp><span class="option">--update</span></samp> for workspace file content conflicts.
+
+     <p>The actual ancestor, left, and right contents of the
+file are passed in the <var>ancestor_text</var>, <var>left_text</var>, and
+<var>right_text</var> strings.  In addition, the hook is given the names
+that this file had in the ancestor (<var>ancestor_path</var>), left
+(<var>left_path</var>), and right (<var>right_path</var>) trees, and the name it
+will end up having in the merged tree (<var>merged_path</var>).  These
+paths are useful for merge tools that can display the names of files
+in their GUI, since the actual path names are likely more meaningful
+than the temporary file names the merge tool will actually be working
+on.
+
+     <p>On success, <code>merge3</code> returns a string, which should be the new
+file contents, the result of merging the given texts.  If nil is
+returned, the merge command fails; this is how the user can abort a
+merge.
+
+     <p>The default definition of this hook writes the texts to temporary
+files, then delegates the actual merge to the result of
+<a href="get_005fpreferred_005fmerge3_005fcommand.html#get_005fpreferred_005fmerge3_005fcommand">get_preferred_merge3_command</a>.  The default definition of
+<a href="get_005fpreferred_005fmerge3_005fcommand.html#get_005fpreferred_005fmerge3_005fcommand">get_preferred_merge3_command</a> checks to see if the
+<samp><span class="env">MTN_MERGE</span></samp> environment variable, or the Lua variable
+<code>merger</code> are set to the name of a merge tool that it recognizes,
+and if not, then simply searches for several popular tools that might
+be installed on the local system.
+
+     <p>The default hook then invokes the merge tool, waits for it to return,
+and checks to see if <var>merged_path</var> was written. If not, it returns
+nil, and the merge command fails.
+
+     <p>For details, see the code in <a href="Default-hooks.html#Default-hooks">Default hooks</a>.
+
+     <p>By redefining this hook the user can choose a preferred merge tool, or
+select different merge tools for different file types.  For example,
+gimp for .png files, OpenOffice.org for .doc, and so on.
+
+     <p><a name="get_005fpreferred_005fmerge3_005fcommand"></a><br><dt><code>get_preferred_merge3_command(</code><var>tbl</var><code>)</code><a name="index-get_005fpreferred_005fmerge3_005fcommand_0028_0040var_007btbl_007d_0029-306"></a><dd>
+Returns a table <code>command, mkey</code> telling <code><a href="merge3.html#merge3">merge3</a></code> what
+external merge tool to run.
+
+     <p><var>tbl</var> wraps up the various arguments for each merge command and
+is always provided by <a href="merge3.html#merge3">merge3</a>. If there is a particular editor
+that you would like to use to perform merge3 operations, override
+this hook to specify it.
+
+</dl>
+
+</body></html>
+

@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Storage and workflow - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -21,6 +21,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -71,10 +72,13 @@ look for this <samp><span class="file">_MTN</span></samp> directory.
 <p>Aside from the special <samp><span class="file">_MTN</span></samp> directory, a workspace is just a
 normal tree of files. You can directly edit the files in a workspace
 using a plain text editor or other program; monotone will
-automatically notice when you make any changes. If you wish to add
-files, remove files, or move files within your workspace, you must
-tell monotone explicitly what you are doing, as these actions cannot
-be deduced.
+automatically notice when you make this kind of change, and include
+them in the next commit.
+
+<p><a name="g_t_005fMTN_002frevision"></a>If you add files, remove files, or move files
+within your workspace, you must tell monotone explicitly what you are
+doing, as these actions cannot be deduced. Monotone stores these
+changes in <samp><span class="file">_MTN/revision</span></samp>; they will be part of the next commit.
 
 <p>If you do not yet have a workspace, you can <dfn>check out</dfn> a
 workspace from a database, or construct one from scratch and

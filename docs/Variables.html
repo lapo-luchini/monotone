@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+<title>Variables - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Command-Reference.html#Command-Reference" title="Command Reference">
+<link rel="prev" href="Review.html#Review" title="Review">
+<link rel="next" href="Key-and-Cert.html#Key-and-Cert" title="Key and Cert">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Variables"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Key-and-Cert.html#Key-and-Cert">Key and Cert</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Review.html#Review">Review</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference.html#Command-Reference">Command Reference</a>
+<hr>
+</div>
+
+<h3 class="section">4.7 Variables</h3>
+
+     <dl>
+<dt><samp><span class="command">mtn cleanup_workspace_list</span></samp><a name="index-mtn-cleanup_005fworkspace_005flist-162"></a><dd>Removes all invalid workspaces from the list of registered workspaces
+of the current database.  A workspace is considered invalid if its
+path does either not contain an <samp><span class="file">_MTN</span></samp> directory anymore or if
+the configured database for the workspace is a different from the
+current database.
+
+     <p><a name="mtn-register_005fworkspace"></a><br><dt><samp><span class="command">mtn register_workspace [</span><var>workspace_path</var><span class="command">]</span></samp><a name="index-mtn-register_005fworkspace-_005b_0040var_007bworkspace_005fpath_007d_005d-163"></a><dd>
+Registers the given workspace (default the current workspace) in the
+current database, so that it will show up in the output of <samp><span class="command"><a href="mtn-list-databases.html#mtn-list-databases">mtn list databases</a></span></samp> (the database has to be in a managed location for
+<samp><span class="command">list databases</span></samp> to work; see <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>).
+
+     <br><dt><samp><span class="command">mtn set </span><var>domain</var> <var>name</var> <var>value</var></samp><a name="index-mtn-set-_0040var_007bdomain_007d-_0040var_007bname_007d-_0040var_007bvalue_007d-164"></a><dd>Associates <var>value</var> to <var>name</var> in domain <var>domain</var>. 
+See <a href="Vars.html#Vars">Vars</a> for more information.
+
+     <p><a name="mtn-unregister_005fworkspace"></a><br><dt><samp><span class="command">mtn unregister_workspace [</span><var>workspace_path</var><span class="command">]</span></samp><a name="index-mtn-unregister_005fworkspace-_005b_0040var_007bworkspace_005fpath_007d_005d-165"></a><dd>Unregisters the given workspace (default the current workspace) from
+the current database, so that it will no longer show up in the output
+of <samp><span class="command"><a href="mtn-list-databases.html#mtn-list-databases">mtn list databases</a></span></samp>.
+
+     <br><dt><samp><span class="command">mtn unset </span><var>domain</var> <var>name</var></samp><a name="index-mtn-unset-_0040var_007bdomain_007d-_0040var_007bname_007d-166"></a><dd>Deletes any value associated with <var>name</var> in <var>domain</var>.  See
+<a href="Vars.html#Vars">Vars</a> for more information.
+
+</dl>
+
+</body></html>
+

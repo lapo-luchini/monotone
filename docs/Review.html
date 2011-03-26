@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+<title>Review - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Command-Reference.html#Command-Reference" title="Command Reference">
+<link rel="prev" href="Informative.html#Informative" title="Informative">
+<link rel="next" href="Variables.html#Variables" title="Variables">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Review"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Variables.html#Variables">Variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Informative.html#Informative">Informative</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference.html#Command-Reference">Command Reference</a>
+<hr>
+</div>
+
+<h3 class="section">4.6 Review</h3>
+
+     <dl>
+<dt><samp><span class="command">mtn approve </span><var>rev</var><span class="command"> [--branch=</span><var>branchname</var><span class="command">] [--[no-]update]</span></samp><a name="index-mtn-approve-_0040var_007brev_007d-_005b_002d_002dbranch_003d_0040var_007bbranchname_007d_005d-_005b_002d_002d_005bno_002d_005dupdate_005d-156"></a><dd>This command puts <var>rev</var> on the branch <var>branchname</var> (defaults
+to the workspace branch).
+
+     <p>This command is a synonym for <samp><span class="command">mtn cert </span><var>rev</var><span class="command"> branch
+</span><var>branchname</var></samp>.
+
+     <p>See <a href="_002d_002dupdate.html#g_t_002d_002dupdate">&ndash;update</a>.
+
+     <p><a name="mtn-comment"></a><br><dt><samp><span class="command">mtn comment </span><var>rev</var><span class="command"> [</span><var>comment</var><span class="command">]</span></samp><a name="index-mtn-comment-_0040var_007brev_007d-_005b_0040var_007bcomment_007d_005d-157"></a><dd>
+This adds a new comment to a committed revision.  If <var>comment</var> is
+not provided, it is obtained from the Lua hook
+<code><a href="edit_005fcomment.html#edit_005fcomment">edit_comment</a></code>; the hook is passed an empty string.
+
+     <p>This command is a synonym for <samp><span class="command">mtn cert </span><var>rev</var><span class="command"> comment
+</span><var>comment</var></samp>.
+
+     <br><dt><samp><span class="command">mtn disapprove [--[no-]update] [</span><var>parent</var><span class="command">] </span><var>child</var></samp><a name="index-mtn-disapprove-_005b_002d_002d_005bno_002d_005dupdate_005d-_005b_0040var_007bparent_007d_005d-_0040var_007bchild_007d-158"></a><dd>See online help for more options; see <a href="Common-Options.html#Common-Options">Common Options</a>. See <a href="_002d_002dupdate.html#g_t_002d_002dupdate">&ndash;update</a>.
+
+     <p>This command records a disapproval of the changes between <var>parent</var>'s
+ancestor and <var>child</var>.  If <var>parent</var> is omitted, only <var>child</var>
+is disapproved.  The command does the disapproval by committing
+the <i>inverse</i> changes as a new revision descending from <var>child</var>.
+
+     <p>Conceptually, <samp><span class="command">disapprove</span></samp>'s contract is that disapprove(A) gives a
+revision B such that whenever B is merged with a descendant D of A the merge
+will result in what D &ldquo;would have looked like&rdquo; if A had never happened.
+
+     <p>Note that as a consequence of this contract the <samp><span class="command">disapprove</span></samp>
+command only works if all changesets from <var>parent</var> to <var>child</var>
+have exactly one ancestor (that is, none are the result of a merge),
+since it hasn't been worked out how to generate such a descendant in
+the multi-ancestor case.
+
+     <p><a name="mtn-suspend"></a><br><dt><samp><span class="command">mtn suspend [--[no-]update] [--branch </span><var>branchname</var><span class="command">] </span><var>rev</var></samp><a name="index-mtn-suspend-_005b_002d_002d_005bno_002d_005dupdate_005d-_005b_002d_002dbranch-_0040var_007bbranchname_007d_005d-_0040var_007brev_007d-159"></a><dd>See <a href="_002d_002dupdate.html#g_t_002d_002dupdate">&ndash;update</a>.
+
+     <p>This makes <var>rev</var> invisible as a head of branch <var>branchname</var>
+(defaults to the current workspace branch).  Any operation that looks
+for heads will not count <var>rev</var>; this includes <samp><span class="command"><a href="mtn-list-branches.html#mtn-list-branches">mtn list branches</a></span></samp> as well as <samp><span class="command"><a href="mtn-merge.html#mtn-merge">mtn merge</a></span></samp> etc.
+
+     <p>If <var>rev</var> is not a head, <samp><span class="command">suspend</span></samp> has no effect.
+
+     <p><samp><span class="command">suspend</span></samp> is not inherited; if a new revision is committed as
+the child of a <samp><span class="command">suspend</span></samp>ed revision, the new revision will be
+visible as a head.
+
+     <p>This command is a synonym for <samp><span class="command">mtn cert </span><var>rev</var><span class="command"> suspend
+</span><var>branchname</var></samp>.
+
+     <br><dt><samp><span class="command">mtn tag </span><var>rev</var> <var>tagname</var></samp><a name="index-mtn-tag-_0040var_007brev_007d-_0040var_007btagname_007d-160"></a><dd>This command associates the symbolic name <var>tagname</var> with the
+revision <var>rev</var>, so that symbolic name can later be used in
+<a href="Selectors.html#Selectors">Selectors</a> for specifying revisions.
+
+     <p>This command is a synonym for <samp><span class="command">mtn cert </span><var>rev</var><span class="command"> tag
+</span><var>tagname</var></samp>.
+
+     <br><dt><samp><span class="command">mtn testresult </span><var>rev</var><span class="command"> {pass | fail | true | false | yes | no | 1 | 0}</span></samp><a name="index-mtn-testresult-_0040var_007brev_007d-_0040_007bpass-_007c-fail-_007c-true-_007c-false-_007c-yes-_007c-no-_007c-1-_007c-0_0040_007d-161"></a><dd>This command adds a <samp><span class="option">testresult</span></samp> certificate to <var>rev</var>, with
+a value of 0 or 1. <samp><span class="option">pass</span></samp>, <samp><span class="option">true</span></samp>, <samp><span class="option">yes</span></samp> give a
+value of 1; <samp><span class="option">fail</span></samp>, <samp><span class="option">false</span></samp>, <samp><span class="option">no</span></samp> give a value of
+0. See <a href="Quality-Assurance.html#Quality-Assurance">Quality Assurance</a>.
+
+</dl>
+
+</body></html>
+

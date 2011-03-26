@@ -1,0 +1,111 @@
+<html lang="en">
+<head>
+<title>Formats - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="prev" href="Command-Reference.html#Command-Reference" title="Command Reference">
+<link rel="next" href="Lua-Reference.html#Lua-Reference" title="Lua Reference">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Formats"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Lua-Reference.html#Lua-Reference">Lua Reference</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Command-Reference.html#Command-Reference">Command Reference</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
+<hr>
+</div>
+
+<h2 class="chapter">5 Formats</h2>
+
+<p>Monotone uses three formats to output or to accept input of
+data (mostly structured), <code>basic_io</code>, <code>stdio</code>, and <code>packet</code>. 
+<code>basic_io</code> is often used to represent data or for configuration,
+while <code>stdio</code> is used for communication with <code>automate stdio</code>.
+
+<p>The <code>stdio</code> format is not described here.  For information on it,
+see <samp><span class="command"><a href="mtn-automate-stdio.html#mtn-automate-stdio">mtn automate stdio</a></span></samp>.
+
+<p>The <code>packet</code> format is not described here; see <a href="Packet-I_002fO.html#Packet-I_002fO">Packet I/O</a>. 
+For examples, see <samp><span class="command"><a href="mtn-automate-packet_005ffor_005ffdelta.html#mtn-automate-packet_005ffor_005ffdelta">mtn automate packet_for_fdelta</a></span></samp>, <samp><span class="command"><a href="mtn-automate-packet_005ffor_005ffdata.html#mtn-automate-packet_005ffor_005ffdata">mtn automate packet_for_fdata</a></span></samp>.
+
+<h3 class="section">5.1 <code>basic_io</code> Format</h3>
+
+<p><code>basic_io</code> is a very simple format, yet expressive, and can be
+described with the following ABNF (see RFC 2234) specification:
+
+<pre class="display"><pre class="verbatim">basic_io = *( item )
+
+    item = *sp symbol *sp *( string / hexid ) *sp
+           ; a symbol followed by zero or more strings and/or hexes.
+
+  symbol = 1*( lcalpha / "_" )
+           ; One or more letters or underscores.
+  string = DQUOTE *( charnqnb / "\" "\" / "\" DQUOTE ) DQUOTE
+           ; A series of any character, enclosed with double quotes
+           ; To include a double quote or a backslash in the string,
+           ; escape it with a backslash.
+   hexid = "[" 40HEXDIG "]"
+           ; 40 hexadecimal characters enclosed in brackets.
+           ; Note: the amount might change as we move away from sha1.
+
+      sp = ( WSP CR LF )
+charnqnb = %x01-21 / %x23-5B / %x5D-FF
+           ; All characters except NUL (%x00) , " (%x22) and \ (%x5C).
+ lcalpha = %x61-7A
+           ; Lower case a-z.
+</pre>
+</pre>
+<p>In essence, it's a stream of items, where each item is a <code>symbol</code>
+followed by zero or more <code>string</code>s and <code>hex</code>es.
+
+<p>There is an idea of stanzas, which is a group of items that logically
+belongs together.  However, stanzas aren't defined in the
+<code>basic_io</code> syntax, and are instead defined in terms of order and
+sequence for what symbols may be part of the stream, how they may
+appear, and how many and what arguments should follow them.  This is
+defined by each command or program using this format.
+
+<p>For example, revisions have associated data; the structure is header
+stanzas followed by a list of changes vs. each parent revision, with
+each change represented by a separate stanza; reordering the stanzas
+could cause a particular change to be interpreted against the wrong
+parent.
+
+<p>Another example is the <samp><span class="file">read-permissions</span></samp> file that's read by the
+default definition of the <a href="get_005fnetsync_005fread_005fpermitted.html#get_005fnetsync_005fread_005fpermitted">get_netsync_read_permitted</a> Lua hook.
+
+<p>Monotone will format its output in <code>basic_io</code> as follows:
+     <ul>
+<li>Each <code>symbol</code> begins a new line. 
+<li>Tokens on the same line are separated by a single space. 
+<li>Lines are grouped into logical <code>stanza</code>s, separated by a single empty line. 
+Each stanza then describes a particular item, with the different lines
+(<code>symbol</code>s followed by <code>string</code> and <code>hex</code> values) describing
+different aspects of that item. 
+<li><code>symbol</code>s in a stanza are right-aligned with each other; each <code>symbol</code>
+other than the longest is preceeded by spaces. The longest <code>symbol</code> in a
+stanza is not preceeded by spaces, even if there are longer <code>symbol</code>s in
+other stanzas. 
+<li>Lines within stanzas have a consistent order, although some may be
+optional in some commands. 
+</ul>
+
+</body></html>
+

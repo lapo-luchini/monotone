@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Workspace Collisions - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -21,6 +21,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -34,28 +35,20 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advan
 
 <h3 class="section">3.7 Workspace Collisions</h3>
 
-<p>Sometimes when you work on a project, several people make similar
-changes in parallel.  When these changes occur in an existing file that
-is known to both sides, monotone can merge the edits when the two
-revisions meet (possibly after getting help to resolve content
-conflicts).  Other kinds of changes cannot be merged so readily,
-especially ones that involve files in your workspace that are not
-tracked by monotone.
-
 <p>Workspace collisions can happen for many reasons; some examples include:
      <ul>
 <li>You have a file in your workspace that is unknown to monotone (you
 have not <samp><span class="command">add</span></samp>ed it).  Someone else has <samp><span class="command">add</span></samp>ed and
-<samp><span class="command">commit</span></samp>ed a different file with the same name.  If you try to
-<samp><span class="command">update</span></samp> your workspace to their revision, the added file in the
-incoming revision will collide with your file over use of the name. 
+<samp><span class="command">commit</span></samp>ed a file with the same name.  If you try to
+<samp><span class="command">update</span></samp> your workspace to their revision, the added file in
+the incoming revision will collide with your file. 
 <li>There is a directory which contains both versioned and unversioned files
 (perhaps versioned sources, and unversioned object files built from the
 sources).  Someone else <samp><span class="command">commit</span></samp>s a revision that
 <samp><span class="command">drop</span></samp>s the versioned files <em>and</em> the containing
 directory.  If you try to <samp><span class="command">update</span></samp> to this revision, your
-directory will still contain the untracked files, and therefore cannot
-be deleted. 
+directory will still contain the untracked files, and monotone will
+not delete them. 
 <li>You have an unversioned file in your workspace, and you're trying to
 <samp><span class="command">update</span></samp> to a revision that <samp><span class="command">add</span></samp>s a directory with the
 same name. 
@@ -64,18 +57,20 @@ same name.
 <p>These examples describe collisions on <samp><span class="command">update</span></samp>; the same kinds
 of things can happen with other commands that can bring changes into
 your workspace, such as <samp><span class="command">checkout</span></samp>, <samp><span class="command">pivot_root</span></samp> or
-<samp><span class="command">pluck</span></samp> too.
+<samp><span class="command">pluck</span></samp>.
 
-<p>Monotone is careful to avoid hitting such collisions. Before changing
-the workspace, it will try and detect the possibility of collisions, and
-the command will fail, warning you about the names that collide.  The
-file content in the database is safe and can be recovered at any time,
-so monotone is conservative and will refuse to destroy the information
-in your workspace contents. Furthermore, all workspace-changing commands have
-an option <samp><span class="option">--move-conflicting-paths</span></samp>, which moves unversioned, but
-conflicting files and directories from the workspace into a new subdirectory
-under _MTN/resolutions. This is useful if you want to ensure that an update
-always succeeds and you just want to move blocking paths out of the way.
+<p>In order to handle such collisions safely, before changing the
+workspace, monotone will detect them, and the command will fail with a
+warning.  The file content in the database is safe and can be
+recovered at any time, so monotone is conservative and will refuse to
+destroy the information in your workspace contents.
+
+<p>In addition, all workspace-changing commands have an option
+<samp><span class="option">--move-conflicting-paths</span></samp>, which moves unversioned but
+conflicting files and directories from the workspace into a
+corresponding directory under <samp><span class="file">_MTN/resolutions</span></samp>. This is useful
+if you want to ensure that an update always succeeds and you just want
+to move blocking paths out of the way.
 
 <p>However, monotone cannot detect all kinds of failures and collisions in
 your workspace. For example:
@@ -103,12 +98,12 @@ monotone manipulates the workspace is helpful.
 first <dfn>detached</dfn> from the workspace under its old name, then
 <dfn>attached</dfn> under the new name. This is done by moving it to the
 <samp><span class="file">_MTN/detached</span></samp> directory. Newly added files are created here
-before being moved into place, too.  While inside <samp><span class="file">_MTN/detached</span></samp>,
-the file or directory is named as a simple integer (these numbers come
-from monotone's internal identification of the node).  If the detached
-node is a directory, the directory is moved with all of its contents
-(including unversioned files); this can help identify which directory
-has been detached.
+before being moved into place, too.  While inside
+<samp><span class="file">_MTN/detached</span></samp>, the file or directory is named as a simple
+integer (monotone's internal identification of the file node).  If the
+detached node is a directory, the directory is moved with all of its
+contents (including unversioned files); this can help identify which
+directory has been detached.
 
 <p>If a previous workspace alteration failed part-way, the
 <samp><span class="file">_MTN/detached</span></samp> directory will still exist, and monotone will

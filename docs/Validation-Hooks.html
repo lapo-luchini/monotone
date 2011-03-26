@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+<title>Validation Hooks - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="GIT-Export-Hooks.html#GIT-Export-Hooks" title="GIT Export Hooks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Validation-Hooks"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="GIT-Export-Hooks.html#GIT-Export-Hooks">GIT Export Hooks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.12 Validation Hooks</h4>
+
+<p>If there is a policy decision to make, Monotone defines certain hooks to
+allow a client to validate or reject certain behaviors.
+
+     <dl>
+<dt><code>validate_changes (</code><var>revision_text</var><code>, </code><var>branchname</var><code>)</code><a name="index-validate_005fchanges-_0028_0040var_007brevision_005ftext_007d_002c-_0040var_007bbranchname_007d_0029-313"></a><dd>
+This hook is called by <samp><span class="command"><a href="mtn-commit.html#mtn-commit">mtn commit</a></span></samp> just after the
+to-be-committed changes and the branch have been logically verified
+and before the user enters his/her commit message. 
+<var>revision_text</var> is the full text of the changes for this revision,
+which can be parsed with the <code><a href="parse_005fbasic_005fio.html#parse_005fbasic_005fio">parse_basic_io</a></code> function. The
+second parameter, <var>branchname</var>, is the branch for this commit -
+unless it gets changed in <code><a href="edit_005fcomment.html#edit_005fcomment">edit_comment</a></code> later on.
+
+     <p>If the hook finds the changes satisfactory, it should return
+<code>true, ""</code>. If it finds fault, then it should return <code>false,
+reason</code> where <var>reason</var> is a string containing the reason the
+changes were rejected. By default, this hook is not defined and acts
+as if it returned <code>true, ""</code>.
+
+     <br><dt><code>validate_commit_message (</code><var>message</var><code>, </code><var>revision_text</var><code>, </code><var>branchname</var><code>)</code><a name="index-validate_005fcommit_005fmessage-_0028_0040var_007bmessage_007d_002c-_0040var_007brevision_005ftext_007d_002c-_0040var_007bbranchname_007d_0029-314"></a><dd>
+This hook is called by <samp><span class="command"><a href="mtn-commit.html#mtn-commit">mtn commit</a></span></samp> after
+<code><a href="edit_005fcomment.html#edit_005fcomment">edit_comment</a></code>.  <var>message</var> is the result of
+<code>edit_comment</code> and <var>revision_text</var> is the full text of the
+changes for this revision, which can be parsed with the
+<code><a href="parse_005fbasic_005fio.html#parse_005fbasic_005fio">parse_basic_io</a></code> function.  <var>branchname</var> is parsed from
+the result of <code>edit_comment</code>.
+
+     <p>If the hook finds the commit message satisfactory, it should return
+<code>true, ""</code>. If it finds fault, then it should return <code>false,
+reason</code> where <var>reason</var> is a string containing the reason the
+message was rejected. By default, this hook is not defined and acts as
+if it returned <code>true, ""</code>.
+
+</dl>
+
+</body></html>
+

@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Creating a Database - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -21,6 +21,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -55,23 +56,24 @@ them each name their database after themselves.
 
 <pre class="smallexample">$ mtn db init --db=~/abe.mtn
 </pre>
-<p>Beth decides to use monotone's built-in database management functionality. 
-monotone then expects to find managed database files in a couple of predefined
-places (like f.e. <samp><span class="file">~/.monotone/databases</span></samp> on Unix and
-<samp><span class="file">%APPDATA%\monotone\databases</span></samp> on Windows, this is customizable) and acts
-upon those by knowing only their file or basename from anywhere.
+<p>Beth decides to use monotone's built-in database management
+functionality.  monotone then expects to find managed database files
+in a list of directories (default <samp><span class="file">$HOME/.monotone/databases</span></samp> on
+Unix and <samp><span class="file">%APPDATA%\monotone\databases</span></samp> on Windows, see
+<a href="Managed-Databases.html#Managed-Databases">Managed Databases</a> for more info) and acts upon those by knowing
+only their file or basename.
 
 <p>To create a new managed database, Beth issues the <samp><span class="command">mtn db init</span></samp> command
 like this:
 
 <pre class="smallexample">$ mtn db init --db=:beth
 </pre>
-<p>Beth can distinguish a managed database name from an unmanaged one by the
-leading colon in its name.  This special alias can now be used interchangeably
-in every monotone invocation. 
-If Beth wants to see where monotone actually created the database and what
-other databases monotone knows of, she uses the <samp><span class="command">mtn list databases</span></samp>
-command (or <samp><span class="command">mtn ls dbs</span></samp>) for that.  We'll come back to this in a bit.
+<p>Beth can distinguish a managed database name from an unmanaged one by
+the leading colon in its name.  This special alias can now be used
+interchangeably in every monotone invocation.  If Beth wants to see
+where monotone actually created the database and what other databases
+monotone knows of, she uses the <samp><span class="command"><a href="mtn-list-databases.html#mtn-list-databases">mtn list databases</a></span></samp> command
+(or <samp><span class="command">mtn ls dbs</span></samp>) for that.  We'll come back to this in a bit.
 
 </body></html>
 

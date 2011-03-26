@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+<title>Common Data Types - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="Hooks.html#Hooks" title="Hooks">
+<link rel="next" href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" title="Event Notifications and Triggers">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Common-Data-Types"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers">Event Notifications and Triggers</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Hooks.html#Hooks">Hooks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.1 Common Data Types</h4>
+
+<p>Some hooks take arguments which are more complex than a simple string
+or number (they are a Lua &ldquo;table&rdquo;).  Where multiple hooks take the
+same kind of argument, we generally try to make them take that kind of
+argument in the same format, described here.
+
+     <dl>
+<a name="key_005fidentity"></a><dt><code>key_identity</code><a name="index-key_005fidentity-265"></a><dd>
+     <pre class="smallexample">     {
+        id = "key hash/fingerprint, in hex",
+        given_name = "name given when creating the key",
+        name = "local alias of the key"
+     }
+</pre>
+     <p>When a key is created, it is given a meaningful name. Because this is chosen by
+the key creator and may be unreliable, trust hooks need to be able to look at
+the key hash as well. This may be inconvenient, so a local alias is also provided. 
+This alias is obtained from a Lua hook, which can provide reliable easy-to-use
+names based on the key hash (or however else you want).
+
+</dl>
+
+</body></html>
+

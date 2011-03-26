@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+<title>Common Options - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Global-and-Common-Options.html#Global-and-Common-Options" title="Global and Common Options">
+<link rel="prev" href="Global-Options.html#Global-Options" title="Global Options">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Common-Options"></a>
+<p>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Global-Options.html#Global-Options">Global Options</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Global-and-Common-Options.html#Global-and-Common-Options">Global and Common Options</a>
+<hr>
+</div>
+
+<h4 class="subsection">4.1.2 Common Options</h4>
+
+<p>These options are available on many commands.
+     <dl>
+<a name="g_t_002d_002dauthor"></a><dt><samp><span class="command">--author</span></samp><a name="index-g_t_002d_002dauthor-33"></a><dd>Override the author cert for a commit; normally, the author is the
+local name of the key used for the commit. See
+<code><a href="get_005fauthor.html#get_005fauthor">get_author</a></code>, <samp><span class="option"><a href="_002d_002dkey.html#g_t_002d_002dkey">--key</a></span></samp>,
+<code><a href="get_005flocal_005fkey_005fname.html#get_005flocal_005fkey_005fname">get_local_key_name</a></code>.
+
+     <p><a name="g_t_002d_002dbranch"></a><br><dt><samp><span class="command">--branch</span></samp><a name="index-g_t_002d_002dbranch-34"></a><dd>Specify the branch for a command. This normally defaults to the
+workspace branch.
+
+     <p><a name="g_t_002d_002ddate"></a><br><dt><samp><span class="command">--date</span></samp><a name="index-g_t_002d_002ddate-35"></a><dd>Override the date cert for a commit. The date defaults to the current
+calendar time.
+
+     <p><a name="g_t_002d_002dmessage"></a><br><dt><samp><span class="command">--message </span><var>string</var></samp><a name="index-g_t_002d_002dmessage-_0040var_007bstring_007d-36"></a><dd>Set the commit changelog message, as a string. Each command that does
+a commit has a different default for the message.
+
+     <p><a name="g_t_002d_002dmessage_002dfile"></a><br><dt><samp><span class="command">--message-file </span><var>filename</var></samp><a name="index-g_t_002d_002dmessage_002dfile-_0040var_007bfilename_007d-37"></a><dd>Set the commit changelog message, as a file. Each command that does
+a commit has a different default for the message.
+
+     <p><a name="g_t_002d_002dupdate"></a><br><dt><samp><span class="command">--[no-]update</span></samp><a name="index-g_t_002d_002d_005bno_002d_005dupdate-38"></a><dd>If <samp><span class="option">--update</span></samp> is given, and the command is executed in a
+workspace, the workspace is updated to the new head of the workspace
+branch if the workspace was at a head, and the command makes a new
+head of the workspace branch.
+
+</dl>
+
+</body></html>
+

@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+<title>External Diff Tools - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks" title="Trust Evaluation Hooks">
+<link rel="next" href="External-Merge-Tools.html#External-Merge-Tools" title="External Merge Tools">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="External-Diff-Tools"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="External-Merge-Tools.html#External-Merge-Tools">External Merge Tools</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks">Trust Evaluation Hooks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.7 External Diff Tools</h4>
+
+<p>Differences between files can be shown in a number of ways, varying
+according to user preference and file type. These hooks allow
+customization of the way file differences are shown in <samp><span class="command">diff</span></samp>
+and <samp><span class="command">log</span></samp> commands.
+
+     <dl>
+<a name="get_005fencloser_005fpattern"></a><dt><code>get_encloser_pattern (</code><var>file_path</var><code>)</code><a name="index-get_005fencloser_005fpattern-_0028_0040var_007bfile_005fpath_007d_0029-303"></a><dd>
+Called by <samp><span class="command"><a href="mtn-diff.html#mtn-diff">mtn diff</a></span></samp>, <samp><span class="command"><a href="mtn-automate-content_005fdiff.html#mtn-automate-content_005fdiff">mtn automate content_diff</a></span></samp>, <samp><span class="command"><a href="mtn-log.html#mtn-log">mtn log</a></span></samp>, <samp><span class="command"><a href="mtn-automate-log.html#mtn-automate-log">mtn automate log</a></span></samp>, for each file in the diff output, if
+<samp><span class="option">--no-show-encloser</span></samp> is not given.
+
+     <p><var>file_path</var> is the pathname of the file that is being diffed.
+
+     <p>The hook should return a string constant containing a regular
+expression; this regular expression will be used to find lines in the
+file that name the &ldquo;top-level&rdquo; constructs enclosing each &ldquo;hunk&rdquo; of
+changes.
+
+     <p>If a null string is returned, no enclosers are shown.
+
+     <p>See <a href="Regexps.html#Regexps">Regexps</a>, for the regular expression syntax used by monotone.
+
+     <p>The default hook treats looks at the file extension, as follows:
+
+          <dl>
+<dt><samp><span class="file">.texi</span></samp><dd>Returns a regular expression matching nodes, subsections, headings.
+
+          <br><dt><samp><span class="file">.tex</span></samp><dt><samp><span class="file">.ltx</span></samp><dt><samp><span class="file">.latex</span></samp><dd>Returns a regular expression matching part, chapter, [sub]sections, paragraphs.
+
+          <br><dt><samp><span class="file">.txt</span></samp><dd>Empty string.
+
+          <br><dt><samp></samp><dd>Otherwise returns <code>^[[:alnum:]$_]</code>, which is correct for
+many programming languages. 
+</dl>
+
+     <p><a name="external_005fdiff"></a><br><dt><code>external_diff (</code><var>file_path</var><code>, </code><var>old_data</var><code>, </code><var>new_data</var><code>, </code><var>is_binary</var><code>, </code><var>diff_args</var><code>, </code><var>old_rev</var><code>, </code><var>new_rev</var><code>)</code><a name="index-external_005fdiff-_0028_0040var_007bfile_005fpath_007d_002c-_0040var_007bold_005fdata_007d_002c-_0040var_007bnew_005fdata_007d_002c-_0040var_007bis_005fbinary_007d_002c-_0040var_007bdiff_005fargs_007d_002c-_0040var_007bold_005frev_007d_002c-_0040var_007bnew_005frev_007d_0029-304"></a><dd>
+Called by <samp><span class="command"><a href="mtn-diff.html#mtn-diff">mtn diff</a></span></samp>, <samp><span class="command"><a href="mtn-automate-content_005fdiff.html#mtn-automate-content_005fdiff">mtn automate content_diff</a></span></samp>, <samp><span class="command"><a href="mtn-log.html#mtn-log">mtn log</a></span></samp>, <samp><span class="command"><a href="mtn-automate-log.html#mtn-automate-log">mtn automate log</a></span></samp>, for each file in the diff output, if <samp><span class="option">--external</span></samp> is
+given.
+
+     <p>The hook should run a program that displays the differences between
+two versions of a file. The return value of the hook is not used.
+
+     <p><var>file_path</var> is the pathname of the file that is being diffed.
+
+     <p><var>old_data</var> and <var>new_data</var> are the contents of the old and the
+new file (<var>old_data</var> is nil if the file is new).  If the content
+is binary, <var>is_binary</var> will be true, otherwise false. 
+<var>old_rev</var> and <var>new_rev</var> are the revision IDs of the old and
+new data.
+
+     <p>If an extra arguments are given via <samp><span class="option">--diff-args</span></samp>, the string
+will be passed in as <var>diff_args</var>.  Otherwise <var>diff_args</var> will
+be nil.
+
+     <p>The default implementation of this hook calls the program <samp><span class="command">diff</span></samp>,
+and if <samp><span class="option">--diff-args</span></samp> were not passed, takes default arguments
+from the Lua variable <code>external_diff_default_args</code>.  You can
+override this variable in your configuration file, without overriding
+the whole hook.
+
+</dl>
+
+</body></html>
+

@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Implementation Differences - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -20,6 +20,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -36,7 +37,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Lua-Reference.html#Lua-Reference">Lua R
 Lua libraries.
 
      <dl>
-<dt><code>print, io.write</code><a name="index-print_002c-io_002ewrite-316"></a><dd>
+<dt><code>print, io.write</code><a name="index-print_002c-io_002ewrite-341"></a><dd>
 Both functions are overwritten to print to standard error (instead of
 standard output), formatted as monotone progress message with the prefix
 "lua:" in front of every line.
@@ -47,10 +48,10 @@ monotone's user interface. This allows them to be logged just as other
 progress messages, and prevents unexpected out-of-band output in the
 <a href="Automation.html#Automation">Automation</a> interface.
 
-     <p>If you explicitely need to write to either stdout or stderr, please use
+     <p>If you explicitly need to write to either stdout or stderr, please use
 <code>io.stdout:write</code> and <code>io.stderr.write</code>.
 
-     <br><dt><code>os.execute, io.popen</code><a name="index-os_002eexecute_002c-io_002epopen-317"></a><dd>
+     <br><dt><code>os.execute, io.popen</code><a name="index-os_002eexecute_002c-io_002epopen-342"></a><dd>
 Both functions have been disabled for security reasons. You should use
 their replacements <code>spawn</code> and <code>spawn_pipe</code>.
 

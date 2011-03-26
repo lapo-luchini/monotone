@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Network Service Revisited - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -20,6 +20,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -120,13 +121,14 @@ mtn: read 3 packets
 </pre>
 <p>For the team members, he sets up the permissions files on the server
 much like before &mdash; except that of course he needs to also grant his
-<code>jim@juicebot.co.jp</code> key permission to access the new server.  For
-the beta-testers, Jim wants to allow them read-only access just to the
-main JuiceBot 7 development line, but not to any of the sub-branches
-where other experimental development is going on. He adds some lines at
-the top of the <samp><span class="file">~/.monotone/read-permissions</span></samp> on the server, above
-the broader permissions given to team-members. See the <a href="Lua-Reference.html#Lua-Reference">Lua Reference</a> for <code>get_netsync_read_permitted</code> for more details; the
-resulting file looks like this:
+<code>jim@juicebot.co.jp</code> key permission to access the new server. 
+For the beta-testers, Jim wants to allow them read-only access just to
+the main JuiceBot 7 development line, but not to any of the
+sub-branches where other experimental development is going on. He adds
+some lines at the top of the <samp><span class="file">~/.monotone/read-permissions</span></samp> on
+the server, above the broader permissions given to team-members. See
+<a href="get_005fnetsync_005fread_005fpermitted.html#get_005fnetsync_005fread_005fpermitted">get_netsync_read_permitted</a> for more details; the resulting file
+looks like this:
 
 <pre class="smallexample">comment "Provide beta-testers with specific read-only access"
 pattern "jp.co.juicebot.jb7"
@@ -180,12 +182,12 @@ history currently on his laptop. While Jim has been busy setting up the
 server, Abe and Beth have kept working; the server will catch up with
 their latest changes when they next sync, too.
 
-<p>All of the team members now want to sync with the new monotone server by
-default.  Previously, they had been syncing with Jim's laptop by
+<p>All of the team members now want to sync with the new monotone server
+by default.  Previously, they had been syncing with Jim's laptop by
 default, even if they occasionally specified another team-member's
 server on the command line when Jim was away, because monotone had
-remembered the first server and branch patterns used in database
-<a href="Vars.html#Vars">Vars</a>.  These vars can be seen as follows:
+remembered the first server and branch patterns used in database vars
+(see <a href="Vars.html#Vars">Vars</a>).  These vars can be seen as follows:
 
 <pre class="smallexample">$ mtn list vars
 database: default-exclude-pattern

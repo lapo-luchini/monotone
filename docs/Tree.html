@@ -1,12 +1,12 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Tree - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
 <meta name="generator" content="makeinfo 4.13">
 <link title="Top" rel="start" href="index.html#Top">
 <link rel="up" href="Command-Reference.html#Command-Reference" title="Command Reference">
-<link rel="prev" href="Command-Reference.html#Command-Reference" title="Command Reference">
+<link rel="prev" href="Global-and-Common-Options.html#Global-and-Common-Options" title="Global and Common Options">
 <link rel="next" href="Workspace.html#Workspace" title="Workspace">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <meta http-equiv="Content-Style-Type" content="text/css">
@@ -21,37 +21,30 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
 <a name="Tree"></a>
 <p>
 Next:&nbsp;<a rel="next" accesskey="n" href="Workspace.html#Workspace">Workspace</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Command-Reference.html#Command-Reference">Command Reference</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Global-and-Common-Options.html#Global-and-Common-Options">Global and Common Options</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference.html#Command-Reference">Command Reference</a>
 <hr>
 </div>
 
-<h3 class="section">5.1 Tree</h3>
+<h3 class="section">4.2 Tree</h3>
 
      <dl>
-<dt><samp><span class="command">mtn cat </span><var>path</var></samp><a name="index-mtn-cat-_0040var_007bpath_007d-1"></a><dt><samp><span class="command">mtn cat --revision=</span><var>id</var> <var>path</var></samp><a name="index-mtn-cat-_002d_002drevision_003d_0040var_007bid_007d-_0040var_007bpath_007d-2"></a><dd>
-Write the contents of a specific file <var>path</var> to standard output.
+<a name="mtn-checkout"></a><dt><samp><span class="command">mtn checkout [--[no-]move-conflicting-paths] --revision=</span><var>id</var> <var>directory</var></samp><a name="index-mtn-checkout-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003d_0040var_007bid_007d-_0040var_007bdirectory_007d-39"></a><dt><samp><span class="command">mtn checkout [--[no-]move-conflicting-paths] --branch=</span><var>branchname</var> <var>directory</var></samp><a name="index-mtn-checkout-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002dbranch_003d_0040var_007bbranchname_007d-_0040var_007bdirectory_007d-40"></a><dt><samp><span class="command">mtn co</span></samp><a name="index-mtn-co-41"></a><dd><samp><span class="command">co</span></samp> is an alias for <samp><span class="command">checkout</span></samp>
 
-     <p>Without a <samp><span class="option">--revision</span></samp> argument, the command outputs the
-contents of <var>path</var> as found in the current revision. This requires
-the command be executed from within a workspace.
-
-     <p>With an explicit <samp><span class="option">--revision</span></samp> argument, the command outputs
-contents of <var>path</var> at that revision.
-
-     <br><dt><samp><span class="command">mtn checkout [--[no-]move-conflicting-paths] --revision=</span><var>id</var> <var>directory</var></samp><a name="index-mtn-checkout-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003d_0040var_007bid_007d-_0040var_007bdirectory_007d-3"></a><dt><samp><span class="command">mtn co [--[no-]move-conflicting-paths] --revision=</span><var>id</var> <var>directory</var></samp><a name="index-mtn-co-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003d_0040var_007bid_007d-_0040var_007bdirectory_007d-4"></a><dt><samp><span class="command">mtn [--[no-]move-conflicting-paths] --branch=</span><var>branchname</var><span class="command"> checkout </span><var>directory</var></samp><a name="index-mtn-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002dbranch_003d_0040var_007bbranchname_007d-checkout-_0040var_007bdirectory_007d-5"></a><dt><samp><span class="command">mtn [--[no-]move-conflicting-paths] --branch=</span><var>branchname</var><span class="command"> co </span><var>directory</var></samp><a name="index-mtn-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002dbranch_003d_0040var_007bbranchname_007d-co-_0040var_007bdirectory_007d-6"></a><dd>
-These commands copy a revision <var>id</var> out of your database,
+     <p>These commands copy a revision <var>id</var> out of your database,
 recording the chosen revision (the <dfn>base revision</dfn>) in the file
 <samp><var>directory</var><span class="file">/_MTN/revision</span></samp>. These commands then copy every
 file version listed in the revision's manifest to paths under
-<var>directory</var>. For example, if the revision's manifest contains
-these entries:
+<var>directory</var>.
+
+     <p>For example, if the revision's manifest contains these entries:
 
      <pre class="smallexample">     dir ""
      
@@ -80,40 +73,22 @@ occur.
 <em>must</em> provide a <var>branchname</var>; monotone will attempt to infer
 <var>id</var> as the unique head of <var>branchname</var> if it exists.
 
-     <br><dt><samp><span class="command">mtn clone </span><var>uri</var><span class="command"> [--branch=</span><var>branchname</var><span class="command">] [</span><var>directory</var><span class="command">]</span></samp><a name="index-mtn-clone-_0040var_007buri_007d-_005b_002d_002dbranch_003d_0040var_007bbranchname_007d_005d-_005b_0040var_007bdirectory_007d_005d-7"></a><br><dt><samp><span class="command">mtn clone </span><var>address</var><span class="command">[:</span><var>port</var><span class="command">] </span><var>branchname</var><span class="command"> [</span><var>directory</var><span class="command">]</span></samp><a name="index-mtn-clone-_0040var_007baddress_007d_005b_003a_0040var_007bport_007d_005d-_0040var_007bbranchname_007d-_005b_0040var_007bdirectory_007d_005d-8"></a><dd>
-The clone command is a helper command that performs the roles of a
-number of other commands all at once.  Firstly, it constructs a new
-database. If no database is given, the configured default
-database is created or re-used (see the hook <code>get_default_database_alias</code>
-in the <a href="Lua-Reference.html#Lua-Reference">Lua Reference</a> for more details). Then it populates this database
-by <samp><span class="command">pull</span></samp>ing any data which match the branch pattern in the <var>uri</var>
-or the given <var>branchname</var> argument from the remote database. 
-Finally, it copies the files out of the newly created database into a
-local directory, just as <samp><span class="command">checkout</span></samp> would.  If no <var>directory</var>
-is given, the <var>branchname</var> is used as directory.
+     <br><dt><samp><span class="command">mtn conflicts</span></samp><a name="index-mtn-conflicts-42"></a><dd>See <a href="Conflicts.html#Conflicts">Conflicts</a>
 
-     <p><strong>Important notice:</strong> The <var>address</var>[:<var>port</var>] <var>branchname</var>
-call syntax is deprecated and subject of removal in future versions of monotone!
+     <p><a name="mtn-explicit_005fmerge"></a><br><dt><samp><span class="command">mtn explicit_merge [--[no-]update] </span><var>id</var> <var>id</var> <var>destbranch</var></samp><a name="index-mtn-explicit_005fmerge-_005b_002d_002d_005bno_002d_005dupdate_005d-_0040var_007bid_007d-_0040var_007bid_007d-_0040var_007bdestbranch_007d-43"></a><dd>See the online help for options. See <a href="_002d_002dupdate.html#g_t_002d_002dupdate">&ndash;update</a>.
 
-     <br><dt><samp><span class="command">mtn disapprove [</span><var>parent</var><span class="command">] </span><var>child</var></samp><a name="index-mtn-disapprove-_005b_0040var_007bparent_007d_005d-_0040var_007bchild_007d-9"></a><dd>
-This command records a disapproval of the changes between <var>parent</var>'s
-ancestor and <var>child</var>.  If <var>parent</var> is omitted, only <var>child</var>
-is disapproved.  The command does the disapproval by committing
-the <i>inverse</i> changes as a new revision descending from <var>child</var>. 
-The new revision will show up as a new head and thus a subsequent
-<samp><span class="command">merge</span></samp> will incorporate the inverse of the disapproved changes
-in the other head(s).
+     <p>This command merges exactly the two <var>id</var>s you give it, and places
+the result in branch <var>destbranch</var>.  It is useful when you need more
+control over the merging process than <samp><span class="command">propagate</span></samp> or <samp><span class="command">merge</span></samp>
+give you.  For instance, if you have a branch with three heads, and you
+only want to merge two of them, you can use this command.  Or if you
+have a branch with two heads, and you want to propagate one of them to
+another branch, again, you can use this command.
 
-     <p>Conceptually, <samp><span class="command">disapprove</span></samp>s contract is that disapprove(A) gives a
-revision B such that whenever B is merged with a descendant D of A the merge
-will result in what D &ldquo;would have looked like&rdquo; if A had never happened.
+     <p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> can occur.
 
-     <p>Note that as a consequence of this contract the <samp><span class="command">disapprove</span></samp> command
-only works if all changesets from <var>parent</var> to <var>child</var> have exactly
-one ancestor, since it hasn't been worked out how to generate such
-a descendant in the multi-ancestor case.
-
-     <br><dt><samp><span class="command">mtn heads --branch=</span><var>branchname</var></samp><a name="index-mtn-heads-_002d_002dbranch_003d_0040var_007bbranchname_007d-10"></a><dd>This command lists the &ldquo;heads&rdquo; of <var>branchname</var>.
+     <br><dt><samp><span class="command">mtn heads [--branch=</span><var>branchname</var><span class="command">]</span></samp><a name="index-mtn-heads-_005b_002d_002dbranch_003d_0040var_007bbranchname_007d_005d-44"></a><dd>This command lists the &ldquo;heads&rdquo; of <var>branchname</var> (defaults to the
+current workspace).
 
      <p>The &ldquo;heads&rdquo; of a branch is the set of revisions which are members of
 the branch, but which have no descendants. These revisions are
@@ -122,13 +97,45 @@ colleagues, at least in terms of ancestry. The heads of a branch may
 not be the newest revisions, in terms of time, but synchronization of
 computer clocks is not reliable, so monotone usually ignores time.
 
-     <br><dt><samp><span class="command">mtn merge [--branch=</span><var>branchname</var><span class="command">]</span></samp><a name="index-mtn-merge-_005b_002d_002dbranch_003d_0040var_007bbranchname_007d_005d-11"></a><dd>This command merges the &ldquo;heads&rdquo; of <var>branchname</var>, if there are
-multiple heads, and commits the results to the database, marking the
-resulting merged revision as a member of <var>branchname</var>. The merged
-revision will contain each of the head revision IDs as ancestors.
+     <p><a name="mtn-import"></a><br><dt><samp><span class="command">mtn import --branch=</span><var>branch</var><span class="command"> [--message=</span><var>message</var><span class="command">] [--[no-]dry-run] </span><var>dir</var></samp><a name="index-mtn-import-_002d_002dbranch_003d_0040var_007bbranch_007d-_005b_002d_002dmessage_003d_0040var_007bmessage_007d_005d-_005b_002d_002d_005bno_002d_005ddry_002drun_005d-_0040var_007bdir_007d-45"></a><dt><samp><span class="command">mtn import --revision=</span><var>revision</var><span class="command"> [--message=</span><var>message</var><span class="command">] [--[no-]dry-run] </span><var>dir</var></samp><a name="index-mtn-import-_002d_002drevision_003d_0040var_007brevision_007d-_005b_002d_002dmessage_003d_0040var_007bmessage_007d_005d-_005b_002d_002d_005bno_002d_005ddry_002drun_005d-_0040var_007bdir_007d-46"></a><dd>See the online help for more options.
 
-     <p>A commit message may be provided. A message stating the revision ids
-that were merged will be prepended to any user commit message.
+     <p>This command imports the contents of the given directory and commits it
+to the head of the given branch or as a child of the given revision (and
+consequently into the branch that revision resides in).
+
+     <p>If the given branch doesn't exist, it is created automatically.  If the
+branch already exists, any missing files are dropped and any unknown
+files are added before committing.
+
+     <p>If neither <samp><span class="option">--message</span></samp> nor <samp><span class="option">--message-file</span></samp> is given,
+the Lua hook <code><a href="edit_005fcomment.html#edit_005fcomment">edit_comment</a></code> is called to provide a commit
+comment, with text formatted as in <samp><span class="command"><a href="mtn-commit.html#mtn-commit">mtn commit</a></span></samp>.
+
+     <p>If <samp><span class="option">--dry-run</span></samp> is given, no commit is done.
+
+     <p>Roughly speaking, <samp><span class="command">mtn import</span></samp> does the following:
+
+     <pre class="example">     $ mtn setup <span class="roman">(with a twist)</span>
+     $ mtn drop --missing
+     $ mtn add --unknown
+     $ mtn commit
+</pre>
+     <p>The twist with the <samp><span class="command">mtn setup</span></samp> part is that it sets the parent
+to be the given revision or the head of the given branch instead of the
+null revision.
+
+     <p><a name="mtn-merge"></a><br><dt><samp><span class="command">mtn merge [--branch=</span><var>branchname</var><span class="command">] [--message </span><var>string</var><span class="command">] [--message-file </span><var>filename</var><span class="command">] [--[no-]update]</span></samp><a name="index-mtn-merge-_005b_002d_002dbranch_003d_0040var_007bbranchname_007d_005d-_005b_002d_002dmessage-_0040var_007bstring_007d_005d-_005b_002d_002dmessage_002dfile-_0040var_007bfilename_007d_005d-_005b_002d_002d_005bno_002d_005dupdate_005d-47"></a><dd>See the online help for more options. See <a href="_002d_002dupdate.html#g_t_002d_002dupdate">&ndash;update</a>.
+
+     <p>This command merges the &ldquo;heads&rdquo; of <var>branchname</var> (default the
+branch of the current workspace), if there are multiple heads, and
+commits the results to the database, marking the resulting merged
+revision as a member of <var>branchname</var>. The merged revision will
+contain each of the head revision IDs as ancestors.
+
+     <p>A commit message may be provided via <samp><span class="option">--message </span><var>string</var></samp>
+or <samp><span class="option">--message-file </span><var>filename</var></samp>. A message stating the
+revision ids that were merged will be prepended to any user commit
+message.
 
      <p>Merging is performed by repeated pairwise merges: two heads are
 selected, then their least common ancestor is located in the ancestry
@@ -136,33 +143,9 @@ graph and these 3 revisions are provided to the built-in 3-way merge
 algorithm. The process then repeats for each additional head, using
 the result of each previous merge as an input to the next.
 
-     <br><dt><samp><span class="command">mtn propagate </span><var>sourcebranch</var> <var>destbranch</var></samp><a name="index-mtn-propagate-_0040var_007bsourcebranch_007d-_0040var_007bdestbranch_007d-12"></a><dd>This command takes a unique head from <var>sourcebranch</var> and merges it
-with a unique head of <var>destbranch</var>, using the least common
-ancestor of the two heads for a 3-way merge. The resulting revision is
-committed to <var>destbranch</var>. If
-either <var>sourcebranch</var> or <var>destbranch</var> has multiple heads,
-<samp><span class="command">propagate</span></samp> aborts, doing nothing.
+     <p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> can occur.
 
-     <p>A commit message may be provided. A message stating the source and
-target branches will be prepended to any user commit message.
-
-     <p>The purpose of <samp><span class="command">propagate</span></samp> is to copy all the changes on
-<var>sourcebranch</var>, since the last <samp><span class="command">propagate</span></samp>, to
-<var>destbranch</var>. This command supports the idea of making separate
-branches for medium-length development activities, such as
-maintenance branches for stable software releases, trivial bug fix
-branches, public contribution branches, or branches devoted to the
-development of a single module within a larger project.
-
-     <br><dt><samp><span class="command">mtn explicit_merge </span><var>id</var> <var>id</var> <var>destbranch</var></samp><a name="index-mtn-explicit_005fmerge-_0040var_007bid_007d-_0040var_007bid_007d-_0040var_007bdestbranch_007d-13"></a><dd>This command merges exactly the two <var>id</var>s you give it, and places
-the result in branch <var>destbranch</var>.  It is useful when you need more
-control over the merging process than <samp><span class="command">propagate</span></samp> or <samp><span class="command">merge</span></samp>
-give you.  For instance, if you have a branch with three heads, and you
-only want to merge two of them, you can use this command.  Or if you
-have a branch with two heads, and you want to propagate one of them to
-another branch, again, you can use this command.
-
-     <br><dt><samp><span class="command">mtn merge_into_dir </span><var>sourcebranch</var> <var>destbranch</var> <var>dir</var></samp><a name="index-mtn-merge_005finto_005fdir-_0040var_007bsourcebranch_007d-_0040var_007bdestbranch_007d-_0040var_007bdir_007d-14"></a><dd>This command takes a unique head from <var>sourcebranch</var> and merges it
+     <br><dt><samp><span class="command">mtn merge_into_dir [--[no-]update] </span><var>sourcebranch</var> <var>destbranch</var> <var>dir</var></samp><a name="index-mtn-merge_005finto_005fdir-_005b_002d_002d_005bno_002d_005dupdate_005d-_0040var_007bsourcebranch_007d-_0040var_007bdestbranch_007d-_0040var_007bdir_007d-48"></a><dd>This command takes a unique head from <var>sourcebranch</var> and merges it
 into a unique head of <var>destbranch</var>, as a directory. The resulting
 revision is committed to <var>destbranch</var>. If either <var>sourcebranch</var> or
 <var>destbranch</var> has multiple heads, <samp><span class="command">merge_into_dir</span></samp> aborts, doing
@@ -180,26 +163,67 @@ both projects nested as in <var>destbranch</var> instead of only the project
 originally in <var>sourcebranch</var>, which is almost certainly not what would be
 intended.
 
-     <br><dt><samp><span class="command">mtn import --branch=</span><var>branch</var><span class="command"> [--message=</span><var>message</var><span class="command">] [--[no-]dry-run] </span><var>dir</var></samp><a name="index-mtn-import-_002d_002dbranch_003d_0040var_007bbranch_007d-_005b_002d_002dmessage_003d_0040var_007bmessage_007d_005d-_005b_002d_002d_005bno_002d_005ddry_002drun_005d-_0040var_007bdir_007d-15"></a><br><dt><samp><span class="command">mtn import --revision=</span><var>revision</var><span class="command"> [--message=</span><var>message</var><span class="command">] [--[no-]dry-run] </span><var>dir</var></samp><a name="index-mtn-import-_002d_002drevision_003d_0040var_007brevision_007d-_005b_002d_002dmessage_003d_0040var_007bmessage_007d_005d-_005b_002d_002d_005bno_002d_005ddry_002drun_005d-_0040var_007bdir_007d-16"></a><dd>This command imports the contents of the given directory and commits it
-to the head of the given branch or as a child of the given revision (and
-consequently into the branch that revision resides in).
+     <p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> can occur. See <a href="_002d_002dupdate.html#g_t_002d_002dupdate">&ndash;update</a>.
 
-     <p>If the given branch doesn't exist, it is created automatically.  If the
-branch already exists, any missing files are dropped and any unknown
-files are added before committing.
+     <p><a name="mtn-merge_005finto_005fworkspace"></a><br><dt><samp><span class="command">mtn merge_into_workspace [--[no]-move-conflicting-paths] </span><var>revision</var></samp><a name="index-mtn-merge_005finto_005fworkspace-_005b_002d_002d_005bno_005d_002dmove_002dconflicting_002dpaths_005d-_0040var_007brevision_007d-49"></a><dd>Merges <var>revision</var> into the current workspace; the result is not
+committed to the database. There can be no pending changes in the
+current workspace. The workspace's selected branch is not
+changed.
 
-     <p>If <samp><span class="command">--dry-run</span></samp> is given, no commit is done.
+     <p>When a later commit is done, both <var>revision</var> and the workspace's
+base revision will be recorded as parents.
 
-     <p>Roughly speaking, <samp><span class="command">mtn import</span></samp> does the following:
+     <p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> and <a href="Workspace-Collisions.html#Workspace-Collisions">Workspace Collisions</a> can occur.
 
-     <pre class="example">     $ mtn setup <span class="roman">(with a twist)</span>
-     $ mtn drop --missing
-     $ mtn add --unknown
-     $ mtn commit
-</pre>
-     <p>The twist with the <samp><span class="command">mtn setup</span></samp> part is that it sets the parent
-to be the given revision or the head of the given branch instead of the
-null revision. 
+     <br><dt><samp><span class="command">mtn migrate_workspace [</span><var>directory</var><span class="command">]</span></samp><a name="index-mtn-migrate_005fworkspace-_005b_0040var_007bdirectory_007d_005d-50"></a><dd>Migrates a workspace directory's metadata to the latest format.
+
+     <p>If no directory is given, defaults to the current workspace.
+
+     <p>This may be needed when upgrading to a new version of monotone.
+
+     <br><dt><samp><span class="command">mtn propagate </span><var>sourcebranch</var> <var>destbranch</var><span class="command"> [--message </span><var>string</var><span class="command">] [--message-file </span><var>filename</var><span class="command">]</span></samp><a name="index-mtn-propagate-_0040var_007bsourcebranch_007d-_0040var_007bdestbranch_007d-_005b_002d_002dmessage-_0040var_007bstring_007d_005d-_005b_002d_002dmessage_002dfile-_0040var_007bfilename_007d_005d-51"></a><dd>See online help for more options. See <a href="Common-Options.html#Common-Options">Common Options</a>.
+
+     <p>This command takes a unique head from <var>sourcebranch</var> and merges it
+with a unique head of <var>destbranch</var>, using the least common
+ancestor of the two heads for a 3-way merge. The resulting revision is
+committed to <var>destbranch</var>. If
+either <var>sourcebranch</var> or <var>destbranch</var> has multiple heads,
+<samp><span class="command">propagate</span></samp> aborts, doing nothing.
+
+     <p>A commit message may be provided via <samp><span class="option">--message </span><var>string</var></samp>
+or <samp><span class="option">--message-file </span><var>filename</var></samp>. A message stating the
+source and target branches will be prepended to any user commit
+message.
+
+     <p>The purpose of <samp><span class="command">propagate</span></samp> is to copy all the changes on
+<var>sourcebranch</var>, since the last <samp><span class="command">propagate</span></samp>, to
+<var>destbranch</var>. This command supports the idea of making separate
+branches for medium-length development activities, such as
+maintenance branches for stable software releases, trivial bug fix
+branches, public contribution branches, or branches devoted to the
+development of a single module within a larger project.
+
+     <p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> can occur.
+
+     <br><dt><samp><span class="command">mtn refresh_inodeprints</span></samp><a name="index-mtn-refresh_005finodeprints-52"></a><dd>This command puts the current workspace into <a href="Inodeprints.html#Inodeprints">Inodeprints</a> mode,
+if it was not already, and forces a full inodeprints cache refresh. 
+After running this command, you are guaranteed that your workspace is
+in inodeprints mode, and that the inodeprints cache is accurate and up
+to date.
+
+     <p><a name="mtn-setup"></a><br><dt><samp><span class="command">mtn setup --branch </span><var>branchname</var><span class="command"> [--db </span><var>database</var><span class="command">] [</span><var>directory</var><span class="command">]</span></samp><a name="index-mtn-setup-_002d_002dbranch-_0040var_007bbranchname_007d-_005b_002d_002ddb-_0040var_007bdatabase_007d_005d-_005b_0040var_007bdirectory_007d_005d-53"></a><dd>This command prepares <var>directory</var> (default current directory) as a
+monotone workspace, by creating and populating the <samp><span class="file">_MTN</span></samp>
+directory with basic information.
+
+     <p>If no database is given, the configured default database is created or
+re-used (see <a href="get_005fdefault_005fdatabase_005falias.html#get_005fdefault_005fdatabase_005falias">get_default_database_alias</a> for more details).  Both
+settings, branch and database name, will be placed in the
+<samp><span class="file">_MTN/options</span></samp> file.
+
+     <p>This can be used with an empty directory to start a new blank project,
+or within an existing directory full of files, prior to using
+<samp><span class="command">mtn commit</span></samp>.
+
 </dl>
 
 <ul class="menu">

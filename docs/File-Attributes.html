@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>File Attributes - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -7,7 +7,7 @@
 <link title="Top" rel="start" href="index.html#Top">
 <link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
 <link rel="prev" href="Naming-Conventions.html#Naming-Conventions" title="Naming Conventions">
-<link rel="next" href="Merging.html#Merging" title="Merging">
+<link rel="next" href="Migrating-and-Dumping.html#Migrating-and-Dumping" title="Migrating and Dumping">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <style type="text/css"><!--
@@ -21,18 +21,19 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
 <a name="File-Attributes"></a>
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Merging.html#Merging">Merging</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="Migrating-and-Dumping.html#Migrating-and-Dumping">Migrating and Dumping</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="Naming-Conventions.html#Naming-Conventions">Naming Conventions</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
 <hr>
 </div>
 
-<h3 class="section">3.13 File Attributes</h3>
+<h3 class="section">3.14 File Attributes</h3>
 
 <p>Monotone contains a support for storing <dfn>persistent attributes</dfn> on
 files and directories, generally known as <dfn>attrs</dfn> for short.  An
@@ -61,15 +62,15 @@ be set.  However, monotone will still know that the attr is set, and
 Windows users can view and modify the attr like anyone else.)
 
 <p>Attrs in the current workspace can be seen and modified using the
-<samp><span class="command">mtn attr</span></samp> command; see <a href="Workspace.html#Workspace">Workspace</a>.  Attrs can also be found
-by examining any manifest directly.
+<samp><span class="command"><a href="mtn-attr.html#mtn-attr">mtn attr</a></span></samp> command.  Attrs can also be found by examining any
+manifest directly.
 
 <p>You can tell monotone to automatically take actions based on these
-attributes by defining hooks; see the <code>attr_functions</code> entry in
-<a href="Lua-Reference.html#Lua-Reference">Lua Reference</a>.  Every time your workspace is written to,
-monotone will run the corresponding hooks registered for each attr in
-your workspace.  This way, you can extend the vocabulary of attrs
-understood by monotone simply by writing new hooks.
+attributes by defining hooks; see <a href="attr_005ffunctions.html#attr_005ffunctions">attr_functions</a>.  Every time
+your workspace is written to, monotone will run the corresponding
+hooks registered for each attr in your workspace.  This way, you can
+extend the vocabulary of attrs understood by monotone simply by
+writing new hooks.
 
 <p>You can make up your own attrs for anything you find useful; the
 mechanism is fully general.  (If you make up some particularly useful

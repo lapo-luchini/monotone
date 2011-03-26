@@ -1,1 +1,165 @@
-<meta http-equiv="refresh" content="0; url=Hooks.html#Netsync%20Transport%20Hooks">
+<html lang="en">
+<head>
+<title>Netsync Transport Hooks - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks" title="Netsync Permission Hooks">
+<link rel="next" href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks" title="Trust Evaluation Hooks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Netsync-Transport-Hooks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks">Trust Evaluation Hooks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks">Netsync Permission Hooks</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.5 Netsync Transport Hooks</h4>
+
+<p>When a monotone client initiates a netsync connection, these hooks are
+called to attempt to parse the host argument provided on the command
+line. If the hooks fail or return nil, monotone will interpret the
+host argument as a network name (possibly with a port number) and open
+a TCP socket.
+
+     <dl>
+<a name="get_005fnetsync_005fconnect_005fcommand"></a><dt><code>get_netsync_connect_command (</code><var>uri</var><code>, </code><var>args</var><code>)</code><a name="index-get_005fnetsync_005fconnect_005fcommand-_0028_0040var_007buri_007d_002c-_0040var_007bargs_007d_0029-296"></a><dd>
+Returns a table describing a command to run to connect to the
+specified host. The <var>uri</var> argument is a table containing
+between 0 and 7 components:
+
+          <ul>
+<li><code>uri["scheme"]</code>, such as <code>"ssh"</code> or <code>"file"</code>
+<li><code>uri["user"]</code>, the name of a remote user
+<li><code>uri["host"]</code>, the name or address of a remote host
+<li><code>uri["port"]</code>, a network port number
+<li><code>uri["path"]</code>, a filesystem path
+<li><code>uri["query"]</code>, for additional parameters
+<li><code>uri["fragment"]</code>, to describe a sub-location within the remote resource
+</ul>
+
+     <p>The <var>args</var> argument is a table containing between 0 and 3
+components:
+
+          <ul>
+<li><code>args["include"]</code>, the branch pattern to include
+<li><code>args["exclude"]</code>, the branch pattern to exclude
+<li><code>args["debug"]</code>, whether to run the connection in debug mode
+</ul>
+
+     <p>The default definition of this hook follows:
+
+     <pre class="smallexample">     function get_netsync_connect_command(uri, args)
+     
+             local argv = nil
+     
+             if uri["scheme"] == "ssh"
+                     and uri["host"]
+                     and uri["path"] then
+     
+                     argv = { "ssh" }
+                     if uri["user"] then
+                             table.insert(argv, "-l")
+                             table.insert(argv, uri["user"])
+                     end
+                     if uri["port"] then
+                             table.insert(argv, "-p")
+                             table.insert(argv, uri["port"])
+                     end
+     
+                     table.insert(argv, uri["host"])
+             end
+     
+             if uri["scheme"] == "file" and uri["path"] then
+                     argv = { }
+             end
+     
+             if argv then
+     
+                     table.insert(argv, get_mtn_command(uri["host"]))
+     
+                     if args["debug"] then
+                             table.insert(argv, "--debug")
+                     else
+                             table.insert(argv, "--quiet")
+                     end
+     
+                     table.insert(argv, "--db")
+                     table.insert(argv, uri["path"])
+                     table.insert(argv, "serve")
+                     table.insert(argv, "--stdio")
+                     table.insert(argv, "--no-transport-auth")
+     
+                     if args["include"] then
+                             table.insert(argv, args["include"])
+                     end
+     
+                     if args["exclude"] then
+                             table.insert(argv, "--exclude")
+                             table.insert(argv, args["exclude"])
+                     end
+             end
+             return argv
+     end
+</pre>
+     <br><dt><code>use_transport_auth (</code><var>uri</var><code>)</code><a name="index-use_005ftransport_005fauth-_0028_0040var_007buri_007d_0029-297"></a><dd>
+Returns a boolean indicating whether monotone should use transport
+authentication mechanisms when communicating with <var>uri</var>. If this
+hook fails, the return value is assumed to be <code>true</code>. The form of
+the <var>uri</var> argument is a table, identical to the table provided as
+an argument to <code>get_netsync_connect_command</code>.
+
+     <p>Note that the return value of this hook must "match" the semantics of
+the command returned by <code>get_netsync_connect_command</code>. In
+particular, if this hook returns <code>false</code>, the <samp><span class="command">serve</span></samp>
+command line arguments passed to the remote end of the connection
+should include the <samp><span class="option">--no-transport-auth</span></samp> option. A mismatch
+between this hook's return value and the command line returned by
+<code>get_netsync_connect_command</code> will cause a communication failure,
+as the local and remote monotone processes will have mismatched
+authentication assumptions.
+
+     <pre class="smallexample">     function use_transport_auth(uri)
+             if uri["scheme"] == "ssh"
+             or uri["scheme"] == "file" then
+                     return false
+             else
+                     return true
+             end
+     end
+</pre>
+     <br><dt><code>get_mtn_command(</code><var>host</var><code>)</code><a name="index-get_005fmtn_005fcommand_0028_0040var_007bhost_007d_0029-298"></a><dd>
+Returns a string containing the monotone command to be executed on
+<var>host</var> when communicating over <samp><span class="command">ssh</span></samp>.  The <var>host</var>
+argument is a string containing the name of the host to which
+<samp><span class="command">ssh</span></samp> is connecting, from the server URI.  This is useful when
+there are multiple monotone binaries on the remote host, or the
+monotone binary is not in the default path.
+
+     <pre class="smallexample">     function get_mtn_command(host)
+         return "mtn"
+     end
+</pre>
+     </dl>
+
+</body></html>
+

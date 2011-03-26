@@ -1,12 +1,12 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Command Reference - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
 <meta name="generator" content="makeinfo 4.13">
 <link title="Top" rel="start" href="index.html#Top">
-<link rel="prev" href="CVS-Phrasebook.html#CVS-Phrasebook" title="CVS Phrasebook">
-<link rel="next" href="Lua-Reference.html#Lua-Reference" title="Lua Reference">
+<link rel="prev" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
+<link rel="next" href="Formats.html#Formats" title="Formats">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <style type="text/css"><!--
@@ -20,21 +20,23 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
 <a name="Command-Reference"></a>
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Lua-Reference.html#Lua-Reference">Lua Reference</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="CVS-Phrasebook.html#CVS-Phrasebook">CVS Phrasebook</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="Formats.html#Formats">Formats</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
 <hr>
 </div>
 
-<h2 class="chapter">5 Command Reference</h2>
+<h2 class="chapter">4 Command Reference</h2>
 
 <p>Monotone has a large number of commands. To help navigate through them
-all, commands are grouped into logical categories.
+all, commands are grouped into logical categories. In addition, there
+are global options that apply to all commands.
 
 <p>Many command options come in pairs that affect the same value. For example,
 <samp><span class="command">mtn log</span></samp> takes a <var>brief</var> option; this can be reversed by
@@ -49,23 +51,39 @@ overridden on the command line. For example, if
 <samp><span class="command">log</span></samp>, you can override that with <samp><span class="command">mtn log
 --no-brief</span></samp>.
 
+<p>Command names can be abbreviated to the shortest unique strings. Some
+commands also have short aliases, such as <samp><span class="command">mv</span></samp> for
+<samp><span class="command">rename</span></samp>.
+
 <p>The command descriptions describe the most important options for each
 command, and only one of each pair of options. For a complete list of
 options, see the online help (<samp><span class="command">mtn help cmd</span></samp>), or the manpage.
 
+<p>Many options can be specified by a single character; see the online
+help for those.
+
+<p>The Lua hook <code><a href="get_005fdefault_005fcommand_005foptions.html#get_005fdefault_005fcommand_005foptions">get_default_command_options</a></code> can change the
+default value for any option.
+
+<p>Revision arguments to commands may be selectors or hex ids.
+
 <ul class="menu">
-<li><a accesskey="1" href="Tree.html#Tree">Tree</a>:                         Operations on tree states in your database
-<li><a accesskey="2" href="Workspace.html#Workspace">Workspace</a>:                    Operations on your workspace
-<li><a accesskey="3" href="Network.html#Network">Network</a>:                      Communication with the network
-<li><a accesskey="4" href="Informative.html#Informative">Informative</a>:                  Production of descriptive reports
-<li><a accesskey="5" href="Key-and-Cert-Trust.html#Key-and-Cert-Trust">Key and Cert Trust</a>:           Keys and Trust Evaluations based on them
-<li><a accesskey="6" href="Certificate.html#Certificate">Certificate</a>:                  Creation of certificates
-<li><a accesskey="7" href="Packet-I_002fO.html#Packet-I_002fO">Packet I/O</a>:                   Production or consumption of packets
-<li><a accesskey="8" href="Database.html#Database">Database</a>:                     Manipulation of your database as a whole
-<li><a accesskey="9" href="Automation.html#Automation">Automation</a>:                   Running monotone from other programs
-<li><a href="RCS.html#RCS">RCS</a>:                          Importing legacy version control files
-<li><a href="GIT.html#GIT">GIT</a>:                          Exporting a monotone repository to git
+<li><a accesskey="1" href="Global-and-Common-Options.html#Global-and-Common-Options">Global and Common Options</a>:    Options that affect all or many commands
+<li><a accesskey="2" href="Tree.html#Tree">Tree</a>:                         Operations on tree states in your database
+<li><a accesskey="3" href="Workspace.html#Workspace">Workspace</a>:                    Operations on your workspace
+<li><a accesskey="4" href="Network.html#Network">Network</a>:                      Communication with the network
+<li><a accesskey="5" href="Informative.html#Informative">Informative</a>:                  Production of descriptive reports
+<li><a accesskey="6" href="Review.html#Review">Review</a>:                       Reviewing revisions
+<li><a accesskey="7" href="Variables.html#Variables">Variables</a>:                    Managing persistent variables
+<li><a accesskey="8" href="Key-and-Cert.html#Key-and-Cert">Key and Cert</a>:                 Keys, Certificates
+<li><a accesskey="9" href="Packet-I_002fO.html#Packet-I_002fO">Packet I/O</a>:                   Production or consumption of packets
+<li><a href="Database.html#Database">Database</a>:                     Manipulation of your database as a whole
+<li><a href="Automation.html#Automation">Automation</a>:                   Running monotone from other programs
+<li><a href="VCS.html#VCS">VCS</a>:                          Importing and exporting to other version control systems
 </ul>
+<!-- the 'debug' commands don't have a section; you have to know what -->
+<!-- you are doing to use them, so it's not worth maintaining them in -->
+<!-- this manual. -->
 
 </body></html>
 

@@ -1,0 +1,230 @@
+<html lang="en">
+<head>
+<title>Event Notifications and Triggers - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="Common-Data-Types.html#Common-Data-Types" title="Common Data Types">
+<link rel="next" href="User-Defaults.html#User-Defaults" title="User Defaults">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Event-Notifications-and-Triggers"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="User-Defaults.html#User-Defaults">User Defaults</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Common-Data-Types.html#Common-Data-Types">Common Data Types</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.2 Event Notifications and Triggers</h4>
+
+<p>There are a number of hooks that are called when noteworthy events
+occur, such as commits or new revisions arriving over the network. These
+hooks can be used to feed the events into external notification systems,
+such as generating email.
+
+<p>By default, these hooks are undefined, so no special external actions
+are taken.
+
+<p>Hooks are presented not in alphabetic order; they are grouped by
+function, and then by the order they are typically called by monotone.
+
+     <dl>
+<dt><code>note_commit (</code><var>new_id</var><code>, </code><var>revision</var><code>, </code><var>certs</var><code>)</code><a name="index-note_005fcommit-_0028_0040var_007bnew_005fid_007d_002c-_0040var_007brevision_007d_002c-_0040var_007bcerts_007d_0029-266"></a><dd>
+Called by monotone after the revsion <var>new_id</var> is
+committed. <var>revision</var> is the text of the revision, what would be
+given by <samp><span class="command">mtn automate get_revision </span><var>new_id</var></samp>. <var>certs</var>
+is a Lua table containing the set of certificate names and values
+committed along with this version.
+
+     <p>There is no default definition for this hook.
+
+     <p>Note that since the <var>certs</var> table does not contain cryptographic
+or trust information, and only contains one entry per cert name, it is
+an incomplete source of information about the committed version. This
+hook is only intended as an aid for integrating monotone with informal
+commit-notification systems such as mailing lists or news services. It
+should not perform any security-critical operations.
+
+     <br><dt><code>note_netsync_start (</code><var>session_id</var><code>, </code><var>my_role</var><code>, </code><var>sync_type</var><code>, </code><var>remote_host</var><code>, </code><var>remote_key</var><code>, </code><var>includes</var><code>, </code><var>excludes</var><code>)</code><a name="index-note_005fnetsync_005fstart-_0028_0040var_007bsession_005fid_007d_002c-_0040var_007bmy_005frole_007d_002c-_0040var_007bsync_005ftype_007d_002c-_0040var_007bremote_005fhost_007d_002c-_0040var_007bremote_005fkey_007d_002c-_0040var_007bincludes_007d_002c-_0040var_007bexcludes_007d_0029-267"></a><dd>
+Called by monotone just after a netsync session is started, before any
+of the other netsync notification hooks are called.
+
+     <p>The arguments are:
+
+          <dl>
+<dt><var>session_id</var><dd>Identifies the current netsync session in case several are happening
+at the same time (only possible on a server).
+
+          <br><dt><var>my_role</var><dd>
+One of "client" or "server".
+
+          <br><dt><var>sync_type</var><dd>
+One of "sync", "push", or "pull".
+
+          <br><dt><var>remote_host</var><dd>
+The network address of the remote host. At the client, this will be the name
+it was told to connect to; at the server, this will use the numerical IP address
+the connection was received from.
+
+          <br><dt><var>remote_key</var><dd>
+The identity of the key being used by the other end of the connection. The fields may
+be empty at the server if the key used by the client is not present at the server.
+
+          <br><dt><var>includes</var><dt><var>excludes</var><dd>
+The include and exclude patterns used by the client.
+
+     </dl>
+
+     <br><dt><code>note_netsync_revision_received (</code><var>new_id</var><code>, </code><var>revision</var><code>, </code><var>certs</var><code>, </code><var>session_id</var><code>)</code><a name="index-note_005fnetsync_005frevision_005freceived-_0028_0040var_007bnew_005fid_007d_002c-_0040var_007brevision_007d_002c-_0040var_007bcerts_007d_002c-_0040var_007bsession_005fid_007d_0029-268"></a><dt><code>note_netsync_revision_sent (</code><var>rev_id</var><code>, </code><var>revision</var><code>, </code><var>certs</var><code>, </code><var>session_id</var><code>)</code><a name="index-note_005fnetsync_005frevision_005fsent-_0028_0040var_007brev_005fid_007d_002c-_0040var_007brevision_007d_002c-_0040var_007bcerts_007d_002c-_0040var_007bsession_005fid_007d_0029-269"></a><dd>
+Called after the revision <var>new_id</var> is received or sent through
+netsync.
+
+     <p>There are no default definitions for these hooks.
+
+     <p>Arguments:
+
+          <dl>
+<dt><var>new_id</var><dd>The revision id.
+
+          <br><dt><var>revision</var><dd>The text of the revision; what would be given
+by <samp><span class="command">mtn automate get_revision </span><var>new_id</var></samp>.
+
+          <br><dt><var>certs</var><dd>A Lua table containing one subtable for each cert attached to the revision
+<var>new_id</var>. These subtables have fields named "key", "name", and
+"value", containing the identity of the signing key for the cert, the name of the cert,
+and the value of the cert.
+
+          <br><dt><var>session_id</var><dd>Identifies the current netsync session.
+
+     </dl>
+
+     <br><dt><code>note_netsync_cert_received (</code><var>rev_id</var><code>, </code><var>key_identity</var><code>, </code><var>name</var><code>, </code><var>value</var><code>, </code><var>session_id</var><code>)</code><a name="index-note_005fnetsync_005fcert_005freceived-_0028_0040var_007brev_005fid_007d_002c-_0040var_007bkey_005fidentity_007d_002c-_0040var_007bname_007d_002c-_0040var_007bvalue_007d_002c-_0040var_007bsession_005fid_007d_0029-270"></a><dt><code>note_netsync_cert_sent (</code><var>rev_id</var><code>, </code><var>key_identity</var><code>, </code><var>name</var><code>, </code><var>value</var><code>, </code><var>session_id</var><code>)</code><a name="index-note_005fnetsync_005fcert_005fsent-_0028_0040var_007brev_005fid_007d_002c-_0040var_007bkey_005fidentity_007d_002c-_0040var_007bname_007d_002c-_0040var_007bvalue_007d_002c-_0040var_007bsession_005fid_007d_0029-271"></a><dd>
+Called by monotone after a cert is received (or sent) through netsync,
+if the revision that the cert is attached to was not also received (or
+sent) in the same netsync operation.
+
+     <p>There is no default definition for this hook.
+
+     <p>Arguments:
+
+          <dl>
+<dt><var>rev_id</var><dd>The revision id that the cert is attached to.
+
+          <br><dt><var>key_identity</var><dd>The key that the cert is signed with; see <var><a href="key_005fidentity.html#key_005fidentity">key_identity</a></var>.
+
+          <br><dt><var>name</var><dd>The name of the cert.
+
+          <br><dt><var>value</var><dd>The cert value.
+
+          <br><dt><var>session_id</var><dd>Identifies the netsync session. 
+</dl>
+
+     <br><dt><code>note_netsync_pubkey_received (</code><var>key_identity</var><code>, </code><var>session_id</var><code>)</code><a name="index-note_005fnetsync_005fpubkey_005freceived-_0028_0040var_007bkey_005fidentity_007d_002c-_0040var_007bsession_005fid_007d_0029-272"></a><dt><code>note_netsync_pubkey_sent (</code><var>key_identity</var><code>, </code><var>session_id</var><code>)</code><a name="index-note_005fnetsync_005fpubkey_005fsent-_0028_0040var_007bkey_005fidentity_007d_002c-_0040var_007bsession_005fid_007d_0029-273"></a><dd>
+Called by monotone after a pubkey is received or sent through netsync.
+
+     <p>There is no default definition for this hook.
+
+     <p>Arguments:
+
+          <dl>
+<dt><var>key_identity</var><dd>The identity of the key received; see <var><a href="key_005fidentity.html#key_005fidentity">key_identity</a></var>.
+
+          <br><dt><var>session_id</var><dd>Identifies the current netsync session.
+
+     </dl>
+
+     <br><dt><code>note_netsync_end (</code><var>session_id</var><code>, </code><var>status</var><code>, </code><var>bytes_in</var><code>, </code><var>bytes_out</var><code>, </code><var>certs_in</var><code>, </code><var>certs_out</var><code>, </code><var>revs_in</var><code>, </code><var>revs_out</var><code>, </code><var>keys_in</var><code>, </code><var>keys_out</var><code>)</code><a name="index-note_005fnetsync_005fend-_0028_0040var_007bsession_005fid_007d_002c-_0040var_007bstatus_007d_002c-_0040var_007bbytes_005fin_007d_002c-_0040var_007bbytes_005fout_007d_002c-_0040var_007bcerts_005fin_007d_002c-_0040var_007bcerts_005fout_007d_002c-_0040var_007brevs_005fin_007d_002c-_0040var_007brevs_005fout_007d_002c-_0040var_007bkeys_005fin_007d_002c-_0040var_007bkeys_005fout_007d_0029-274"></a><dd>
+Called by monotone after a netsync session ends. This hook would
+usually be used for post-netsync purposes, like collecting all the
+data from all other netsync notification hooks, make some nice output
+from them and finally send the result somewhere.  It could also be
+used to prepare parallel databases with all the data to be displayed
+through something like viewmtn.
+
+     <p>Arguments:
+
+          <dl>
+<dt><var>session_id</var><dd>Identifies the current netsync session.
+
+          <br><dt><var>status</var><dd>A three digit integer that tells whether there was an error,
+and if so what kind of error it was:
+
+               <dl>
+<dt><strong>200</strong><dd>No error, connection successful.
+
+               <br><dt><strong>211</strong><dd>The connection was interrupted after some data may have been transferred.
+
+               <br><dt><strong>212</strong><dd>The connection was interrupted before any data could be transferred.
+
+               <br><dt><strong>412</strong><dd>The request is not permitted.
+
+               <br><dt><strong>422</strong><dd>The client tried to use a key that the server doesn't know about.
+
+               <br><dt><strong>432</strong><dd>The client and server have different epochs for a branch.
+
+               <br><dt><strong>512</strong><dd>Protocol error (source/sink confusion).
+
+               <br><dt><strong>521</strong><dd>Protocol error (packet received at a time when it doesn't make sense).
+
+               <br><dt><strong>532</strong><dd>The client did not identify itself correctly. (Possible replay attack?)
+
+          </dl>
+
+          <p>In general, 2xx means there was no error, 4xx means there was a permissions
+error, and 5xx means there was a protocol error. xx1 means some data may
+have been transferred, xx2 means no data was transferred, and xx0 means all
+data was transferred.
+
+          <br><dt><var>bytes_in</var><dt><var>bytes_out</var><dd>The number of bytes received/sent during the session.
+
+          <br><dt><var>certs_in</var><dt><var>certs_out</var><dd>The number of certs received/sent during the session.
+
+          <br><dt><var>revs_in</var><dt><var>revs_out</var><dd>The number of revisions received/sent during the session.
+
+          <br><dt><var>keys_in</var><dt><var>keys_out</var><dd>The number of keys received/sent during the session.
+
+     </dl>
+
+     <br><dt><code>note_mtn_startup (...)</code><a name="index-note_005fmtn_005fstartup-_0028_002e_002e_002e_0029-275"></a><dd>
+Called by monotone when it is first started, after all command
+completion and option processing, before the command starts executing.
+
+     <p>There is no default definition of this hook.
+
+     <p>One use of this hook is to monitor usage of monotone, for user
+interface testing.
+
+     <p>The arguments to the hook are the command line arguments to monotone,
+without the initial <samp><span class="command">mtn</span></samp> command.  They can be accessed
+through the lua <var>arg</var> variable as in this example:
+
+     <pre class="smallexample">     function note_mtn_startup(...)
+         print("Beginning note_mtn_startup")
+         for i = 1,arg.n do
+             print(arg[i])
+         end
+         print("Ending note_mtn_startup")
+     end
+</pre>
+     </dl>
+
+</body></html>
+

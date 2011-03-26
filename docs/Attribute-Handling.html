@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+<title>Attribute Handling - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="Selector-Expansion.html#Selector-Expansion" title="Selector Expansion">
+<link rel="next" href="GIT-Export-Hooks.html#GIT-Export-Hooks" title="GIT Export Hooks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Attribute-Handling"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="GIT-Export-Hooks.html#GIT-Export-Hooks">GIT Export Hooks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Selector-Expansion.html#Selector-Expansion">Selector Expansion</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.10 Attribute Handling</h4>
+
+<p>Some files in a project are special; they may require different
+handling (such as binary or structured files that should always be
+manually merged &ndash; see <a href="File-Content-Conflict.html#File-Content-Conflict">File Content Conflict</a>), or they may
+represent executable scripts or programs.
+
+<p>Monotone allows each file (or directory) in a repository to carry
+arbitrary <a href="File-Attributes.html#File-Attributes">File Attributes</a>.  Persistent attributes are stored in
+each revision's manifest. The hooks in this section allow files to be
+automatically recognised as having certain attributes at the time
+they're added, and for custom triggers to be invoked on each file
+according to its attributes when the workspace is changed.
+
+     <dl>
+<a name="attr_005ffunctions"></a><dt><code>attr_functions [</code><var>attribute</var><code>] (</code><var>filename</var><code>, </code><var>value</var><code>)</code><a name="index-attr_005ffunctions-_005b_0040var_007battribute_007d_005d-_0028_0040var_007bfilename_007d_002c-_0040var_007bvalue_007d_0029-309"></a><dd>
+This is not a hook function, but a <em>table</em> of hook functions,
+indexed by <var>attribute</var>. Each entry in the table
+<code>attr_functions</code> is a function taking a file name <var>filename</var>
+and an attribute value <var>value</var>. The function should &ldquo;apply&rdquo; the
+attribute to the file in the file system, possibly in a
+platform-specific way.
+
+     <p>These hooks are called by any command that modifies workspace files,
+including <samp><span class="command"><a href="mtn-revert.html#mtn-revert">mtn revert</a></span></samp>, <samp><span class="command"><a href="mtn-undrop.html#mtn-undrop">mtn undrop</a></span></samp>,
+<samp><span class="command"><a href="mtn-update.html#mtn-update">mtn update</a></span></samp>, <samp><span class="command"><a href="mtn-merge_005finto_005fworkspace.html#mtn-merge_005finto_005fworkspace">mtn merge_into_workspace</a></span></samp>,
+<samp><span class="command"><a href="mtn-pluck.html#mtn-pluck">mtn pluck</a></span></samp>, <samp><span class="command"><a href="mtn-clone.html#mtn-clone">mtn clone</a></span></samp> and
+<samp><span class="command"><a href="mtn-checkout.html#mtn-checkout">mtn checkout</a></span></samp>.
+
+     <p>When called to set an attribute, <var>value</var> is a string representing
+the value of the attribute.
+
+     <p>When called to clear an attribute, <var>value</var> is <code>nil</code>.
+
+     <p>This facility can be used to extend monotone's understanding of files
+with platform-specific attributes, such as permission bits, access
+control lists, or special file types.
+
+     <p>By default, there is only one entry in this table, for the <code>mtn:execute</code>
+attribute. It calls platform-specific functions to mark files as
+executable or not. See <a href="Default-hooks.html#Default-hooks">Default hooks</a>.
+
+     <p><a name="attr_005finit_005ffunctions"></a><br><dt><code>attr_init_functions [</code><var>attribute</var><code>] (</code><var>filename</var><code>)</code><a name="index-attr_005finit_005ffunctions-_005b_0040var_007battribute_007d_005d-_0028_0040var_007bfilename_007d_0029-310"></a><dd>
+This is not a hook function, but a <em>table</em> of hook
+functions. Each entry in the table <code>attr_init_functions</code>, at
+table entry <var>attribute</var>, is a function taking a file (or
+directory) name <var>filename</var>. Each function returns <code>true</code> if
+the attribute should be set on <var>filename</var>. This table of hook
+functions is called once for each file during an <dfn>add</dfn>.
+
+     <p>By default, there are only two entries in this table, for the
+<code>mtn:execute</code> and <code>mtn:manual_merge</code> attributes. Their
+definition is:
+
+     <pre class="smallexample">     attr_init_functions["mtn:execute"] =
+        function(filename)
+           if (is_executable(filename)) then
+             return "true"
+           else
+             return nil
+           end
+        end
+     attr_init_functions["mtn:manual_merge"] =
+        function(filename)
+           if (binary_file(filename)) then
+             return "true" -- binary files must be merged manually
+           else
+             return nil
+           end
+        end
+</pre>
+     <p>The <code>binary_file</code> function is also defined as a Lua hook. See
+<a href="Default-hooks.html#Default-hooks">Default hooks</a>.
+
+</dl>
+
+</body></html>
+

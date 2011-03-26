@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Branches - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -20,6 +20,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -92,19 +93,38 @@ two-at-a-time until there is only one.
 
 <h4 class="subsection">1.7.2 Branch Names</h4>
 
-<p>The branch names used in the above section are fine for an example, but
-they would be bad to use in a real project.  The reason is, monotone
-branch names must be <em>globally</em> unique, over all branches in the
-world.  Otherwise, bad things can happen.  Fortunately, we have a handy
-source of globally unique names &mdash; the DNS system.
+<p>The branch names used in the above section are fine for an example,
+but they would be bad to use in a real project.  The reason is,
+monotone branch names should be <em>globally</em> unique, over all
+branches in the world.  Otherwise, when your branch eventually gets
+distributed, you could get name collisions with other people's
+work.
 
-<p>When naming a branch, always prepend the reversed, fully qualified, domain
-name of a host that you control or are otherwise authorized to use.  For
-example, monotone development happens on the branch <code>net.venge.monotone</code>,
-because <code>venge.net</code> belongs to monotone's original author.  The idea is
-that this way, you can coordinate with other people using a host to make sure
-there are no conflicts &mdash; in the example, monotone's original author can
-be certain that no-one else using <code>venge.net</code> will start up a
+<p>Having two separate projects with the same monotone branch names means
+those projects cannot be stored in the same database. In general,
+monotone supports storing unrelated branches in a single database,
+which simplifies servers. But that requires unique branch names, so
+ensuring globally unique branch names allows using globally accessible
+monotone servers.
+
+<p>monotone does <em>not</em> support renaming branches (because that would
+be modifying history), so choosing a good branch name up front is
+important. It is possible to work around this by propagating from your
+branch to one with a better name, but that is a painful process if
+there are many people using the original branch name.
+
+<p>Even if you are <em>absolutely</em> sure that your branch will never be
+distributed, things could change in the future!
+
+<p>Fortunately, we have a handy source of globally unique names &mdash; the
+DNS system. When naming a branch, always prepend the reversed, fully
+qualified, domain name of a host that you control or are otherwise
+authorized to use.  For example, monotone development happens on the
+branch <code>net.venge.monotone</code>, because <code>venge.net</code> belongs to
+monotone's original author.  The idea is that this way, you can
+coordinate with other people using a host to make sure there are no
+conflicts &mdash; in the example, monotone's original author can be
+certain that no-one else using <code>venge.net</code> will start up a
 different program named <code>monotone</code>.  If you work for Yoyodyne,
 Inc. (owners of yoyodyne.com), then all your branch names should look
 like <code>com.yoyodyne.</code><em>something</em>.

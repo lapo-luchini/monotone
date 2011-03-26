@@ -1,0 +1,115 @@
+<html lang="en">
+<head>
+<title>Netsync Permission Hooks - monotone documentation</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="monotone documentation">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="start" href="index.html#Top">
+<link rel="up" href="Hooks.html#Hooks" title="Hooks">
+<link rel="prev" href="User-Defaults.html#User-Defaults" title="User Defaults">
+<link rel="next" href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks" title="Netsync Transport Hooks">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+</head>
+<body>
+<div class="node">
+<a name="Netsync-Permission-Hooks"></a>
+<p>
+Next:&nbsp;<a rel="next" accesskey="n" href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks">Netsync Transport Hooks</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="User-Defaults.html#User-Defaults">User Defaults</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
+<hr>
+</div>
+
+<h4 class="subsection">6.1.4 Netsync Permission Hooks</h4>
+
+<p>These hooks are used when running a netsync server, via
+<samp><span class="command">mtn serve</span></samp>. They are evaluated by the server for each new
+connection, based on the certificate used for authentication by the
+client.  Note that a long-running server will need to be restarted in
+order to reload the hook definitions if the <samp><span class="file">montonerc</span></samp> file is
+changed.
+
+     <dl>
+<a name="get_005fnetsync_005fread_005fpermitted"></a><dt><code>get_netsync_read_permitted (</code><var>branch</var><code>, </code><var>key_identity</var><code>)</code><a name="index-get_005fnetsync_005fread_005fpermitted-_0028_0040var_007bbranch_007d_002c-_0040var_007bkey_005fidentity_007d_0029-293"></a><dd>
+Returns <code>true</code> if a peer authenticated as key <var>key_identity</var>
+should be allowed to read from your database certs, revisions,
+manifests, and files associated with <var>branch</var>; otherwise <code>false</code>. 
+The default definition of this hook reads a file <samp><span class="file">read-permissions</span></samp>
+and all files in the subdirectory <samp><span class="file">read-permissions.d</span></samp> in the
+configuration directory. All the files are treated as if they were one
+file, with <samp><span class="file">read-permissions</span></samp> first followed by the files in
+<samp><span class="file">read-permissions.d</span></samp> in alphanumerical order. The files look like
+     <pre class="smallexample">     pattern "net.example.project.{private,security}*"
+     allow "joe@example.net"
+     allow "f3f62f86eba204a3ce15174083a53349201993d6"
+     
+     comment "everyone can read these branches"
+     pattern "net.example.{public,project}*"
+     allow "*"
+</pre>
+     <p>This example allows everyone access to branches <code>net.example.project</code> and
+<code>net.example.public</code> and their sub-branches, except for the branches in
+<code>net.example.project.security</code> and <code>net.example.project.private</code>,
+which are only readable by Joe and Jim.
+
+     <p>The file is divided into stanzas of one <code>pattern</code> line followed by any
+number of <code>allow</code> and <code>deny</code> lines, and possibly a <code>continue</code>
+line. Anything from the unquoted word <code>comment</code> until the next unquoted
+word is ignored. A stanza is processed if the argument to
+<code>pattern</code> is a glob that matches <var>branch</var>. Any keys with a hash or
+local_name that matches an
+<code>allow</code> line are given access, and any keys which match a <code>deny</code> line
+are denied access. If there is a <code>continue "true"</code> line, then if the key
+is not granted or denied access in this stanza the next matching stanza will be
+processed. If there is not a <code>continue "true"</code> line, then any key which
+has not been given access will be denied access even if it doesn't match any
+<code>deny</code> lines. Thus, deny lines are redundant unless there is also a
+<code>continue "true"</code> line.
+
+     <p>If a client connects anonymously, this hook will be called with a
+<var>key_identity</var> of <code>nil</code>.
+
+     <p><a name="get_005fnetsync_005fwrite_005fpermitted"></a><br><dt><code>get_netsync_write_permitted (</code><var>key_identity</var><code>)</code><a name="index-get_005fnetsync_005fwrite_005fpermitted-_0028_0040var_007bkey_005fidentity_007d_0029-294"></a><dd>
+Returns <code>true</code> if a peer authenticated as key <var>key_identity</var>
+should be allowed to write into your database certs, revisions,
+manifests, and files; otherwise <code>false</code>. The default definition of
+this hook reads a file <samp><span class="file">write-permissions</span></samp> and all files in the
+subdirectory <samp><span class="file">write-permissions.d</span></samp> in the configuration directory
+which contains a list of key hashes or local key names, one per line,
+which are allowed write access. 
+The special value
+<code>*</code> means to allow access to anyone whose public key we already have.
+
+     <p>If a client connects anonymously, it will be unconditionally denied
+write access; this hook will <em>not</em> be called with a <var>key_identity</var>
+of <code>nil</code>.
+
+     <p>Note also that, unlike the equivalent read permission hook, the write
+permission hook does not take a <var>branch</var> name as an argument.  There
+is presently no way to selectively grant write access to different
+branches via netsync, for a number of reasons. Contributions in the
+database from different authors can be selectively trusted using the
+<a href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks">Trust Evaluation Hooks</a> instead.
+
+     <br><dt><code>get_remote_automate_permitted(</code><var>key_identity</var><code>, </code><var>command</var><code>, </code><var>options</var><code>)</code><a name="index-get_005fremote_005fautomate_005fpermitted_0028_0040var_007bkey_005fidentity_007d_002c-_0040var_007bcommand_007d_002c-_0040var_007boptions_007d_0029-295"></a><dd>
+Returns true if a peer authenticated as key <var>key_identity</var> should be
+allowed to execute the given <var>command</var> with the given <var>options</var>, as
+if through <code>automate stdio</code>.
+
+</dl>
+
+</body></html>
+

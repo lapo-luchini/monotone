@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Exporting to GIT - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -21,6 +21,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -60,7 +61,7 @@ the <em>value</em> of the author cert as the git author and the
 there are multiple author certs the git exporter arbitrarily choses
 one of them. The full list of monotone certs may be exported in the
 git commit message using the <samp><span class="option">--log-certs</span></samp> option described in
-<a href="GIT.html#GIT">GIT</a>.
+<a href="VCS.html#VCS">VCS</a>.
 
 <p>Monotone author names often look like raw email addresses such as
 <code>"user@example.com"</code>. These are not considered valid by git
@@ -75,7 +76,7 @@ several ways:
 author cert as the author and the key used to sign this cert as
 the committer. 
 <li>both author and committer will be looked up in the file specified by
-the <samp><span class="option">--authors-file</span></samp> option described in <a href="GIT.html#GIT">GIT</a> and
+the <samp><span class="option">--authors-file</span></samp> option described in <a href="VCS.html#VCS">VCS</a> and
 translated to the specified value if found. 
 <li>any author or committer value not found in the authors file will be
 processed by the <code>unmapped_git_author</code> hook which may adjust the
@@ -88,7 +89,7 @@ rejected by the validation hook.
 
 <p>Branch names used by monotone are allowed to contain characters that
 are not considered valid by git. These may be mapped to other names
-using the <samp><span class="option">--branches-file</span></samp> option described in <a href="GIT.html#GIT">GIT</a>
+using the <samp><span class="option">--branches-file</span></samp> option described in <a href="VCS.html#VCS">VCS</a>
 
 <p>A monotone revision may have multiple <code>changelog</code> certs and
 multiple <code>comment</code> certs. The git exporter deals with these by

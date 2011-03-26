@@ -1,5 +1,5 @@
 <html lang="en">
-<head><link type="text/css" rel="stylesheet" href="texinfo.css" />
+<head>
 <title>Internationalization - monotone documentation</title>
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="description" content="monotone documentation">
@@ -21,6 +21,7 @@
   span.roman { font-family:serif; font-weight:normal; } 
   span.sansserif { font-family:sans-serif; font-weight:normal; } 
 --></style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
 </head>
 <body>
 <div class="node">
@@ -117,9 +118,7 @@ possible strings and normalizes non-equal strings to supposedly
 console (IDNA names are ASCII, which is a subset of UTF-8, so this
 normal form conversion can still apply, albeit oddly). this behavior
 is to protect users against security problems associated with
-malicious use of "similar-looking" characters. If the hook
-<code>display_decoded_idna</code> returns true, IDNA names are decoded for
-display.
+malicious use of "similar-looking" characters.
 
 </dl>
 
@@ -133,7 +132,7 @@ for platform name semantics, for example changing the Windows
 <code>0x5C</code> '\' path separator to <code>0x2F</code> '/'. This extra
 processing is performed by boost::filesystem.
 
-     <li>FIXME: Monotone does not properly handle case insensitivity on Windows.
+     <li>Monotone does not properly handle case insensitivity on Windows.
 
      <li>A filename (in normal form) is constrained to be a nonempty sequence
 of path components, separated by byte <code>0x2F</code> (ASCII / ), and
