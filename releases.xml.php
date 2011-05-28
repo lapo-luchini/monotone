@@ -20,8 +20,8 @@ class news_parser
             throw Exception("couldn't open '$file' for reading");
 
         $this->sections = array(
-            "Changes", "New features", "Bugs fixed", "Other", "Internal",
-            "Security related changes:", "Other changes:"
+            "changes", "new features", "bugs fixed", "other", "internal",
+            "security related changes", "other changes"
         );
     }
 
@@ -81,12 +81,20 @@ class news_parser
         return $sections;
     }
 
+    public function norm_section($in)
+    {
+        $out = preg_replace("/[^\w ]/", "", $in);
+        $out = trim($out);
+        return strtolower($out);
+    }
+
     public function get_section()
     {
         $this->eat_whitespace();
         $oldpos = ftell($this->fp);
-        $sec = trim($this->get_line());
-        if ($sec === false || !in_array($sec, $this->sections))
+        $sec = $this->get_line();
+        if ($sec === false ||
+            !in_array($this->norm_section($sec), $this->sections))
         {
             fseek($this->fp, $oldpos);
             return false;
@@ -112,7 +120,7 @@ class news_parser
 
             if (!empty($line) && (
                   ltrim($line) == $line || // end of release
-                  in_array(trim($line), $this->sections) // end of section
+                  in_array($this->norm_section($line), $this->sections) // end of section
                ))
             {
                 fseek($this->fp, $oldpos);
@@ -199,6 +207,15 @@ $self = "http://{$_SERVER['SERVER_NAME']}{$_SERVER['SCRIPT_NAME']}";
                 <ul>
                 <?php foreach ($section['entries'] as $entry): ?>
                     <li><?php
+                        // convert <, >, and additional spaces
+                        $entry = str_replace('<', '&lt;', $entry);
+                        $entry = preg_replace_callback('/([ ]{2,})/',
+                           create_function('$matches', '
+                               return str_repeat("&nbsp;", strlen($matches[1]));
+                           '),
+                           $entry
+                        );
+
                         // link normal urls
                         $entry = preg_replace('#(https?://[^ )>\b]+)#',
                                               '<a href="$1">$1</a>',
