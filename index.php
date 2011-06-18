@@ -35,7 +35,6 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
                 <li><a href="http://lists.nongnu.org/mailman/listinfo/monotone-users"><strong>users mailing list</strong></a></li>
                 <li><a href="irc://irc.oftc.net/#monotone">IRC</a> (<a class="lesser" href="http://colabti.org/irclogger/irclogger_logs/monotone">logs</a>)</li>
                 <li><a href="http://wiki.monotone.ca/"><strong>wiki</strong></a></li>
-                <li><a href="http://www.cafepress.com/monotone_rcs">swag <strong>new</strong></a></li>
                 <li><a href="http://www.frappr.com/monotone">frappr</a></li>
             </ul>
 
