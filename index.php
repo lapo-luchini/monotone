@@ -14,13 +14,13 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
             </ul>
             <h1 class="getitdistro">...or from your distro</h1>
             <ul>
-                <li><a href="http://cygwin.com/cgi-bin2/package-grep.cgi?grep=monotone/monotone">Cygwin</a></li>
+			    <li>Cygwin: <a href="http://cygwin.com/packages/x86/monotone/">x86</a> <a href="http://cygwin.com/packages/x86_64/monotone/">x86_64</a></li>
                 <li><a href="http://packages.debian.org/search?keywords=monotone&amp;searchon=names&amp;exact=1&amp;suite=all&amp;section=all">Debian Linux</a></li>
                 <li><a href="http://www.freshports.org/devel/monotone/">FreeBSD Ports</a></li>
                 <li><a href="http://www.macports.org/ports.php?by=name&amp;substr=monotone">Mac OS X MacPorts</a></li>
                 <li><a href="http://pkgsrc.se/devel/monotone">NetBSD pkgsrc</a></li>
                 <li><a href="http://software.opensuse.org/search?p=1&amp;q=monotone&amp;baseproject=ALL">openSuSE Linux</a></li>
-                <li><a href="https://admin.fedoraproject.org/community/?package=monotone#package_maintenance/package_overview">Fedora Linux</a></li>
+				<li><a href="https://apps.fedoraproject.org/packages/monotone">Fedora Linux</a></li>
                 <li><a href="http://packages.gentoo.org/package/monotone">Gentoo Linux</a></li>
             </ul>
         </div>
@@ -35,7 +35,6 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
                 <li><a href="http://lists.nongnu.org/mailman/listinfo/monotone-users"><strong>users mailing list</strong></a></li>
                 <li><a href="irc://irc.oftc.net/#monotone">IRC</a> (<a class="lesser" href="http://colabti.org/irclogger/irclogger_logs/monotone">logs</a>)</li>
                 <li><a href="http://wiki.monotone.ca/"><strong>wiki</strong></a></li>
-                <li><a href="http://www.frappr.com/monotone">frappr</a></li>
             </ul>
 
             <hr />
@@ -52,7 +51,6 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
                 <li><a href="http://code.monotone.ca/p/monotone/issues/"><strong>bugs</strong></a></li>
                 <li><a href="http://lists.nongnu.org/mailman/listinfo/monotone-devel">developers mailing list</a></li>
                 <li><a href="irc://irc.oftc.net/#monotone">IRC</a> (<a class="lesser" href="http://colabti.org/irclogger/irclogger_logs/monotone">logs</a>)</li>
-		<li><a href="http://cia.vc/stats/project/monotone">CIA.vc commit log</a>
                 <li><a href="http://wiki.monotone.ca/MonotoneProjectServer/">main Monotone development server</a></li>
                 <li><a href="http://code.monotone.ca/p/monotone/source/tree/h:net.venge.monotone/">browse source</a></li>
                 <li><a href="http://cia.navi.cx/stats/project/monotone">latest work</a> (<a class="lesser" href="http://cia.navi.cx/stats/project/monotone/.rss">RSS</a>)</li>
