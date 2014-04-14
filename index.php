@@ -36,13 +36,6 @@ require_once("simplepie-1.2.0/simplepie.inc.php");
                 <li><a href="irc://irc.oftc.net/#monotone">IRC</a> (<a class="lesser" href="http://colabti.org/irclogger/irclogger_logs/monotone">logs</a>)</li>
                 <li><a href="http://wiki.monotone.ca/"><strong>wiki</strong></a></li>
             </ul>
-
-            <hr />
-
-            <p style="text-align: center">
-                <strong>Need help?</strong><br />
-                Just <a href="irc://irc.oftc.net/monotone">join irc</a>... we're friendly! <!-- ' plays naughty with emacs -->
-            </p>
         </div>
 
         <div class="box box-small">
