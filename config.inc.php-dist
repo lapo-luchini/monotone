@@ -14,7 +14,7 @@ $CFG["cache_dir"] = "/data/monotone.ca/cache";
 $CFG["aggregated_feeds"] = array(
     "http://www.thomaskeller.biz/blog/category/coding/monotone/feed/",
     "http://tero.stronglytyped.org/blosxom.cgi/monotone/index.atom",
-    "http://identi.ca/lapo/tag/monotone/rss",
+/* FIXME: vanished:    "http://identi.ca/lapo/tag/monotone/rss", */
     "http://journal.richard.levitte.org/tags/monotone/index.atom",
 );
 
