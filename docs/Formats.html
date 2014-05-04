@@ -1,111 +1,146 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Formats - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="prev" href="Command-Reference.html#Command-Reference" title="Command Reference">
-<link rel="next" href="Lua-Reference.html#Lua-Reference" title="Lua Reference">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Formats"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Lua-Reference.html#Lua-Reference">Lua Reference</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Command-Reference.html#Command-Reference">Command Reference</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
-<hr>
-</div>
+<title>monotone documentation: Formats</title>
 
+<meta name="description" content="monotone documentation: Formats">
+<meta name="keywords" content="monotone documentation: Formats">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Lua-Reference.html#Lua-Reference" rel="next" title="Lua Reference">
+<link href="VCS.html#VCS" rel="prev" title="VCS">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Formats"></a>
+<div class="header">
+<p>
+Next: <a href="Lua-Reference.html#Lua-Reference" accesskey="n" rel="next">Lua Reference</a>, Previous: <a href="Command-Reference.html#Command-Reference" accesskey="p" rel="prev">Command Reference</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Formats-1"></a>
 <h2 class="chapter">5 Formats</h2>
 
 <p>Monotone uses three formats to output or to accept input of
-data (mostly structured), <code>basic_io</code>, <code>stdio</code>, and <code>packet</code>. 
+data (mostly structured), <code>basic_io</code>, <code>stdio</code>, and <code>packet</code>.
 <code>basic_io</code> is often used to represent data or for configuration,
 while <code>stdio</code> is used for communication with <code>automate stdio</code>.
-
+</p>
 <p>The <code>stdio</code> format is not described here.  For information on it,
-see <samp><span class="command"><a href="mtn-automate-stdio.html#mtn-automate-stdio">mtn automate stdio</a></span></samp>.
-
-<p>The <code>packet</code> format is not described here; see <a href="Packet-I_002fO.html#Packet-I_002fO">Packet I/O</a>. 
-For examples, see <samp><span class="command"><a href="mtn-automate-packet_005ffor_005ffdelta.html#mtn-automate-packet_005ffor_005ffdelta">mtn automate packet_for_fdelta</a></span></samp>, <samp><span class="command"><a href="mtn-automate-packet_005ffor_005ffdata.html#mtn-automate-packet_005ffor_005ffdata">mtn automate packet_for_fdata</a></span></samp>.
-
+see <code><a href="Automation.html#mtn-automate-stdio">mtn automate stdio</a></code>.
+</p>
+<p>The <code>packet</code> format is not described here; see <a href="Packet-I_002fO.html#Packet-I_002fO">Packet I/O</a>.
+For examples, see <code><a href="Automation.html#mtn-automate-packet_005ffor_005ffdelta">mtn automate packet_for_fdelta</a></code>, <code><a href="Automation.html#mtn-automate-packet_005ffor_005ffdata">mtn automate packet_for_fdata</a></code>.
+</p>
+<a name="basic_005fio-Format"></a>
 <h3 class="section">5.1 <code>basic_io</code> Format</h3>
 
 <p><code>basic_io</code> is a very simple format, yet expressive, and can be
 described with the following ABNF (see RFC 2234) specification:
-
-<pre class="display"><pre class="verbatim">basic_io = *( item )
+</p>
+<div class="display">
+<pre class="verbatim">basic_io = *( item )
 
     item = *sp symbol *sp *( string / hexid ) *sp
            ; a symbol followed by zero or more strings and/or hexes.
 
-  symbol = 1*( lcalpha / "_" )
+  symbol = 1*( lcalpha / &quot;_&quot; )
            ; One or more letters or underscores.
-  string = DQUOTE *( charnqnb / "\" "\" / "\" DQUOTE ) DQUOTE
+  string = DQUOTE *( charnqnb / &quot;\&quot; &quot;\&quot; / &quot;\&quot; DQUOTE ) DQUOTE
            ; A series of any character, enclosed with double quotes
            ; To include a double quote or a backslash in the string,
            ; escape it with a backslash.
-   hexid = "[" 40HEXDIG "]"
+   hexid = &quot;[&quot; 40HEXDIG &quot;]&quot;
            ; 40 hexadecimal characters enclosed in brackets.
            ; Note: the amount might change as we move away from sha1.
 
       sp = ( WSP CR LF )
 charnqnb = %x01-21 / %x23-5B / %x5D-FF
-           ; All characters except NUL (%x00) , " (%x22) and \ (%x5C).
+           ; All characters except NUL (%x00) , &quot; (%x22) and \ (%x5C).
  lcalpha = %x61-7A
            ; Lower case a-z.
-</pre>
-</pre>
-<p>In essence, it's a stream of items, where each item is a <code>symbol</code>
-followed by zero or more <code>string</code>s and <code>hex</code>es.
+</pre></div>
 
+<p>In essence, it&rsquo;s a stream of items, where each item is a <code>symbol</code>
+followed by zero or more <code>string</code>s and <code>hex</code>es.
+</p>
 <p>There is an idea of stanzas, which is a group of items that logically
-belongs together.  However, stanzas aren't defined in the
+belongs together.  However, stanzas aren&rsquo;t defined in the
 <code>basic_io</code> syntax, and are instead defined in terms of order and
 sequence for what symbols may be part of the stream, how they may
 appear, and how many and what arguments should follow them.  This is
 defined by each command or program using this format.
-
+</p>
 <p>For example, revisions have associated data; the structure is header
 stanzas followed by a list of changes vs. each parent revision, with
 each change represented by a separate stanza; reordering the stanzas
 could cause a particular change to be interpreted against the wrong
 parent.
-
-<p>Another example is the <samp><span class="file">read-permissions</span></samp> file that's read by the
-default definition of the <a href="get_005fnetsync_005fread_005fpermitted.html#get_005fnetsync_005fread_005fpermitted">get_netsync_read_permitted</a> Lua hook.
-
+</p>
+<p>Another example is the <samp>read-permissions</samp> file that&rsquo;s read by the
+default definition of the <a href="Netsync-Permission-Hooks.html#get_005fnetsync_005fread_005fpermitted">get_netsync_read_permitted</a> Lua hook.
+</p>
 <p>Monotone will format its output in <code>basic_io</code> as follows:
-     <ul>
-<li>Each <code>symbol</code> begins a new line. 
-<li>Tokens on the same line are separated by a single space. 
-<li>Lines are grouped into logical <code>stanza</code>s, separated by a single empty line. 
+</p><ul>
+<li> Each <code>symbol</code> begins a new line.
+</li><li> Tokens on the same line are separated by a single space.
+</li><li> Lines are grouped into logical <code>stanza</code>s, separated by a single empty line.
 Each stanza then describes a particular item, with the different lines
 (<code>symbol</code>s followed by <code>string</code> and <code>hex</code> values) describing
-different aspects of that item. 
-<li><code>symbol</code>s in a stanza are right-aligned with each other; each <code>symbol</code>
+different aspects of that item.
+</li><li> <code>symbol</code>s in a stanza are right-aligned with each other; each <code>symbol</code>
 other than the longest is preceeded by spaces. The longest <code>symbol</code> in a
 stanza is not preceeded by spaces, even if there are longer <code>symbol</code>s in
-other stanzas. 
-<li>Lines within stanzas have a consistent order, although some may be
-optional in some commands. 
-</ul>
+other stanzas.
+</li><li> Lines within stanzas have a consistent order, although some may be
+optional in some commands.
+</li></ul>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Lua-Reference.html#Lua-Reference" accesskey="n" rel="next">Lua Reference</a>, Previous: <a href="Command-Reference.html#Command-Reference" accesskey="p" rel="prev">Command Reference</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

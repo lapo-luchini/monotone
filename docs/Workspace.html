@@ -1,371 +1,516 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Workspace - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Command-Reference.html#Command-Reference" title="Command Reference">
-<link rel="prev" href="Tree.html#Tree" title="Tree">
-<link rel="next" href="Network.html#Network" title="Network">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Workspace"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Network.html#Network">Network</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Tree.html#Tree">Tree</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference.html#Command-Reference">Command Reference</a>
-<hr>
-</div>
+<title>monotone documentation: Workspace</title>
 
+<meta name="description" content="monotone documentation: Workspace">
+<meta name="keywords" content="monotone documentation: Workspace">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Command-Reference.html#Command-Reference" rel="up" title="Command Reference">
+<link href="Network.html#Network" rel="next" title="Network">
+<link href="Conflicts.html#Conflicts" rel="prev" title="Conflicts">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Workspace"></a>
+<div class="header">
+<p>
+Next: <a href="Network.html#Network" accesskey="n" rel="next">Network</a>, Previous: <a href="Tree.html#Tree" accesskey="p" rel="prev">Tree</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Workspace-1"></a>
 <h3 class="section">4.3 Workspace</h3>
 
-     <dl>
-<dt><samp><span class="command">mtn add [--[no-]recursive] [--[no-]respect-ignore] </span><var>pathname...</var></samp><a name="index-mtn-add-_005b_002d_002d_005bno_002d_005drecursive_005d-_005b_002d_002d_005bno_002d_005drespect_002dignore_005d-_0040var_007bpathname_002e_002e_002e_007d-69"></a><dt><samp><span class="command">mtn add [--[no-]recursive] [--[no-]respect-ignore] --[no-]unknown [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-add-_005b_002d_002d_005bno_002d_005drecursive_005d-_005b_002d_002d_005bno_002d_005drespect_002dignore_005d-_002d_002d_005bno_002d_005dunknown-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-70"></a><dd>This command places <code>add</code> entries for the paths specified in
-<var>pathname...</var> in <a href="_005fMTN_002frevision.html#g_t_005fMTN_002frevision">_MTN/revision</a>; they will be part of the
-next <samp><span class="command">commit</span></samp>. See <a href="Storage-and-workflow.html#Storage-and-workflow">Storage and workflow</a> for
-more information on <samp><span class="command">add</span></samp> and <samp><span class="command">commit</span></samp>.
-
-     <p>As a convenience, the <samp><span class="option">--unknown </span><var>pathname...</var></samp> option can be used;
-this option will cause all of the files listed by <samp><span class="command">mtn list
-unknown </span><var>pathname...</var></samp> to be added.
-
-     <p>Adding directories, whether explicitly or using the <samp><span class="option">--unknown</span></samp>
-option, is non-recursive by default.  The <samp><span class="command">add</span></samp> command can be
-made recursive using the <samp><span class="option">--recursive</span></samp> option.  When adding a
-directory non-recursively, monotone will warn if the directory has
-any files that would be added by a recursive add.
-
-     <p><a name="mtn-attr"></a><br><dt><samp><span class="command">mtn attr</span></samp><a name="index-mtn-attr-71"></a><dd>Manage <a href="File-Attributes.html#File-Attributes">File Attributes</a>.
-
-     <p>In <samp><span class="command">drop</span></samp> and <samp><span class="command">get</span></samp>, if no attribute is specified, the
+<dl compact="compact">
+<dt><code>mtn add [--[no-]recursive] [--[no-]respect-ignore] <var>pathname...</var></code>
+<a name="index-mtn-add-_005b_002d_002d_005bno_002d_005drecursive_005d-_005b_002d_002d_005bno_002d_005drespect_002dignore_005d-pathname_002e_002e_002e"></a>
+</dt>
+<dt><code>mtn add [--[no-]recursive] [--[no-]respect-ignore] --[no-]unknown [<var>pathname...</var>]</code>
+<a name="index-mtn-add-_005b_002d_002d_005bno_002d_005drecursive_005d-_005b_002d_002d_005bno_002d_005drespect_002dignore_005d-_002d_002d_005bno_002d_005dunknown-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dd><p>This command places <code>add</code> entries for the paths specified in
+<var>pathname...</var> in <a href="Storage-and-workflow.html#g_t_005fMTN_002frevision">_MTN/revision</a>; they will be part of the
+next <code>commit</code>. See <a href="Storage-and-workflow.html#Storage-and-workflow">Storage and workflow</a> for
+more information on <code>add</code> and <code>commit</code>.
+</p>
+<p>As a convenience, the <samp>--unknown <var>pathname...</var></samp> option can be used;
+this option will cause all of the files listed by <code>mtn list
+unknown <var>pathname...</var></code> to be added. However, note that the default
+for <code>list unknown</code> is <samp>--recursive</samp>, while the default
+for <code>add</code> is <samp>--no-recursive</samp>.
+</p>
+<p>Adding directories, whether explicitly or using the <samp>--unknown</samp>
+option, is non-recursive by default.  The <code>add</code> command can be
+made recursive using the <samp>--recursive</samp> option.
+</p>
+<a name="mtn-attr"></a></dd>
+<dt><code>mtn attr</code>
+<a name="index-mtn-attr"></a>
+</dt>
+<dd><p>Manage <a href="File-Attributes.html#File-Attributes">File Attributes</a>.
+</p>
+<p>In <code>drop</code> and <code>get</code>, if no attribute is specified, the
 command applies to all attributes attached to the file given in
 <var>path</var>.  Otherwise it applies only to the attribute specified in
 <var>attr</var>.
+</p>
+<dl compact="compact">
+<dd><a name="mtn-attr-drop"></a></dd>
+<dt><code>mtn attr drop <var>path</var> [<var>attr</var>]</code></dt>
+<dd><p>Remove attributes.
+</p>
+</dd>
+<dt><code>mtn attr get <var>path</var> [<var>attr</var>]</code></dt>
+<dd><p>Output the attributes.
+</p>
+</dd>
+<dt><code>mtn attr set <var>path</var> <var>attr</var> <var>value</var></code></dt>
+<dd><p>Sets <var>attr</var> on <var>path</var> to <var>value</var>.
+</p>
+</dd>
+</dl>
 
-          <dl>
-    <a name="mtn-attr-drop"></a><dt><samp><span class="command">mtn attr drop </span><var>path</var><span class="command"> [</span><var>attr</var><span class="command">]</span></samp><dd>    Remove attributes.
+<p>Several attributes are reserved for mtn use; they all start with &ldquo;mtn:&rdquo;:
+    </p><dl compact="compact">
+<dt><code>mtn:encoding</code></dt>
+<dd><p>Specify character encoding for the file.
+</p>
+</dd>
+<dt><code>mtn:execute</code></dt>
+<dd><p>File is executable.
+</p>
+</dd>
+<dt><code>mtn:manual_merge</code></dt>
+<dd><p>Don&rsquo;t use internal or external diff or merger.
+</p>
+</dd>
+<dt><code>mtn:resolve_conflict</code></dt>
+<dd><p>Specify <code>drop</code> resolution for a recurring dropped/modified
+    conflict (<a href="Merge-Conflicts.html#dropped_005fmodified_005fconflict">dropped_modified_conflict</a>).
+</p>
+</dd>
+</dl>
 
-          <br><dt><samp><span class="command">mtn attr get </span><var>path</var><span class="command"> [</span><var>attr</var><span class="command">]</span></samp><dd>    Output the attributes.
-
-          <br><dt><samp><span class="command">mtn attr set </span><var>path</var> <var>attr</var> <var>value</var></samp><dd>    Sets <var>attr</var> on <var>path</var> to <var>value</var>.
-
-     </dl>
-
-     <p><a name="mtn-commit"></a><br><dt><samp><span class="command">mtn commit</span></samp><a name="index-mtn-commit-72"></a><dt><samp><span class="command">mtn commit --message=</span><var>logmsg</var><span class="command"> [--message=</span><var>logmsg</var><span class="command">...] [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-commit-_002d_002dmessage_003d_0040var_007blogmsg_007d-_005b_002d_002dmessage_003d_0040var_007blogmsg_007d_002e_002e_002e_005d-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-73"></a><dt><samp><span class="command">mtn commit --message-file=</span><var>logfile</var><span class="command"> [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-commit-_002d_002dmessage_002dfile_003d_0040var_007blogfile_007d-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-74"></a><dt><samp><span class="command">mtn ci</span></samp><a name="index-mtn-ci-75"></a><dd><samp><span class="command">ci</span></samp> is an alias for <samp><span class="command">commit</span></samp>. See the online help for
+<a name="mtn-commit"></a></dd>
+<dt><code>mtn commit</code>
+<a name="index-mtn-commit"></a>
+</dt>
+<dt><code>mtn commit --message=<var>logmsg</var> [--message=<var>logmsg</var>...] [<var>pathname...</var>]</code>
+<a name="index-mtn-commit-_002d_002dmessage_003dlogmsg-_005b_002d_002dmessage_003dlogmsg_002e_002e_002e_005d-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dt><code>mtn commit --message-file=<var>logfile</var> [<var>pathname...</var>]</code>
+<a name="index-mtn-commit-_002d_002dmessage_002dfile_003dlogfile-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dt><code>mtn ci</code>
+<a name="index-mtn-ci"></a>
+</dt>
+<dd><p><code>ci</code> is an alias for <code>commit</code>. See the online help for
 more options.
-
-     <p>This command looks at your workspace, decides which files have
+</p>
+<p>This command looks at your workspace, decides which files have
 changed, and saves the changes to your database. It works by loading
-the revision named in <a href="_005fMTN_002frevision.html#g_t_005fMTN_002frevision">_MTN/revision</a>, locating the base manifest
+the revision named in <a href="Storage-and-workflow.html#g_t_005fMTN_002frevision">_MTN/revision</a>, locating the base manifest
 for your workspace, applying any pathname changes described, and then
 comparing the updated base manifest to the files it finds in your
 workspace, to determine which files have been edited.
-
-     <p>For each edited file, a delta is copied into the database. Then the
+</p>
+<p>For each edited file, a delta is copied into the database. Then the
 newly constructed manifest is recorded (as a delta) and finally the
 new revision.  Once all these objects are recorded in your database,
-<samp><span class="command">commit</span></samp> updates <samp><span class="file">_MTN/revision</span></samp> to indicate that the base
+<code>commit</code> updates <samp>_MTN/revision</samp> to indicate that the base
 revision is now the newly created revision, and that there are no
 pathname changes to apply.
-
-     <p>Specifying pathnames to <samp><span class="command">commit</span></samp> restricts the set of changes
-that are visible and results in only a partial commit of the workspace. 
+</p>
+<p>Specifying pathnames to <code>commit</code> restricts the set of changes
+that are visible and results in only a partial commit of the workspace.
 Changes to files not included in the specified set of pathnames will be
 ignored and will remain in the workspace until they are included in a
 future commit. With a partial commit, only the relevant entries in
-<samp><span class="file">_MTN/revision</span></samp> will be removed and other entries will remain for
+<samp>_MTN/revision</samp> will be removed and other entries will remain for
 future commits.
-
-     <p>From within a subdirectory of the workspace the <samp><span class="command">commit</span></samp> command
-will, by default, include <em>all changes</em> in the workspace. 
-Specifying only the pathname "." will restrict <samp><span class="command">commit</span></samp> to files
+</p>
+<p>From within a subdirectory of the workspace the <code>commit</code> command
+will, by default, include <em>all changes</em> in the workspace.
+Specifying only the pathname &quot;.&quot; will restrict <code>commit</code> to files
 changed within the current subdirectory of the workspace.
-
-     <p>The <samp><span class="option">--message</span></samp> and <samp><span class="option">--message-file</span></samp> options are
+</p>
+<p>The <samp>--message</samp> and <samp>--message-file</samp> options are
 mutually exclusive.  Both provide a <var>logmsg</var> describing the
-commit.  <samp><span class="option">--message-file</span></samp> specifies the name of the file
-containing the log message, while <samp><span class="option">--message</span></samp> provides it
+commit.  <samp>--message-file</samp> specifies the name of the file
+containing the log message, while <samp>--message</samp> provides it
 directly.
-
-     <p>Multiple <samp><span class="option">--message</span></samp> options may be provided on the command line. 
-The log message will be formed by concatenating the <samp><span class="option">--message</span></samp>
+</p>
+<p>Multiple <samp>--message</samp> options may be provided on the command line.
+The log message will be formed by concatenating the <samp>--message</samp>
 options provided, with each one starting at the beginning of a new line.
-
-     <p>If neither <samp><span class="option">--message-file</span></samp> nor <samp><span class="option">--message</span></samp> are given,
-the commit message defaults to the contents of <samp><span class="file">_MTN/log</span></samp>, after
-processing by the Lua hook <a href="edit_005fcomment.html#edit_005fcomment">edit_comment</a>. <samp><span class="file">_MTN/log</span></samp> can be
+</p>
+<p>If neither <samp>--message-file</samp> nor <samp>--message</samp> are given,
+the commit message defaults to the contents of <samp>_MTN/log</samp>, after
+processing by the Lua hook <a href="User-Defaults.html#edit_005fcomment">edit_comment</a>. <samp>_MTN/log</samp> can be
 edited by the user during their daily work to record the changes made
 to the workspace.
-
-     <p>The default definition of <code>edit_comment</code> invokes the user's
+</p>
+<p>The default definition of <code>edit_comment</code> invokes the user&rsquo;s
 editor (specified by the environment variables <code>VISUAL</code> and
 <code>EDITOR</code>, or <code>editor, vi</code>, or <code>notepad</code> on Windows).
+</p>
+<p><code>commit</code> formats the input to <code>edit_comment</code> as follows:
+</p>
+<div class="smallexample">
+<pre class="smallexample">&lt;contents of _MTN/log&gt;
 
-     <p><samp><span class="command">commit</span></samp> formats the input to <code>edit_comment</code> as follows:
+*** REMOVE THIS LINE TO CANCEL THE COMMIT ***
+-- Enter a description of this change above --
+-- Edit fields below to modify certificate values --
+Branch:    &lt;from _MTN/options or option&gt;
+Author:    &lt;from key or option&gt;
+Date:      &lt;from system clock&gt;
 
-     <pre class="smallexample">     &lt;contents of _MTN/log&gt;
-     
-     *** REMOVE THIS LINE TO CANCEL THE COMMIT ***
-     -- Enter a description of this change above --
-     -- Edit fields below to modify certificate values --
-     Branch:    &lt;from _MTN/options or option&gt;
-     Author:    &lt;from key or option&gt;
-     Date:      &lt;from system clock&gt;
-     
-     -- Modifications below this line are ignored --
-     Changes against parent &lt;from _MTN/revision&gt;
-     
-       &lt;list of changes&gt;
-</pre>
-     <p>When the user quits the editor, the text is processed as follows:
+-- Modifications below this line are ignored --
+Changes against parent &lt;from _MTN/revision&gt;
 
-          <ul>
-<li>The final <var>logmsg</var> is all text up to the line &ldquo;*** REMOVE THIS LINE
-...&rdquo; (the <dfn>cancel</dfn> line).
+  &lt;list of changes&gt;
 
-          <li>If the <var>logmsg</var> is empty, the commit is aborted.
+</pre></div>
+<p>When the user quits the editor, the text is processed as follows:
+</p>
+<ul>
+<li> The final <var>logmsg</var> is all text up to the line &ldquo;*** REMOVE THIS LINE
+...&rdquo; (the <em>cancel</em> line).
 
-          <li>If the cancel line is deleted or modified, the edited <var>logmsg</var> is
-saved in <samp><span class="file">_MTN/log</span></samp>, and the commit is aborted.
+</li><li> If the <var>logmsg</var> is empty, the commit is aborted.
 
-          <li>The next two lines (instructions) are confirmed to be present. If not,
-the commit is aborted, and the entire file is saved in <samp><span class="file">_MTN/commit</span></samp>,
+</li><li> If the cancel line is deleted or modified, the edited <var>logmsg</var> is
+saved in <samp>_MTN/log</samp>, and the commit is aborted.
+
+</li><li> The next two lines (instructions) are confirmed to be present. If not,
+the commit is aborted, and the entire file is saved in <samp>_MTN/commit</samp>,
 so the user may recover.
 
-          <li>The <dfn>Branch</dfn>, <dfn>Author</dfn>, and <dfn>Date</dfn> fields are parsed, and
+</li><li> The <em>Branch</em>, <em>Author</em>, and <em>Date</em> fields are parsed, and
 the new values used for the commit. If the parsing fails, the commit
-is aborted, and the entire file is saved in <samp><span class="file">_MTN/commit</span></samp>,
+is aborted, and the entire file is saved in <samp>_MTN/commit</samp>,
 so the user may recover.
 
-          <p>The date is formatted with the spec provided by <samp><span class="option">--date-format</span></samp>
-or Lua hook <code><a href="get_005fdate_005fformat_005fspec.html#get_005fdate_005fformat_005fspec">get_date_format_spec</a></code>. When the date field is
+<p>The date is formatted with the spec provided by <samp>--date-format</samp>
+or Lua hook <code><a href="User-Defaults.html#get_005fdate_005fformat_005fspec">get_date_format_spec</a></code>. When the date field is
 parsed, the same spec is used. Therefore this spec must be supported
 by the operating system function for parsing dates; if not, the
 monotone internal format of &ldquo;yyyy-mm-ddThh:mm:ss&rdquo; is used for both
 formatting and parsing.
+</p>
+</li><li> The rest of the text is ignored.
+</li></ul>
 
-          <li>The rest of the text is ignored. 
-</ul>
-
-     <p>If the commit is successful, the <samp><span class="file">_MTN/log</span></samp> file is cleared of
+<p>If the commit is successful, the <samp>_MTN/log</samp> file is cleared of
 all content making it ready for another edit/commit cycle.
-
-     <p>As a special case, if <samp><span class="option">--message-file=_MTN/log</span></samp> is specified,
-the contents of <samp><span class="file">_MTN/log</span></samp> will be used without first invoking
+</p>
+<p>As a special case, if <samp>--message-file=_MTN/log</samp> is specified,
+the contents of <samp>_MTN/log</samp> will be used without first invoking
 <code>edit_comment</code>.
-
-     <p>If a <samp><span class="option">--branch</span></samp> option is specified, the <samp><span class="command">commit</span></samp> command
+</p>
+<p>If a <samp>--branch</samp> option is specified, the <code>commit</code> command
 commits to this branch (creating it if necessary).  The branch becomes
 the new default branch of the workspace.
-
-     <p>The <samp><span class="command">commit</span></samp> command also synthesizes a number of
+</p>
+<p>The <code>commit</code> command also synthesizes a number of
 certificates, which it attaches to the new manifest version and copies
 into your database:
-          <ul>
-<li>An <code>author</code> cert, indicating the person responsible for the
+</p><ul>
+<li> An <code>author</code> cert, indicating the person responsible for the
 changes leading to the new revision.  Normally this defaults to your
-signing key or the return value of the <a href="get_005fauthor.html#get_005fauthor">get_author</a> hook; you may
-override this by passing the <samp><span class="option">--author</span></samp> option to commit, or by
-editing the <dfn>Author</dfn> field in your editor.  This is useful when
+signing key or the return value of the <a href="User-Defaults.html#get_005fauthor">get_author</a> hook; you may
+override this by passing the <samp>--author</samp> option to commit, or by
+editing the <em>Author</em> field in your editor.  This is useful when
 committing a patch on behalf of someone else, or when importing &ldquo;by
 hand&rdquo; from another version control system.
 
-          <li>A <code>branch</code> cert, indicating the branch the committed revision
+</li><li> A <code>branch</code> cert, indicating the branch the committed revision
 belongs to.
 
-          <li>A <code>date</code> cert, indicating when the new revision was created. 
+</li><li> A <code>date</code> cert, indicating when the new revision was created.
 Normally this defaults to the current date and time; you may override
-this by passing the <samp><span class="option">--date</span></samp> option to commit, or by editing
-the <dfn>Date</dfn> field in your editor.  This is useful when importing
+this by passing the <samp>--date</samp> option to commit, or by editing
+the <em>Date</em> field in your editor.  This is useful when importing
 &ldquo;by hand&rdquo; from another version control system.
 
-          <li>A <code>changelog</code> cert, containing the <var>logmsg</var>.
+</li><li> A <code>changelog</code> cert, containing the <var>logmsg</var>.
 
-     </ul>
+</li></ul>
 
-     <br><dt><samp><span class="command">mtn drop [--[no]-recursive] [--bookkeep-only] </span><var>pathname...</var></samp><a name="index-mtn-drop-_005b_002d_002d_005bno_005d_002drecursive_005d-_005b_002d_002dbookkeep_002donly_005d-_0040var_007bpathname_002e_002e_002e_007d-76"></a><dt><samp><span class="command">mtn drop --missing </span><var>pathname...</var></samp><a name="index-mtn-drop-_002d_002dmissing-_0040var_007bpathname_002e_002e_002e_007d-77"></a><dt><samp><span class="command">mtn rm</span></samp><a name="index-mtn-rm-78"></a><dd><samp><span class="command">rm</span></samp> is an alias for <samp><span class="command">drop</span></samp>.
-
-     <p>This command places &ldquo;drop&rdquo; entries for the paths specified in
-<var>pathname...</var> in <a href="_005fMTN_002frevision.html#g_t_005fMTN_002frevision">_MTN/revision</a> and deletes the file from the
-workspace. This will be part of the next <samp><span class="command">commit</span></samp>. If any of
-<var>pathname...</var> is a directory, and <samp><span class="option">--recursive</span></samp> is not
+</dd>
+<dt><code>mtn drop [--[no]-recursive] [--bookkeep-only] <var>pathname...</var></code>
+<a name="index-mtn-drop-_005b_002d_002d_005bno_005d_002drecursive_005d-_005b_002d_002dbookkeep_002donly_005d-pathname_002e_002e_002e"></a>
+</dt>
+<dt><code>mtn drop --missing <var>pathname...</var></code>
+<a name="index-mtn-drop-_002d_002dmissing-pathname_002e_002e_002e"></a>
+</dt>
+<dt><code>mtn rm</code>
+<a name="index-mtn-rm"></a>
+</dt>
+<dd><p><code>rm</code> is an alias for <code>drop</code>.
+</p>
+<p>This command places &ldquo;drop&rdquo; entries for the paths specified in
+<var>pathname...</var> in <a href="Storage-and-workflow.html#g_t_005fMTN_002frevision">_MTN/revision</a> and deletes the file from the
+workspace. This will be part of the next <code>commit</code>. If any of
+<var>pathname...</var> is a directory, and <samp>--recursive</samp> is not
 given, and the directory contains any versioned files, the command
-will fail. If <samp><span class="option">--recursive</span></samp> is given, the versioned files will be
+will fail. If <samp>--recursive</samp> is given, the versioned files will be
 dropped. If the directory contains unversioned files, it will be
 dropped from the revision, but not deleted from the disk.
-
-     <p>If <samp><span class="option">--missing</span></samp> is given, <samp><span class="command">drop</span></samp> will add drop entries
+</p>
+<p>If <samp>--missing</samp> is given, <code>drop</code> will add drop entries
 for any versioned paths in <var>pathname...</var> for which you have
 already removed the files from the filesystem.
-
-     <p>This command also removes any attributes on <var>pathname</var>; see
+</p>
+<p>This command also removes any attributes on <var>pathname</var>; see
 <a href="File-Attributes.html#File-Attributes">File Attributes</a> for more details.
-
-     <p>If <samp><span class="option">--bookkeep-only</span></samp> is given, or if a file is different from
-the version in the base revision, <samp><span class="command">drop</span></samp> will drop remove
+</p>
+<p>If <samp>--bookkeep-only</samp> is given, or if a file is different from
+the version in the base revision, <code>drop</code> will drop remove
 <var>pathname...</var> from the revision at commit time, but <em>not</em>
 remove the file from the workspace.
-
-     <p>See the <samp><span class="command">undrop</span></samp> command for undoing a <samp><span class="command">drop</span></samp> before commit.
-
-     <br><dt><samp><span class="command">mtn mkdir [--[no-]respect-ignore] </span><var>directory...</var></samp><a name="index-mtn-mkdir-_005b_002d_002d_005bno_002d_005drespect_002dignore_005d-_0040var_007bdirectory_002e_002e_002e_007d-79"></a><dd>This command creates directories in the filesystem relative to your
-current location and adds them to <a href="_005fMTN_002frevision.html#g_t_005fMTN_002frevision">_MTN/revision</a>.  This will be
-part of the next <samp><span class="command">commit</span></samp>.
-
-     <p>Normally, if any of <var>directory...</var> are in <samp><span class="file">.mtn-ignore</span></samp>, this
-command will fail. You can use <samp><span class="option">--no-respect-ignore</span></samp> to
+</p>
+<p>See the <code>undrop</code> command for undoing a <code>drop</code> before commit.
+</p>
+</dd>
+<dt><code>mtn mkdir [--[no-]respect-ignore] <var>directory...</var></code>
+<a name="index-mtn-mkdir-_005b_002d_002d_005bno_002d_005drespect_002dignore_005d-directory_002e_002e_002e"></a>
+</dt>
+<dd><p>This command creates directories in the filesystem relative to your
+current location and adds them to <a href="Storage-and-workflow.html#g_t_005fMTN_002frevision">_MTN/revision</a>.  This will be
+part of the next <code>commit</code>.
+</p>
+<p>Normally, if any of <var>directory...</var> are in <samp>.mtn-ignore</samp>, this
+command will fail. You can use <samp>--no-respect-ignore</samp> to
 override this check. But it would be better to remove <var>directory</var>
-from <samp><span class="file">.mtn-ignore</span></samp>.
-
-     <br><dt><samp><span class="command">mtn pivot_root [--bookkeep-only] [--[no-]move-conflicting-paths] </span><var>new_root</var> <var>put_old</var></samp><a name="index-mtn-pivot_005froot-_005b_002d_002dbookkeep_002donly_005d-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_0040var_007bnew_005froot_007d-_0040var_007bput_005fold_007d-80"></a><dd>Most users will never need this command.  It is primarily useful in
+from <samp>.mtn-ignore</samp>.
+</p>
+</dd>
+<dt><code>mtn pivot_root [--bookkeep-only] [--[no-]move-conflicting-paths] <var>new_root</var> <var>put_old</var></code>
+<a name="index-mtn-pivot_005froot-_005b_002d_002dbookkeep_002donly_005d-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-new_005froot-put_005fold"></a>
+</dt>
+<dd><p>Most users will never need this command.  It is primarily useful in
 certain tricky cases where one wishes to combine several projects
-into one, or split one project into several. See also <samp><span class="command">merge_into_dir</span></samp>.
-
-     <p>Its effect is to rename the directory whose name is currently
+into one, or split one project into several. See also <code>merge_into_dir</code>.
+</p>
+<p>Its effect is to rename the directory whose name is currently
 <var>new_root</var> to become the root directory of the versioned tree, and
 to at the same time rename the directory that is currently the root of
 the versioned tree to have the name <var>put_old</var>.  Conceptually, it
 is equivalent to executing the following commands in the root of the
 workspace:
+</p>
+<div class="smallexample">
+<pre class="smallexample">$ mtn rename . <var>new_root</var>/<var>put_old</var>
+$ mtn rename <var>new_root</var> .
+</pre></div>
 
-     <pre class="smallexample">     $ mtn rename . <var>new_root</var>/<var>put_old</var>
-     $ mtn rename <var>new_root</var> .
-</pre>
-     <p>Except, of course, that these <samp><span class="command">rename</span></samp> commands are illegal,
+<p>Except, of course, that these <code>rename</code> commands are illegal,
 because after the first command the tree has no root at all, and there
 is a directory loop.  This illegality is the only reason for
-<samp><span class="command">pivot_root</span></samp>'s existence; internally, the result is treated
+<code>pivot_root</code>&rsquo;s existence; internally, the result is treated
 exactly like two renames, including with respect to merges and
 updates.
-
-     <p>The use of <samp><span class="option">--bookkeep-only</span></samp> with this command is not
-recommended.  It causes the changes to be made in monotone's
+</p>
+<p>The use of <samp>--bookkeep-only</samp> with this command is not
+recommended.  It causes the changes to be made in monotone&rsquo;s
 records, but not in the filesystem itself.
-
-     <p>When running <samp><span class="command">pivot_root</span></samp>, it is sometimes possible for
+</p>
+<p>When running <code>pivot_root</code>, it is sometimes possible for
 <a href="Workspace-Collisions.html#Workspace-Collisions">Workspace Collisions</a> to occur.
-
-     <p><a name="mtn-pluck"></a><br><dt><samp><span class="command">mtn pluck [--[no-]move-conflicting-paths] --revision=</span><var>to</var></samp><a name="index-mtn-pluck-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003d_0040var_007bto_007d-81"></a><dt><samp><span class="command">mtn pluck [--[no-]move-conflicting-paths] --revision=</span><var>from</var><span class="command"> --revision=</span><var>to</var></samp><a name="index-mtn-pluck-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003d_0040var_007bfrom_007d-_002d_002drevision_003d_0040var_007bto_007d-82"></a><dd>See the online help for more options.
-
-     <p>This command takes changes made at any point in history, and attempts to
+</p>
+<a name="mtn-pluck"></a></dd>
+<dt><code>mtn pluck [--[no-]move-conflicting-paths] --revision=<var>to</var></code>
+<a name="index-mtn-pluck-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003dto"></a>
+</dt>
+<dt><code>mtn pluck [--[no-]move-conflicting-paths] --revision=<var>from</var> --revision=<var>to</var></code>
+<a name="index-mtn-pluck-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003dfrom-_002d_002drevision_003dto"></a>
+</dt>
+<dd><p>See the online help for more options. See <a href="Selectors.html#Selectors">Selectors</a>.
+</p>
+<p>This command takes changes made at any point in history, and attempts to
 edit your current workspace to include those changes.  The end result is
-identical to running <samp><span class="command">mtn diff </span><samp><span class="option">-r</span></samp> <var>from</var>
-<samp><span class="option">-r</span></samp> <var>to</var><span class="command"> | patch </span><samp><span class="option">-p0</span></samp></samp>, except that this command
-uses monotone's merger, and thus intelligently handles renames,
+identical to running <code>mtn diff <samp>-r</samp> <var>from</var>
+<samp>-r</samp> <var>to</var> | patch <samp>-p0</samp></code>, except that this command
+uses monotone&rsquo;s merger, and thus intelligently handles renames,
 conflicts, and so on.
-
-     <p>If only one revision is given, applies the changes made in <var>to</var> as
-compared with <var>to</var>'s parent.  If two revisions are given, applies
+</p>
+<p>If only one revision is given, applies the changes made in <var>to</var> as
+compared with <var>to</var>&rsquo;s parent.  If two revisions are given, applies
 the changes made to get from <var>from</var> to <var>to</var>.
-
-     <p>Note that this is not a true cherrypick operation.  A true cherrypick,
+</p>
+<p>Note that this is not a true cherrypick operation.  A true cherrypick,
 as that word is used in version control theory, involves applying some
 changes out of context, and then recording the identity between the
 original changes and the newly applied changes for the use of later
 merges.  This command does the first part, not the second.  As far as
-monotone is concerned, the changes made by <samp><span class="command">mtn pluck</span></samp> are
+monotone is concerned, the changes made by <code>mtn pluck</code> are
 exactly like those made in an editor; the command is simply a
 convenient way to make certain edits quickly.  In practice, this is
-rarely a problem.  <samp><span class="command">mtn pluck</span></samp> should almost always be used
+rarely a problem.  <code>mtn pluck</code> should almost always be used
 between branches that will never be merged &mdash; for instance,
 backporting fixes from a development branch to a stable branch.
-
-     <p>When you use <samp><span class="command">pluck</span></samp> you are going behind monotone's back, and
+</p>
+<p>When you use <code>pluck</code> you are going behind monotone&rsquo;s back, and
 reducing its ability to help you keep track of what has happened in
-your history.  Never use <samp><span class="command">pluck</span></samp> where a true merging command
-like <samp><span class="command">merge</span></samp>, <samp><span class="command">propagate</span></samp>, or <samp><span class="command">explicit_merge</span></samp>
-will do.  If you find yourself using <samp><span class="command">pluck</span></samp> often, you should
+your history.  Never use <code>pluck</code> where a true merging command
+like <code>merge</code>, <code>propagate</code>, or <code>explicit_merge</code>
+will do.  If you find yourself using <code>pluck</code> often, you should
 consider carefully whether there is any way to change your workflow to
-reduce your need for <samp><span class="command">pluck</span></samp>ing.
-
-     <p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> and <a href="Workspace-Collisions.html#Workspace-Collisions">Workspace Collisions</a> can occur.
-
-     <br><dt><samp><span class="command">mtn rename [--bookkeep-only] </span><var>src</var> <var>dst</var></samp><a name="index-mtn-rename-_005b_002d_002dbookkeep_002donly_005d-_0040var_007bsrc_007d-_0040var_007bdst_007d-83"></a><dt><samp><span class="command">mtn rename [--bookkeep-only] </span><var>src</var> <var>...</var> <var>dst/</var></samp><a name="index-mtn-rename-_005b_002d_002dbookkeep_002donly_005d-_0040var_007bsrc_007d-_0040var_007b_002e_002e_002e_007d-_0040var_007bdst_002f_007d-84"></a><dt><samp><span class="command">mtn mv</span></samp><a name="index-mtn-mv-85"></a><dd><samp><span class="command">mv</span></samp> is an alias for <samp><span class="command">rename</span></samp>.
-
-     <p>This command places <code>rename</code> entries for the paths specified in
-<var>src</var> and <var>dst</var> in <a href="_005fMTN_002frevision.html#g_t_005fMTN_002frevision">_MTN/revision</a>, and (if
-<samp><span class="option">--bookkeep-only</span></samp> is not specified) renames the paths on the
-disk. This will be part of the next <samp><span class="command">commit</span></samp>.
-
-     <p>The second form renames a number of source paths (or a single source,
-if <var>dst</var> ends in '/') to the given destination. In this case
+reduce your need for <code>pluck</code>ing.
+</p>
+<p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> and <a href="Workspace-Collisions.html#Workspace-Collisions">Workspace Collisions</a> can occur.
+</p>
+</dd>
+<dt><code>mtn rename [--bookkeep-only] <var>src</var> <var>dst</var></code>
+<a name="index-mtn-rename-_005b_002d_002dbookkeep_002donly_005d-src-dst"></a>
+</dt>
+<dt><code>mtn rename [--bookkeep-only] <var>src</var> <var>...</var> <var>dst/</var></code>
+<a name="index-mtn-rename-_005b_002d_002dbookkeep_002donly_005d-src-_002e_002e_002e-dst_002f"></a>
+</dt>
+<dt><code>mtn mv</code>
+<a name="index-mtn-mv"></a>
+</dt>
+<dd><p><code>mv</code> is an alias for <code>rename</code>.
+</p>
+<p>This command places <code>rename</code> entries for the paths specified in
+<var>src</var> and <var>dst</var> in <a href="Storage-and-workflow.html#g_t_005fMTN_002frevision">_MTN/revision</a>, and (if
+<samp>--bookkeep-only</samp> is not specified) renames the paths on the
+disk. This will be part of the next <code>commit</code>.
+</p>
+<p>The second form renames a number of source paths (or a single source,
+if <var>dst</var> ends in &rsquo;/&rsquo;) to the given destination. In this case
 <var>dst</var> will be created if necessary, and added to the workspace if
 it is not already versioned.
-
-     <p>This command also moves any attributes on <var>src</var> to <var>dst</var>; see
+</p>
+<p>This command also moves any attributes on <var>src</var> to <var>dst</var>; see
 <a href="File-Attributes.html#File-Attributes">File Attributes</a> for more details.
-
-     <p><a name="mtn-revert"></a><br><dt><samp><span class="command">mtn revert </span><var>pathname...</var></samp><a name="index-mtn-revert-_0040var_007bpathname_002e_002e_002e_007d-86"></a><dt><samp><span class="command">mtn revert --missing </span><var>pathname...</var></samp><a name="index-mtn-revert-_002d_002dmissing-_0040var_007bpathname_002e_002e_002e_007d-87"></a><dd>See the online help for more options.
-
-     <p>This command changes your workspace, so that changes you have made
+</p>
+<p>Note that you cannot rename a branch. You can accomplish something
+similar by creating a new branch with the desired name, using the
+<a href="Review.html#mtn-approve">mtn approve</a> command to add a branch name to the desired revision.
+</p>
+<a name="mtn-revert"></a></dd>
+<dt><code>mtn revert <var>pathname...</var></code>
+<a name="index-mtn-revert-pathname_002e_002e_002e"></a>
+</dt>
+<dt><code>mtn revert --missing <var>pathname...</var></code>
+<a name="index-mtn-revert-_002d_002dmissing-pathname_002e_002e_002e"></a>
+</dt>
+<dd><p>See the online help for more options.
+</p>
+<p>This command changes your workspace, so that changes you have made
 since the last checkout or update are discarded. The command is
 restricted the set of files or directories given as arguments.  To
-revert the entire workspace, use <samp><span class="command">revert</span></samp> "." in the
-top-level directory. Specifying "." in a subdirectory will restrict
-<samp><span class="command">revert</span></samp> to files changed within the current subdirectory.
-
-     <p>If <samp><span class="option">--missing</span></samp> is given it reverts any versioned files in
+revert the entire workspace, use <code>revert</code> &quot;.&quot; in the
+top-level directory. Specifying &quot;.&quot; in a subdirectory will restrict
+<code>revert</code> to files changed within the current subdirectory.
+</p>
+<p>If <samp>--missing</samp> is given it reverts any versioned files in
 <var>pathname...</var> that have been deleted from the workspace.
-
-     <p><a name="mtn-undrop"></a><br><dt><samp><span class="command">mtn undrop </span><var>pathname...</var></samp><a name="index-mtn-undrop-_0040var_007bpathname_002e_002e_002e_007d-88"></a><dd>Undoes a previous <samp><span class="command">drop</span></samp>; useful when you make a mistake. If
+</p>
+<a name="mtn-undrop"></a></dd>
+<dt><code>mtn undrop <var>pathname...</var></code>
+<a name="index-mtn-undrop-pathname_002e_002e_002e"></a>
+</dt>
+<dd><p>Undoes a previous <code>drop</code>; useful when you make a mistake. If
 the file was deleted from the workspace, this reverts it. If it was
-not deleted (because it was changed or <samp><span class="option">--bookkeep-only</span></samp> was
+not deleted (because it was changed or <samp>--bookkeep-only</samp> was
 given), it just removes the pending drop.
-
-     <p><a name="mtn-update"></a><br><dt><samp><span class="command">mtn update [--[no-]move-conflicting-paths] [--branch </span><var>branchname</var><span class="command">]</span></samp><a name="index-mtn-update-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_005b_002d_002dbranch-_0040var_007bbranchname_007d_005d-89"></a><dt><samp><span class="command">mtn update [--[no-]move-conflicting-paths] --revision=</span><var>revision</var></samp><a name="index-mtn-update-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003d_0040var_007brevision_007d-90"></a><dd>This command changes your workspace to have the a different revision as
-the base revision.
-
-     <p><samp><span class="command">update</span></samp> performs 3 separate stages. If any of these stages
+</p>
+<a name="mtn-update"></a></dd>
+<dt><code>mtn update [--[no-]move-conflicting-paths] [--branch <var>branchname</var>]</code>
+<a name="index-mtn-update-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_005b_002d_002dbranch-branchname_005d"></a>
+</dt>
+<dt><code>mtn update [--[no-]move-conflicting-paths] --revision=<var>revision</var></code>
+<a name="index-mtn-update-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-_002d_002drevision_003drevision"></a>
+</dt>
+<dd><p>This command changes your workspace to have the a different revision as
+the base revision. See <a href="Selectors.html#Selectors">Selectors</a>.
+</p>
+<p><code>update</code> performs 3 separate stages. If any of these stages
 fails, the update aborts, doing nothing. The first two stages select
-the target revision; they are skipped if <samp><span class="option">--revision</span></samp> is given
+the target revision; they are skipped if <samp>--revision</samp> is given
 - that revision is the target.
-
-     <p>In the first stage, if <samp><span class="option">--branch</span></samp> is not given, the workspace
-branch is used. If <samp><span class="option">--branch</span></samp> is given, the branch becomes the
+</p>
+<p>In the first stage, if <samp>--branch</samp> is not given, the workspace
+branch is used. If <samp>--branch</samp> is given, the branch becomes the
 new default branch of the workspace (even if you also specify an
-explicit <samp><span class="option">--revision</span></samp> argument).
-
-          <ul>
-<li>Examine the ancestry graph of revisions on the branch in your
-database, and (subject to trust evaluation; see <a href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks">Trust Evaluation Hooks</a>) select the set of all descendants of your workspace's base
-revision. Call this set the &ldquo;candidates&rdquo; of the update. 
-<li>Remove any candidates which lack acceptable testresult certificates;
-see <a href="accept_005ftestresult_005fchange.html#accept_005ftestresult_005fchange">accept_testresult_change</a> (defaults to all candidates). From
+explicit <samp>--revision</samp> argument).
+</p>
+<ul>
+<li> Examine the ancestry graph of revisions on the branch in your
+database, and (subject to trust evaluation; see <a href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks">Trust Evaluation Hooks</a>) select the set of all descendants of your workspace&rsquo;s base
+revision. Call this set the &ldquo;candidates&rdquo; of the update.
+</li><li> Remove any candidates which lack acceptable testresult certificates;
+see <a href="Trust-Evaluation-Hooks.html#accept_005ftestresult_005fchange">accept_testresult_change</a> (defaults to all candidates). From
 the remaining candidates, select the deepest child by ancestry and
-call it the &ldquo;target&rdquo; of the update. 
-<li>Merge the target of the update with the workspace, in memory, and
-if the merge is successful, write the result over top of the workspace. 
-</ul>
+call it the &ldquo;target&rdquo; of the update.
+</li><li> Merge the target of the update with the workspace, in memory, and
+if the merge is successful, write the result over top of the workspace.
+</li></ul>
 
-     <p>The effect is always to take whatever changes you have made in the
+<p>The effect is always to take whatever changes you have made in the
 workspace, and to &ldquo;transpose&rdquo; them onto a new revision, using
-monotone's 3-way merge algorithm to achieve good results.  Note that
-with the explicit <samp><span class="option">--revision</span></samp> argument, it is possible to update
+monotone&rsquo;s 3-way merge algorithm to achieve good results.  Note that
+with the explicit <samp>--revision</samp> argument, it is possible to update
 &ldquo;backwards&rdquo; or &ldquo;sideways&rdquo; in history &mdash; for example, reverting to
 an earlier revision, or if your branch has two heads, updating to the
 other.  In all cases, the end result will be whatever revision you
 specified, with your local changes (and only your local changes)
 applied.
-
-     <p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> and <a href="Workspace-Collisions.html#Workspace-Collisions">Workspace Collisions</a> can occur.
-
+</p>
+<p><a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a> and <a href="Workspace-Collisions.html#Workspace-Collisions">Workspace Collisions</a> can occur.
+</p>
+</dd>
 </dl>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Network.html#Network" accesskey="n" rel="next">Network</a>, Previous: <a href="Tree.html#Tree" accesskey="p" rel="prev">Tree</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

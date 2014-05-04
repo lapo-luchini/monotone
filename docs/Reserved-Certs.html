@@ -1,38 +1,62 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Reserved Certs - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Reserved-Files.html#Reserved-Files" title="Reserved Files">
-<link rel="next" href="Naming-Conventions.html#Naming-Conventions" title="Naming Conventions">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Reserved-Certs"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Naming-Conventions.html#Naming-Conventions">Naming Conventions</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Reserved-Files.html#Reserved-Files">Reserved Files</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Reserved Certs</title>
 
+<meta name="description" content="monotone documentation: Reserved Certs">
+<meta name="keywords" content="monotone documentation: Reserved Certs">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Naming-Conventions.html#Naming-Conventions" rel="next" title="Naming Conventions">
+<link href="Reserved-Files.html#Reserved-Files" rel="prev" title="Reserved Files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Reserved-Certs"></a>
+<div class="header">
+<p>
+Next: <a href="Naming-Conventions.html#Naming-Conventions" accesskey="n" rel="next">Naming Conventions</a>, Previous: <a href="Reserved-Files.html#Reserved-Files" accesskey="p" rel="prev">Reserved Files</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Reserved-Certs-1"></a>
 <h3 class="section">3.12 Reserved Certs</h3>
 
 <p>Every certificate has a name. Some names have meaning which is built
@@ -45,64 +69,88 @@ called <code>x-vulnerability</code>.  Monotone reserves all names which do
 not begin with <code>x-</code> for possible internal use. If an <code>x-</code>
 certificate becomes widely used, monotone will likely adopt it as a
 reserved cert name and standardize its semantics.
-
+</p>
 <p>Most reserved certificate names have no meaning yet; some do. Usually
 monotone is also responsible for <em>generating</em> many of these certs
-as part of normal operation, such as during a <samp><span class="command">commit</span></samp>. Others
-will be added explicitly via other commands, like <samp><span class="command">tag</span></samp> or
-<samp><span class="command">approve</span></samp>.
-
+as part of normal operation, such as during a <code>commit</code>. Others
+will be added explicitly via other commands, like <code>tag</code> or
+<code>approve</code>.
+</p>
 <p>As well as carrying other information, certs (and combinations of certs)
 are useful for identifying revisions with <a href="Selectors.html#Selectors">Selectors</a>; in
 particular, this is the primary purpose of the <code>tag</code> cert.
-
+</p>
 <p>The pre-defined, reserved certificate names are:
-
-     <dl>
-<dt><code>author</code><dd>This cert's value is the name of a person who committed the revision
+</p>
+<dl compact="compact">
+<dt><code>author</code></dt>
+<dd><p>This cert&rsquo;s value is the name of a person who committed the revision
 the cert is attached to. The cert is generated when you commit a
-revision. It is displayed by the <samp><span class="command">log</span></samp> command.
-
-     <br><dt><code>branch</code><dd>This cert's value is the name of a branch. A <code>branch</code> cert
+revision. It is displayed by the <code>log</code> command.
+</p>
+</dd>
+<dt><code>branch</code></dt>
+<dd><p>This cert&rsquo;s value is the name of a branch. A <code>branch</code> cert
 associates a revision with a branch. The revision is said to be &ldquo;in
 the branch&rdquo; named by the cert. The cert is generated when you commit
-a revision, either directly with the <samp><span class="command">commit</span></samp> command or
-indirectly with the <samp><span class="command">merge</span></samp> or <samp><span class="command">propagate</span></samp> commands. The
+a revision, either directly with the <code>commit</code> command or
+indirectly with the <code>merge</code> or <code>propagate</code> commands. The
 <code>branch</code> certs are read and directly interpreted by <em>many</em>
 monotone commands, and play a fundamental role in organizing work in
 any monotone database.
-
-     <br><dt><code>changelog</code><dd>This cert's value is the change log message you provide when you
-commit a revision. It is displayed by the <samp><span class="command">log</span></samp> command.
-
-     <br><dt><code>comment</code><dd>This cert's value is an additional comment, usually provided after
+</p>
+</dd>
+<dt><code>changelog</code></dt>
+<dd><p>This cert&rsquo;s value is the change log message you provide when you
+commit a revision. It is displayed by the <code>log</code> command.
+</p>
+</dd>
+<dt><code>comment</code></dt>
+<dd><p>This cert&rsquo;s value is an additional comment, usually provided after
 committing, about a revision. Certs with the name <code>comment</code> will be
-shown together with <code>changelog</code> certs by the <samp><span class="command">log</span></samp> command.
-
-     <br><dt><code>date</code><dd>This cert's value is an ISO date string indicating the time at which a
-revision was committed. It is displayed by the <samp><span class="command">log</span></samp> command, and
+shown together with <code>changelog</code> certs by the <code>log</code> command.
+</p>
+</dd>
+<dt><code>date</code></dt>
+<dd><p>This cert&rsquo;s value is an ISO date string indicating the time at which a
+revision was committed. It is displayed by the <code>log</code> command, and
 may be used as an additional heuristic or selection criterion in other
 commands in the future.
-
-     <br><dt><code>suspend</code><dd>This cert's value is the name of a branch (see the <code>branch</code> cert). 
-This cert is generated by the <samp><span class="command">suspend</span></samp> command.  A suspended
+</p>
+</dd>
+<dt><code>suspend</code></dt>
+<dd><p>This cert&rsquo;s value is the name of a branch (see the <code>branch</code> cert).
+This cert is generated by the <code>suspend</code> command.  A suspended
 revision is removed from the list of head revisions of a branch in most
 cases.  A branch with all its heads suspended will not appear in the
 list of branches.  Suspended revisions can still have children, and those
 children are in no way affected by the suspend cert on their parent.
-
-     <br><dt><code>tag</code><dd>This cert's value is a symbolic name given to a revision, which may be
+</p>
+</dd>
+<dt><code>tag</code></dt>
+<dd><p>This cert&rsquo;s value is a symbolic name given to a revision, which may be
 used as a way of selecting the revision by name for later commands like
-<samp><span class="command">checkout</span></samp>, <samp><span class="command">log</span></samp> or <samp><span class="command">diff</span></samp>.
-
-     <br><dt><code>testresult</code><dd>This cert's value is interpreted as a boolean string, either <code>0</code>
-or <code>1</code>. It is generated by the <samp><span class="command">testresult</span></samp> command and
+<code>checkout</code>, <code>log</code> or <code>diff</code>.
+</p>
+</dd>
+<dt><code>testresult</code></dt>
+<dd><p>This cert&rsquo;s value is interpreted as a boolean string, either <code>0</code>
+or <code>1</code>. It is generated by the <code>testresult</code> command and
 represents the results of running a particular test on the underlying
 revision. Typically you will make a separate signing key for each test
 you intend to run on revisions. This cert influences the
-<samp><span class="command">update</span></samp> algorithm.
-
+<code>update</code> algorithm.
+</p>
+</dd>
 </dl>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Naming-Conventions.html#Naming-Conventions" accesskey="n" rel="next">Naming Conventions</a>, Previous: <a href="Reserved-Files.html#Reserved-Files" accesskey="p" rel="prev">Reserved Files</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

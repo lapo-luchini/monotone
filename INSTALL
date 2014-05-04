@@ -5,8 +5,8 @@ building and installation process for monotone
 
   * hardware prerequisites:
 
-    - g++ consumes a lot of memory building monotone, due to
-      monotone's liberal use of C++ features. it may be possible to
+    - C++ compilers consume a lot of memory building monotone, due to
+      monotone's liberal use of C++ features. It may be possible to
       build on a system with 128mb of memory, but not pleasant.
 
   * software prerequisites:
@@ -14,7 +14,7 @@ building and installation process for monotone
     - autoconf
     - automake
     - gettext
-    - a supported C++ compiler: g++ 3.2 or later
+    - a supported C++ compiler: g++ 3.2 or clang++ 3.3 or newer.
     - boost 1.33.0 or later: either an installed copy or an extracted
       tarball of its unbuilt sources somewhere in the file system are
       supported
@@ -32,7 +32,7 @@ building and installation process for monotone
 
            install the following packages:
              autoconf automake gettext g++ libboost-dev libz-dev
-             libbotan1.7-dev libsqlite3-dev libpcre3-dev liblua5.1-0-dev
+             libbotan1.10-dev libsqlite3-dev libpcre3-dev liblua5.2-dev
              libidn11-dev libgmp3-dev libbz2-dev texinfo
 
            (monotone works with older and newer Botan versions as well, 
@@ -41,8 +41,17 @@ building and installation process for monotone
         on FreeBSD:
 
            install the following packages from the ports collection:
-             databases/sqlite3 devel/automake1.9 devel/boost devel/gettext
-             devel/gmake devel/pcre lang/lua security/botan dns/libidn
+             databases/sqlite3 devel/automake devel/boost devel/gettext
+             devel/gmake devel/pcre lang/lua security/botan110 dns/libidn
+
+           (monotone works with older and newer Botan versions as well, 
+            so security/botan is also good to go.)
+
+        on OpenBSD:
+
+           install the following packages using 'pkg_add':
+             autoconf automake boost botan gmake libiconv libidn lua
+             pcre sqlite3 
 
         on Gentoo:
 
@@ -61,7 +70,7 @@ building and installation process for monotone
 
             install the following extra packages with YaST or zypper:
               autoconf automake gettext-tools gcc-c++ boost-devel zlib-devel
-              libbotan-devel sqlite3-dev pcre-devel lua-devel libidn-devel
+              libbotan-devel sqlite3-devel pcre-devel lua-devel libidn-devel
               libbz2-devel texinfo make
 
         on Mac OS X:
@@ -71,14 +80,15 @@ building and installation process for monotone
              autoconf automake gettext boost zlib lua pcre botan
              sqlite3 libidn libiconv texinfo
 
-           monotone only uses header-only libraries from boost, so if you don't
-           like to spend a lot of time building boost via MacPorts, you can also
-           download and extract it manually and let CXXFLAGS point to the
-           include/ directory of the extracted version.
+           monotone only uses header-only libraries from boost, so if you
+           don't like to spend a lot of time building boost via MacPorts,
+           you can also download and extract it manually and let CXXFLAGS
+           point to the include/ directory of the extracted version.
 
-        on Windows (using MinGW): see INSTALL_windows_native
-
-        on Windows (using Cygwin): see INSTALL_windows_cygwin
+        on Windows (using MinGW): see INSTALL_windows_mingw.txt
+                   (using Cygwin): see INSTALL_windows_cygwin.txt
+                   (Visual Studio is not really supported, but
+                   INSTALL_windows_msvc.txt has some old hints)
 
         on other systems:
 
@@ -87,6 +97,7 @@ building and installation process for monotone
            does not contain the libraries, see:
 
                 http://gcc.gnu.org/                  for g++
+                http://clang.llvm.org/               for clang++
                 http://www.boost.org/                for Boost
                 http://www.pcre.org/                 for PCRE
                 http://www.lua.org/                  for Lua

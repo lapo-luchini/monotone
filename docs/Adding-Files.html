@@ -1,43 +1,68 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Adding Files - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Tutorial.html#Tutorial" title="Tutorial">
-<link rel="prev" href="Starting-a-New-Project.html#Starting-a-New-Project" title="Starting a New Project">
-<link rel="next" href="Committing-Work.html#Committing-Work" title="Committing Work">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Adding-Files"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Committing-Work.html#Committing-Work">Committing Work</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Starting-a-New-Project.html#Starting-a-New-Project">Starting a New Project</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Tutorial.html#Tutorial">Tutorial</a>
-<hr>
-</div>
+<title>monotone documentation: Adding Files</title>
 
+<meta name="description" content="monotone documentation: Adding Files">
+<meta name="keywords" content="monotone documentation: Adding Files">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tutorial.html#Tutorial" rel="up" title="Tutorial">
+<link href="Committing-Work.html#Committing-Work" rel="next" title="Committing Work">
+<link href="Starting-a-New-Project.html#Starting-a-New-Project" rel="prev" title="Starting a New Project">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Adding-Files"></a>
+<div class="header">
+<p>
+Next: <a href="Committing-Work.html#Committing-Work" accesskey="n" rel="next">Committing Work</a>, Previous: <a href="Starting-a-New-Project.html#Starting-a-New-Project" accesskey="p" rel="prev">Starting a New Project</a>, Up: <a href="Tutorial.html#Tutorial" accesskey="u" rel="up">Tutorial</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Adding-Files-1"></a>
 <h3 class="section">2.6 Adding Files</h3>
 
 <p>Next Jim decides to add some files to the project. He writes up
 a file containing the prototypes for the JuiceBot 7:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mkdir include
 $ cat &gt;include/jb.h
 /* Standard JuiceBot hw interface */
@@ -53,13 +78,15 @@ int spoutctl(int port, int cmd, void *x);
 void dispense_apple_juice ();
 void dispense_banana_juice ();
 ^D
-</pre>
+</pre></div>
+
 <p>Then adds a couple skeleton source files which he wants Abe and Beth
 to fill in:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mkdir src
 $ cat &gt;src/apple.c
-#include "jb.h"
+#include &quot;jb.h&quot;
 
 void
 dispense_apple_juice()
@@ -68,7 +95,7 @@ dispense_apple_juice()
 }
 ^D
 $ cat &gt;src/banana.c
-#include "jb.h"
+#include &quot;jb.h&quot;
 
 void
 dispense_banana_juice()
@@ -76,48 +103,54 @@ dispense_banana_juice()
   /* Fill this in please, Beth. */
 }
 ^D
-</pre>
+</pre></div>
+
 <p>Now Jim tells monotone to add these files to its record of his
 workspace.  He specifies one filename and one directory; monotone
 recursively scans the directory and adds all its files.
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn add -R include/jb.h src
 mtn: adding include/jb.h to workspace manifest
 mtn: adding src/apple.c to workspace manifest
 mtn: adding src/banana.c to workspace manifest
-</pre>
-<p>This command produces a record of Jim's intentions in a special file
-called <samp><span class="file">_MTN/revision</span></samp>, stored in the workspace. The file is plain
-text:
+</pre></div>
 
+<p>This command produces a record of Jim&rsquo;s intentions in a special file
+called <samp>_MTN/revision</samp>, stored in the workspace. The file is plain
+text:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ cat _MTN/revision
-format_version "1"
+format_version &quot;1&quot;
 
 new_manifest [0000000000000000000000000000000000000002]
 
 old_revision []
 
-add_dir ""
+add_dir &quot;&quot;
 
-add_dir "include"
+add_dir &quot;include&quot;
 
-add_dir "src"
+add_dir &quot;src&quot;
 
-add_file "include/jb.h"
+add_file &quot;include/jb.h&quot;
  content [f6996ce2dfc5d32bda8b574c3e9ce75db8d55492]
 
-add_file "src/apple.c"
+add_file &quot;src/apple.c&quot;
  content [1ce885d2cc59842ff16785834391e864068fbc3c]
 
-add_file "src/banana.c"
+add_file &quot;src/banana.c&quot;
  content [ad88bbbb1b7507ddff26be67efd91d95e069afb6]
-</pre>
+</pre></div>
+
 <p>You will never have to look at this file, but it is nice to know that
 it is there.
-
+</p>
 <p>Jim then gets up from his machine to get a coffee. When he returns
 he has forgotten what he was doing. He asks monotone:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn status
 ----------------------------------------------------------------------
 Revision: 493bda86628fd72c992eb56f73899db9ead3cf6f
@@ -133,31 +166,34 @@ Changes
   added    include/jb.h
   added    src/apple.c
   added    src/banana.c
-</pre>
+
+</pre></div>
+
 <p>The output of this command tells Jim that his edits, so far,
 constitute only the addition of some files and directories.
-
+</p>
 <p>Jim wants to see the actual details of the files he added, however, so
 he runs a command which prints out the revision <em>and</em> a GNU
 &ldquo;unified diff&rdquo; of the patches involved in the changeset:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn diff
 #
 # old_revision []
 #
-# add_dir ""
+# add_dir &quot;&quot;
 #
-# add_dir "include"
+# add_dir &quot;include&quot;
 #
-# add_dir "src"
+# add_dir &quot;src&quot;
 #
-# add_file "include/jb.h"
+# add_file &quot;include/jb.h&quot;
 #  content [f6996ce2dfc5d32bda8b574c3e9ce75db8d55492]
 #
-# add_file "src/apple.c"
+# add_file &quot;src/apple.c&quot;
 #  content [1ce885d2cc59842ff16785834391e864068fbc3c]
 #
-# add_file "src/banana.c"
+# add_file &quot;src/banana.c&quot;
 #  content [ad88bbbb1b7507ddff26be67efd91d95e069afb6]
 #
 ============================================================
@@ -181,7 +217,7 @@ he runs a command which prints out the revision <em>and</em> a GNU
 --- src/apple.c 1ce885d2cc59842ff16785834391e864068fbc3c
 +++ src/apple.c 1ce885d2cc59842ff16785834391e864068fbc3c
 @ -0,0 +1,7 @
-+#include "jb.h"
++#include &quot;jb.h&quot;
 +
 +void
 +dispense_apple_juice()
@@ -192,13 +228,22 @@ he runs a command which prints out the revision <em>and</em> a GNU
 --- src/banana.c        ad88bbbb1b7507ddff26be67efd91d95e069afb6
 +++ src/banana.c        ad88bbbb1b7507ddff26be67efd91d95e069afb6
 @ -0,0 +1,7 @
-+#include "jb.h"
++#include &quot;jb.h&quot;
 +
 +void
 +dispense_banana_juice()
 +{
 +  /* Fill this in please, Beth. */
 +}
-</pre>
-</body></html>
+</pre></div>
 
+<hr>
+<div class="header">
+<p>
+Next: <a href="Committing-Work.html#Committing-Work" accesskey="n" rel="next">Committing Work</a>, Previous: <a href="Starting-a-New-Project.html#Starting-a-New-Project" accesskey="p" rel="prev">Starting a New Project</a>, Up: <a href="Tutorial.html#Tutorial" accesskey="u" rel="up">Tutorial</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

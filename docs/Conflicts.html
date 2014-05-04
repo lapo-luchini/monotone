@@ -1,162 +1,235 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Conflicts - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Tree.html#Tree" title="Tree">
-<link rel="prev" href="Tree.html#Tree" title="Tree">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
+<title>monotone documentation: Conflicts</title>
+
+<meta name="description" content="monotone documentation: Conflicts">
+<meta name="keywords" content="monotone documentation: Conflicts">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tree.html#Tree" rel="up" title="Tree">
+<link href="Workspace.html#Workspace" rel="next" title="Workspace">
+<link href="Tree.html#Tree" rel="prev" title="Tree">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
 <link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
 </head>
-<body>
-<div class="node">
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
 <a name="Conflicts"></a>
+<div class="header">
 <p>
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Tree.html#Tree">Tree</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Tree.html#Tree">Tree</a>
-<hr>
+Previous: <a href="Tree.html#Tree" accesskey="p" rel="prev">Tree</a>, Up: <a href="Tree.html#Tree" accesskey="u" rel="up">Tree</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-
+<hr>
+<a name="Conflicts-1"></a>
 <h4 class="subsection">4.2.1 Conflicts</h4>
-
-<p>The <samp><span class="command">conflicts</span></samp> set of commands is used to specify conflict
-resolutions for merges, asynchronously from the merge command itself. 
+<p>The <code>conflicts</code> set of commands is used to specify conflict
+resolutions for merges, asynchronously from the merge command itself.
 This lets the user take as much time as needed to prepare all the
 conflict resolutions, and avoids losing work when a merge is aborted
 due to a complicated conflict. See <a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a>.
-
+</p>
 <p>These commands require a workspace, to provide a place to store the
 conflicts and user resolution files.
-
-<p>For all of these commands, if the <samp><span class="option">--conflicts-file</span></samp> option is
-not given, the file <samp><span class="file">_MTN/conflicts</span></samp> is used. If the
-<samp><span class="option">--conflicts-file</span></samp> option is given, the file must be in the
+</p>
+<p>For all of these commands, if the <samp>--conflicts-file</samp> option is
+not given, the file <samp>_MTN/conflicts</samp> is used. If the
+<samp>--conflicts-file</samp> option is given, the file must be in the
 bookkeeping directory.
-
+</p>
 <p>Files given in these commands are relative to the current working
 directory, or absolute. In the conflict file, they are relative to the
 workspace root, or absolute.
-
+</p>
 <p>The commands are listed in the order they are typically used, not
 in alphabetical order. Then the conflict resolutions are discussed.
-
+</p>
+<a name="Commands"></a>
 <h4 class="subheading">Commands</h4>
 
-     <dl>
-<dt><samp><span class="command">mtn conflicts store [--conflicts-file=</span><var>file</var><span class="command">] [</span><var>left_rev_id</var> <var>right_rev_id</var><span class="command">]</span></samp><a name="index-mtn-conflicts-store-_005b_002d_002dconflicts_002dfile_003d_0040var_007bfile_007d_005d-_005b_0040var_007bleft_005frev_005fid_007d-_0040var_007bright_005frev_005fid_007d_005d-54"></a><dd>Store the conflicts encountered by merging <var>left_rev_id</var> with
-<var>right_rev_id</var>, in the specified file (defaults to
-<samp><span class="file">_MTN/conflicts</span></samp>. If <var>left_rev_id</var> and <var>right_rev_id</var> are
-not given, the first two heads that the <samp><span class="command">merge</span></samp> command would
-merge are used.
-
-     <p>The conflicts file format is as output by the <samp><span class="command">automate
-show_conflicts</span></samp> command; see <samp><span class="command"><a href="mtn-automate-show_005fconflicts.html#mtn-automate-show_005fconflicts">mtn automate show_conflicts</a></span></samp>.
-
-     <p>Content conflicts that can be resolved by the internal line merger
+<dl compact="compact">
+<dt><code>mtn conflicts store [--conflicts-file=<var>file</var>] [<var>left_rev_id</var> <var>right_rev_id</var>]</code>
+<a name="index-mtn-conflicts-store-_005b_002d_002dconflicts_002dfile_003dfile_005d-_005bleft_005frev_005fid-right_005frev_005fid_005d"></a>
+</dt>
+<dd><p>Store the conflicts encountered by merging <var>left_rev_id</var> with
+<var>right_rev_id</var> (revision ids; see <a href="Selectors.html#Selectors">Selectors</a>), in the
+specified file (defaults to <samp>_MTN/conflicts</samp>. If
+<var>left_rev_id</var> and <var>right_rev_id</var> are not given, the first two
+heads that the <code>merge</code> command would merge are used.
+</p>
+<p>The conflicts file format is as output by the <code>automate
+show_conflicts</code> command; see <code><a href="Automation.html#mtn-automate-show_005fconflicts">mtn automate show_conflicts</a></code>.
+</p>
+<p>Content conflicts that can be resolved by the internal line merger
 have resolutions, so they will not show up in subsequent
-<samp><span class="command">show_first</span></samp> commands.
-
-     <br><dt><samp><span class="command">mtn conflicts show_first [--conflicts-file=</span><var>file</var><span class="command">]</span></samp><a name="index-mtn-conflicts-show_005ffirst-_005b_002d_002dconflicts_002dfile_003d_0040var_007bfile_007d_005d-55"></a><dd>Show the first unresolved conflict in the conflicts file, and list the
+<code>show_first</code> commands.
+</p>
+</dd>
+<dt><code>mtn conflicts show_first [--conflicts-file=<var>file</var>]</code>
+<a name="index-mtn-conflicts-show_005ffirst-_005b_002d_002dconflicts_002dfile_003dfile_005d"></a>
+</dt>
+<dd><p>Show the first unresolved conflict in the conflicts file, and list the
 possible resolutions.
-
-     <br><dt><samp><span class="command">mtn conflicts show_remaining [--conflicts-file=</span><var>file</var><span class="command">]</span></samp><a name="index-mtn-conflicts-show_005fremaining-_005b_002d_002dconflicts_002dfile_003d_0040var_007bfile_007d_005d-56"></a><dd>Show remaining unresolved conflicts in the conflicts file.
-
-     <br><dt><samp><span class="command">mtn conflicts resolve_first [--conflicts-file=</span><var>file</var><span class="command">] </span><var>resolution</var></samp><a name="index-mtn-conflicts-resolve_005ffirst-_005b_002d_002dconflicts_002dfile_003d_0040var_007bfile_007d_005d-_0040var_007bresolution_007d-57"></a><dd>Specify a resolution for the first conflict in the conflicts file; it
+</p>
+</dd>
+<dt><code>mtn conflicts show_remaining [--conflicts-file=<var>file</var>]</code>
+<a name="index-mtn-conflicts-show_005fremaining-_005b_002d_002dconflicts_002dfile_003dfile_005d"></a>
+</dt>
+<dd><p>Show remaining unresolved conflicts in the conflicts file.
+</p>
+<a name="mtn-conflicts-resolve_005ffirst"></a></dd>
+<dt><code>mtn conflicts resolve_first [--conflicts-file=<var>file</var>] <var>resolution</var></code>
+<a name="index-mtn-conflicts-resolve_005ffirst-_005b_002d_002dconflicts_002dfile_003dfile_005d-resolution"></a>
+</dt>
+<dd><p>Specify a resolution for the first conflict in the conflicts file; it
 must be a single file conflict. The conflicts file is updated.
-
-     <p><a name="mtn-conflicts-resolve_005ffirst"></a><br><dt><samp><span class="command">mtn conflicts resolve_first_left [--conflicts-file=</span><var>file</var><span class="command">] </span><var>resolution</var></samp><a name="index-mtn-conflicts-resolve_005ffirst_005fleft-_005b_002d_002dconflicts_002dfile_003d_0040var_007bfile_007d_005d-_0040var_007bresolution_007d-58"></a><dt><samp><span class="command">mtn conflicts resolve_first_right [--conflicts-file=</span><var>file</var><span class="command">] </span><var>resolution</var></samp><a name="index-mtn-conflicts-resolve_005ffirst_005fright-_005b_002d_002dconflicts_002dfile_003d_0040var_007bfile_007d_005d-_0040var_007bresolution_007d-59"></a><dd>Specify a resolution for one of the files in the first conflict in the
+</p>
+</dd>
+<dt><code>mtn conflicts resolve_first_left [--conflicts-file=<var>file</var>] <var>resolution</var></code>
+<a name="index-mtn-conflicts-resolve_005ffirst_005fleft-_005b_002d_002dconflicts_002dfile_003dfile_005d-resolution"></a>
+</dt>
+<dt><code>mtn conflicts resolve_first_right [--conflicts-file=<var>file</var>] <var>resolution</var></code>
+<a name="index-mtn-conflicts-resolve_005ffirst_005fright-_005b_002d_002dconflicts_002dfile_003dfile_005d-resolution"></a>
+</dt>
+<dd><p>Specify a resolution for one of the files in the first conflict in the
 conflicts file; it must be a two file conflict. The conflicts file is
 updated.
-
-     <br><dt><samp><span class="command">mtn conflicts clean</span></samp><a name="index-mtn-conflicts-clean-60"></a><dd>Delete the default conflicts file <samp><span class="file">_MTN/conflicts</span></samp>, and the
-directory <samp><span class="file">_MTN/resolutions</span></samp>. Users may store conflict
-resolution files in <samp><span class="file">_MTN/resolutions</span></samp>; this command provides a
-convenient way to clean up. 
+</p>
+</dd>
+<dt><code>mtn conflicts clean</code>
+<a name="index-mtn-conflicts-clean"></a>
+</dt>
+<dd><p>Delete the default conflicts file <samp>_MTN/conflicts</samp>, and the
+directory <samp>_MTN/resolutions</samp>. Users may store conflict
+resolution files in <samp>_MTN/resolutions</samp>; this command provides a
+convenient way to clean up.
+</p></dd>
 </dl>
 
-<h4 class="subheading">Single file conflict resolutions</h4>
+<a name="Conflict-resolutions"></a>
+<h4 class="subheading">Conflict resolutions</h4>
 
-<p>For single file conflicts, there are several possible
-resolutions. Note that <samp><span class="command">resolved_user_left</span></samp> is used even for
-single file conflicts.
-
-     <dl>
-<dt><samp><span class="command">interactive [</span><var>file</var><span class="command">]</span></samp><a name="index-interactive-_005b_0040var_007bfile_007d_005d-61"></a><dd>The Lua <a href="merge3.html#merge3">merge3</a> hook is called to allow the user to manually
+<p>For single and two file conflicts, there are several possible
+resolutions. In the conflicts file, <code>resolved_user_left</code> is
+used for single file conflicts.
+</p>
+<dl compact="compact">
+<dt><code>interactive [<var>file</var>]</code>
+<a name="index-interactive-_005bfile_005d"></a>
+</dt>
+<dd><p>The Lua <a href="External-Merge-Tools.html#merge3">merge3</a> hook is called to allow the user to manually
 merge the left and right files, leaving the result in the specified file.
-
-     <p><var>file</var> must be a bookkeeping path; under <samp><span class="file">_MTN</span></samp>. If not
-specified, <var>file</var> defaults to <samp><span class="file">_MTN/resolutions/&lt;path&gt;</span></samp>,
-where <samp><span class="file">&lt;path&gt;</span></samp> is the path to the file that has the conflict.
-
-     <p>This inserts a <samp><span class="command">resolved_user_left </span><var>file</var></samp> conflict resolution in the
+</p>
+<p><var>file</var> must be a bookkeeping path; under <samp>_MTN</samp>. If not
+specified, <var>file</var> defaults to <samp>_MTN/resolutions/&lt;path&gt;</samp>,
+where <samp>&lt;path&gt;</samp> is the path to the file that has the conflict.
+</p>
+<p>This inserts a <code>resolved_user_left <var>file</var></code> or
+<code>resolved_user_right <var>file</var></code> conflict resolution in the
 conflicts file.
-
-     <br><dt><samp><span class="command">user </span><var>file</var></samp><a name="index-user-_0040var_007bfile_007d-62"></a><dd>The file contents are replaced by the contents of the specified file.
-
-     <p>This inserts a <samp><span class="command">resolved_user_left </span><var>file</var></samp> conflict resolution in the
+</p>
+</dd>
+<dt><code>user <var>file</var></code>
+<a name="index-user-file"></a>
+</dt>
+<dd><p>The file contents are replaced by the contents of the specified file.
+</p>
+<p>This inserts a <code>resolved_user_left <var>file</var></code> or
+<code>resolved_user_right <var>file</var></code> conflict resolution in the
 conflicts file.
-
-     <br><dt><samp><span class="command">drop</span></samp><a name="index-drop-63"></a><dd>The file is dropped in the merge. This is useful for an orphaned file
-conflict.
-
-     <p>This inserts a <samp><span class="command">resolved_drop_left</span></samp> conflict resolution in the
-conflicts file.
-
-     <br><dt><samp><span class="command">rename </span><var>filename</var></samp><a name="index-rename-_0040var_007bfilename_007d-64"></a><dd>The file is renamed. This is useful for an orphaned file conflict.
-
-     <p>This inserts a <samp><span class="command">resolved_rename_left </span><var>filename</var></samp> conflict resolution
-in the conflicts file.
-
-</dl>
-
-<h4 class="subheading">Two file conflict resolutions</h4>
-
-<p>For two file conflicts, the possible resolutions are:
-
-     <dl>
-<dt><samp><span class="command">drop</span></samp><a name="index-drop-65"></a><dd>The file is dropped in the merge.
-
-     <p>This inserts a <samp><span class="command">resolved_drop_left</span></samp> or <samp><span class="command">resolved_drop_right</span></samp>
-conflict resolution in the conflicts file.
-
-     <br><dt><samp><span class="command">keep</span></samp><a name="index-keep-66"></a><dd>The file is kept in the merge.
-
-     <p>This inserts a <samp><span class="command">resolved_keep_left</span></samp> or <samp><span class="command">resolved_keep_right</span></samp>
-conflict resolution in the conflicts file.
-
-     <br><dt><samp><span class="command">rename </span><var>filename</var></samp><a name="index-rename-_0040var_007bfilename_007d-67"></a><dd>The file is renamed.
-
-     <p>This inserts a <samp><span class="command">resolved_rename_left </span><var>filename</var></samp> or
-<samp><span class="command">resolved_rename_right </span><var>filename</var></samp> conflict resolution in
+</p>
+</dd>
+<dt><code>drop</code>
+<a name="index-drop"></a>
+</dt>
+<dd><p>The file is dropped in the merge.
+</p>
+<p>This inserts a <code>resolved_drop_left</code> or
+<code>resolved_drop_right</code> conflict resolution in the conflicts
+file.
+</p>
+</dd>
+<dt><code>rename <var>filename</var></code>
+<a name="index-rename-filename"></a>
+</dt>
+<dd><p>The file is renamed.
+</p>
+<p>This inserts a <code>resolved_rename_left <var>filename</var></code> or
+<code>resolved_rename_right <var>filename</var></code> conflict resolution in
 the conflicts file.
-
-     <br><dt><samp><span class="command">user </span><var>file</var></samp><a name="index-user-_0040var_007bfile_007d-68"></a><dd>The file contents are replaced by the contents of the specified file. 
-The other file in the conflict must be dropped or renamed.
-
-     <p>This inserts a <samp><span class="command">resolved_user_left </span><var>file</var></samp> or
-<samp><span class="command">resolved_user_right </span><var>file</var></samp> conflict resolution in the
-conflicts file.
-
+</p>
+</dd>
+<dt><code>user_rename <var>contents_file</var> <var>rename_file</var></code>
+<a name="index-user_005frename-contents_005ffile-rename_005ffile"></a>
+</dt>
+<dd><p>The file contents are replaced by the contents of the specified file,
+and renamed.
+</p>
+<p>This inserts a <code>resolved_user_left <var>contents_file</var></code> or
+<code>resolved_user_right <var>contents_file</var></code> conflict resolution
+in the conflicts file, and a <code>resolved_rename_left
+<var>rename_file</var></code> or <code>resolved_rename_right
+<var>rename_file</var></code> conflict resolution.
+</p>
+</dd>
+<dt><code>keep</code>
+<a name="index-keep"></a>
+</dt>
+<dd><p>The file is kept in the merge.
+</p>
+<p>This inserts a <code>resolved_keep_left</code> or <code>resolved_keep_right</code>
+conflict resolution in the conflicts file.
+</p>
+</dd>
 </dl>
 
-<p>monotone internals note: we don't provide an <code>interactive</code>
+<p>monotone internals note: we don&rsquo;t provide an <code>interactive</code>
 resolution for two-file conflicts, because monotone currently does not
-provide a <code>merge2</code> Lua hook. two-file conflicts don't have a
+provide a <code>merge2</code> Lua hook. two-file conflicts don&rsquo;t have a
 shared ancestor, so <code>merge3</code> is not applicable.
+</p>
+<hr>
+<div class="header">
+<p>
+Previous: <a href="Tree.html#Tree" accesskey="p" rel="prev">Tree</a>, Up: <a href="Tree.html#Tree" accesskey="u" rel="up">Tree</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

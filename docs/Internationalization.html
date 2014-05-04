@@ -1,231 +1,288 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Internationalization - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Special-Topics.html#Special-Topics" title="Special Topics">
-<link rel="prev" href="Special-Topics.html#Special-Topics" title="Special Topics">
-<link rel="next" href="Hash-Integrity.html#Hash-Integrity" title="Hash Integrity">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Internationalization"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Hash-Integrity.html#Hash-Integrity">Hash Integrity</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Special-Topics.html#Special-Topics">Special Topics</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Special-Topics.html#Special-Topics">Special Topics</a>
-<hr>
-</div>
+<title>monotone documentation: Internationalization</title>
 
+<meta name="description" content="monotone documentation: Internationalization">
+<meta name="keywords" content="monotone documentation: Internationalization">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Special-Topics.html#Special-Topics" rel="up" title="Special Topics">
+<link href="Hash-Integrity.html#Hash-Integrity" rel="next" title="Hash Integrity">
+<link href="Special-Topics.html#Special-Topics" rel="prev" title="Special Topics">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Internationalization"></a>
+<div class="header">
+<p>
+Next: <a href="Hash-Integrity.html#Hash-Integrity" accesskey="n" rel="next">Hash Integrity</a>, Previous: <a href="Special-Topics.html#Special-Topics" accesskey="p" rel="prev">Special Topics</a>, Up: <a href="Special-Topics.html#Special-Topics" accesskey="u" rel="up">Special Topics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Internationalization-1"></a>
 <h3 class="section">7.1 Internationalization</h3>
 
 <p>Monotone initially dealt with only ASCII characters, in file path
 names, certificate names, key names, and packets. Some
 conservative extensions are provided to permit internationalized
 use. These extensions can be summarized as follows:
-
-     <ul>
-<li>Monotone uses GNU gettext to provide localized progress and error
+</p>
+<ul>
+<li> Monotone uses GNU gettext to provide localized progress and error
 messages. Translations may or may not exist for your locale, but the
 infrastructure is present to add them.
 
-     <li>All command-line arguments are mapped from your local character set to
+</li><li> All command-line arguments are mapped from your local character set to
 UTF-8 before processing. This means that monotone can <em>only</em>
 handle key names, file names and certificate names which map cleanly
 into UTF-8.
 
-     <li>Monotone's control files are stored in UTF-8. This includes: revisions
+</li><li> Monotone&rsquo;s control files are stored in UTF-8. This includes: revisions
 and manifests, both inside the database and when written to the
-<samp><span class="file">_MTN/</span></samp> directory of the workspace; the <samp><span class="file">_MTN/options</span></samp> and
-<samp><span class="file">_MTN/revision</span></samp> files. Converting these files to any other
+<samp>_MTN/</samp> directory of the workspace; the <samp>_MTN/options</samp> and
+<samp>_MTN/revision</samp> files. Converting these files to any other
 character set will cause monotone to break; do not do so.
 
-     <li>File path names in the workspace are converted to the locale's
+</li><li> File path names in the workspace are converted to the locale&rsquo;s
 character set (determined via the LANG or CHARSET environment
 variables) before monotone interacts with the file system. If you are
-accustomed to being able to use file names in your locale's character
+accustomed to being able to use file names in your locale&rsquo;s character
 set, this should &ldquo;just work&rdquo; with monotone.
 
-     <li>Key and cert names, and similar &ldquo;name-like&rdquo; entities are subject to
+</li><li> Key and cert names, and similar &ldquo;name-like&rdquo; entities are subject to
 some cleaning and normalization, and conversion into network-safe
 subsets of ASCII (typically ACE). Generally, you should be able to use
-&ldquo;sensible&rdquo; strings in your locale's character set as names, but they
+&ldquo;sensible&rdquo; strings in your locale&rsquo;s character set as names, but they
 may appear mangled or escaped in certain contexts such as network
 transmission.
 
-     <li>Monotone's transmission and storage forms are otherwise
+</li><li> Monotone&rsquo;s transmission and storage forms are otherwise
 unchanged. Packets and database contents are 7-bit clean ASCII.
 
-</ul>
+</li></ul>
 
-<p>The remainder of this section is a precise specification of monotone's
+<p>The remainder of this section is a precise specification of monotone&rsquo;s
 internationalization behavior.
-
+</p>
+<a name="General-Terms"></a>
 <h3 class="heading">General Terms</h3>
 
-     <dl>
-<dt>Character set conversion<dd>The process of mapping a string of bytes representing wide characters
+<dl compact="compact">
+<dt>Character set conversion</dt>
+<dd><p>The process of mapping a string of bytes representing wide characters
 from one encoding to another. Per-file character set conversions are
 specified by a Lua hook <code>get_charset_conv</code> which takes a filename
 and returns a table of two strings: the first represents the
-"internal" (database) charset, the second represents the "external"
+&quot;internal&quot; (database) charset, the second represents the &quot;external&quot;
 (file system) charset.
-
-     <br><dt>LDH<dd>Letters, digits, and hyphen: the set of ASCII bytes <code>0x2D</code>,
+</p>
+</dd>
+<dt>LDH</dt>
+<dd><p>Letters, digits, and hyphen: the set of ASCII bytes <code>0x2D</code>,
 <code>0x30..0x39</code>, <code>0x41..0x5A</code>, and <code>0x61..0x7A</code>.
-
-     <br><dt>stringprep<dd>RFC 3454, a general framework for mapping, normalizing, prohibiting
+</p>
+</dd>
+<dt>stringprep</dt>
+<dd><p>RFC 3454, a general framework for mapping, normalizing, prohibiting
 and bidirectionality checking for international names prior to use in
 public network protocols.
-
-     <br><dt>nameprep<dd>RFC 3491, a specific profile of stringprep, used for preparing
+</p>
+</dd>
+<dt>nameprep</dt>
+<dd><p>RFC 3491, a specific profile of stringprep, used for preparing
 international domain names (IDNs)
-
-     <br><dt>punycode<dd>RFC 3492, a "bootstring" encoding of Unicode into ASCII.
-
-     <br><dt>IDNA<dd>RFC 3490, international domain names for applications, a combination
+</p>
+</dd>
+<dt>punycode</dt>
+<dd><p>RFC 3492, a &quot;bootstring&quot; encoding of Unicode into ASCII.
+</p>
+</dd>
+<dt>IDNA</dt>
+<dd><p>RFC 3490, international domain names for applications, a combination
 of the above technologies (nameprep, punycoding, limiting to LDH
-characters) to form a specific "ASCII compatible encoding" (ACE) of
-Unicode, signified by the presence of an "unlikely" ACE prefix string
-"xn&ndash;". IDNA is intended to make it possible to use Unicode relatively
-"safely" over legacy ASCII-based applications. the general picture of
+characters) to form a specific &quot;ASCII compatible encoding&quot; (ACE) of
+Unicode, signified by the presence of an &quot;unlikely&quot; ACE prefix string
+&quot;xn&ndash;&quot;. IDNA is intended to make it possible to use Unicode relatively
+&quot;safely&quot; over legacy ASCII-based applications. the general picture of
 an IDNA string is this:
+</p>
+<div class="smallexample">
+<pre class="smallexample">      {ACE-prefix}{LDH-sanitized(punycode(nameprep(UTF-8-string)))}
+</pre></div>
 
-     <pre class="smallexample">           {ACE-prefix}{LDH-sanitized(punycode(nameprep(UTF-8-string)))}
-</pre>
-     <p>It is important to understand that IDNA encoding does <em>not</em>
+<p>It is important to understand that IDNA encoding does <em>not</em>
 preserve the input string: it both prohibits a wide variety of
 possible strings and normalizes non-equal strings to supposedly
-"equivalent" forms.
-
-     <p>By default, monotone does <em>not</em> decode IDNA when printing to the
+&quot;equivalent&quot; forms.
+</p>
+<p>By default, monotone does <em>not</em> decode IDNA when printing to the
 console (IDNA names are ASCII, which is a subset of UTF-8, so this
 normal form conversion can still apply, albeit oddly). this behavior
 is to protect users against security problems associated with
-malicious use of "similar-looking" characters.
-
+malicious use of &quot;similar-looking&quot; characters.
+</p>
+</dd>
 </dl>
 
+<a name="Filenames"></a>
 <h3 class="heading">Filenames</h3>
 
-     <ul>
-<li>Filenames are subject to normal form conversion.
+<ul>
+<li> Filenames are subject to normal form conversion.
 
-     <li>Filenames are subject to an additional normal form stage which adjusts
+</li><li> Filenames are subject to an additional normal form stage which adjusts
 for platform name semantics, for example changing the Windows
-<code>0x5C</code> '\' path separator to <code>0x2F</code> '/'. This extra
+<code>0x5C</code> &rsquo;\&rsquo; path separator to <code>0x2F</code> &rsquo;/&rsquo;. This extra
 processing is performed by boost::filesystem.
 
-     <li>Monotone does not properly handle case insensitivity on Windows.
+</li><li> Monotone does not properly handle case insensitivity on Windows.
 
-     <li>A filename (in normal form) is constrained to be a nonempty sequence
+</li><li> A filename (in normal form) is constrained to be a nonempty sequence
 of path components, separated by byte <code>0x2F</code> (ASCII / ), and
 without a leading or trailing <code>0x2F</code>.
 
-     <li>A path component is a nonempty sequence of any UTF-8 character codes
-except the path separator byte <code>0x2F</code> and any ASCII "control codes"
+</li><li> A path component is a nonempty sequence of any UTF-8 character codes
+except the path separator byte <code>0x2F</code> and any ASCII &quot;control codes&quot;
 (<code>0x00..0x1F</code> and <code>0x7F</code>).
 
-     <li>The path components "." and ".." are prohibited.
+</li><li> The path components &quot;.&quot; and &quot;..&quot; are prohibited.
 
-     <li>Manifests and revisions are constructed from the normal form
+</li><li> Manifests and revisions are constructed from the normal form
 (UTF-8). The LC_COLLATE locale category is <em>not</em> used to sort
 manifest or revision entries.
 
-</ul>
+</li></ul>
 
+<a name="File-contents"></a>
 <h3 class="heading">File contents</h3>
 
-     <ul>
-<li>Files are subject to character set conversion and line ending
+<ul>
+<li> Files are subject to character set conversion and line ending
 conversion.
 
-     <li>File SHA1 values are calculated from the internal form of the
+</li><li> File SHA1 values are calculated from the internal form of the
 conversions. If the external form of a file differs from the internal
-form, running a 3rd party program such as <samp><span class="command">sha1sum</span></samp> will produce
+form, running a 3rd party program such as <code>sha1sum</code> will produce
 different results than those entries shown in a corresponding manifest.
 
-</ul>
+</li></ul>
 
+<a name="UI-messages"></a>
 <h3 class="heading">UI messages</h3>
 
 <p>UI messages are displayed via calls to <code>gettext()</code>.
-
+</p>
+<a name="Host-names"></a>
 <h3 class="heading">Host names</h3>
 
 <p>Host names are read on the command-line and subject to normal form
-conversion. Host names are then split at <code>0x2E</code> (ASCII '.'), each
+conversion. Host names are then split at <code>0x2E</code> (ASCII &rsquo;.&rsquo;), each
 component is subject to IDNA encoding, and the components are
 rejoined.
-
+</p>
 <p>After processing, host names are stored internally as ASCII. The
 invariant is that a host name inside monotone contains only sequences
 of LDH separated by <code>0x2E</code>.
-
+</p>
+<a name="Cert-names"></a>
 <h3 class="heading">Cert names</h3>
 
 <p>Read on the command line and subject to normal form conversion and
 IDNA encoding as a single component. The invariant is that a cert name
 inside monotone is a single LDH ASCII string.
-
+</p>
+<a name="Cert-values"></a>
 <h3 class="heading">Cert values</h3>
 
 <p>Cert values may be either text or binary, depending on the return
 value of the hook <code>cert_is_binary</code>. If binary, the cert value is
-never printed to the screen (the literal string "&lt;binary&gt;" is
+never printed to the screen (the literal string &quot;&lt;binary&gt;&quot; is
 displayed, instead), and is never subjected to line ending or
 character conversion. If text, the cert value is subject to normal
 form conversion, as well as having all UTF-8 codes corresponding to
 ASCII control codes (<code>0x0..0x1F</code> and <code>0x7F</code>) prohibited in
 the normal form, except <code>0x0A</code> (ASCII LF).
-
+</p>
+<a name="Var-domains"></a>
 <h3 class="heading">Var domains</h3>
 
 <p>Read on the command line and subject to normal form conversion and IDNA
 encoding as a single component. The invariant is that a var domain
 inside monotone is a single LDH ASCII string.
-
+</p>
+<a name="Var-names-and-values"></a>
 <h3 class="heading">Var names and values</h3>
 
 <p>Var names and values are assumed to be text, and subject to normal form
 conversion.
-
+</p>
+<a name="Key-names"></a>
 <h3 class="heading">Key names</h3>
 
 <p>Read on the command line and subject to normal form conversion and
-IDNA encoding as an email address (split and joined at '.' and '@'
+IDNA encoding as an email address (split and joined at &rsquo;.&rsquo; and &rsquo;@&rsquo;
 characters). The invariant is that a key name inside monotone contains
-only LDH, <code>0x2E</code> (ASCII '.') and <code>0x40</code> (ASCII '@')
+only LDH, <code>0x2E</code> (ASCII &rsquo;.&rsquo;) and <code>0x40</code> (ASCII &rsquo;@&rsquo;)
 characters.
-
+</p>
+<a name="Packets"></a>
 <h3 class="heading">Packets</h3>
 
 <p>Packets are 7-bit ASCII. The characters permitted in packets are
 the union of these character sets:
+</p>
+<ul>
+<li> The 65 characters of base64 encoding (64 coding + &quot;=&quot; pad).
+</li><li> The 16 characters of hex encoding.
+</li><li> LDH, &rsquo;@&rsquo; and &rsquo;.&rsquo; characters, as required for key and cert names.
+</li><li> &rsquo;[&rsquo; and &rsquo;]&rsquo;, the packet delimiters.
+</li><li> ASCII codes 0x0D (CR), 0x0A (LF), 0x09 (HT), and 0x20 (SP).
+</li></ul>
 
-     <ul>
-<li>The 65 characters of base64 encoding (64 coding + "=" pad). 
-<li>The 16 characters of hex encoding. 
-<li>LDH, '@' and '.' characters, as required for key and cert names. 
-<li>'[' and ']', the packet delimiters. 
-<li>ASCII codes 0x0D (CR), 0x0A (LF), 0x09 (HT), and 0x20 (SP). 
-</ul>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Hash-Integrity.html#Hash-Integrity" accesskey="n" rel="next">Hash Integrity</a>, Previous: <a href="Special-Topics.html#Special-Topics" accesskey="p" rel="prev">Special Topics</a>, Up: <a href="Special-Topics.html#Special-Topics" accesskey="u" rel="up">Special Topics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

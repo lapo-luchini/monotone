@@ -1,60 +1,94 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Common Data Types - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Hooks.html#Hooks" title="Hooks">
-<link rel="prev" href="Hooks.html#Hooks" title="Hooks">
-<link rel="next" href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" title="Event Notifications and Triggers">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Common-Data-Types"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers">Event Notifications and Triggers</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Hooks.html#Hooks">Hooks</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
-<hr>
-</div>
+<title>monotone documentation: Common Data Types</title>
 
+<meta name="description" content="monotone documentation: Common Data Types">
+<meta name="keywords" content="monotone documentation: Common Data Types">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hooks.html#Hooks" rel="up" title="Hooks">
+<link href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" rel="next" title="Event Notifications and Triggers">
+<link href="Hooks.html#Hooks" rel="prev" title="Hooks">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Common-Data-Types"></a>
+<div class="header">
+<p>
+Next: <a href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" accesskey="n" rel="next">Event Notifications and Triggers</a>, Previous: <a href="Hooks.html#Hooks" accesskey="p" rel="prev">Hooks</a>, Up: <a href="Hooks.html#Hooks" accesskey="u" rel="up">Hooks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Common-Data-Types-1"></a>
 <h4 class="subsection">6.1.1 Common Data Types</h4>
 
 <p>Some hooks take arguments which are more complex than a simple string
 or number (they are a Lua &ldquo;table&rdquo;).  Where multiple hooks take the
 same kind of argument, we generally try to make them take that kind of
 argument in the same format, described here.
+</p>
+<dl compact="compact">
+<dd><a name="key_005fidentity"></a></dd>
+<dt><code>key_identity</code>
+<a name="index-key_005fidentity"></a>
+</dt>
+<dd>
+<div class="smallexample">
+<pre class="smallexample">{
+   id = &quot;key hash/fingerprint, in hex&quot;,
+   given_name = &quot;name given when creating the key&quot;,
+   name = &quot;local alias of the key&quot;
+}
+</pre></div>
 
-     <dl>
-<a name="key_005fidentity"></a><dt><code>key_identity</code><a name="index-key_005fidentity-265"></a><dd>
-     <pre class="smallexample">     {
-        id = "key hash/fingerprint, in hex",
-        given_name = "name given when creating the key",
-        name = "local alias of the key"
-     }
-</pre>
-     <p>When a key is created, it is given a meaningful name. Because this is chosen by
+<p>When a key is created, it is given a meaningful name. Because this is chosen by
 the key creator and may be unreliable, trust hooks need to be able to look at
-the key hash as well. This may be inconvenient, so a local alias is also provided. 
+the key hash as well. This may be inconvenient, so a local alias is also provided.
 This alias is obtained from a Lua hook, which can provide reliable easy-to-use
 names based on the key hash (or however else you want).
-
+</p>
+</dd>
 </dl>
 
-</body></html>
 
+
+
+</body>
+</html>

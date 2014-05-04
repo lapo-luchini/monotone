@@ -1,90 +1,114 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Workspace Collisions - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Merge-Conflicts.html#Merge-Conflicts" title="Merge Conflicts">
-<link rel="next" href="Quality-Assurance.html#Quality-Assurance" title="Quality Assurance">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Workspace-Collisions"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Quality-Assurance.html#Quality-Assurance">Quality Assurance</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Workspace Collisions</title>
 
+<meta name="description" content="monotone documentation: Workspace Collisions">
+<meta name="keywords" content="monotone documentation: Workspace Collisions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Quality-Assurance.html#Quality-Assurance" rel="next" title="Quality Assurance">
+<link href="Merge-Conflicts.html#Merge-Conflicts" rel="prev" title="Merge Conflicts">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Workspace-Collisions"></a>
+<div class="header">
+<p>
+Next: <a href="Quality-Assurance.html#Quality-Assurance" accesskey="n" rel="next">Quality Assurance</a>, Previous: <a href="Merge-Conflicts.html#Merge-Conflicts" accesskey="p" rel="prev">Merge Conflicts</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Workspace-Collisions-1"></a>
 <h3 class="section">3.7 Workspace Collisions</h3>
 
 <p>Workspace collisions can happen for many reasons; some examples include:
-     <ul>
-<li>You have a file in your workspace that is unknown to monotone (you
-have not <samp><span class="command">add</span></samp>ed it).  Someone else has <samp><span class="command">add</span></samp>ed and
-<samp><span class="command">commit</span></samp>ed a file with the same name.  If you try to
-<samp><span class="command">update</span></samp> your workspace to their revision, the added file in
-the incoming revision will collide with your file. 
-<li>There is a directory which contains both versioned and unversioned files
+</p><ul>
+<li> You have a file in your workspace that is unknown to monotone (you
+have not <code>add</code>ed it).  Someone else has <code>add</code>ed and
+<code>commit</code>ed a file with the same name.  If you try to
+<code>update</code> your workspace to their revision, the added file in
+the incoming revision will collide with your file.
+</li><li> There is a directory which contains both versioned and unversioned files
 (perhaps versioned sources, and unversioned object files built from the
-sources).  Someone else <samp><span class="command">commit</span></samp>s a revision that
-<samp><span class="command">drop</span></samp>s the versioned files <em>and</em> the containing
-directory.  If you try to <samp><span class="command">update</span></samp> to this revision, your
+sources).  Someone else <code>commit</code>s a revision that
+<code>drop</code>s the versioned files <em>and</em> the containing
+directory.  If you try to <code>update</code> to this revision, your
 directory will still contain the untracked files, and monotone will
-not delete them. 
-<li>You have an unversioned file in your workspace, and you're trying to
-<samp><span class="command">update</span></samp> to a revision that <samp><span class="command">add</span></samp>s a directory with the
-same name. 
-</ul>
+not delete them.
+</li><li> You have an unversioned file in your workspace, and you&rsquo;re trying to
+<code>update</code> to a revision that <code>add</code>s a directory with the
+same name.
+</li></ul>
 
-<p>These examples describe collisions on <samp><span class="command">update</span></samp>; the same kinds
+<p>These examples describe collisions on <code>update</code>; the same kinds
 of things can happen with other commands that can bring changes into
-your workspace, such as <samp><span class="command">checkout</span></samp>, <samp><span class="command">pivot_root</span></samp> or
-<samp><span class="command">pluck</span></samp>.
-
+your workspace, such as <code>checkout</code>, <code>pivot_root</code> or
+<code>pluck</code>.
+</p>
 <p>In order to handle such collisions safely, before changing the
 workspace, monotone will detect them, and the command will fail with a
 warning.  The file content in the database is safe and can be
 recovered at any time, so monotone is conservative and will refuse to
 destroy the information in your workspace contents.
-
+</p>
 <p>In addition, all workspace-changing commands have an option
-<samp><span class="option">--move-conflicting-paths</span></samp>, which moves unversioned but
+<samp>--move-conflicting-paths</samp>, which moves unversioned but
 conflicting files and directories from the workspace into a
-corresponding directory under <samp><span class="file">_MTN/resolutions</span></samp>. This is useful
+corresponding directory under <samp>_MTN/resolutions</samp>. This is useful
 if you want to ensure that an update always succeeds and you just want
 to move blocking paths out of the way.
-
+</p>
 <p>However, monotone cannot detect all kinds of failures and collisions in
 your workspace. For example:
-     <ul>
-<li>On some systems with case-insensitive and/or internationalised
+</p><ul>
+<li> On some systems with case-insensitive and/or internationalised
 filesystems, names that look distinct to monotone may in fact be
-considered the same by the underlying platform. 
-<li>If some other program is creating files in the workspace at the same
+considered the same by the underlying platform.
+</li><li> If some other program is creating files in the workspace at the same
 time as monotone, the colliding file might be created after the
-collision check at the start. 
-<li>Other kinds of unpredictable system errors, like permissions problems or
+collision check at the start.
+</li><li> Other kinds of unpredictable system errors, like permissions problems or
 disk full conditions, might cause failures when monotone is rearranging
-the workspace content. 
-</ul>
+the workspace content.
+</li></ul>
 
 <p>These are all hopefully very rare occurrences. If such a filesystem
 error <em>does</em> cause a failure part-way during a workspace
@@ -93,30 +117,38 @@ doing further damage, and your workspace may be left in an incomplete
 state.  If this happens, you will need to resolve the issue and clean up
 the workspace manually.  If you need to do so, understanding how
 monotone manipulates the workspace is helpful.
-
+</p>
 <p>When monotone applies renaming changes to the workspace, each file is
-first <dfn>detached</dfn> from the workspace under its old name, then
-<dfn>attached</dfn> under the new name. This is done by moving it to the
-<samp><span class="file">_MTN/detached</span></samp> directory. Newly added files are created here
+first <em>detached</em> from the workspace under its old name, then
+<em>attached</em> under the new name. This is done by moving it to the
+<samp>_MTN/detached</samp> directory. Newly added files are created here
 before being moved into place, too.  While inside
-<samp><span class="file">_MTN/detached</span></samp>, the file or directory is named as a simple
-integer (monotone's internal identification of the file node).  If the
+<samp>_MTN/detached</samp>, the file or directory is named as a simple
+integer (monotone&rsquo;s internal identification of the file node).  If the
 detached node is a directory, the directory is moved with all of its
 contents (including unversioned files); this can help identify which
 directory has been detached.
-
+</p>
 <p>If a previous workspace alteration failed part-way, the
-<samp><span class="file">_MTN/detached</span></samp> directory will still exist, and monotone will
+<samp>_MTN/detached</samp> directory will still exist, and monotone will
 refuse to attempt another alteration while the workspace is in this
 inconsistent state. This also acts as a lock against multiple monotone
 processes performing workspace alterations (but not other programs).
-
+</p>
 <p>The best way to avoid a messy recovery from such a failure is simply to
-ensure that you always <samp><span class="command">commit</span></samp> before trying to
-<samp><span class="command">update</span></samp> (or <samp><span class="command">pluck</span></samp>, etc) other changes from the
+ensure that you always <code>commit</code> before trying to
+<code>update</code> (or <code>pluck</code>, etc) other changes from the
 database into your workspace. This ensures that your current workspace
 contents are safely stored, and can be retrieved later (such as with
-<samp><span class="command">revert</span></samp>).
+<code>revert</code>).
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Quality-Assurance.html#Quality-Assurance" accesskey="n" rel="next">Quality Assurance</a>, Previous: <a href="Merge-Conflicts.html#Merge-Conflicts" accesskey="p" rel="prev">Merge Conflicts</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

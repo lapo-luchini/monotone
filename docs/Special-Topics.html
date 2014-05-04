@@ -1,51 +1,83 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Special Topics - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="prev" href="Lua-Reference.html#Lua-Reference" title="Lua Reference">
-<link rel="next" href="Default-hooks.html#Default-hooks" title="Default hooks">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Special-Topics"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Default-hooks.html#Default-hooks">Default hooks</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Lua-Reference.html#Lua-Reference">Lua Reference</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
-<hr>
-</div>
+<title>monotone documentation: Special Topics</title>
 
+<meta name="description" content="monotone documentation: Special Topics">
+<meta name="keywords" content="monotone documentation: Special Topics">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Internationalization.html#Internationalization" rel="next" title="Internationalization">
+<link href="Implementation-Differences.html#Implementation-Differences" rel="prev" title="Implementation Differences">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Special-Topics"></a>
+<div class="header">
+<p>
+Next: <a href="Default-hooks.html#Default-hooks" accesskey="n" rel="next">Default hooks</a>, Previous: <a href="Lua-Reference.html#Lua-Reference" accesskey="p" rel="prev">Lua Reference</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Special-Topics-1"></a>
 <h2 class="chapter">7 Special Topics</h2>
 
 <p>This chapter describes some &ldquo;special&rdquo; issues which are not directly
-related to monotone's <em>use</em>, but which are occasionally of
+related to monotone&rsquo;s <em>use</em>, but which are occasionally of
 interest to people researching monotone or trying to learn the
 specifics of how it works. Most users can ignore these sections.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Internationalization.html#Internationalization" accesskey="1">Internationalization</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Using monotone in non-English locales.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Hash-Integrity.html#Hash-Integrity" accesskey="2">Hash Integrity</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Notes on probability and failure.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Rebuilding-ancestry.html#Rebuilding-ancestry" accesskey="3">Rebuilding ancestry</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">In case of corruption.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Regexps.html#Regexps" accesskey="4">Regexps</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The syntax of regular expressions
+                                  used by Monotone.
+</td></tr>
+</table>
 
-<ul class="menu">
-<li><a accesskey="1" href="Internationalization.html#Internationalization">Internationalization</a>:         Using monotone in non-English locales. 
-<li><a accesskey="2" href="Hash-Integrity.html#Hash-Integrity">Hash Integrity</a>:               Notes on probability and failure. 
-<li><a accesskey="3" href="Rebuilding-ancestry.html#Rebuilding-ancestry">Rebuilding ancestry</a>:          In case of corruption. 
-<li><a accesskey="4" href="Regexps.html#Regexps">Regexps</a>:                      The syntax of regular expressions
-                                  used by Monotone. 
-</ul>
 
-</body></html>
 
+
+</body>
+</html>

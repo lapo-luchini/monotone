@@ -1,79 +1,111 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Versions of trees - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Concepts.html#Concepts" title="Concepts">
-<link rel="prev" href="Versions-of-files.html#Versions-of-files" title="Versions of files">
-<link rel="next" href="Historical-records.html#Historical-records" title="Historical records">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Versions-of-trees"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Historical-records.html#Historical-records">Historical records</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Versions-of-files.html#Versions-of-files">Versions of files</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Concepts.html#Concepts">Concepts</a>
-<hr>
-</div>
+<title>monotone documentation: Versions of trees</title>
 
+<meta name="description" content="monotone documentation: Versions of trees">
+<meta name="keywords" content="monotone documentation: Versions of trees">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Concepts.html#Concepts" rel="up" title="Concepts">
+<link href="Historical-records.html#Historical-records" rel="next" title="Historical records">
+<link href="Versions-of-files.html#Versions-of-files" rel="prev" title="Versions of files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Versions-of-trees"></a>
+<div class="header">
+<p>
+Next: <a href="Historical-records.html#Historical-records" accesskey="n" rel="next">Historical records</a>, Previous: <a href="Versions-of-files.html#Versions-of-files" accesskey="p" rel="prev">Versions of files</a>, Up: <a href="Concepts.html#Concepts" accesskey="u" rel="up">Concepts</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Versions-of-trees-1"></a>
 <h3 class="section">1.2 Versions of trees</h3>
 
 <p>After you have made many different files, you may wish to capture a
-&ldquo;snapshot&rdquo; of the versions of all the files in a particular collection. 
+&ldquo;snapshot&rdquo; of the versions of all the files in a particular collection.
 Since files are typically collected into <i>trees</i> in a file system,
 we say that you want to capture a <i>version of your tree</i>. Doing
 so will permit you to undo changes to multiple files at once, or send
 your friend a <i>set</i> of changes to many files at once.
-
+</p>
 <p>To make a snapshot of a tree, we begin by writing a special file called
-a <dfn>manifest</dfn>. In fact, monotone will write this file for us, but we
+a <em>manifest</em>. In fact, monotone will write this file for us, but we
 could write it ourselves too. It is just a plain text file, in a
-structured but human-readable format used by several parts of monotone. 
+structured but human-readable format used by several parts of monotone.
 Each file entry of a manifest binds a specific name, as a full path from
 the root of the workspace, to a specific file ID, as the hash of its
 content.  In this way, the manifest collects together the snapshot of
 the file names and contents you have at this point in time; other
 snapshots with other manifests can use different names for the same
 file, or different contents for the same name.
-
+</p>
 <p>Other entries in the manifest format name directories or store file
 attributes, which we will cover later.
-
-<div class="block-image"><img src="figures/manifest.png" alt="figures/manifest.png"></div>
+</p>
+<img src="figures/manifest.png" alt="figures/manifest">
 
 <p>Now we note that a manifest is itself a file. Therefore a manifest can
-serve as input to the <span class="sc">sha1</span> function, and thus every manifest has
-an ID of its own. By calculating the <span class="sc">sha1</span> value of a manifest, we
-capture the <i>state of our tree</i> in a single <dfn>manifest ID</dfn>. In
+serve as input to the <small>SHA1</small> function, and thus every manifest has
+an ID of its own. By calculating the <small>SHA1</small> value of a manifest, we
+capture the <i>state of our tree</i> in a single <em>manifest ID</em>. In
 other words, the ID of the manifest essentially captures all the IDs
 and file names of every file in our tree, combined. So we may treat
 manifests and their IDs as <i>snapshots</i> of a tree of files, though
 lacking the actual contents of the files themselves.
-
-<div class="block-image"><img src="figures/file-id-manifest-id.png" alt="figures/file-id-manifest-id.png"></div>
+</p>
+<img src="figures/file-id-manifest-id.png" alt="figures/file-id-manifest-id">
 
 <p>As with versions of files, we may decide to store manifests in their
 entirety, or else we may store only a compact description of changes
 which occur between different versions of manifests. As with files,
 when possible monotone stores compact descriptions of changes between
 manifests; when necessary it stores complete versions of manifests.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Historical-records.html#Historical-records" accesskey="n" rel="next">Historical records</a>, Previous: <a href="Versions-of-files.html#Versions-of-files" accesskey="p" rel="prev">Versions of files</a>, Up: <a href="Concepts.html#Concepts" accesskey="u" rel="up">Concepts</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

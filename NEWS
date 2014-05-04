@@ -1,3 +1,113 @@
+Sun May  4 09:55:54 UTC 2014
+
+        1.1 release.
+
+        Changes
+
+        - '_MTN/wanted-testresults' must now have 1 hex-encoded
+          signing key hash in lowercase per line.
+
+        New features
+
+        - 'automate atttributes' now also works without a workspace
+          and returns the attributes for a specific file from the
+          revision's manifest
+
+        - New 'erase_descendants' automate command which returns all
+          input revisions, except those that are a descendant of
+          another revision in the input.
+
+        - New 'min(A)' selector is now available which returns all
+          revisions selected by A which are not descendants of other
+          revisions selected by A.
+
+        - New 'not(A)' selector is now available which returns all
+          revisions not selected by 'A'.
+
+        - All certs for a revision are now output by 'mtn log' with
+          'suspend', 'testresult', and custom certs placed under a
+          a new 'Other certs' heading.
+
+        - New conflict 'dropped/modified' allows explicitly resolving
+          the case of a file that is dropped on one side of a merge,
+          and modified on the other. Previously, the modifications
+          were always lost; now you have the option of re-adding the
+          file with the modifications during merge conflict
+          resolution.
+
+        - New attribute 'mtn:resolve_conflict' allows specifying a
+          persistent 'drop' conflict resolution for a dropped/modified
+          conflict. This is useful in the case where the conflict will
+          occur again in the future, for example when a file that is
+          maintained in an upstream branch is not needed, and
+          therefore dropped, in a local branch.
+
+        Bugs fixed
+
+        - Monotone now compiles against Botan 1.10.x (as well as most of
+          the testing releases in 1.9.y).
+
+        - Struct file_handle got renamed to avoid clash with newer glibc's
+          fcntl.h.
+
+        - Monotone now compiles just fine with gcc's option
+          "-Werror=format-security."
+
+        - Fixed renaming across devices, for example if parts of the
+          workspace are on NFS.
+
+        - Fixed recursive file removal on Solaris.
+
+        - Fixed a failure to revert some files when inodeprints is
+          enabled.
+
+        - Fix an early abort in netsync on Windows, which caused
+          problems transferring large files.
+
+        - Work around a 64-bit issue with mktime on Mac OS X for dates
+          in 1901 and before.
+
+        - Allow an ssh_agent socket path including dashes.
+
+        - Monotone now works with Lua 5.2, even if it doesn't have
+          backwards-compatibility compiled in.
+
+        - Various fixes for compatibility with newer boost versions.
+
+        - mtn add and mtn list are now more consistent in their use of
+          --recursive and --unknown options.
+
+        - Produce a meaningful error message when trying to disapprove a
+          root.
+
+        - Allow monotone to compile on platforms where MAXPATHLEN isn't
+          defined (i.e. GNU/Hurd).
+
+        - Allow monotone to compile on C++11-enabled g++ and clang++.
+
+        - Allow the test suite to run on systems behind a broken DNS
+          resolver and in cases where names cannot be resolved at all.
+
+        - Allow the test suite to run from directories containing
+          spaces and lots of other minor tweaks to the test suite
+          making its results more reliable.
+
+        Internal
+
+        - The performance and memory usage of regular expressions has
+          been improved throughout. This affects any use of the
+          ".mtn-ignore" file such as "mtn ls unknown" and "mtn add",
+          and any calls to "regex.search" in Lua hooks.
+
+        Other
+
+        - 'mtn diff' now outputs old and new revision IDs in the diff
+          header when both are specified.
+
+        - Additional Vim syntax files and an output colorization script
+          in contrib.
+
+
 Sat Mar 26 10:53:47 UTC 2011
 
         1.0 release.

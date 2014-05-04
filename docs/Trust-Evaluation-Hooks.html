@@ -1,127 +1,168 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Trust Evaluation Hooks - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Hooks.html#Hooks" title="Hooks">
-<link rel="prev" href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks" title="Netsync Transport Hooks">
-<link rel="next" href="External-Diff-Tools.html#External-Diff-Tools" title="External Diff Tools">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Trust-Evaluation-Hooks"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="External-Diff-Tools.html#External-Diff-Tools">External Diff Tools</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks">Netsync Transport Hooks</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
-<hr>
-</div>
+<title>monotone documentation: Trust Evaluation Hooks</title>
 
+<meta name="description" content="monotone documentation: Trust Evaluation Hooks">
+<meta name="keywords" content="monotone documentation: Trust Evaluation Hooks">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hooks.html#Hooks" rel="up" title="Hooks">
+<link href="External-Diff-Tools.html#External-Diff-Tools" rel="next" title="External Diff Tools">
+<link href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks" rel="prev" title="Netsync Transport Hooks">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Trust-Evaluation-Hooks"></a>
+<div class="header">
+<p>
+Next: <a href="External-Diff-Tools.html#External-Diff-Tools" accesskey="n" rel="next">External Diff Tools</a>, Previous: <a href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks" accesskey="p" rel="prev">Netsync Transport Hooks</a>, Up: <a href="Hooks.html#Hooks" accesskey="u" rel="up">Hooks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Trust-Evaluation-Hooks-1"></a>
 <h4 class="subsection">6.1.6 Trust Evaluation Hooks</h4>
 
 <p>Monotone makes heavy use of certs to provide descriptive information
 about revisions. In many projects, not all developers should have the
 same privileges, or be trusted for the same purposes (indeed, some
 signers might be automated robots, with very specific purposes).
-
+</p>
 <p>These hooks allow the user to configure which signers will be trusted to
 make which kinds of assertions using certs. Monotone uses these certs when
-selecting available revisions for commands such as <samp><span class="command">update</span></samp>.
-
+selecting available revisions for commands such as <code>update</code>.
+</p>
 <p>Each user, or even each workspace, can have their own implementation
 of these hooks, and thus a different filtered view of valid revisions,
 according to their own preferences and purposes.
-
+</p>
 <p>See <a href="Quality-Assurance.html#Quality-Assurance">Quality Assurance</a>.
-
-     <dl>
-<a name="get_005frevision_005fcert_005ftrust"></a><dt><code>get_revision_cert_trust (</code><var>signers</var><code>, </code><var>id</var><code>, </code><var>name</var><code>, </code><var>val</var><code>)</code><a name="index-get_005frevision_005fcert_005ftrust-_0028_0040var_007bsigners_007d_002c-_0040var_007bid_007d_002c-_0040var_007bname_007d_002c-_0040var_007bval_007d_0029-299"></a><dd>
-Returns <code>true</code> if you <em>trust</em> the assertion
+</p>
+<dl compact="compact">
+<dd><a name="get_005frevision_005fcert_005ftrust"></a></dd>
+<dt><code>get_revision_cert_trust (<var>signers</var>, <var>id</var>, <var>name</var>, <var>val</var>)</code>
+<a name="index-get_005frevision_005fcert_005ftrust-_0028signers_002c-id_002c-name_002c-val_0029"></a>
+</dt>
+<dd>
+<p>Returns <code>true</code> if you <em>trust</em> the assertion
 <var>name</var>=<var>value</var> on a given revision <var>id</var>, given a valid
 signature from all the keys in <var>signers</var>; <code>false</code>
 otherwise. <var>signers</var> is a table containing a
-<code><a href="key_005fidentity.html#key_005fidentity">key_identity</a></code> for all signatures on this cert, the other
+<code><a href="Common-Data-Types.html#key_005fidentity">key_identity</a></code> for all signatures on this cert, the other
 three parameters are strings.
-
-     <p>The default definition of this hook returns <code>true</code>.
-
-     <p>The default definition corresponds to a form of trust where every key
+</p>
+<p>The default definition of this hook returns <code>true</code>.
+</p>
+<p>The default definition corresponds to a form of trust where every key
 which is defined in your database is trusted. This is a <em>weak</em>
 trust setting. A possible example of a stronger trust function (along
 with a utility function for computing the intersection of tables) is
 the following:
+</p>
+<div class="smallexample">
+<pre class="smallexample">function intersection(a,b)
+   local s={}
+   local t={}
+   for k,v in pairs(a) do s[v.name] = 1 end
+   for k,v in pairs(b) do if s[v] ~= nil then table.insert(t,v) end end
+   return t
+end
 
-     <pre class="smallexample">     function intersection(a,b)
-        local s={}
-        local t={}
-        for k,v in pairs(a) do s[v.name] = 1 end
-        for k,v in pairs(b) do if s[v] ~= nil then table.insert(t,v) end end
-        return t
-     end
-     
-     function get_revision_cert_trust(signers, id, name, val)
-        local trusted_signers = { "bob@happyplace.example.com",
-                                  "friend@trustedplace.example.com",
-                                  "myself@home.example.com" }
-        local t = intersection(signers, trusted_signers)
-     
-        if t == nil then return false end
-     
-        if    (name ~= "branch" and table.getn(t) &gt;= 1)
-           or (name == "branch" and table.getn(t) &gt;= 2)
-        then
-           return true
-        else
-           return false
-        end
-     end
-</pre>
-     <p>In this example, any revision certificate is trusted if it is signed
+function get_revision_cert_trust(signers, id, name, val)
+   local trusted_signers = { &quot;bob@happyplace.example.com&quot;,
+                             &quot;friend@trustedplace.example.com&quot;,
+                             &quot;myself@home.example.com&quot; }
+   local t = intersection(signers, trusted_signers)
+
+   if t == nil then return false end
+
+   if    (name ~= &quot;branch&quot; and table.getn(t) &gt;= 1)
+      or (name == &quot;branch&quot; and table.getn(t) &gt;= 2)
+   then
+      return true
+   else
+      return false
+   end
+end
+</pre></div>
+
+<p>In this example, any revision certificate is trusted if it is signed
 by at least one of three &ldquo;trusted&rdquo; keys, unless it is an
 <code>branch</code> certificate, in which case it must be signed by
 <em>two</em> or more trusted keys. This is one way of requiring that
 the revision has been approved by an extra &ldquo;reviewer&rdquo; who used the
-<samp><span class="command">approve</span></samp> command.
-
-     <p><a name="get_005ffile_005fcert_005ftrust"></a><br><dt><code>get_file_cert_trust (</code><var>signers</var><code>, </code><var>id</var><code>, </code><var>name</var><code>, </code><var>val</var><code>)</code><a name="index-get_005ffile_005fcert_005ftrust-_0028_0040var_007bsigners_007d_002c-_0040var_007bid_007d_002c-_0040var_007bname_007d_002c-_0040var_007bval_007d_0029-300"></a><dd>Similar to <code><a href="get_005frevision_005fcert_005ftrust.html#get_005frevision_005fcert_005ftrust">get_revision_cert_trust</a></code>, for certs on files.
-
-     <p><a name="get_005fmanifest_005fcert_005ftrust"></a><br><dt><code>get_manifest_cert_trust (</code><var>signers</var><code>, </code><var>id</var><code>, </code><var>name</var><code>, </code><var>val</var><code>)</code><a name="index-get_005fmanifest_005fcert_005ftrust-_0028_0040var_007bsigners_007d_002c-_0040var_007bid_007d_002c-_0040var_007bname_007d_002c-_0040var_007bval_007d_0029-301"></a><dd>Similar to <code><a href="get_005frevision_005fcert_005ftrust.html#get_005frevision_005fcert_005ftrust">get_revision_cert_trust</a></code>, for certs on manifests.
-
-     <p><a name="accept_005ftestresult_005fchange"></a><br><dt><code>accept_testresult_change (</code><var>old_results</var><code>, </code><var>new_results</var><code>)</code><a name="index-accept_005ftestresult_005fchange-_0028_0040var_007bold_005fresults_007d_002c-_0040var_007bnew_005fresults_007d_0029-302"></a><dd>Called by <samp><span class="command"><a href="mtn-update.html#mtn-update">mtn update</a></span></samp>.
-
-     <p>This hook is used by the update algorithm to determine whether a
+<code>approve</code> command.
+</p>
+<a name="accept_005ftestresult_005fchange"></a></dd>
+<dt><code>accept_testresult_change (<var>old_results</var>, <var>new_results</var>)</code>
+<a name="index-accept_005ftestresult_005fchange-_0028old_005fresults_002c-new_005fresults_0029"></a>
+</dt>
+<dd><p>Called by <code><a href="Workspace.html#mtn-update">mtn update</a></code>.
+</p>
+<p>This hook is used by the update algorithm to determine whether a
 change in test results between update source and update target is
 acceptable. The hook is called with two tables, each of which maps a
-signing key &ndash; representing a particular testsuite &ndash; to a boolean
-value indicating whether or not the test run was successful. The
+signing key hash (as 20 raw bytes) &ndash; representing a particular testsuite &ndash; to a boolean
+value indicating whether or not the test run was successful (calculated
+from the <code>testresult</code> cert). The
 function should return <code>true</code> if you consider an update from the
 version carrying the <var>old_results</var> to the version carrying the
 <var>new_results</var> to be acceptable.
-
-     <p>The default definition of this hook returns <code>true</code> if
-<samp><span class="file">_MTN/wanted-testresults</span></samp> does not exist. Otherwise, the file
-should contain a list of signing key ids. The hook returns <code>false</code>
-if a listed signing key id is present in both <var>old_results</var> and
-<var>new_results</var>, and <var>old_results</var> is <code>true</code> but
-<var>new_results</var> is <code>false</code>; otherwise it returns <code>true</code>.
-
+</p>
+<p>The default definition of this hook returns <code>true</code> if
+<samp>_MTN/wanted-testresults</samp> does not exist. Otherwise, the file
+should contain a list of signing key hex-encoded hashes in lowercase (40 characters).
+The hook returns <code>false</code>
+if a listed signing key hash is present in both <var>old_results</var> and
+<var>new_results</var>, with the value <code>true</code> in <var>old_results</var>
+and <code>false</code> in <var>new_results</var>; otherwise it returns <code>true</code>.
+</p>
+</dd>
 </dl>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="External-Diff-Tools.html#External-Diff-Tools" accesskey="n" rel="next">External Diff Tools</a>, Previous: <a href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks" accesskey="p" rel="prev">Netsync Transport Hooks</a>, Up: <a href="Hooks.html#Hooks" accesskey="u" rel="up">Hooks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

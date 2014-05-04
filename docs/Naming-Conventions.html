@@ -1,64 +1,91 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Naming Conventions - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Reserved-Certs.html#Reserved-Certs" title="Reserved Certs">
-<link rel="next" href="File-Attributes.html#File-Attributes" title="File Attributes">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Naming-Conventions"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="File-Attributes.html#File-Attributes">File Attributes</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Reserved-Certs.html#Reserved-Certs">Reserved Certs</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Naming Conventions</title>
 
+<meta name="description" content="monotone documentation: Naming Conventions">
+<meta name="keywords" content="monotone documentation: Naming Conventions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="File-Attributes.html#File-Attributes" rel="next" title="File Attributes">
+<link href="Reserved-Certs.html#Reserved-Certs" rel="prev" title="Reserved Certs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Naming-Conventions"></a>
+<div class="header">
+<p>
+Next: <a href="File-Attributes.html#File-Attributes" accesskey="n" rel="next">File Attributes</a>, Previous: <a href="Reserved-Certs.html#Reserved-Certs" accesskey="p" rel="prev">Reserved Certs</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Naming-Conventions-1"></a>
 <h3 class="section">3.13 Naming Conventions</h3>
 
 <p>Some names in monotone are private to your work, such as
 filenames. Other names are potentially visible outside your project,
-such as <span class="sc">rsa</span> key identifiers or branch names. It is possible that if
+such as <small>RSA</small> key identifiers or branch names. It is possible that if
 you choose such names carelessly, you will choose a name which someone
 else in the world is using, and subsequently you may cause confusion
 when your work and theirs is received simultaneously by some third
 party.
-
+</p>
 <p>We therefore recommend two naming conventions:
-
-     <ul>
-<li>For <span class="sc">rsa</span> keys, use the name of an active email address you
+</p>
+<ul>
+<li> For <small>RSA</small> keys, use the name of an active email address you
 own. This will minimize conflicts, and also serves as a mnemonic to
 associate your personal <em>identity</em> with signatures made with your
-key. For example, monotone's primary author uses the key identifier
+key. For example, monotone&rsquo;s primary author uses the key identifier
 <code>graydon@pobox.com</code>.
 
-     <li>For branch names, select any name you like but prefix it with the
+</li><li> For branch names, select any name you like but prefix it with the
 &ldquo;inverted domain name&rdquo; of a DNS domain you control or are otherwise
 authorized to use. This behavior mimics the package naming convention
 in the java programming language. For example, monotone itself is
 developed within the <code>net.venge.monotone</code> branch, because the
-original author owned the DNS domain <code>venge.net</code>. 
-</ul>
+original author owned the DNS domain <code>venge.net</code>.
+</li></ul>
 
-</body></html>
 
+
+
+</body>
+</html>

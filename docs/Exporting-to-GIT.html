@@ -1,48 +1,74 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Exporting to GIT - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Importing-from-CVS.html#Importing-from-CVS" title="Importing from CVS">
-<link rel="next" href="Using-packets.html#Using-packets" title="Using packets">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Exporting-to-GIT"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Using-packets.html#Using-packets">Using packets</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Importing-from-CVS.html#Importing-from-CVS">Importing from CVS</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Exporting to GIT</title>
 
+<meta name="description" content="monotone documentation: Exporting to GIT">
+<meta name="keywords" content="monotone documentation: Exporting to GIT">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Using-packets.html#Using-packets" rel="next" title="Using packets">
+<link href="Importing-from-CVS.html#Importing-from-CVS" rel="prev" title="Importing from CVS">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Exporting-to-GIT"></a>
+<div class="header">
+<p>
+Next: <a href="Using-packets.html#Using-packets" accesskey="n" rel="next">Using packets</a>, Previous: <a href="Importing-from-CVS.html#Importing-from-CVS" accesskey="p" rel="prev">Importing from CVS</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Exporting-to-GIT-1"></a>
 <h3 class="section">3.17 Exporting to GIT</h3>
 
 <p>Monotone is capable of exporting the contents of a database to
 <code>stdout</code> in a form suitable to be piped to git-fast-import(1):
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mkdir test.git
 $ cd test.git
 $ git init
-$ mtn --db test.mtn git_export | git fast import
-</pre>
+$ mtn --db test.mtn git_export | git fast-import
+</pre></div>
+
 <p>While this feature has been tested and verified to some extent with
 various &ldquo;real-world&rdquo; monotone databases it is important to realize
 that translating from one version control system to another can be a
@@ -52,7 +78,7 @@ can. In particular git does not treat directories as first class
 objects as monotone does and does not use certificates to represent
 <code>author</code>, <code>date</code>, <code>branch</code> and <code>tag</code> values so
 some differences are to be expected.
-
+</p>
 <p>Git separates the concept of <code>committer</code> from the concept of
 <code>author</code> while monotone allows multiple <code>author</code> certs. In
 an attempt to represent these different concepts the git exporter uses
@@ -60,44 +86,44 @@ the <em>value</em> of the author cert as the git author and the
 <em>key</em> used to sign the author cert as the git committer. When
 there are multiple author certs the git exporter arbitrarily choses
 one of them. The full list of monotone certs may be exported in the
-git commit message using the <samp><span class="option">--log-certs</span></samp> option described in
+git commit message using the <samp>--log-certs</samp> option described in
 <a href="VCS.html#VCS">VCS</a>.
-
+</p>
 <p>Monotone author names often look like raw email addresses such as
-<code>"user@example.com"</code>. These are not considered valid by git
-which requires the display name and leading `&lt;' and trailing `&gt;'
-characters around email addresses such as <code>"User Name
-&lt;user@example.com&gt;"</code>. The git exporter deals with this difference in
+<code>&quot;user@example.com&quot;</code>. These are not considered valid by git
+which requires the display name and leading &lsquo;&lt;&rsquo; and trailing &lsquo;&gt;&rsquo;
+characters around email addresses such as <code>&quot;User Name
+&lt;user@example.com&gt;&quot;</code>. The git exporter deals with this difference in
 several ways:
-     <ul>
-<li>revisions that don't have any author certs will default to using
-<code>Unknown &lt;unknown&gt;</code> for both the author and committer. 
-<li>revisions that have one or more author certs will use the value of one
+</p><ul>
+<li> revisions that don&rsquo;t have any author certs will default to using
+<code>Unknown &lt;unknown&gt;</code> for both the author and committer.
+</li><li> revisions that have one or more author certs will use the value of one
 author cert as the author and the key used to sign this cert as
-the committer. 
-<li>both author and committer will be looked up in the file specified by
-the <samp><span class="option">--authors-file</span></samp> option described in <a href="VCS.html#VCS">VCS</a> and
-translated to the specified value if found. 
-<li>any author or committer value not found in the authors file will be
+the committer.
+</li><li> both author and committer will be looked up in the file specified by
+the <samp>--authors-file</samp> option described in <a href="VCS.html#VCS">VCS</a> and
+translated to the specified value if found.
+</li><li> any author or committer value not found in the authors file will be
 processed by the <code>unmapped_git_author</code> hook which may adjust the
-value so that it represents a valid value. 
-</ul>
-All git author and committer values will be validated by the
+value so that it represents a valid value.
+</li></ul>
+<p>All git author and committer values will be validated by the
 <code>validate_git_author</code> hook before being written to the output
 stream. The export will abort if any author or committer value is
 rejected by the validation hook.
-
+</p>
 <p>Branch names used by monotone are allowed to contain characters that
 are not considered valid by git. These may be mapped to other names
-using the <samp><span class="option">--branches-file</span></samp> option described in <a href="VCS.html#VCS">VCS</a>
-
+using the <samp>--branches-file</samp> option described in <a href="VCS.html#VCS">VCS</a>
+</p>
 <p>A monotone revision may have multiple <code>changelog</code> certs and
 multiple <code>comment</code> certs. The git exporter deals with these by
 first concatenating all of the changelog certs followed by all of the
 comment certs into one message to use as the git commit
 message. Duplicate changelog or comment cert messages that may exist
 due to automated merges are removed.
-
+</p>
 <p>Exporting a database may be a time consuming and involved process,
 depending on the size and nature of the database. A 200MB database
 should export in less than an hour but may take several hours or
@@ -107,10 +133,18 @@ should require less than 200MB of RAM but may require
 <em>considerably</em> more in some cases. If the exported file is
 written to disk it will likely be <em>substantially</em> larger than the
 associated database, perhaps between 400MB to 4GB in size.
-
+</p>
 <p>Anyone using the git exporter must take full responsibility for
 verifying that the exported repository matches their expectations and
 requirements.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Using-packets.html#Using-packets" accesskey="n" rel="next">Using packets</a>, Previous: <a href="Importing-from-CVS.html#Importing-from-CVS" accesskey="p" rel="prev">Importing from CVS</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

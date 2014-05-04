@@ -1,63 +1,116 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Common Options - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Global-and-Common-Options.html#Global-and-Common-Options" title="Global and Common Options">
-<link rel="prev" href="Global-Options.html#Global-Options" title="Global Options">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
+<title>monotone documentation: Common Options</title>
+
+<meta name="description" content="monotone documentation: Common Options">
+<meta name="keywords" content="monotone documentation: Common Options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Global-and-Common-Options.html#Global-and-Common-Options" rel="up" title="Global and Common Options">
+<link href="Tree.html#Tree" rel="next" title="Tree">
+<link href="Global-Options.html#Global-Options" rel="prev" title="Global Options">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
 <link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
 </head>
-<body>
-<div class="node">
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
 <a name="Common-Options"></a>
+<div class="header">
 <p>
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Global-Options.html#Global-Options">Global Options</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Global-and-Common-Options.html#Global-and-Common-Options">Global and Common Options</a>
-<hr>
+Previous: <a href="Global-Options.html#Global-Options" accesskey="p" rel="prev">Global Options</a>, Up: <a href="Global-and-Common-Options.html#Global-and-Common-Options" accesskey="u" rel="up">Global and Common Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-
+<hr>
+<a name="Common-Options-1"></a>
 <h4 class="subsection">4.1.2 Common Options</h4>
-
 <p>These options are available on many commands.
-     <dl>
-<a name="g_t_002d_002dauthor"></a><dt><samp><span class="command">--author</span></samp><a name="index-g_t_002d_002dauthor-33"></a><dd>Override the author cert for a commit; normally, the author is the
+</p><dl compact="compact">
+<dd><a name="g_t_002d_002dauthor"></a></dd>
+<dt><code>--author</code>
+<a name="index-_002d_002dauthor"></a>
+</dt>
+<dd><p>Override the author cert for a commit; normally, the author is the
 local name of the key used for the commit. See
-<code><a href="get_005fauthor.html#get_005fauthor">get_author</a></code>, <samp><span class="option"><a href="_002d_002dkey.html#g_t_002d_002dkey">--key</a></span></samp>,
-<code><a href="get_005flocal_005fkey_005fname.html#get_005flocal_005fkey_005fname">get_local_key_name</a></code>.
-
-     <p><a name="g_t_002d_002dbranch"></a><br><dt><samp><span class="command">--branch</span></samp><a name="index-g_t_002d_002dbranch-34"></a><dd>Specify the branch for a command. This normally defaults to the
+<code><a href="User-Defaults.html#get_005fauthor">get_author</a></code>, <samp><a href="Global-Options.html#g_t_002d_002dkey">--key</a></samp>,
+<code><a href="User-Defaults.html#get_005flocal_005fkey_005fname">get_local_key_name</a></code>.
+</p>
+<a name="g_t_002d_002dbranch"></a></dd>
+<dt><code>--branch</code>
+<a name="index-_002d_002dbranch"></a>
+</dt>
+<dd><p>Specify the branch for a command. This normally defaults to the
 workspace branch.
-
-     <p><a name="g_t_002d_002ddate"></a><br><dt><samp><span class="command">--date</span></samp><a name="index-g_t_002d_002ddate-35"></a><dd>Override the date cert for a commit. The date defaults to the current
+</p>
+<a name="g_t_002d_002ddate"></a></dd>
+<dt><code>--date</code>
+<a name="index-_002d_002ddate"></a>
+</dt>
+<dd><p>Override the date cert for a commit. The date defaults to the current
 calendar time.
-
-     <p><a name="g_t_002d_002dmessage"></a><br><dt><samp><span class="command">--message </span><var>string</var></samp><a name="index-g_t_002d_002dmessage-_0040var_007bstring_007d-36"></a><dd>Set the commit changelog message, as a string. Each command that does
+</p>
+<a name="g_t_002d_002dmessage"></a></dd>
+<dt><code>--message <var>string</var></code>
+<a name="index-_002d_002dmessage-string"></a>
+</dt>
+<dd><p>Set the commit changelog message, as a string. Each command that does
 a commit has a different default for the message.
-
-     <p><a name="g_t_002d_002dmessage_002dfile"></a><br><dt><samp><span class="command">--message-file </span><var>filename</var></samp><a name="index-g_t_002d_002dmessage_002dfile-_0040var_007bfilename_007d-37"></a><dd>Set the commit changelog message, as a file. Each command that does
+</p>
+<a name="g_t_002d_002dmessage_002dfile"></a></dd>
+<dt><code>--message-file <var>filename</var></code>
+<a name="index-_002d_002dmessage_002dfile-filename"></a>
+</dt>
+<dd><p>Set the commit changelog message, as a file. Each command that does
 a commit has a different default for the message.
-
-     <p><a name="g_t_002d_002dupdate"></a><br><dt><samp><span class="command">--[no-]update</span></samp><a name="index-g_t_002d_002d_005bno_002d_005dupdate-38"></a><dd>If <samp><span class="option">--update</span></samp> is given, and the command is executed in a
+</p>
+<a name="g_t_002d_002dupdate"></a></dd>
+<dt><code>--[no-]update</code>
+<a name="index-_002d_002d_005bno_002d_005dupdate"></a>
+</dt>
+<dd><p>If <samp>--update</samp> is given, and the command is executed in a
 workspace, the workspace is updated to the new head of the workspace
 branch if the workspace was at a head, and the command makes a new
 head of the workspace branch.
-
+</p>
+</dd>
 </dl>
 
-</body></html>
 
+
+
+</body>
+</html>

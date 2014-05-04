@@ -1,70 +1,95 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Lua Reference - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="prev" href="Formats.html#Formats" title="Formats">
-<link rel="next" href="Special-Topics.html#Special-Topics" title="Special Topics">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Lua-Reference"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Special-Topics.html#Special-Topics">Special Topics</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Formats.html#Formats">Formats</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
-<hr>
-</div>
+<title>monotone documentation: Lua Reference</title>
 
+<meta name="description" content="monotone documentation: Lua Reference">
+<meta name="keywords" content="monotone documentation: Lua Reference">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Hooks.html#Hooks" rel="next" title="Hooks">
+<link href="Formats.html#Formats" rel="prev" title="Formats">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Lua-Reference"></a>
+<div class="header">
+<p>
+Next: <a href="Special-Topics.html#Special-Topics" accesskey="n" rel="next">Special Topics</a>, Previous: <a href="Formats.html#Formats" accesskey="p" rel="prev">Formats</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Lua-Reference-1"></a>
 <h2 class="chapter">6 Lua Reference</h2>
 
 <p>Monotone makes use of the <a href="http://www.lua.org">Lua</a> programming
 language to customize and extend its behaviour.  By writing
-<dfn>functions</dfn> which are loaded and evaluated at runtime, you can
+<em>functions</em> which are loaded and evaluated at runtime, you can
 help monotone to make a particular decision, set a suitable default or
 preference or perform a certain action.
+</p>
+<a name="rcfiles"></a><p>Lua functions are defined in &ldquo;rcfiles&rdquo; which will be
+read every time monotone runs. <samp>rcfiles</samp> consist of:
+</p>
+<ul>
+<li> <samp>$HOME/.monotone/monotonerc</samp> on Unix or
+<samp>%APPDATA%\monotone\monotonerc</samp> on Windows
 
-<p><a name="rcfiles"></a>Lua functions are defined in &ldquo;rcfiles&rdquo; which will be
-read every time monotone runs. <samp><span class="file">rcfiles</span></samp> consist of:
+</li><li> <samp>_MTN/monotonerc</samp> in the current workspace
 
-     <ul>
-<li><samp><span class="file">$HOME/.monotone/monotonerc</span></samp> on Unix or
-<samp><span class="file">%APPDATA%\monotone\monotonerc</span></samp> on Windows
+</li><li> Files given in the <samp>--rcfile=<var>file</var></samp> option on the command line.
 
-     <li><samp><span class="file">_MTN/monotonerc</span></samp> in the current workspace
+</li><li> All files in a directory given by <samp>--rcfile=<var>directory</var></samp> on
+the command line.
+</li></ul>
 
-     <li>Files given in the <samp><span class="option">--rcfile=</span><var>file</var></samp> option on the command line.
-
-     <li>All files in a directory given by <samp><span class="option">--rcfile=</span><var>directory</var></samp> on
-the command line. 
-</ul>
-
-<p>The files are loaded in the order <samp><span class="file">.monotone/monotonerc</span></samp>,
-<samp><span class="file">_MTN/monotonerc</span></samp>, <samp><span class="option">--rcfile</span></samp> in the command line order. 
+<p>The files are loaded in the order <samp>.monotone/monotonerc</samp>,
+<samp>_MTN/monotonerc</samp>, <samp>--rcfile</samp> in the command line order.
 Definitions loaded later shadow (override) earlier definitions.
-
+</p>
 <p>There are two uses for Lua functions; hooks and user-defined
 commands. This section documents hooks; see
-<samp><span class="command"><a href="register_005fcommand.html#register_005fcommand">register_command</a></span></samp> for user-defined commands. The source
+<code><a href="Additional-Lua-Functions.html#register_005fcommand">register_command</a></code> for user-defined commands. The source
 distribution contains some example user commands in the
-<samp><span class="file">contrib/command</span></samp> directory.
-
+<samp>contrib/command</samp> directory.
+</p>
 <p>Hooks are Lua functions that are called from monotone code in many
 places. Monotone provides default definitions for some hooks; see
 <a href="Default-hooks.html#Default-hooks">Default hooks</a> for their complete source. For other hooks, if no
@@ -72,7 +97,8 @@ definition is provided, a default return value is used. When writing new
 hooks, it may be helpful to reuse some code from the default
 ones. Since Lua is a lexically scoped language with closures, this can
 be achieved with the following code:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">do
     local old_hook = default_hook
     function default_hook(arg)
@@ -81,19 +107,31 @@ be achieved with the following code:
         end
     end
 end
-</pre>
+</pre></div>
+
 <p>Now the default hook is trapped in a variable local to this block, and can
 only be seen by the new hook. Since in Lua functions default to the global
 scope, the new hook is seen from inside monotone.
-
+</p>
 <p>Monotone also provides a number of helper functions to hook writers
 exposing functionality not available with standard Lua.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Hooks.html#Hooks" accesskey="1">Hooks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">All hooks called by monotone.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Additional-Lua-Functions.html#Additional-Lua-Functions" accesskey="2">Additional Lua Functions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Extra functionality available to hook writers.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Implementation-Differences.html#Implementation-Differences" accesskey="3">Implementation Differences</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Functional differences from standard Lua
+</td></tr>
+</table>
 
-<ul class="menu">
-<li><a accesskey="1" href="Hooks.html#Hooks">Hooks</a>:                        All hooks called by monotone. 
-<li><a accesskey="2" href="Additional-Lua-Functions.html#Additional-Lua-Functions">Additional Lua Functions</a>:     Extra functionality available to hook writers. 
-<li><a accesskey="3" href="Implementation-Differences.html#Implementation-Differences">Implementation Differences</a>:   Functional differences from standard Lua
-</ul>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Special-Topics.html#Special-Topics" accesskey="n" rel="next">Special Topics</a>, Previous: <a href="Formats.html#Formats" accesskey="p" rel="prev">Formats</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

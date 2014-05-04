@@ -1,60 +1,87 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Scripting - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Restrictions.html#Restrictions" title="Restrictions">
-<link rel="next" href="Inodeprints.html#Inodeprints" title="Inodeprints">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Scripting"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Inodeprints.html#Inodeprints">Inodeprints</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Restrictions.html#Restrictions">Restrictions</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Scripting</title>
 
+<meta name="description" content="monotone documentation: Scripting">
+<meta name="keywords" content="monotone documentation: Scripting">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Inodeprints.html#Inodeprints" rel="next" title="Inodeprints">
+<link href="Restrictions.html#Restrictions" rel="prev" title="Restrictions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Scripting"></a>
+<div class="header">
+<p>
+Next: <a href="Inodeprints.html#Inodeprints" accesskey="n" rel="next">Inodeprints</a>, Previous: <a href="Restrictions.html#Restrictions" accesskey="p" rel="prev">Restrictions</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Scripting-1"></a>
 <h3 class="section">3.4 Scripting</h3>
 
 <p>People often want to write programs that call monotone &mdash; for example,
-to create a graphical interface to monotone's functionality, or to
+to create a graphical interface to monotone&rsquo;s functionality, or to
 automate some task.  For most programs, if you want to do this sort of
 thing, you just call the command line interface, and do some sort of
-parsing of the output.  Monotone's output, however, is designed for
-humans: it's localized, it tries to prompt the user with helpful
+parsing of the output.  Monotone&rsquo;s output, however, is designed for
+humans: it&rsquo;s localized, it tries to prompt the user with helpful
 information depending on their request, if it detects that something
 unusual is happening it may give different output in an attempt to make
 this clear to the user, and so on.  As a result, it is not particularly
 suitable for programs to parse.
-
+</p>
 <p>Rather than trying to design output to work for both humans and
 computers, and serving neither audience well, we elected to create a
 separate interface to make programmatically extracting information from
 monotone easier.  The command line interface has a command
-<samp><span class="command">automate</span></samp>; this command has subcommands that print various sorts
+<code>automate</code>; this command has subcommands that print various sorts
 of information on standard output, in simple, consistent, and easily
 parseable form.
-
+</p>
 <p>For details of this interface, see <a href="Automation.html#Automation">Automation</a>.
+</p>
 
-</body></html>
 
+
+</body>
+</html>

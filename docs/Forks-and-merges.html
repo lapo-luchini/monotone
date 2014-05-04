@@ -1,45 +1,69 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Forks and merges - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Concepts.html#Concepts" title="Concepts">
-<link rel="prev" href="Storage-and-workflow.html#Storage-and-workflow" title="Storage and workflow">
-<link rel="next" href="Branches.html#Branches" title="Branches">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Forks-and-merges"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Branches.html#Branches">Branches</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Storage-and-workflow.html#Storage-and-workflow">Storage and workflow</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Concepts.html#Concepts">Concepts</a>
-<hr>
-</div>
+<title>monotone documentation: Forks and merges</title>
 
+<meta name="description" content="monotone documentation: Forks and merges">
+<meta name="keywords" content="monotone documentation: Forks and merges">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Concepts.html#Concepts" rel="up" title="Concepts">
+<link href="Branches.html#Branches" rel="next" title="Branches">
+<link href="Storage-and-workflow.html#Storage-and-workflow" rel="prev" title="Storage and workflow">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Forks-and-merges"></a>
+<div class="header">
+<p>
+Next: <a href="Branches.html#Branches" accesskey="n" rel="next">Branches</a>, Previous: <a href="Storage-and-workflow.html#Storage-and-workflow" accesskey="p" rel="prev">Storage and workflow</a>, Up: <a href="Concepts.html#Concepts" accesskey="u" rel="up">Concepts</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Forks-and-merges-1"></a>
 <h3 class="section">1.6 Forks and merges</h3>
 
 <p>So far we have been talking about revisions as though each logically
 follows exactly one revision before it, in a simple sequence of
 revisions.
-
-<div class="block-image"><img src="figures/linear-history.png" alt="figures/linear-history.png"></div>
+</p>
+<img src="figures/linear-history.png" alt="figures/linear-history">
 
 <p>This is a rosy picture, but sometimes it does not work out this
 way. Sometimes when you make new revisions, other people are
@@ -48,22 +72,25 @@ might be derived from the same parent as yours, or contain different
 changesets. Without loss of generality, we will assume simultaneous
 edits only happen two-at-a-time; in fact many more edits may happen at
 once but our reasoning will be the same.
-
-<p>We call this situation of simultaneous edits a <dfn>fork</dfn>, and will
+</p>
+<p>We call this situation of simultaneous edits a <em>fork</em>, and will
 refer to the two children of a fork as the <i>left child</i> and <i>right
 child</i>. In a large collection of revisions with many people editing
 files, especially on many different computers spread all around the
 world, forks are a common occurrence.
-
-<div class="block-image"><img src="figures/fork.png" alt="figures/fork.png"></div>
+</p>
+<img src="figures/fork.png" alt="figures/fork">
 
 <p>If we analyze the changes in each child revision, we will often find
 that the changeset between the parent and the left child are unrelated
 to the changeset between the parent and the right child. When this
-happens, we can usually <dfn>merge</dfn> the fork, producing a common
+happens, we can usually <em>merge</em> the fork, producing a common
 grandchild revision which contains both changesets.
+</p>
+<img src="figures/merge.png" alt="figures/merge">
 
-<div class="block-image"><img src="figures/merge.png" alt="figures/merge.png"></div>
 
-</body></html>
 
+
+</body>
+</html>

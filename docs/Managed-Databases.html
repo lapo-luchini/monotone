@@ -1,87 +1,118 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Managed Databases - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Vars.html#Vars" title="Vars">
-<link rel="next" href="Reserved-Files.html#Reserved-Files" title="Reserved Files">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
+<title>monotone documentation: Managed Databases</title>
+
+<meta name="description" content="monotone documentation: Managed Databases">
+<meta name="keywords" content="monotone documentation: Managed Databases">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Reserved-Files.html#Reserved-Files" rel="next" title="Reserved Files">
+<link href="Vars.html#Vars" rel="prev" title="Vars">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
 <link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
 </head>
-<body>
-<div class="node">
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
 <a name="Managed-Databases"></a>
+<div class="header">
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Reserved-Files.html#Reserved-Files">Reserved Files</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Vars.html#Vars">Vars</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
+Next: <a href="Reserved-Files.html#Reserved-Files" accesskey="n" rel="next">Reserved Files</a>, Previous: <a href="Vars.html#Vars" accesskey="p" rel="prev">Vars</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-
+<hr>
+<a name="Managed-Databases-1"></a>
 <h3 class="section">3.10 Managed Databases</h3>
-
-<p>In monotone commands, a database name (provided to a <samp><span class="option">--db</span></samp>
+<p>In monotone commands, a database name (provided to a <samp>--db</samp>
 option) starting with &ldquo;:&rdquo; is a &ldquo;database alias&rdquo;. It addresses
 a usual monotone database sitting in a special, &ldquo;managed&rdquo; location,
 which we therefore call a &ldquo;managed database&rdquo;.
-
-<p>The database alias is a regular file name (excluding the leading colon). 
+</p>
+<p>The database alias is a regular file name (excluding the leading colon).
 Monotone searches for this file name in common locations and internally
 expands it to a full path once it found an unambigious match.
-
-<p>Some commands, such as <samp><span class="command"><a href="mtn-clone.html#mtn-clone">mtn clone</a></span></samp> and <samp><span class="command"><a href="mtn-setup.html#mtn-setup">mtn setup</a></span></samp>, work without a <samp><span class="option">--db</span></samp> option; they fall back on a
+</p>
+<p>Some commands, such as <code><a href="Network.html#mtn-clone">mtn clone</a></code> and <code><a href="Tree.html#mtn-setup">mtn setup</a></code>, work without a <samp>--db</samp> option; they fall back on a
 managed &ldquo;default&rdquo; database and even initialize that in case it is
 not existant.
-
+</p>
 <p>To keep an overview of managed databases and their workspaces, the commands
-<samp><span class="command"><a href="mtn-list-databases.html#mtn-list-databases">mtn list databases</a></span></samp> and <samp><span class="command"><a href="mtn-list-workspaces.html#mtn-list-workspaces">mtn list workspaces</a></span></samp>
+<code><a href="Informative.html#mtn-list-databases">mtn list databases</a></code> and <code><a href="Informative.html#mtn-list-workspaces">mtn list workspaces</a></code>
 can be used:  The former shows a list of all known databases in all managed
 locations together with their workspaces, while the latter only shows the
 list of workspaces for a single, specified database.
-
+</p>
 <p>Monotone usually keeps track of known workspaces automatically in the
-background and updates the references as soon as your workspace' database
-option in <samp><span class="file">_MTN/options</span></samp> is set up or changed. There are a few cases
+background and updates the references as soon as your workspace&rsquo; database
+option in <samp>_MTN/options</samp> is set up or changed. There are a few cases
 where monotone is unable to detect changes, though, for example when a
 workspace is moved in the file system. To get monotone back on track in
-cases like this, the commands <samp><span class="command"><a href="mtn-register_005fworkspace.html#mtn-register_005fworkspace">mtn register_workspace</a></span></samp> and
-<samp><span class="command"><a href="mtn-unregister_005fworkspace.html#mtn-unregister_005fworkspace">mtn unregister_workspace</a></span></samp> can be used.
-
+cases like this, the commands <code><a href="Variables.html#mtn-register_005fworkspace">mtn register_workspace</a></code> and
+<code><a href="Variables.html#mtn-unregister_005fworkspace">mtn unregister_workspace</a></code> can be used.
+</p>
 <p>Finally, all this magic behaviour can be customized by a variety of
 lua hooks:
+</p>
+<ul>
+<li> <a href="User-Defaults.html#get_005fdefault_005fdatabase_005flocations">get_default_database_locations</a> returns a list of search paths
+where monotone should look for managed databases.
+This hook defaults to a single directory; <samp>$HOME/.monotone/databases</samp>
+on Unix and <samp>%APPDATA%\monotone\databases</samp> on Windows.
 
-     <ul>
-<li><a href="get_005fdefault_005fdatabase_005flocations.html#get_005fdefault_005fdatabase_005flocations">get_default_database_locations</a> returns a list of search paths
-where monotone should look for managed databases. 
-This hook defaults to a single directory; <samp><span class="file">$HOME/.monotone/databases</span></samp>
-on Unix and <samp><span class="file">%APPDATA%\monotone\databases</span></samp> on Windows.
-
-     <li><a href="get_005fdefault_005fdatabase_005fglob.html#get_005fdefault_005fdatabase_005fglob">get_default_database_glob</a> returns a pattern which monotone uses
-to match and recognized database files in the configured default locations. 
+</li><li> <a href="User-Defaults.html#get_005fdefault_005fdatabase_005fglob">get_default_database_glob</a> returns a pattern which monotone uses
+to match and recognized database files in the configured default locations.
 This pattern is also used to determine if shortened database aliases, such
 as <code>:default</code>, should get suffixed with <code>.mtn</code> to be transformed
 into a valid database file name. By default this hook returns <code>.{mtn,db}</code>.
 
-     <li><a href="get_005fdefault_005fdatabase_005falias.html#get_005fdefault_005fdatabase_005falias">get_default_database_alias</a> returns the name of the alias of a
+</li><li> <a href="User-Defaults.html#get_005fdefault_005fdatabase_005falias">get_default_database_alias</a> returns the name of the alias of a
 default database that is initialized and used on demand.  If more than one
 database locations are configured, the first location is used as save location
-for this database. This hook defaults to <code>:default.mtn</code>. 
-</ul>
+for this database. This hook defaults to <code>:default.mtn</code>.
+</li></ul>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Reserved-Files.html#Reserved-Files" accesskey="n" rel="next">Reserved Files</a>, Previous: <a href="Vars.html#Vars" accesskey="p" rel="prev">Vars</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

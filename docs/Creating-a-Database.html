@@ -1,79 +1,117 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Creating a Database - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Tutorial.html#Tutorial" title="Tutorial">
-<link rel="prev" href="Tutorial.html#Tutorial" title="Tutorial">
-<link rel="next" href="Generating-Keys.html#Generating-Keys" title="Generating Keys">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Creating-a-Database"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Generating-Keys.html#Generating-Keys">Generating Keys</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Tutorial.html#Tutorial">Tutorial</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Tutorial.html#Tutorial">Tutorial</a>
-<hr>
-</div>
+<title>monotone documentation: Creating a Database</title>
 
+<meta name="description" content="monotone documentation: Creating a Database">
+<meta name="keywords" content="monotone documentation: Creating a Database">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tutorial.html#Tutorial" rel="up" title="Tutorial">
+<link href="Generating-Keys.html#Generating-Keys" rel="next" title="Generating Keys">
+<link href="Tutorial.html#Tutorial" rel="prev" title="Tutorial">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Creating-a-Database"></a>
+<div class="header">
+<p>
+Next: <a href="Generating-Keys.html#Generating-Keys" accesskey="n" rel="next">Generating Keys</a>, Previous: <a href="Tutorial.html#Tutorial" accesskey="p" rel="prev">Tutorial</a>, Up: <a href="Tutorial.html#Tutorial" accesskey="u" rel="up">Tutorial</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Creating-a-Database-1"></a>
 <h3 class="section">2.3 Creating a Database</h3>
 
 <p>The first step Jim, Abe and Beth each need to perform is to create a
-new database. This is done with the <samp><span class="command">mtn db init</span></samp> command,
-providing a <samp><span class="option">--db</span></samp> option to specify the location of the new
+new database. This is done with the <code>mtn db init</code> command,
+providing a <samp>--db</samp> option to specify the location of the new
 database. Each programmer creates their own database, which will
 reside in their home directory and store all the revisions, files and
 manifests they work on.
-
+</p>
 <p>In real life, most people prefer to keep one database for each project
 they work on.  If we followed that convention here in the tutorial,
 though, then all the databases would be called <code>juicebot.mtn</code>, and
-that would make things more confusing to read.  So instead, we'll have
+that would make things more confusing to read.  So instead, we&rsquo;ll have
 them each name their database after themselves.
-
+</p>
 <p>Thus Jim issues the command:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn db init --db=~/jim.mtn
-</pre>
-<p>and Abe issues the command:
+</pre></div>
 
+<p>and Abe issues the command:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn db init --db=~/abe.mtn
-</pre>
-<p>Beth decides to use monotone's built-in database management
+</pre></div>
+
+<p>Beth decides to use monotone&rsquo;s built-in database management
 functionality.  monotone then expects to find managed database files
-in a list of directories (default <samp><span class="file">$HOME/.monotone/databases</span></samp> on
-Unix and <samp><span class="file">%APPDATA%\monotone\databases</span></samp> on Windows, see
+in a list of directories (default <samp>$HOME/.monotone/databases</samp> on
+Unix and <samp>%APPDATA%\monotone\databases</samp> on Windows, see
 <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a> for more info) and acts upon those by knowing
 only their file or basename.
-
-<p>To create a new managed database, Beth issues the <samp><span class="command">mtn db init</span></samp> command
+</p>
+<p>To create a new managed database, Beth issues the <code>mtn db init</code> command
 like this:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn db init --db=:beth
-</pre>
+</pre></div>
+
 <p>Beth can distinguish a managed database name from an unmanaged one by
 the leading colon in its name.  This special alias can now be used
 interchangeably in every monotone invocation.  If Beth wants to see
 where monotone actually created the database and what other databases
-monotone knows of, she uses the <samp><span class="command"><a href="mtn-list-databases.html#mtn-list-databases">mtn list databases</a></span></samp> command
-(or <samp><span class="command">mtn ls dbs</span></samp>) for that.  We'll come back to this in a bit.
+monotone knows of, she uses the <code><a href="Informative.html#mtn-list-databases">mtn list databases</a></code> command
+(or <code>mtn ls dbs</code>) for that.  We&rsquo;ll come back to this in a bit.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Generating-Keys.html#Generating-Keys" accesskey="n" rel="next">Generating Keys</a>, Previous: <a href="Tutorial.html#Tutorial" accesskey="p" rel="prev">Tutorial</a>, Up: <a href="Tutorial.html#Tutorial" accesskey="u" rel="up">Tutorial</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

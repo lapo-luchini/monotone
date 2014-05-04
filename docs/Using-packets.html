@@ -1,38 +1,62 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Using packets - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Exporting-to-GIT.html#Exporting-to-GIT" title="Exporting to GIT">
-<link rel="next" href="Bisecting.html#Bisecting" title="Bisecting">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Using-packets"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Bisecting.html#Bisecting">Bisecting</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Exporting-to-GIT.html#Exporting-to-GIT">Exporting to GIT</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Using packets</title>
 
+<meta name="description" content="monotone documentation: Using packets">
+<meta name="keywords" content="monotone documentation: Using packets">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Bisecting.html#Bisecting" rel="next" title="Bisecting">
+<link href="Exporting-to-GIT.html#Exporting-to-GIT" rel="prev" title="Exporting to GIT">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Using-packets"></a>
+<div class="header">
+<p>
+Next: <a href="Bisecting.html#Bisecting" accesskey="n" rel="next">Bisecting</a>, Previous: <a href="Exporting-to-GIT.html#Exporting-to-GIT" accesskey="p" rel="prev">Exporting to GIT</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Using-packets-1"></a>
 <h3 class="section">3.18 Using packets</h3>
 
 <p>Suppose you made changes to your database, and want to send those
@@ -42,31 +66,37 @@ via an external program. In this case, you can convert the information
 into packets. Packets are a convenient way to represent revisions and
 other database contents as plain text with wrapped lines &ndash; just what
 you need if you want to send them in the body of an email.
-
+</p>
 <p>This is a tutorial on how to transfer single revisions between
 databases by dumping them from one database to a text file and then
 reading the dump into a second database.
-
+</p>
 <p>We will create two databases, A and B, then create a few revisions in
 A, and transfer part of them to B.
-
-<p>First we initialize the databases:
-
+</p>
+<p>First we initialize the databases (we assume you have a key for
+commits already):
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn -d A db init
 $ mtn -d B db init
-</pre>
+</pre></div>
+
 <p>Now set up a branch in A:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn -d A setup -b test test
-</pre>
-<p>And let's put some revisions in that branch:
+</pre></div>
 
+<p>And let&rsquo;s put some revisions in that branch:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ cd test/
 $ cat &gt; file
 xyz
 ^D
 $ mtn add file
-$ mtn ci -m "One"    <i>You may need to select a key and type a passphrase here</i>
+$ mtn ci -m &quot;One&quot;    <i>You may need to select a key and type a passphrase here</i>
 $ cat &gt; file2
 file 2 getting in
 ^D
@@ -74,108 +104,132 @@ $ cat &gt; file
 ERASE
 ^D
 $ mtn add file2
-$ mtn ci -m "Two"
+$ mtn ci -m &quot;Two&quot;
 $ cat &gt; file
 THIRD
 ^D
-$ mtn ci -m "Three"
-</pre>
-<p>OK, that's enough.  Let's see what we have:
+$ mtn ci -m &quot;Three&quot;
+</pre></div>
 
+<p>OK, that&rsquo;s enough.  Let&rsquo;s see what we have:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ cd ..
-$ mtn -d A automate select i: | mtn -d A automate toposort -
+$ mtn -d A automate select i: | mtn -d A automate toposort -@-
 a423db0ad651c74e41ab2529eca6f17513ccf714
 d14e89582ad9030e1eb62f563c8721be02ca0b65
 151f1fb125f19ebe11eb8bfe3a5798fcbea4e736
-</pre>
-<p>Three revisions! Let's transfer the first one to the database B. First we
-get the meta-information on that revision:
+</pre></div>
 
+<p>Three revisions! Let&rsquo;s transfer the first one to the database B. First we
+get the meta-information on that revision:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn -d A automate get_revision a423db0ad651c74e41ab2529eca6f17513ccf714
-format_version "1"
+format_version &quot;1&quot;
 
 new_manifest [b6dbdbbe0e7f41e44d9b72f9fe29b1f1a4f47f18]
 
 old_revision []
 
-add_dir ""
+add_dir &quot;&quot;
 
-add_file "file"
+add_file &quot;file&quot;
  content [8714e0ef31edb00e33683f575274379955b3526c]
-</pre>
-<p>OK, one file was added in this revision. We'll transfer it. Now, <em>ORDER MATTERS</em>! 
+</pre></div>
+
+<p>OK, one file was added in this revision. We&rsquo;ll transfer it. Now, <em>ORDER MATTERS</em>!
 We should transfer:
+</p>
+<ol>
+<li> the key used to sign things
+</li><li> The file data (fdata) and file deltas (fdeltas), if any
+</li><li> The release data (rdata)
+</li><li> The certs
+</li></ol>
 
-     <ol type=1 start=1>
-<li>The file data (fdata) and file deltas (fdeltas), if any
-<li>The release data (rdata)
-<li>The certs
-     </ol>
-
-<p>In that order. This is because certs make reference to release data, and release data
-makes reference to file data and file deltas.
-
-<pre class="smallexample">mtn -d A automate packet_for_fdata 8714e0ef31edb00e33683f575274379955b3526c &gt; PACKETS
+<p>In that order. This is because certs make reference to revision data
+and keys, and revision data makes reference to file data and file
+deltas.
+</p>
+<div class="smallexample">
+<pre class="smallexample">mtn -d A pubkey johndoe@domain.com &gt; KEY_PACKETS
+mtn -d A automate packet_for_fdata 8714e0ef31edb00e33683f575274379955b3526c &gt; PACKETS
 mtn -d A automate packet_for_rdata a423db0ad651c74e41ab2529eca6f17513ccf714 &gt;&gt; PACKETS
 mtn -d A automate packets_for_certs a423db0ad651c74e41ab2529eca6f17513ccf714 &gt;&gt; PACKETS
-mtn -d B read &lt; PACKETS
-</pre>
-<p>This revision (a423db0ad651c74e41ab2529eca6f17513ccf714) was already sent to database
-B. You may want to check the PACKETS file to see what the packets look like.
+mtn -d B read KEY_PACKETS PACKETS
+</pre></div>
 
-<p>Now let's transfer one more revision:
-
+<p>Database B now contains revision
+a423db0ad651c74e41ab2529eca6f17513ccf714. You may want to check the
+PACKETS file to see what the packets look like.
+</p>
+<p>Now let&rsquo;s transfer one more revision:
+</p>
+<div class="smallexample">
 <pre class="smallexample">mtn -d A automate get_revision d14e89582ad9030e1eb62f563c8721be02ca0b65
-format_version "1"
+format_version &quot;1&quot;
 
 new_manifest [48a03530005d46ed9c31c8f83ad96c4fa22b8b28]
 
 old_revision [a423db0ad651c74e41ab2529eca6f17513ccf714]
 
-add_file "file2"
+add_file &quot;file2&quot;
  content [d2178687226560032947c1deacb39d16a16ea5c6]
 
-patch "file"
+patch &quot;file&quot;
  from [8714e0ef31edb00e33683f575274379955b3526c]
    to [8b52d96d4fab6c1e56d6364b0a2673f4111b228e]
-</pre>
+</pre></div>
+
 <p>From what we see, in this revision we have one new file and one patch, so we do the
 same we did before for them:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">mtn -d A automate packet_for_fdata d2178687226560032947c1deacb39d16a16ea5c6 &gt; PACKETS2
-mtn -d A automate packet_for_fdelta 8714e0ef31edb00e33683f575274379955b3526c 8b52d96d4fab6c1e56d6364b0a2673f4111b228e &gt;&gt; PACKETS2
+mtn -d A automate packet_for_fdelta
+8714e0ef31edb00e33683f575274379955b3526c 8b52d96d4fab6c1e56d6364b0a2673f4111b228e &gt;&gt; PACKETS2
 mtn -d A automate packet_for_rdata d14e89582ad9030e1eb62f563c8721be02ca0b65 &gt;&gt; PACKETS2
 mtn -d A automate packets_for_certs d14e89582ad9030e1eb62f563c8721be02ca0b65 &gt;&gt; PACKETS2
 mtn -d B read &lt; PACKETS2
-</pre>
-<p>Fine. The two revisions should be in the second database now. 
-Let's take a look at what's in each database:
+</pre></div>
 
-<pre class="smallexample">$ mtn -d A automate select i: | mtn -d A automate toposort -
+<p>Fine. The two revisions should be in the second database now.
+Let&rsquo;s take a look at what&rsquo;s in each database:
+</p>
+<div class="smallexample">
+<pre class="smallexample">$ mtn -d A automate select i: | mtn -d A automate toposort -@-
 a423db0ad651c74e41ab2529eca6f17513ccf714
 d14e89582ad9030e1eb62f563c8721be02ca0b65
 151f1fb125f19ebe11eb8bfe3a5798fcbea4e736
 
-$ mtn -d B automate select i: | mtn -d B automate toposort -
+$ mtn -d B automate select i: | mtn -d B automate toposort -@-
 a423db0ad651c74e41ab2529eca6f17513ccf714
 d14e89582ad9030e1eb62f563c8721be02ca0b65
-</pre>
-<p>Good! B has the two first revisions (as expected), and A has all three. However, a checkout
-of that branch on B will not work, because the certificate signatures cannot be verified. 
-We need to transfer the signatures too (suppose the key used had the ID <code>"johndoe@domain.com"</code>):
+</pre></div>
 
-<pre class="smallexample">mtn -d A pubkey johndoe@domain.com &gt; KEY_PACKETS
-mtn -d B read &lt; KEY_PACKETS
-</pre>
-<p>Done.
-
+<p>Good! B has the two first revisions (as expected), and A has all
+three. We can checkout from B:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn -d B co -b test test-B
 $ ls test-B
-file2  _MTN  x
+file file2  _MTN
+$ more test-B/file
+ERASE
 $ more test-B/file2
 file 2 getting in
-</pre>
-<p>And that's it! The revisions were successfully transferred.
+</pre></div>
 
-</body></html>
+<p>And that&rsquo;s it! The revisions were successfully transferred.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Bisecting.html#Bisecting" accesskey="n" rel="next">Bisecting</a>, Previous: <a href="Exporting-to-GIT.html#Exporting-to-GIT" accesskey="p" rel="prev">Exporting to GIT</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

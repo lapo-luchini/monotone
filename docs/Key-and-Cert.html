@@ -1,154 +1,221 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Key and Cert - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Command-Reference.html#Command-Reference" title="Command Reference">
-<link rel="prev" href="Variables.html#Variables" title="Variables">
-<link rel="next" href="Packet-I_002fO.html#Packet-I_002fO" title="Packet I/O">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Key-and-Cert"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Packet-I_002fO.html#Packet-I_002fO">Packet I/O</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Variables.html#Variables">Variables</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference.html#Command-Reference">Command Reference</a>
-<hr>
-</div>
+<title>monotone documentation: Key and Cert</title>
 
+<meta name="description" content="monotone documentation: Key and Cert">
+<meta name="keywords" content="monotone documentation: Key and Cert">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Command-Reference.html#Command-Reference" rel="up" title="Command Reference">
+<link href="Packet-I_002fO.html#Packet-I_002fO" rel="next" title="Packet I/O">
+<link href="Variables.html#Variables" rel="prev" title="Variables">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Key-and-Cert"></a>
+<div class="header">
+<p>
+Next: <a href="Packet-I_002fO.html#Packet-I_002fO" accesskey="n" rel="next">Packet I/O</a>, Previous: <a href="Variables.html#Variables" accesskey="p" rel="prev">Variables</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Key-and-Cert-1"></a>
 <h3 class="section">4.8 Key and Cert</h3>
 
-     <dl>
-<a name="mtn-cert"></a><dt><samp><span class="command">mtn cert </span><var>selector</var> <var>certname</var><span class="command"> [</span><var>certval</var><span class="command">]</span></samp><a name="index-mtn-cert-_0040var_007bselector_007d-_0040var_007bcertname_007d-_005b_0040var_007bcertval_007d_005d-167"></a><dd>
-Create a new certificate with name <var>certname</var>, for all
-revisions matching <var>selector</var>.
-
-     <p>If <var>certval</var> is provided, it is the value of the certificate. 
+<dl compact="compact">
+<dd><a name="mtn-cert"></a></dd>
+<dt><code>mtn cert <var>selector</var> <var>certname</var> [<var>certval</var>]</code>
+<a name="index-mtn-cert-selector-certname-_005bcertval_005d"></a>
+</dt>
+<dd>
+<p>Create a new certificate with name <var>certname</var>, for all
+revisions matching <var>selector</var> (see <a href="Selectors.html#Selectors">Selectors</a>).
+</p>
+<p>If <var>certval</var> is provided, it is the value of the certificate.
 Otherwise the certificate value is read from <code>stdin</code>.
-
-     <p><a name="mtn-dropkey"></a><br><dt><samp><span class="command">mtn dropkey </span><var>keyid</var></samp><a name="index-mtn-dropkey-_0040var_007bkeyid_007d-168"></a><dd>Drop the public and/or private key. This command should be used with
+</p>
+<a name="mtn-dropkey"></a></dd>
+<dt><code>mtn dropkey <var>keyid</var></code>
+<a name="index-mtn-dropkey-keyid"></a>
+</dt>
+<dd><p>Drop the public and/or private key. This command should be used with
 caution as changes are irreversible without a backup of the key(s)
 that were dropped.
-
-     <br><dt><samp><span class="command">mtn genkey </span><var>keyid</var></samp><a name="index-mtn-genkey-_0040var_007bkeyid_007d-169"></a><dd>This command generates an <span class="sc">rsa</span> public/private key pair, using a
+</p>
+</dd>
+<dt><code>mtn genkey <var>keyid</var></code>
+<a name="index-mtn-genkey-keyid"></a>
+</dt>
+<dd><p>This command generates an <small>RSA</small> public/private key pair, using a
 system random number generator, and stores it in your keystore under
-the key name <var>keyid.keyhash</var>.  The key's hash is printed out after
+the key name <var>keyid.keyhash</var>.  The key&rsquo;s hash is printed out after
 the key has been created.
-
-     <p>The private half of the key is stored in an encrypted form, so that
+</p>
+<p>The private half of the key is stored in an encrypted form, so that
 anyone who can read your keystore cannot extract your private key and
 use it.  You must provide a passphrase for your key when it is
 generated, which is used to determine the encryption key. In the
 future you will need to enter this passphrase again each time you sign
-a certificate, which happens every time you <samp><span class="command">commit</span></samp> to your
+a certificate, which happens every time you <code>commit</code> to your
 database. You can tell monotone to automatically use a certain
 passphrase for a given key using the
-<code>get_passphrase(</code><var>key_identity</var><code>)</code> (see <a href="get_005fpassphrase.html#get_005fpassphrase">get_passphrase</a>),
+<code>get_passphrase(<var>key_identity</var>)</code> (see <a href="User-Defaults.html#get_005fpassphrase">get_passphrase</a>),
 but this significantly increases the risk of a key compromise on your
 local computer. Be careful using this hook.
-
-     <p>Another way to avoid entering the private key passphrase each time it
-is needed is to export it to ssh-agent; see <a href="mtn-ssh_005fagent_005fexport.html#mtn-ssh_005fagent_005fexport">mtn ssh_agent_export</a>, <a href="mtn-ssh_005fagent_005fadd.html#mtn-ssh_005fagent_005fadd">mtn ssh_agent_add</a>.
-
-     <p>The public key is stored in the database; the public and private keys
+</p>
+<p>Another way to avoid entering the private key passphrase each time it
+is needed is to export it to ssh-agent; see <a href="#mtn-ssh_005fagent_005fexport">mtn ssh_agent_export</a>, <a href="#mtn-ssh_005fagent_005fadd">mtn ssh_agent_add</a>.
+</p>
+<p>The public key is stored in the database; the public and private keys
 are stored in the keystore. This allows copying the database without
 copying the private key.
-
-     <p>The location of the keystore is specified by <samp><span class="option">--keydir</span></samp>; it
-defaults to the value stored in <samp><span class="file">_MTN/options</span></samp> for commands
+</p>
+<p>The location of the keystore is specified by <samp>--keydir</samp>; it
+defaults to the value stored in <samp>_MTN/options</samp> for commands
 executed in a workspace, or to the system default
-(<samp><span class="file">$HOME/.monotone/keys</span></samp> on Unix and Cygwin,
-<samp><span class="file">%APPDATA%/monotone/keys</span></samp> on native Win32).
-
-     <br><dt><samp><span class="command">mtn passphrase </span><var>keyid</var></samp><a name="index-mtn-passphrase-_0040var_007bkeyid_007d-170"></a><dd>This command lets you change the passphrase of the private half of the
+(<samp>$HOME/.monotone/keys</samp> on Unix and Cygwin,
+<samp>%APPDATA%/monotone/keys</samp> on native Win32).
+</p>
+</dd>
+<dt><code>mtn passphrase <var>keyid</var></code>
+<a name="index-mtn-passphrase-keyid"></a>
+</dt>
+<dd><p>This command lets you change the passphrase of the private half of the
 key <var>id</var>.
-
-     <p><a name="mtn-ssh_005fagent_005fadd"></a><br><dt><samp><span class="command">mtn ssh_agent_add</span></samp><a name="index-mtn-ssh_005fagent_005fadd-171"></a><dd>This command will add your monotone keys to your current ssh-agent session. 
+</p>
+<a name="mtn-ssh_005fagent_005fadd"></a></dd>
+<dt><code>mtn ssh_agent_add</code>
+<a name="index-mtn-ssh_005fagent_005fadd"></a>
+</dt>
+<dd><p>This command will add your monotone keys to your current ssh-agent session.
 You will be asked for the passphrase for each of your monotone private keys
 and they will be added to the ssh-agent. Once this is done you should be able
 to type <em>ssh-add -l</em> and see your monotone key listed. When you
 subsequently use these keys through monotone it will use ssh-agent for signing
 without asking your for your passphrase.
-
-     <p>On Windows native, monotone only supports the PuTTY ssh-agent
+</p>
+<p>On Windows native, monotone only supports the PuTTY ssh-agent
 implementation. On Windows Cygwin and Unix, any standard ssh-agent
 implementation can be used.
-
-     <p>This command is mainly for use in a session script as monotone will automatically
+</p>
+<p>This command is mainly for use in a session script as monotone will automatically
 add your keys to ssh-agent on first use if it is available. For example the
 following two examples are equivalent:
+</p>
+<div class="smallexample">
+<pre class="smallexample">$ mtn ssh_agent_add
+enter passphrase for key ID [user@example.com]:
+$ mtn ci -m&quot;Changed foo to bar&quot;
+$ mtn push -k user@example.com
+</pre></div>
 
-     <pre class="smallexample">     $ mtn ssh_agent_add
-     enter passphrase for key ID [user@example.com]:
-     $ mtn ci -m"Changed foo to bar"
-     $ mtn push -k user@example.com
-</pre>
-     <pre class="smallexample">     $ mtn ci -m"Changed foo to bar"
-     enter passphrase for key ID [user@example.com]:
-     $ mtn push -k user@example.com
-</pre>
-     <p>In the second example, monotone automatically added the key to ssh-agent, making
+<div class="smallexample">
+<pre class="smallexample">$ mtn ci -m&quot;Changed foo to bar&quot;
+enter passphrase for key ID [user@example.com]:
+$ mtn push -k user@example.com
+</pre></div>
+
+<p>In the second example, monotone automatically added the key to ssh-agent, making
 entering the passphrase not needed during the push.
-
-     <p><a name="mtn-ssh_005fagent_005fexport"></a><br><dt><samp><span class="command">mtn ssh_agent_export [</span><var>filename</var><span class="command">]</span></samp><a name="index-mtn-ssh_005fagent_005fexport-_005b_0040var_007bfilename_007d_005d-172"></a><dd>
-This command will export your private key in a format that ssh-agent
+</p>
+<a name="mtn-ssh_005fagent_005fexport"></a></dd>
+<dt><code>mtn ssh_agent_export [<var>filename</var>]</code>
+<a name="index-mtn-ssh_005fagent_005fexport-_005bfilename_005d"></a>
+</dt>
+<dd>
+<p>This command will export your private key in a format that ssh-agent
 can read (PKCS8, PEM), to <var>filename</var> (defaults to standard
-output). You will be asked for your current key's monotone password
+output). You will be asked for your current key&rsquo;s monotone password
 and a new password to encrypt the key with (the ssh passphrase). The
 key will be printed to stdout. Once you have put this key in a file
 simply add it to ssh-agent and you will only have to enter your key
 password once as ssh-agent will cache the key for you.
+</p>
+<div class="smallexample">
+<pre class="smallexample">$ mtn ssh_agent_export ~/.ssh/id_monotone
+enter passphrase for key ID [user@example.com] (1234abcd...):
+enter new passphrase for key ID [user@example.com] (1234abcd...):
+confirm passphrase for key ID [user@example.com] (1234abcd...):
+$ chmod 600 ~/.ssh/id_monotone
+$ ssh-agent /bin/bash
+$ ssh-add ~/.ssh/id_monotone
+Enter passphrase for /home/user/.ssh/id_monotone:
+Identity added: /home/user/.ssh/id_monotone (/home/user/.ssh/id_monotone)
+$ mtn ci -m&quot;Changed foo to bar&quot;
+$ mtn push -k user@example.com
+</pre></div>
 
-     <pre class="smallexample">     $ mtn ssh_agent_export ~/.ssh/id_monotone
-     enter passphrase for key ID [user@example.com] (1234abcd...):
-     enter new passphrase for key ID [user@example.com] (1234abcd...):
-     confirm passphrase for key ID [user@example.com] (1234abcd...):
-     $ chmod 600 ~/.ssh/id_monotone
-     $ ssh-agent /bin/bash
-     $ ssh-add ~/.ssh/id_monotone
-     Enter passphrase for /home/user/.ssh/id_monotone:
-     Identity added: /home/user/.ssh/id_monotone (/home/user/.ssh/id_monotone)
-     $ mtn ci -m"Changed foo to bar"
-     $ mtn push -k user@example.com
-</pre>
-     <p>You can also use the <samp><span class="option">--ssh-sign</span></samp> option to control whether ssh-agent will
+<p>You can also use the <samp>--ssh-sign</samp> option to control whether ssh-agent will
 be used for signing. If set to <em>yes</em>, ssh-agent will be used to sign. If your
 key has not been added to ssh-agent monotone will fall back to its internal signing
 code and ask you for your password. If set to <em>only</em>, monotone will sign only
 with ssh-agent. If set to <em>no</em>, monotone will always use its internal signing
 code even if ssh-agent is running and has your monotone key loaded. If set to
 <em>check</em>, monotone will sign with both ssh-agent (if your key is loaded into
-it) and monotone's internal signing code, then compare the results. <em>check</em>
+it) and monotone&rsquo;s internal signing code, then compare the results. <em>check</em>
 will be removed at some future time as it is meant only for testing and will not
 work with all signing algorithms.
-
-     <br><dt><samp><span class="command">mtn trusted </span><var>id</var> <var>certname</var> <var>certval</var> <var>signers</var></samp><a name="index-mtn-trusted-_0040var_007bid_007d-_0040var_007bcertname_007d-_0040var_007bcertval_007d-_0040var_007bsigners_007d-173"></a><dd>This command lets you test your revision trust hook
-<a href="get_005frevision_005fcert_005ftrust.html#get_005frevision_005fcert_005ftrust">get_revision_cert_trust</a>.  You pass it a revision ID, a
-certificate name, a certificate value, and one or more key IDs or key
-names, and it will tell you whether, under your current settings,
-Monotone would trust a cert on that revision with that value signed by
-those keys.
-
-     <p>The specified keys must exist either in your keystore or in the database.
-
+</p>
+</dd>
+<dt><code>mtn trusted <var>id</var> <var>certname</var> <var>certval</var> <var>signers</var></code>
+<a name="index-mtn-trusted-id-certname-certval-signers"></a>
+</dt>
+<dd><p>This command lets you test your revision trust hook
+<a href="Trust-Evaluation-Hooks.html#get_005frevision_005fcert_005ftrust">get_revision_cert_trust</a>.  You pass it a revision ID (see
+<a href="Selectors.html#Selectors">Selectors</a>), a certificate name, a certificate value, and one or
+more key IDs or key names, and it will tell you whether, under your
+current settings, Monotone would trust a cert on that revision with
+that value signed by those keys.
+</p>
+<p>The specified keys must exist either in your keystore or in the database.
+</p>
+</dd>
 </dl>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Packet-I_002fO.html#Packet-I_002fO" accesskey="n" rel="next">Packet I/O</a>, Previous: <a href="Variables.html#Variables" accesskey="p" rel="prev">Variables</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

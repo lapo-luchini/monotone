@@ -1,305 +1,418 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>User Defaults - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Hooks.html#Hooks" title="Hooks">
-<link rel="prev" href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" title="Event Notifications and Triggers">
-<link rel="next" href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks" title="Netsync Permission Hooks">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="User-Defaults"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks">Netsync Permission Hooks</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers">Event Notifications and Triggers</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
-<hr>
-</div>
+<title>monotone documentation: User Defaults</title>
 
+<meta name="description" content="monotone documentation: User Defaults">
+<meta name="keywords" content="monotone documentation: User Defaults">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hooks.html#Hooks" rel="up" title="Hooks">
+<link href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks" rel="next" title="Netsync Permission Hooks">
+<link href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" rel="prev" title="Event Notifications and Triggers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="User-Defaults"></a>
+<div class="header">
+<p>
+Next: <a href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks" accesskey="n" rel="next">Netsync Permission Hooks</a>, Previous: <a href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" accesskey="p" rel="prev">Event Notifications and Triggers</a>, Up: <a href="Hooks.html#Hooks" accesskey="u" rel="up">Hooks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="User-Defaults-1"></a>
 <h4 class="subsection">6.1.3 User Defaults</h4>
 
 <p>These are hooks that can be used to provide smart, context-sensitive
 default values for a number of parameters the user might otherwise be
 prompted for.
-
-     <dl>
-<a name="get_005fbranch_005fkey"></a><dt><code>get_branch_key (</code><var>branchname</var><code>)</code><a name="index-get_005fbranch_005fkey-_0028_0040var_007bbranchname_007d_0029-276"></a><dd>
-Called whenever monotone needs a key to sign a certificate, and
-<samp><span class="option"><a href="_002d_002dkey.html#g_t_002d_002dkey">--key</a></span></samp> was not given.
-
-     <p>Returns a string which is the name or hash of a private key used to sign
+</p>
+<dl compact="compact">
+<dd><a name="get_005fbranch_005fkey"></a></dd>
+<dt><code>get_branch_key (<var>branchname</var>)</code>
+<a name="index-get_005fbranch_005fkey-_0028branchname_0029"></a>
+</dt>
+<dd>
+<p>Called whenever monotone needs a key to sign a certificate, and
+<samp><a href="Global-Options.html#g_t_002d_002dkey">--key</a></samp> was not given.
+</p>
+<p>Returns a string which is the name or hash of a private key used to sign
 certificates in a particular branch <var>branchname</var>, or nil for no key.
-
-     <p>See <samp><span class="option"><a href="_002d_002dkey.html#g_t_002d_002dkey">--key</a></span></samp> for a description of how monotone determines
+</p>
+<p>See <samp><a href="Global-Options.html#g_t_002d_002dkey">--key</a></samp> for a description of how monotone determines
 what key to use.
-
-     <p>There is no default definition for this hook; it returns nil.
-
-     <p><a name="get_005fnetsync_005fclient_005fkey"></a><br><dt><code>get_netsync_client_key(</code><var>server</var><code>, </code><var>include</var><code>, </code><var>exclude</var><code>)</code><a name="index-get_005fnetsync_005fclient_005fkey_0028_0040var_007bserver_007d_002c-_0040var_007binclude_007d_002c-_0040var_007bexclude_007d_0029-277"></a><dd>
-Called by the client when a netsync connection is being established,
-and <samp><span class="option"><a href="_002d_002dkey.html#g_t_002d_002dkey">--key</a></span></samp> was not given. Returns a string which is the name
+</p>
+<p>There is no default definition for this hook; it returns nil.
+</p>
+<a name="get_005fnetsync_005fclient_005fkey"></a></dd>
+<dt><code>get_netsync_client_key(<var>server</var>, <var>include</var>, <var>exclude</var>)</code>
+<a name="index-get_005fnetsync_005fclient_005fkey_0028server_002c-include_002c-exclude_0029"></a>
+</dt>
+<dd>
+<p>Called by the client when a netsync connection is being established,
+and <samp><a href="Global-Options.html#g_t_002d_002dkey">--key</a></samp> was not given. Returns a string which is the name
 or hash of the key to use to authenticate the client side of a netsync
 connection.
-
-     <p>Note that netsync commands do not need a signing key; they only transmit
+</p>
+<p>Note that netsync commands do not need a signing key; they only transmit
 already signed information.
-
-     <p>See <samp><span class="option"><a href="_002d_002dkey.html#g_t_002d_002dkey">--key</a></span></samp> for a discussion of how monotone determines
+</p>
+<p>See <samp><a href="Global-Options.html#g_t_002d_002dkey">--key</a></samp> for a discussion of how monotone determines
 what key to use.
+</p>
+<p>Arguments, when called:
+</p>
+<dl compact="compact">
+<dt><var>server</var></dt>
+<dd><p>The scheme, user, host, port, and path fields from the URI provided on
+the command line. See <a href="Network.html#netsync-uri">netsync uri</a>.
+</p>
+</dd>
+<dt><var>include</var></dt>
+<dd><p>The include pattern in the URI provided on the command line.
+</p>
+</dd>
+<dt><var>exclude</var></dt>
+<dd><p>The exclude pattern in the URI provided on the command line.
+</p>
+</dd>
+</dl>
 
-     <p>Arguments, when called:
-
-          <dl>
-<dt><var>server</var><dd>The scheme, user, host, port, and path fields from the URI provided on
-the command line. See <a href="netsync-uri.html#netsync-uri">netsync uri</a>.
-
-          <br><dt><var>include</var><dd>The include pattern in the URI provided on the command line.
-
-          <br><dt><var>exclude</var><dd>The exclude pattern in the URI provided on the command line.
-
-     </dl>
-
-     <p><a name="get_005fnetsync_005fserver_005fkey"></a><br><dt><code>get_netsync_server_key(</code><var>addresses</var><code>)</code><a name="index-get_005fnetsync_005fserver_005fkey_0028_0040var_007baddresses_007d_0029-278"></a><dd>
-Called by the server when a new netsync server instance is created, and
-<samp><span class="option"><a href="_002d_002dkey.html#g_t_002d_002dkey">--key</a></span></samp> was not given. Returns a string which is the name
+<a name="get_005fnetsync_005fserver_005fkey"></a></dd>
+<dt><code>get_netsync_server_key(<var>addresses</var>)</code>
+<a name="index-get_005fnetsync_005fserver_005fkey_0028addresses_0029"></a>
+</dt>
+<dd>
+<p>Called by the server when a new netsync server instance is created, and
+<samp><a href="Global-Options.html#g_t_002d_002dkey">--key</a></samp> was not given. Returns a string which is the name
 or hash of the key to use to authenticate the server side of a netsync
 connection.
-
-     <p>Note that netsync commands do not need a signing key; they only transmit
+</p>
+<p>Note that netsync commands do not need a signing key; they only transmit
 already signed information.
-
-     <p>See <samp><span class="option"><a href="_002d_002dkey.html#g_t_002d_002dkey">--key</a></span></samp> for a discussion of how monotone determines
+</p>
+<p>See <samp><a href="Global-Options.html#g_t_002d_002dkey">--key</a></samp> for a discussion of how monotone determines
 what key to use.
-
-     <p>Arguments, when called:
-
-          <dl>
-<dt><var>addresses</var><dd>A table of addresses given to monotone via the <samp><span class="option">--bind</span></samp> option that
-denote the addresses and / or ports monotone is listening on for connections. 
+</p>
+<p>Arguments, when called:
+</p>
+<dl compact="compact">
+<dt><var>addresses</var></dt>
+<dd><p>A table of addresses given to monotone via the <samp>--bind</samp> option that
+denote the addresses and / or ports monotone is listening on for connections.
 If the address in one of the table entries is omitted, the port must be given
 with a leading colon; in this case monotone listens on all interfaces on this
 port.
+</p>
+</dd>
+</dl>
 
-     </dl>
-
-     <p><a name="get_005fdefault_005fcommand_005foptions"></a><br><dt><code>get_default_command_options(</code><var>command</var><code>)</code><a name="index-get_005fdefault_005fcommand_005foptions_0028_0040var_007bcommand_007d_0029-279"></a><dd>Called after a command is completed, before the workspace options are
+<a name="get_005fdefault_005fcommand_005foptions"></a></dd>
+<dt><code>get_default_command_options(<var>command</var>)</code>
+<a name="index-get_005fdefault_005fcommand_005foptions_0028command_0029"></a>
+</dt>
+<dd><p>Called after a command is completed, before the workspace options are
 loaded, and before the command line options are processed.
-
-     <p>Returns a table of options. The options must be valid for the given
+</p>
+<p>Returns a table of options. The options must be valid for the given
 command or global options. The returned option values overwrite the
 standard default options values; workspace and command line options
 override the new defaults as usual.
-
-     <p>The argument is a table containing the command keywords, indexed by
+</p>
+<p>The argument is a table containing the command keywords, indexed by
 the integer position of the keyword in the command. For example,
-<samp><span class="command">mtn list branches</span></samp> passes a table <code>(1 =&gt; "list", 2 =&gt; "branches")</code>.
-
-     <p>The default definition of this hook returns an empty table.
-
-     <p>Simple example which enables recursive directory scanning for <samp><span class="command">mtn add</span></samp>
+<code>mtn list branches</code> passes a table <code>(1 =&gt; &quot;list&quot;, 2 =&gt; &quot;branches&quot;)</code>.
+</p>
+<p>The default definition of this hook returns an empty table.
+</p>
+<p>Simple example which enables recursive directory scanning for <code>mtn add</code>
 by default:
-     <pre class="smallexample">     function get_default_command_options(command)
-         local default_options = {}
-         if (command[1] == "add") then
-             table.insert(default_options, "--recursive")
-         end
-         return default_options
-     end
-</pre>
-     <p><a name="get_005fpassphrase"></a><br><dt><code>get_passphrase (</code><var>key_identity</var><code>)</code><a name="index-get_005fpassphrase-_0028_0040var_007bkey_005fidentity_007d_0029-280"></a><dd>Called whenever monotone needs to use a private key.
+</p><div class="smallexample">
+<pre class="smallexample">function get_default_command_options(command)
+    local default_options = {}
+    if (command[1] == &quot;add&quot;) then
+        table.insert(default_options, &quot;--recursive&quot;)
+    end
+    return default_options
+end
+</pre></div>
 
-     <p>Returns a string which must match the passphrase used to encrypt the
-private <var><a href="key_005fidentity.html#key_005fidentity">key_identity</a></var> in your key store.
-
-     <p>This hook has no default definition.
-
-     <p>If this hook is not defined or returns false, and ssh keys are not
-enabled (see <samp><span class="command"><a href="mtn-ssh_005fagent_005fexport.html#mtn-ssh_005fagent_005fexport">mtn ssh_agent_export</a></span></samp>), monotone will
+<a name="get_005fpassphrase"></a></dd>
+<dt><code>get_passphrase (<var>key_identity</var>)</code>
+<a name="index-get_005fpassphrase-_0028key_005fidentity_0029"></a>
+</dt>
+<dd><p>Called whenever monotone needs to use a private key.
+</p>
+<p>Returns a string which must match the passphrase used to encrypt the
+private <var><a href="Common-Data-Types.html#key_005fidentity">key_identity</a></var> in your key store.
+</p>
+<p>This hook has no default definition.
+</p>
+<p>If this hook is not defined or returns false, and ssh keys are not
+enabled (see <code><a href="Key-and-Cert.html#mtn-ssh_005fagent_005fexport">mtn ssh_agent_export</a></code>), monotone will
 prompt you for a passphrase each time it needs to use a private key.
-
-     <p><a name="get_005flocal_005fkey_005fname"></a><br><dt><code>get_local_key_name (</code><var>key_identity</var><code>)</code><a name="index-get_005flocal_005fkey_005fname-_0028_0040var_007bkey_005fidentity_007d_0029-281"></a><dd>
-Called whenever monotone retrieves a key from the keystore or
+</p>
+<a name="get_005flocal_005fkey_005fname"></a></dd>
+<dt><code>get_local_key_name (<var>key_identity</var>)</code>
+<a name="index-get_005flocal_005fkey_005fname-_0028key_005fidentity_0029"></a>
+</dt>
+<dd>
+<p>Called whenever monotone retrieves a key from the keystore or
 database, or completes a user-provided key, to provide the local alias
-(the <var>name</var> field in <var><a href="key_005fidentity.html#key_005fidentity">key_identity</a></var>).
-
-     <p>Returns the local alias for the given <var>key_identity</var>. The
+(the <var>name</var> field in <var><a href="Common-Data-Types.html#key_005fidentity">key_identity</a></var>).
+</p>
+<p>Returns the local alias for the given <var>key_identity</var>. The
 <var>id</var> and <var>given_name</var> fields of <var>key_identity</var> will be
 populated, and the <var>name</var> field will not be. The return value
 indicates what the <var>name</var> field should contain.
-
-     <p>The default implementation of this hook returns <var>given_name</var>.
-
-     <p><a name="get_005fauthor"></a><br><dt><code>get_author (</code><var>branchname</var><code>, </code><var>key_identity</var><code>)</code><a name="index-get_005fauthor-_0028_0040var_007bbranchname_007d_002c-_0040var_007bkey_005fidentity_007d_0029-282"></a><dd>
-Called by any command that needs an author name for an
-author cert for a commit, if <samp><span class="option"><a href="_002d_002dauthor.html#g_t_002d_002dauthor">--author</a></span></samp> is not given.
-
-     <p>Returns a string which is the author name. If it returns nil, the key
-local name (as provided by <code><a href="get_005flocal_005fkey_005fname.html#get_005flocal_005fkey_005fname">get_local_key_name</a></code>) is used
+</p>
+<p>The default implementation of this hook returns <var>given_name</var>.
+</p>
+<a name="get_005fauthor"></a></dd>
+<dt><code>get_author (<var>branchname</var>, <var>key_identity</var>)</code>
+<a name="index-get_005fauthor-_0028branchname_002c-key_005fidentity_0029"></a>
+</dt>
+<dd>
+<p>Called by any command that needs an author name for an
+author cert for a commit, if <samp><a href="Common-Options.html#g_t_002d_002dauthor">--author</a></samp> is not given.
+</p>
+<p>Returns a string which is the author name. If it returns nil, the key
+local name (as provided by <code><a href="#get_005flocal_005fkey_005fname">get_local_key_name</a></code>) is used
 for the author name.
+</p>
+<p><var>branchname</var> is the branch for the commit,
+<var><a href="Common-Data-Types.html#key_005fidentity">key_identity</a></var> is the key.
+</p>
+<p>There is no default definition for this hook; it returns nil.
+</p>
+<p>Example definitions:
+</p><div class="smallexample">
+<pre class="smallexample">function get_author(branchname, key_identity)
+        -- Key pair identity ignored.
+        local user = os.getenv(&quot;USER&quot;)
+        local host = os.getenv(&quot;HOSTNAME&quot;)
+        if ((user == nil) or (host == nil)) then return nil end
+        return string.format(&quot;%s@%s&quot;, user, host)
+end
+</pre></div>
+<div class="smallexample">
+<pre class="smallexample">function get_author(branchname, key_identity)
+        -- Branch name ignored.
+        if (key_identity.given_name == &quot;joe@example.com&quot;) then
+                return &quot;Joe Random &lt;joe@example.com&gt;&quot;
+        end
+        return key_identity
+end
+</pre></div>
 
-     <p><var>branchname</var> is the branch for the commit,
-<var><a href="key_005fidentity.html#key_005fidentity">key_identity</a></var> is the key.
-
-     <p>There is no default definition for this hook; it returns nil.
-
-     <p>Example definitions:
-     <pre class="smallexample">     function get_author(branchname, key_identity)
-             -- Key pair identity ignored.
-             local user = os.getenv("USER")
-             local host = os.getenv("HOSTNAME")
-             if ((user == nil) or (host == nil)) then return nil end
-             return string.format("%s@%s", user, host)
-     end
-</pre>
-     <pre class="smallexample">     function get_author(branchname, key_identity)
-             -- Branch name ignored.
-             if (key_identity.given_name == "joe@example.com") then
-                     return "Joe Random &lt;joe@example.com&gt;"
-             end
-             return key_identity
-     end
-</pre>
-     <p><a name="get_005fdefault_005fdatabase_005flocations"></a><br><dt><code>get_default_database_locations ()</code><a name="index-get_005fdefault_005fdatabase_005flocations-_0028_0029-283"></a><dd>Called whenever monotone converts a database name to an absolute path.
-
-     <p>Returns a table of paths where monotone should look for <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>.
-
-     <p>The default implementation returns a table with a single entry,
-<samp><span class="file">$HOME/.monotone/databases</span></samp> on Unix and
-<samp><span class="file">%APPDATA%\monotone\databases</span></samp> on Windows.
-
-     <p><a name="get_005fdefault_005fdatabase_005falias"></a><br><dt><code>get_default_database_alias ()</code><a name="index-get_005fdefault_005fdatabase_005falias-_0028_0029-284"></a><dd>Called whenever monotone converts a database name to an absolute path.
-
-     <p>Returns the alias of the managed database which should be used as
+<a name="get_005fdefault_005fdatabase_005flocations"></a></dd>
+<dt><code>get_default_database_locations ()</code>
+<a name="index-get_005fdefault_005fdatabase_005flocations-_0028_0029"></a>
+</dt>
+<dd><p>Called whenever monotone converts a database name to an absolute path.
+</p>
+<p>Returns a table of paths where monotone should look for <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>.
+</p>
+<p>The default implementation returns a table with a single entry,
+<samp>$HOME/.monotone/databases</samp> on Unix and
+<samp>%APPDATA%\monotone\databases</samp> on Windows.
+</p>
+<a name="get_005fdefault_005fdatabase_005falias"></a></dd>
+<dt><code>get_default_database_alias ()</code>
+<a name="index-get_005fdefault_005fdatabase_005falias-_0028_0029"></a>
+</dt>
+<dd><p>Called whenever monotone converts a database name to an absolute path.
+</p>
+<p>Returns the alias of the managed database which should be used as
 default. See <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>.
-
-     <p>The default implementation returns <code>:default.mtn</code>.
-
-     <p><a name="get_005fdefault_005fdatabase_005fglob"></a><br><dt><code>get_default_database_glob ()</code><a name="index-get_005fdefault_005fdatabase_005fglob-_0028_0029-285"></a><dd>Returns a pattern to let monotone distinguish a valid from an invalid
+</p>
+<p>The default implementation returns <code>:default.mtn</code>.
+</p>
+<a name="get_005fdefault_005fdatabase_005fglob"></a></dd>
+<dt><code>get_default_database_glob ()</code>
+<a name="index-get_005fdefault_005fdatabase_005fglob-_0028_0029"></a>
+</dt>
+<dd><p>Returns a pattern to let monotone distinguish a valid from an invalid
 database file name. This pattern is used in two places:
-
-          <ul>
-<li>When monotone scans for database files in its default database locations,
-      it will skip all files which do not match the pattern return from this hook. 
-<li>When a partial database alias is validated and the alias' name does not
+</p>
+<ul>
+<li> When monotone scans for database files in its default database locations,
+      it will skip all files which do not match the pattern return from this hook.
+</li><li> When a partial database alias is validated and the alias&rsquo; name does not
       match the pattern returned from this hook, <code>.mtn</code> is appended to
-      the alias' name. 
-</ul>
+      the alias&rsquo; name.
+</li></ul>
 
-     <p>The default implementation returns <code>*.{mtn,db}</code>.
-
-     <p><a name="edit_005fcomment"></a><br><dt><code>edit_comment (</code><var>user_log_message</var><code>)</code><a name="index-edit_005fcomment-_0028_0040var_007buser_005flog_005fmessage_007d_0029-286"></a><dd>Called by <samp><span class="command"><a href="mtn-comment.html#mtn-comment">mtn comment</a></span></samp>, <samp><span class="command"><a href="mtn-commit.html#mtn-commit">mtn commit</a></span></samp>,
-<samp><span class="command"><a href="mtn-import.html#mtn-import">mtn import</a></span></samp> when a comment is not provided on the
+<p>The default implementation returns <code>*.{mtn,db}</code>.
+</p>
+<a name="edit_005fcomment"></a></dd>
+<dt><code>edit_comment (<var>user_log_message</var>)</code>
+<a name="index-edit_005fcomment-_0028user_005flog_005fmessage_0029"></a>
+</dt>
+<dd><p>Called by <code><a href="Review.html#mtn-comment">mtn comment</a></code>, <code><a href="Workspace.html#mtn-commit">mtn commit</a></code>,
+<code><a href="Tree.html#mtn-import">mtn import</a></code> when a comment is not provided on the
 command line.
-
-     <p>Returns a commit comment for the command.  <var>user_log_message</var>
+</p>
+<p>Returns a commit comment for the command.  <var>user_log_message</var>
 depends on the calling command; see the command definitions.
-
-     <p>This hook is intended to interface with some sort of editor, so that
+</p>
+<p>This hook is intended to interface with some sort of editor, so that
 you can interactively document each change you make.
-
-     <p>The default definition of <code>edit_comment</code> invokes the user's
+</p>
+<p>The default definition of <code>edit_comment</code> invokes the user&rsquo;s
 editor (specified by the environment variables <code>VISUAL</code> and
 <code>EDITOR</code>, or <code>editor, vi</code>, or <code>notepad</code> on
 Windows). See <a href="Default-hooks.html#Default-hooks">Default hooks</a>.
-
-     <br><dt><code>persist_phrase_ok ()</code><a name="index-persist_005fphrase_005fok-_0028_0029-287"></a><dd>Called whenever a passphrase is provided to decrypt a private key.
-
-     <p>Returns <code>true</code> if you want monotone to remember the passphrase of
+</p>
+</dd>
+<dt><code>persist_phrase_ok ()</code>
+<a name="index-persist_005fphrase_005fok-_0028_0029"></a>
+</dt>
+<dd><p>Called whenever a passphrase is provided to decrypt a private key.
+</p>
+<p>Returns <code>true</code> if you want monotone to remember the passphrase of
 a private key for the duration of a single command, or <code>false</code> if
 you want monotone to prompt you for a passphrase for each certificate
 it generates. Since monotone often generates several certificates in
 quick succession, unless you are very concerned about security you
 probably want this hook to return <code>true</code>.
-
-     <p>The default definition of this hook returns <code>true</code>.
-
-     <br><dt><code>use_inodeprints ()</code><a name="index-use_005finodeprints-_0028_0029-288"></a><dd>Called when creating a new workspace.
-
-     <p>Returns <code>true</code> if you want monotone to automatically enable
+</p>
+<p>The default definition of this hook returns <code>true</code>.
+</p>
+</dd>
+<dt><code>use_inodeprints ()</code>
+<a name="index-use_005finodeprints-_0028_0029"></a>
+</dt>
+<dd><p>Called when creating a new workspace.
+</p>
+<p>Returns <code>true</code> if you want monotone to automatically enable
 <a href="Inodeprints.html#Inodeprints">Inodeprints</a> support in the workspace.
-
-     <p>The default definition of this hook returns <code>false</code>.
-
-     <p><a name="ignore_005ffile"></a><br><dt><code>ignore_file (</code><var>filename</var><code>)</code><a name="index-ignore_005ffile-_0028_0040var_007bfilename_007d_0029-289"></a><dd>Called by many monotone commands when considering whether to process a
+</p>
+<p>The default definition of this hook returns <code>false</code>.
+</p>
+<a name="ignore_005ffile"></a></dd>
+<dt><code>ignore_file (<var>filename</var>)</code>
+<a name="index-ignore_005ffile-_0028filename_0029"></a>
+</dt>
+<dd><p>Called by many monotone commands when considering whether to process a
 file in a workspace.
-
-     <p>Returns <code>true</code> if <var>filename</var> should be ignored by the
+</p>
+<p>Returns <code>true</code> if <var>filename</var> should be ignored by the
 command, <code>false</code> otherwise.
-
-     <p>This is most important when performing recursive actions on
+</p>
+<p>This is most important when performing recursive actions on
 directories; if <code>ignore_file</code> returns <code>true</code> for a
 directory, all files under that directory will be ignored.
-
-     <p>In some commands, <samp><span class="option">--no-ignore</span></samp> will cause this hook to not be
+</p>
+<p>In some commands, <samp>--no-ignore</samp> will cause this hook to not be
 called.
-
-     <p>The default definition of this hook recognises a number of common file
+</p>
+<p>The default definition of this hook recognises a number of common file
 types and extensions for temporary and generated file types that users
-typically don't want to track. In addition, if the file
-<samp><span class="file">.mtn-ignore</span></samp> exists in the root workspace directory, this hook
+typically don&rsquo;t want to track. In addition, if the file
+<samp>.mtn-ignore</samp> exists in the root workspace directory, this hook
 will read a list of regular expressions from the file, one per line,
 and ignore all files matching one of these expressions. See
 <a href="Default-hooks.html#Default-hooks">Default hooks</a>.
-
-     <p><a name="ignore_005fbranch"></a><br><dt><code>ignore_branch (</code><var>branchname</var><code>)</code><a name="index-ignore_005fbranch-_0028_0040var_007bbranchname_007d_0029-290"></a><dd>
-Called by <samp><span class="command"><a href="mtn-automate-branches.html#mtn-automate-branches">mtn automate branches</a></span></samp>, <samp><span class="command"><a href="mtn-automate-tags.html#mtn-automate-tags">mtn automate tags</a></span></samp>, <samp><span class="command"><a href="mtn-list-branches.html#mtn-list-branches">mtn list branches</a></span></samp>.
-
-     <p>Returns <code>true</code> if <var>branchname</var> should be ignored by the
+</p>
+<a name="ignore_005fbranch"></a></dd>
+<dt><code>ignore_branch (<var>branchname</var>)</code>
+<a name="index-ignore_005fbranch-_0028branchname_0029"></a>
+</dt>
+<dd>
+<p>Called by <code><a href="Automation.html#mtn-automate-branches">mtn automate branches</a></code>, <code><a href="Automation.html#mtn-automate-tags">mtn automate tags</a></code>, <code><a href="Informative.html#mtn-list-branches">mtn list branches</a></code>.
+</p>
+<p>Returns <code>true</code> if <var>branchname</var> should be ignored by the
 command, otherwise returns <code>false</code>.
-
-     <p>This hook has no default definition; it acts as if it returns false.
-
-     <p><a name="get_005fdate_005fformat_005fspec"></a><br><dt><code>get_date_format_spec (</code><var>wanted</var><code>)</code><a name="index-get_005fdate_005fformat_005fspec-_0028_0040var_007bwanted_007d_0029-291"></a><dd>Called by commands that display dates, when neither
-<samp><span class="option">--date-format</span></samp> nor <samp><span class="option">--no-format-dates</span></samp> is given.
-
-     <p>Returns a <code>strftime</code> format specification.
-
-     <p>If an empty string is returned, monotone uses the date format
-&ldquo;yyyy-mm-ddThh:mm:ss&rdquo;. 
-<!-- see dates.cc date_t::as_iso_8601_extended -->
-
-     <p>The default definition returns &lsquo;<samp><span class="samp">%x</span></samp>&rsquo; for long and short
-date formats, &lsquo;<samp><span class="samp">%X</span></samp>&rsquo; for long and short time formats and &lsquo;<samp><span class="samp">%x %X</span></samp>&rsquo;
-for long and short date time formats, which is equivalent to &lsquo;<samp><span class="samp">22/05/09</span></samp>&rsquo;,
-&lsquo;<samp><span class="samp">09:06:14</span></samp>&rsquo; and &lsquo;<samp><span class="samp">22/05/09 09:06:14</span></samp>&rsquo; in an English locale.
-
-     <p><var>wanted</var> can be one of &lsquo;<samp><span class="samp">date_long</span></samp>&rsquo;, &lsquo;<samp><span class="samp">date_short</span></samp>&rsquo;,
-&lsquo;<samp><span class="samp">time_long</span></samp>&rsquo;, &lsquo;<samp><span class="samp">time_short</span></samp>&rsquo;, &lsquo;<samp><span class="samp">date_time_long</span></samp>&rsquo;,
-&lsquo;<samp><span class="samp">date_time_short</span></samp>&rsquo;.
-
-     <p><a name="get_005fman_005fpage_005fformatter_005fcommand"></a><br><dt><code>get_man_page_formatter_command ()</code><a name="index-get_005fman_005fpage_005fformatter_005fcommand-_0028_0029-292"></a><dd>Called by <samp><span class="command"><a href="mtn-manpage.html#mtn-manpage">mtn manpage</a></span></samp>, if <samp><span class="option">--formatted</span></samp> is specified.
-
-     <p>Returns a command string that is passed to the operating system
+</p>
+<p>This hook has no default definition; it acts as if it returns false.
+</p>
+<a name="get_005fdate_005fformat_005fspec"></a></dd>
+<dt><code>get_date_format_spec (<var>wanted</var>)</code>
+<a name="index-get_005fdate_005fformat_005fspec-_0028wanted_0029"></a>
+</dt>
+<dd><p>Called by commands that display dates, when neither
+<samp>--date-format</samp> nor <samp>--no-format-dates</samp> is given.
+</p>
+<p>Returns a <code>strftime</code> format specification.
+</p>
+<p>If an empty string is returned, monotone uses the date format
+&ldquo;yyyy-mm-ddThh:mm:ss&rdquo;.
+</p>
+<p>The default definition returns &lsquo;<samp>%x</samp>&rsquo; for long and short
+date formats, &lsquo;<samp>%X</samp>&rsquo; for long and short time formats and &lsquo;<samp>%x %X</samp>&rsquo;
+for long and short date time formats, which is equivalent to &lsquo;<samp>22/05/09</samp>&rsquo;,
+&lsquo;<samp>09:06:14</samp>&rsquo; and &lsquo;<samp>22/05/09 09:06:14</samp>&rsquo; in an English locale.
+</p>
+<p><var>wanted</var> can be one of &lsquo;<samp>date_long</samp>&rsquo;, &lsquo;<samp>date_short</samp>&rsquo;,
+&lsquo;<samp>time_long</samp>&rsquo;, &lsquo;<samp>time_short</samp>&rsquo;, &lsquo;<samp>date_time_long</samp>&rsquo;,
+&lsquo;<samp>date_time_short</samp>&rsquo;.
+</p>
+<a name="get_005fman_005fpage_005fformatter_005fcommand"></a></dd>
+<dt><code>get_man_page_formatter_command ()</code>
+<a name="index-get_005fman_005fpage_005fformatter_005fcommand-_0028_0029"></a>
+</dt>
+<dd><p>Called by <code><a href="Informative.html#mtn-manpage">mtn manpage</a></code>, if <samp>--formatted</samp> is specified.
+</p>
+<p>Returns a command string that is passed to the operating system
 function <code>popen</code> to format man pages. The input to the pipe is
-<samp><span class="command">nroff</span></samp> markup.
-
-     <p>Note that on the native Windows build of monotone, <code>popen</code> runs
-the <samp><span class="command">cmd.exe</span></samp> shell to execute the command string. On Unix and
-Windows Cygwin, <code>popen</code> runs the <samp><span class="command">sh</span></samp> shell.
-
-     <p>The default hook returns a string that runs <samp><span class="command">nroff</span></samp> and pipes
-that output into the <samp><span class="command">less</span></samp> pager, with appropriate
+<code>nroff</code> markup.
+</p>
+<p>Note that on the native Windows build of monotone, <code>popen</code> runs
+the <code>cmd.exe</code> shell to execute the command string. On Unix and
+Windows Cygwin, <code>popen</code> runs the <code>sh</code> shell.
+</p>
+<p>The default hook returns a string that runs <code>nroff</code> and pipes
+that output into the <code>less</code> pager, with appropriate
 options. On Windows native, the default hook assumes that Cygwin or
 equivalent is installed, and includes <code>sh</code> in the command string.
-
+</p>
+</dd>
 </dl>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks" accesskey="n" rel="next">Netsync Permission Hooks</a>, Previous: <a href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" accesskey="p" rel="prev">Event Notifications and Triggers</a>, Up: <a href="Hooks.html#Hooks" accesskey="u" rel="up">Hooks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

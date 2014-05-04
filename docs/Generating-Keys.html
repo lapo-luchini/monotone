@@ -1,41 +1,65 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Generating Keys - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Tutorial.html#Tutorial" title="Tutorial">
-<link rel="prev" href="Creating-a-Database.html#Creating-a-Database" title="Creating a Database">
-<link rel="next" href="Starting-a-New-Project.html#Starting-a-New-Project" title="Starting a New Project">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Generating-Keys"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Starting-a-New-Project.html#Starting-a-New-Project">Starting a New Project</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Creating-a-Database.html#Creating-a-Database">Creating a Database</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Tutorial.html#Tutorial">Tutorial</a>
-<hr>
-</div>
+<title>monotone documentation: Generating Keys</title>
 
+<meta name="description" content="monotone documentation: Generating Keys">
+<meta name="keywords" content="monotone documentation: Generating Keys">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tutorial.html#Tutorial" rel="up" title="Tutorial">
+<link href="Starting-a-New-Project.html#Starting-a-New-Project" rel="next" title="Starting a New Project">
+<link href="Creating-a-Database.html#Creating-a-Database" rel="prev" title="Creating a Database">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Generating-Keys"></a>
+<div class="header">
+<p>
+Next: <a href="Starting-a-New-Project.html#Starting-a-New-Project" accesskey="n" rel="next">Starting a New Project</a>, Previous: <a href="Creating-a-Database.html#Creating-a-Database" accesskey="p" rel="prev">Creating a Database</a>, Up: <a href="Tutorial.html#Tutorial" accesskey="u" rel="up">Tutorial</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Generating-Keys-1"></a>
 <h3 class="section">2.4 Generating Keys</h3>
 
-<p>Now Jim, Abe and Beth must each generate an <span class="sc">rsa</span> key pair for
+<p>Now Jim, Abe and Beth must each generate an <small>RSA</small> key pair for
 themselves. This step requires choosing a key identifier. Typical key
 identifiers are similar to email addresses, possibly modified with
 some prefix or suffix to distinguish multiple keys held by the same
@@ -43,38 +67,45 @@ owner. Our example programmers will use their email addresses at the
 fictional &ldquo;juicebot.co.jp&rdquo; domain name. When we ask for a key to be
 generated, monotone will ask us for a passphrase. This phrase is used
 to encrypt the key when storing it on disk, as a security measure.
-
+</p>
 <p>Jim does the following:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn genkey jim@juicebot.co.jp
 enter passphrase for key ID [jim@juicebot.co.jp] (...): <i>&lt;Jim enters his passphrase&gt;</i>
 confirm passphrase for key ID [jim@juicebot.co.jp] (...): <i>&lt;Jim confirms his passphrase&gt;</i>
 mtn: generating key-pair 'jim@juicebot.co.jp'
 mtn: storing key-pair 'jim@juicebot.co.jp' in /home/jim/.monotone/keys
 mtn: key 'jim@juicebot.co.jp' has hash '398cb10dcd4fadf4f7849a3734b626a83e0bb2ae'
-</pre>
-<p>Abe does something similar:
+</pre></div>
 
+<p>Abe does something similar:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn genkey abe@juicebot.co.jp
 enter passphrase for key ID [abe@juicebot.co.jp] (...): <i>&lt;Abe enters his passphrase&gt;</i>
 confirm passphrase for key ID [abe@juicebot.co.jp] (...): <i>&lt;Abe confirms his passphrase&gt;</i>
 mtn: generating key-pair 'abe@juicebot.co.jp'
 mtn: storing key-pair 'abe@juicebot.co.jp' in /home/abe/.monotone/keys
 mtn: key 'abe@juicebot.co.jp' has hash '62d8d1798e716868acde75c0fc4c84760003863d'
-</pre>
-<p>as does Beth:
+</pre></div>
 
+<p>as does Beth:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn genkey beth@juicebot.co.jp
 enter passphrase for key ID [beth@juicebot.co.jp] (...): <i>&lt;Beth enters her passphrase&gt;</i>
 confirm passphrase for key ID [beth@juicebot.co.jp] (...): <i>&lt;Beth confirms her passphrase&gt;</i>
 mtn: generating key-pair 'beth@juicebot.co.jp'
 mtn: storing key-pair 'beth@juicebot.co.jp' in /home/beth/.monotone/keys
 mtn: key 'beth@juicebot.co.jp' has hash 'c1d47c065a21f1e1c4fbdefaa2f37bd2c15ee4b1'
-</pre>
+</pre></div>
+
 <p>Each programmer has now generated a key pair and placed it in their
 keystore. Each can list the keys in their keystore, to ensure
 the correct key was generated. For example, Jim might see this:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn list keys
 
 [public keys]
@@ -84,64 +115,80 @@ the correct key was generated. For example, Jim might see this:
 
 [private keys]
 398cb10dcd4fadf4f7849a3734b626a83e0bb2ae jim@juicebot.co.jp
-</pre>
+
+</pre></div>
+
 <p>The hexadecimal string printed out before each key name is a
 <em>fingerprint</em> of the key, and can be used to verify that the key
 you have stored under a given name is the one you intended to
 store. Monotone will never permit one keystore to store two keys with
 the same fingerprint, however distincts keys with equal names
 are possible.
-
+</p>
 <p>This output shows one private and one public key stored under the name
-<code>jim@juicebot.co.jp</code>, so it indicates that Jim's key-pair has been
+<code>jim@juicebot.co.jp</code>, so it indicates that Jim&rsquo;s key-pair has been
 successfully generated and stored. On subsequent commands, Jim will need
 to re-enter his passphrase in order to perform security-sensitive
 tasks.
-
+</p>
 <p>Pretty soon Jim gets annoyed when he has to enter his passphrase every
 time he invokes <code>mtn</code> (and, more importantly, it simplifies the
 tutorial text to skip the passphrase prompts) so he decides to use
 <em>ssh-agent</em> to store his key. He does this by using the
 <code>ssh_agent_export</code> command to export his key into a format that
 ssh-agent can understand and adding it with <code>ssh-add</code>.
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn ssh_agent_export ~/.ssh/id_monotone
 enter passphrase for key ID [user@example.com] (1234abcd...):
 enter new passphrase for key ID [user@example.com] (1234abcd...):
 confirm passphrase for key ID [user@example.com] (1234abcd...):
 $ chmod 600 ~/.ssh/id_monotone
-</pre>
+</pre></div>
+
 <p>From now on, Jim just needs to add his key to ssh-agent when he logs in
 and he will not need to enter his passphrase every time he uses monotone.
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ ssh-agent /bin/bash
 $ ssh-add ~/.ssh/id_monotone
 Enter passphrase for /home/user/.ssh/id_monotone:
 Identity added: /home/user/.ssh/id_monotone (/home/user/.ssh/id_monotone)
-$ mtn ci -m"Changed foo to bar"
+$ mtn ci -m&quot;Changed foo to bar&quot;
 $ mtn push
-</pre>
+</pre></div>
+
 <p>The following procedure is deprecated and not suggested for general use
 as it is very insecure.
-
-<p>Jim isn't very worried about security so he
-decides to store his passphrase in his <samp><span class="file">monotonerc</span></samp> file.  He does
+</p>
+<p>Jim isn&rsquo;t very worried about security so he
+decides to store his passphrase in his <samp>monotonerc</samp> file.  He does
 this by writing a <em>hook function</em> which returns the passphrase:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mkdir ~/.monotone
 $ cat &gt;&gt;~/.monotone/monotonerc
 function get_passphrase(key_identity)
-  return "jimsekret"
+  return &quot;jimsekret&quot;
 end
 ^D
-</pre>
+</pre></div>
+
 <p>Now whenever monotone needs his passphrase, it will call this function
 instead of prompting him to type it.  Note that we are appending the new
 hook to the (possibly existing) file.  We do this to avoid losing other
 changes by mistake; therefore, be sure to check that no other
 <code>get_passphrase</code> function appears in the configuration file.
-
+</p>
 <p>Abe and Beth do the same, with their secret passphrases.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Starting-a-New-Project.html#Starting-a-New-Project" accesskey="n" rel="next">Starting a New Project</a>, Previous: <a href="Creating-a-Database.html#Creating-a-Database" accesskey="p" rel="prev">Creating a Database</a>, Up: <a href="Tutorial.html#Tutorial" accesskey="u" rel="up">Tutorial</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

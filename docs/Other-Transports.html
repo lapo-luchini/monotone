@@ -1,97 +1,129 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Other Transports - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="next" href="Selectors.html#Selectors" title="Selectors">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Other-Transports"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Selectors.html#Selectors">Selectors</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Other Transports</title>
 
+<meta name="description" content="monotone documentation: Other Transports">
+<meta name="keywords" content="monotone documentation: Other Transports">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Selectors.html#Selectors" rel="next" title="Selectors">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="prev" title="Advanced Uses">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Other-Transports"></a>
+<div class="header">
+<p>
+Next: <a href="Selectors.html#Selectors" accesskey="n" rel="next">Selectors</a>, Previous: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="p" rel="prev">Advanced Uses</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Other-Transports-1"></a>
 <h3 class="section">3.1 Other Transports</h3>
 
-<p>Monotone's database synchronization system is based on a protocol
+<p>Monotone&rsquo;s database synchronization system is based on a protocol
 called netsync. By default, monotone transports this protocol over a
 plain TCP connection, but this is not the only transport monotone can
 use. It can also transport netsync through SSH, or any program which
 can provide a full-duplex connection over <code>stdio</code>.
-
+</p>
 <p>When a monotone client initiates a push, pull, or sync operation, it
 parses the first command-line argument as a URI and calls a Lua hook
-to convert that URI into a <dfn>connection command</dfn>. If the Lua hook
+to convert that URI into a <em>connection command</em>. If the Lua hook
 returns a connection command, monotone spawns the command locally and
-speaks netsync over a pipe connected to the command's standard I/O
+speaks netsync over a pipe connected to the command&rsquo;s standard I/O
 handles.
-
+</p>
 <p>If the Lua hook does not return a connection command, monotone
 attempts to parse the command-line argument as a TCP address &ndash; a
 hostname with an optional port number &ndash; connects a TCP socket the
 host and port, and speaks netsync over the socket.
-
+</p>
 <p>By default, monotone understands two URI schemes:
-
-     <ol type=1 start=1>
-<li>SSH URIs, of the form
-  <code>ssh://[</code><var>user</var><code>@]</code><var>hostname</var><code>[:</code><var>port</var><code>]/</code><var>path/to/db.mtn</var>,
+</p>
+<ol>
+<li> SSH URIs, of the form
+  <code>ssh://[<var>user</var>@]<var>hostname</var>[:<var>port</var>]/<var>path/to/db.mtn</var></code>,
   to synchronize between private databases on hosts accessible only
   through SSH.  (These paths are absolute; to refer to a path relative
   to a home directory, use
-  <code>ssh://</code><var>host-part</var><code>/~/</code><var>relative/path.mtn</var> or
-  <code>ssh://</code><var>host-part</var><code>/~</code><var>user</var><code>/</code><var>relative/path.mtn</var>.) 
-<li>File URIs, of the form
-  <code>file:</code><var>/path/to/db.mtn</var>, to synchronize between local databases.
-     </ol>
+  <code>ssh://<var>host-part</var>/~/<var>relative/path.mtn</var></code> or
+  <code>ssh://<var>host-part</var>/~<var>user</var>/<var>relative/path.mtn</var></code>.)
+</li><li> File URIs, of the form
+  <code>file:<var>/path/to/db.mtn</var></code>, to synchronize between local databases.
+</li></ol>
 
 <p><code>ssh:</code> and <code>file:</code> are currently not supported on the native
 Win32 platform; they are supported on Cygwin and all other platforms.
-
-<p>In the case of SSH URIs, the <samp><span class="command">ssh</span></samp> program must be in your
+</p>
+<p>In the case of SSH URIs, the <code>ssh</code> program must be in your
 command execution path, either <var>$PATH</var> on Unix-like systems or
-<var>%PATH%</var> on Windows systems. Monotone will execute <samp><span class="command">ssh</span></samp>
-as a subprocess, running <samp><span class="command">mtn serve</span></samp> on the other end of the
-SSH connection. You will need <samp><span class="command">mtn</span></samp> to be in the command
+<var>%PATH%</var> on Windows systems. Monotone will execute <code>ssh</code>
+as a subprocess, running <code>mtn serve</code> on the other end of the
+SSH connection. You will need <code>mtn</code> to be in the command
 execution path of the remote shell environment.
-
-<p>In the case of File URIs, <samp><span class="command">mtn</span></samp> is run locally, so must be
+</p>
+<p>In the case of File URIs, <code>mtn</code> is run locally, so must be
 in your command execution path.
-
+</p>
 <p>In both cases, the database specified in the URI needs to exist already,
 and will be locked for the duration of the synchronization
-operation. Therefore, it must also be writable, even when monotone isn't
-going to modify it, as it is the case for <samp><span class="command">pull</span></samp>.  Also note
-that monotone's default transport authentication is <em>disabled</em> over
+operation. Therefore, it must also be writable, even when monotone isn&rsquo;t
+going to modify it, as it is the case for <code>pull</code>.  Also note
+that monotone&rsquo;s default transport authentication is <em>disabled</em> over
 these transports, to reduce the complexity of configuration and
 eliminate redundant protocol cost.
-
+</p>
 <p>Additional URI schemes can be supported by customization of the Lua
 hooks <code>get_netsync_connect_command</code> and
 <code>use_transport_auth</code>. For details on these hooks, see
 <a href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks">Netsync Transport Hooks</a>.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Selectors.html#Selectors" accesskey="n" rel="next">Selectors</a>, Previous: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="p" rel="prev">Advanced Uses</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

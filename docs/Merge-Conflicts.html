@@ -1,76 +1,101 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Merge Conflicts - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Inodeprints.html#Inodeprints" title="Inodeprints">
-<link rel="next" href="Workspace-Collisions.html#Workspace-Collisions" title="Workspace Collisions">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Merge-Conflicts"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Workspace-Collisions.html#Workspace-Collisions">Workspace Collisions</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Inodeprints.html#Inodeprints">Inodeprints</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Merge Conflicts</title>
 
+<meta name="description" content="monotone documentation: Merge Conflicts">
+<meta name="keywords" content="monotone documentation: Merge Conflicts">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Workspace-Collisions.html#Workspace-Collisions" rel="next" title="Workspace Collisions">
+<link href="Inodeprints.html#Inodeprints" rel="prev" title="Inodeprints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Merge-Conflicts"></a>
+<div class="header">
+<p>
+Next: <a href="Workspace-Collisions.html#Workspace-Collisions" accesskey="n" rel="next">Workspace Collisions</a>, Previous: <a href="Inodeprints.html#Inodeprints" accesskey="p" rel="prev">Inodeprints</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Merge-Conflicts-1"></a>
 <h3 class="section">3.6 Merge Conflicts</h3>
 
 <p>Several different types of conflicts may be encountered when merging
-two revisions using the database merge commands <samp><span class="command">merge</span></samp>,
-<samp><span class="command">explicit_merge</span></samp>, <samp><span class="command">propagate</span></samp> and
-<samp><span class="command">merge_into_dir</span></samp> or when using the workspace merge commands
-<samp><span class="command">update</span></samp>, <samp><span class="command">pluck</span></samp> and <samp><span class="command">merge_into_workspace</span></samp>.
-
-<p>The <samp><span class="command">show_conflicts</span></samp> and <samp><span class="command">automate show_conflicts</span></samp>
+two revisions using the database merge commands <code>merge</code>,
+<code>explicit_merge</code>, <code>propagate</code> and
+<code>merge_into_dir</code> or when using the workspace merge commands
+<code>update</code>, <code>pluck</code> and <code>merge_into_workspace</code>.
+</p>
+<p>The <code>show_conflicts</code> and <code>automate show_conflicts</code>
 commands can be used to list conflicts between database revisions
-which would be encountered by the database merge commands. 
-Unfortunately, these commands can't yet list conflicts between a
+which would be encountered by the database merge commands.
+Unfortunately, these commands can&rsquo;t yet list conflicts between a
 database revision and the current workspace.
-
-<p>In addition, the <samp><span class="command">conflicts</span></samp> set of commands can be used to
+</p>
+<p>In addition, the <code>conflicts</code> set of commands can be used to
 specify resolutions for some conflicts. The resolutions are stored in a
-file, and given to the <samp><span class="command">merge</span></samp> command via the
-<samp><span class="option">--resolve-conflicts-file=filename</span></samp> or
-<samp><span class="option">--resolve-conflicts</span></samp> option; see <a href="Conflicts.html#Conflicts">Conflicts</a>.
-
-<p>The <samp><span class="command">merge</span></samp> command normally will perform as many merges as
+file, and given to the <code>merge</code> command via the
+<samp>--resolve-conflicts-file=filename</samp> or
+<samp>--resolve-conflicts</samp> option; see <a href="Conflicts.html#Conflicts">Conflicts</a>.
+</p>
+<p>The <code>merge</code> command normally will perform as many merges as
 necessary to merge all current heads of a branch. However, when
-<samp><span class="option">--resolve-conflicts-file</span></samp> is given, the conflicts and their
+<samp>--resolve-conflicts-file</samp> is given, the conflicts and their
 resolutions apply only to the first merge, so the subsequent merges
-are not done; the <samp><span class="command">merge</span></samp> command must be repeated, possibly
+are not done; the <code>merge</code> command must be repeated, possibly
 with new conflicts and resolutions, to merge the remaining heads.
-
+</p>
 <p>For the special case of file content conflicts, a merge command
-invoked without <samp><span class="option">--resolve-conflicts</span></samp> will attempt to start an
+invoked without <samp>--resolve-conflicts</samp> will attempt to use an
+internal content merger; if that fails, it will attempt to start an
 external interactive merge tool; the user must then resolve the conflicts
 and terminate the merge tool, letting monotone continue with the
 merge. This process is repeated for each file content conflict. See
-<a href="File-Content-Conflict.html#File-Content-Conflict">File Content Conflict</a> below for more detail.
-
+<a href="#File-Content-Conflict">File Content Conflict</a> below for more detail.
+</p>
 <p>For other conflicts, a merge command invoked without
-<samp><span class="option">--resolve-conflicts</span></samp> will fail.
-
-<p>If <samp><span class="command">conflicts</span></samp> supports resolving a particular conflict, that
+<samp>--resolve-conflicts</samp> will fail.
+</p>
+<p>If <code>conflicts</code> supports resolving a particular conflict, that
 is the simplest way to resolve it. Otherwise, resolving the different
 types of conflicts is accomplished by checking out one of the
 conflicting revisions, making changes as described below, committing
@@ -78,52 +103,58 @@ these changes as a new revision and then running the merge again using
 this new revision as one of the merge parents. This process can be
 repeated as necessary to get two revisions into a state where they
 will merge cleanly.
-
+</p>
 <p>The possible conflict resolutions are discussed with each conflict in
 the following sections.
-
+</p>
+<a name="Conflict-Types"></a>
 <h4 class="subsection">3.6.1 Conflict Types</h4>
 
 <p>Monotone versions files, directories, and file attributes explicitly,
 and it tracks individual file and directory identity from birth to
 death so that name changes throughout the full life-cycle can be
-tracked exactly.  Partly because of these qualities, monotone notices
+tracked exactly. Partly because of these qualities, monotone notices
 several types of conflicts that other version control systems may not.
-
+</p>
 <p>The two most common conflicts are described first, then all other
 possible conflicts.
-
+</p>
+<a name="File-Content-Conflict-1"></a>
 <h4 class="subheading">File Content Conflict</h4>
-
-<p><a name="File-Content-Conflict"></a>This type of conflict is generally the one encountered most commonly
+<a name="File-Content-Conflict"></a><p>This type of conflict is generally the one encountered most commonly
 and represents conflicting changes made to lines of text within two
 versions of a single file.
-
+</p>
 <p>When a merge command encounters changes in a file in both heads
 relative to the common ancestor, it first checks to see if the file
 has a <code>mtn:manual_merge</code> attribute with value <code>true</code>. If
 not, it uses an internal merge algorithm to detect whether the changes
 are to the same lines of the file. If they are not, monotone will use
-the result of the internal merge as the new file version.
-
-<p><code>mtn:manual_merge</code> is set <code>true</code> when a file is
-<samp><span class="command">add</span></samp>ed for all files for which the <code>binary_file</code> hook
-returns true; see <a href="attr_005finit_005ffunctions.html#attr_005finit_005ffunctions">attr_init_functions</a>.
-
+the result of the internal merge as the new file version. Note that
+this may not always be what the user wants; if the same line is added
+at two different places in the file, it will be in the result twice.
+</p>
+<p><code>mtn:manual_merge</code> is automatically set <code>true</code> when a file
+is <code>add</code>ed for which the <code>binary_file</code> hook returns true;
+see <a href="Attribute-Handling.html#attr_005finit_005ffunctions">attr_init_functions</a>. The user may also set the
+<code>mtn:manual_merge</code> attribute manually; see <code><a href="Workspace.html#mtn-attr">mtn attr</a></code>.
+</p>
 <p>If <code>mtn:manual_merge</code> is present and <code>true</code>, or if the
 changes are to the same lines of the file, and neither
-<samp><span class="option">--resolve-conflicts</span></samp> nor <samp><span class="option">--non-interactive</span></samp> was
-specified, the <a href="merge3.html#merge3">merge3</a> hook is called, with the content of both
-conflicting versions and their common ancestor.
-
+<samp>--resolve-conflicts</samp> nor <samp>--non-interactive</samp> was
+specified, the <a href="External-Merge-Tools.html#merge3">merge3</a> hook is called, with the content of both
+conflicting versions and their common ancestor. When the hook returns,
+the merge proceeds to the next conflict.
+</p>
 <p>Alternatively, you can use your favorite merge tool asychronously with
 the merge, and specify the result file in the conflicts file, using
 the <a href="Conflicts.html#Conflicts">Conflicts</a> command:
+</p><div class="smallexample">
 <pre class="smallexample">mtn conflicts resolve_first user filename
-</pre>
-<p>Then <samp><span class="option">--resolve-conflicts</span></samp> is specified on the merge command
+</pre></div>
+<p>Then <samp>--resolve-conflicts</samp> is specified on the merge command
 line.
-
+</p>
 <p>Finally, rather than using a merge tool it is possible to commit
 changes to one or both of the conflicting file versions so that they
 will merge cleanly. This can also be a very helpful strategy if the
@@ -131,55 +162,57 @@ merge conflicts are due to sections of text in the file being moved
 from one location to another. Rather than struggling to merge such
 conflicting changes with a merge tool, similar rearrangements can be
 made to one of the conflicting files before redoing the merge.
-
+</p>
+<a name="Duplicate-Name-Conflict"></a>
 <h4 class="subheading">Duplicate Name Conflict</h4>
 
 <p>A duplicate name conflict occurs when two distinct files or
-directories have been given the same name in the two merge parents. 
+directories have been given the same name in the two merge parents.
 This can occur when each of the merge parents adds a new file or
 directory with the conflicting name, or when one parent adds a new
 file or directory with the conflicting name and the other renames an
 existing file or directory to the conflicting name, or when both
 parents rename an existing file or directory to the conflicting name.
-
+</p>
 <p>In earlier versions of monotone (before version 0.39) this type of
 conflict was referred to as a <em>rename target conflict</em> although
-it doesn't necessarily have anything to do with renames.
-
+it doesn&rsquo;t necessarily have anything to do with renames.
+</p>
 <p>There are two main situations in which duplicate name conflicts occur:
-
-     <ul>
-<li>Two people both realize a new file should be added, and commit it. In
+</p>
+<ul>
+<li> Two people both realize a new file should be added, and commit it. In
 this case, the files have the right name and the right contents, but
 monotone reports a conflict because they were added separately.
 
-     <li>Two people each decide to add new files with different content, and
-accidently pick the same name. 
-</ul>
+</li><li> Two people each decide to add new files with different content, and
+accidently pick the same name.
+</li></ul>
 
 <p>These conflicts are reported when someone tries to merge the two
 revisions containing the new files.
-
+</p>
 <p>There are similar conflicts for directories; the process for resolving
 them is different, because we need to worry about the files in the
 directories.
-
-<h5 class="subsubheading">Same file</h5>
-
+</p>
+<a name="Same-file"></a>
+<h4 class="subsubheading">Same file</h4>
 <p>For the first case, the conflict is resolved by dropping one file. The
 contents should be manually merged, in case they are slightly
 different. Typically, a user will have one of the files in their
-current workspace; the other can be retrieved via <samp><span class="command">automate
-get_file_of</span></samp>; the revision id is shown in the merge error message.
-
-<p>This process can be confusing; here's a detailed example. We assume
+current workspace; the other can be retrieved via <code>automate
+get_file_of</code>; the revision id is shown in the merge error message.
+</p>
+<p>This process can be confusing; here&rsquo;s a detailed example. We assume
 the <a href="Conflicts.html#Conflicts">Conflicts</a> commands are used to resolve this conflict, since
 that is supported.
-
-<p>Suppose Beth and Abe each commit a new file <samp><span class="file">checkout.sh</span></samp>, with
+</p>
+<p>Suppose Beth and Abe each commit a new file <samp>checkout.sh</samp>, with
 similar contents. When Beth attempts to merge the two heads, she gets
 a message like:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">mtn: 2 heads on branch 'testbranch'
 mtn: [left]  ae94e6677b8e31692c67d98744dccf5fa9ccffe5
 mtn: [right] dfdf50b19fb971f502671b0cfa6d15d69a0d04bb
@@ -187,85 +220,95 @@ mtn: conflict: duplicate name 'checkout.sh'
 mtn: added as a new file on the left
 mtn: added as a new file on the right
 mtn: error: merge failed due to unresolved conflicts
-</pre>
-<p>The file labeled <code>right</code> is the file in Beth's workspace. To
+</pre></div>
+
+<p>The file labeled <code>right</code> is the file in Beth&rsquo;s workspace. To
 start the conflict resolution process, Beth first saves the list of
 conflicts:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">mtn conflicts store
-</pre>
-<p>In order to merge Beth's and Abe's file versions, Beth retrieves a
-copy of Abe's file:
+</pre></div>
 
+<p>In order to merge Beth&rsquo;s and Abe&rsquo;s file versions, Beth retrieves a
+copy of Abe&rsquo;s file:
+</p>
+<div class="smallexample">
 <pre class="smallexample">mtn automate get_file_of checkout.sh \
 --revision=ae94e6677b8e31692c67d98744dccf5fa9ccffe5 \
 &gt; _MTN/resolutions/checkout.sh-abe
-</pre>
+</pre></div>
+
 <p>Now Beth manually merges (using her favorite merge tool)
-<samp><span class="file">checkout.sh</span></samp> and <samp><span class="file">_MTN/resolutions/checkout.sh-abe</span></samp>,
-leaving the results in <samp><span class="file">_MTN/resolutions/checkout.sh-merge</span></samp>
+<samp>checkout.sh</samp> and <samp>_MTN/resolutions/checkout.sh-abe</samp>,
+leaving the results in <samp>_MTN/resolutions/checkout.sh-merge</samp>
 (<em>not</em> in her copy).
-
+</p>
 <p>Then Beth specifies the conflict resolution, and finishes the merge:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">mtn conflicts resolve_first_left drop
 mtn conflicts resolve_first_right user _MTN/resolutions/checkout.sh-merge
 mtn merge --resolve-conflicts-file=_MTN/conflicts
 mtn conflicts clean
 mtn update
-</pre>
+</pre></div>
+
 <p>When Abe later syncs and updates, he will get the merged version.
-
-<h5 class="subsubheading">Different files</h5>
-
+</p>
+<a name="Different-files"></a>
+<h4 class="subsubheading">Different files</h4>
 <p>The second case, where two different files accidently have the same
 name, is resolved by renaming one or both of them.
-
+</p>
 <p>Suppose Beth and Abe each start working on different thermostat models
 (say Honeywell and Westinghouse), but they both name the file
-<samp><span class="file">thermostat</span></samp>. When Beth attempts to merge, she will get the same
-error message as in the first case. When she retrieves Abe's file, she
+<samp>thermostat</samp>. When Beth attempts to merge, she will get the same
+error message as in the first case. When she retrieves Abe&rsquo;s file, she
 will see that they should be different files. So she renames her file,
 merges, and updates (again using <a href="Conflicts.html#Conflicts">Conflicts</a> commands):
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">mtn conflicts store
 mtn conflicts resolve_first_left rename thermostat-westinghouse
 mtn conflicts resolve_first_right rename thermostat-honeywell
 mtn merge --resolve-conflicts-file=_MTN/conflicts
 mtn conflicts clean
 mtn update
-</pre>
-<p>Now she has her file contents in <samp><span class="file">thermostat-honeywell</span></samp>, and
-Abe's in <samp><span class="file">thermostat-westinghouse</span></samp>.
+</pre></div>
 
-<h5 class="subsubheading">Directories</h5>
-
+<p>Now she has her file contents in <samp>thermostat-honeywell</samp>, and
+Abe&rsquo;s in <samp>thermostat-westinghouse</samp>.
+</p>
+<a name="Directories"></a>
+<h4 class="subsubheading">Directories</h4>
 <p>When two directories are given the same name, there are still the two
 basic approaches to resolving the conflict; drop or rename. However,
-if a directory is dropped, all the files in it must also be dropped. 
+if a directory is dropped, all the files in it must also be dropped.
 Therefore, it is almost always better to first rename one of the
 directories to a temporary name as the conflict resolution, and then
 deal with the files individually, renaming or merging and dropping
 each. Then finally drop the temporary directory. The
-<samp><span class="command">conflicts</span></samp> commands do not support doing this; it must be
+<code>conflicts</code> commands do not support doing this; it must be
 done directly.
-
+</p>
+<a name="Missing-Root-Conflict"></a>
 <h4 class="subheading">Missing Root Conflict</h4>
 
-<p>Monotone's merge strategy is sometimes referred to as
+<p>Monotone&rsquo;s merge strategy is sometimes referred to as
 <em>die-die-die</em> merge, with reference to the fact that when a file
 or directory is deleted there is no means of resurrecting it. Merging
 the deletion of a file or directory will <em>always</em> result in that
 file or directory being deleted.
-
+</p>
 <p>A missing root conflict occurs when some directory has been moved to
 the root directory in one of the merge parents and has been deleted in
 the other merge parent. Because of die-die-die merge the result will
 not contain the directory that has been moved to the root.
-
+</p>
 <p>Missing root conflicts should be very rare because it is unlikely that
-a project's root directory will change. It is even more unlikely that
-a project's root directory will be changed to some other directory in
+a project&rsquo;s root directory will change. It is even more unlikely that
+a project&rsquo;s root directory will be changed to some other directory in
 one merge parent and that this directory will also be deleted in the
 other merge parent. Even still, a missing root directory conflict can
 be easily resolved by moving another directory to the root in the
@@ -273,99 +316,161 @@ merge parent where the root directory was previously changed. Because
 of die-die-die merge, no change to resolve the conflict can be made to
 the merge parent that deleted the directory which was moved to the
 root in the other merge parent.
-
-<p>See the <samp><span class="command">pivot_root</span></samp> command for more information on moving
+</p>
+<p>See the <code>pivot_root</code> command for more information on moving
 another directory to the project root.
-
-<p><samp><span class="command">conflicts</span></samp> does not yet support resolving this conflict.
-
+</p>
+<p><code>conflicts</code> does not support resolving this conflict.
+</p>
+<a name="Dropped_002fModified-file-Conflict"></a>
+<h4 class="subheading">Dropped/Modified file Conflict</h4>
+<a name="dropped_005fmodified_005fconflict"></a><p>This conflict occurs when a file is dropped in one merge parent,
+and modified in the other.
+</p>
+<p><code>conflicts</code> supports resolving this conflict; the possible
+resolutions are to drop the file in the result, keep the modified
+version, or keep a user supplied version.
+</p>
+<p>In addition, the attribute <code>mtn:resolve_conflict</code> may be used
+to specify a <code>drop</code> resolution for this
+conflict. <code>--resolve-conflicts</code> must be specified on the merge
+command for the attribute to be processed. Note that a
+<samp>_MTN/conflicts</samp> file left over from a previous merge will be
+processed when <code>--resolve-conflicts</code> is specified; the user must
+delete such files when they are no longer needed.
+</p>
+<p>The attribute is useful in the case where the conflict will occur
+again in the future, for example when a file that is maintained in an
+upstream branch is not needed, and therefore dropped, in a local
+branch. The user only needs to specify the conflict resolution once,
+via the attribute.
+</p>
+<p>Because of the <em>die-die-die</em> policy, monotone internally must
+first drop the modified file, and then add a new file with the same
+name and the desired contents. This means history is disconnected;
+when <code>mtn log</code> is later run for the file, it will stop at this
+merge, not showing the previous history for the file. That history is
+still there; the user can see it by starting <code>mtn log</code> again
+for the same file but in the parent of the merge.
+</p>
+<p>Note that we don&rsquo;t need a <code>keep</code> value for the
+<code>mtn:resolve_conflict</code> attribute; if the local branch keeps a
+file that the upstream branch drops, the first keep resolution will
+break history, and the conflict will not occur again.
+</p>
+<p>A special case occurs when the user re-adds the file after dropping
+it, then attempts to merge. In this case, the possible resolutions are
+to keep the re-added version, or keep a user modified version,
+replacing the re-added version (drop is not a valid resolution).
+</p>
+<p>There is no such thing as a dropped/modified directory; if the
+directory is empty, the only possible change is rename, which is
+ignored.
+</p>
+<p>If the directory is not empty, that creates a special case of
+dropped/modified file conflict; if the file is kept, it must also be
+renamed to an existing directory.
+</p>
+<a name="Invalid-Name-Conflict"></a>
 <h4 class="subheading">Invalid Name Conflict</h4>
 
-<p>Monotone reserves the name <samp><span class="file">_MTN</span></samp> in a workspace root directory
+<p>Monotone reserves the name <samp>_MTN</samp> in a workspace root directory
 for internal use and treats this name as <em>illegal</em> for a
 versioned file or directory in the project root. This name is
 <em>legal</em> for a versioned file or directory as long as it is not in
 the project root directory.
-
+</p>
 <p>An invalid name conflict occurs when some directory is moved to the
 project root in one of the merge parents and a file or directory that
-exists in this new root directory is renamed to <samp><span class="file">_MTN</span></samp> or a new
-file or directory is added with the name <samp><span class="file">_MTN</span></samp> to this directory
+exists in this new root directory is renamed to <samp>_MTN</samp> or a new
+file or directory is added with the name <samp>_MTN</samp> to this directory
 in the other merge parent.
-
+</p>
 <p>Invalid name conflicts should be very rare because it is unlikely that
-a project's root directory will change. It is even more unlikely that
-a project's root directory will change and the new root directory will
-contain a file or directory named <samp><span class="file">_MTN</span></samp>. Even still, an invalid
+a project&rsquo;s root directory will change. It is even more unlikely that
+a project&rsquo;s root directory will change and the new root directory will
+contain a file or directory named <samp>_MTN</samp>. Even still, an invalid
 name conflict can be easily resolved in several different ways. A
-different root directory can be chosen, the offending <samp><span class="file">_MTN</span></samp> file
+different root directory can be chosen, the offending <samp>_MTN</samp> file
 or directory can be renamed or deleted, or it can be moved to some
 other subdirectory in the project.
-
-<p>See the <samp><span class="command">pivot_root</span></samp> command for more information on moving
+</p>
+<p>See the <code>pivot_root</code> command for more information on moving
 another directory to the project root.
-
-<p><samp><span class="command">conflicts</span></samp> does not yet support resolving this conflict.
-
+</p>
+<p><code>conflicts</code> does not yet support resolving this conflict.
+</p>
+<a name="Directory-Loop-Conflict"></a>
 <h4 class="subheading">Directory Loop Conflict</h4>
 
 <p>A directory loop conflict occurs when one directory is moved under a
 second in one of the merge parents and the second directory is moved
 under the first in the other merge parent.
-
+</p>
 <p>Directory loop conflicts should be rare but can be easily resolved by
 moving one of the conflicting directories out from under the other.
-
-<p><samp><span class="command">conflicts</span></samp> does not yet support resolving this conflict.
-
+</p>
+<p><code>conflicts</code> does not yet support resolving this conflict.
+</p>
+<a name="Orphaned-Node-Conflict"></a>
 <h4 class="subheading">Orphaned Node Conflict</h4>
 
 <p>An orphaned node conflict occurs when a directory and all of its
 contents are deleted in one of the merge parents and further files or
 directories are added to this deleted directory, or renamed into it,
 in the other merge parent.
-
+</p>
 <p>Orphaned node conflicts do happen occasionally but can be easily
 resolved by renaming the orphaned files or directories out of the
 directory that has been deleted and into another directory that exists
 in both merge parents, or that has been added in the revision
 containing the orphaned files or directories.
-
-<p><samp><span class="command">conflicts</span></samp> supports resolving this conflict. However, if the
+</p>
+<p><code>conflicts</code> supports resolving this conflict. However, if the
 orphaned node is a directory that is not empty, and the desired
-resolution is 'drop', the user must drop the directory contents and
+resolution is &rsquo;drop&rsquo;, the user must drop the directory contents and
 commit before invoking the conflicts commands.
-
+</p>
+<a name="Multiple-Name-Conflict"></a>
 <h4 class="subheading">Multiple Name Conflict</h4>
 
 <p>A multiple name conflict occurs when a single file or directory has
-been renamed to two different names in the two merge parents. 
+been renamed to two different names in the two merge parents.
 Monotone does not allow this and requires that each file and directory
 has exactly one unique name.
-
+</p>
 <p>Multiple name conflicts do happen occasionally but can be easily
 resolved by renaming the conflicting file or directory in one or both
 of the merge parents so that both agree on the name.
-
-<p><samp><span class="command">conflicts</span></samp> does not yet support resolving this conflict.
-
+</p>
+<p><code>conflicts</code> does not yet support resolving this conflict.
+</p>
 <p>In earlier versions of monotone (those before version 0.39) this type
 of conflict was referred to as a <em>name conflict</em>.
-
+</p>
+<a name="Attribute-Conflict"></a>
 <h4 class="subheading">Attribute Conflict</h4>
 
 <p>An attribute conflict occurs when a versioned attribute on a file or
 directory is set to two different values by the two merge parents or
-if one of the merge parents changes the attribute's value and the
+if one of the merge parents changes the attribute&rsquo;s value and the
 other deletes the attribute entirely.
-
+</p>
 <p>Attribute conflicts may happen occasionally but can be easily resolved
 by ensuring that the attribute is set to the same value or is deleted
 in both of the merge parents. Attributes are <em>not</em> merged using
 the die-die-die rules and may be resurrected by simply setting their
 values.
+</p>
+<p><code>conflicts</code> does not yet support resolving this conflict.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Workspace-Collisions.html#Workspace-Collisions" accesskey="n" rel="next">Workspace Collisions</a>, Previous: <a href="Inodeprints.html#Inodeprints" accesskey="p" rel="prev">Inodeprints</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-<p><samp><span class="command">conflicts</span></samp> does not yet support resolving this conflict.
 
-</body></html>
 
+</body>
+</html>

@@ -1,87 +1,114 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Branching and Merging - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Tutorial.html#Tutorial" title="Tutorial">
-<link rel="prev" href="Dealing-with-a-Fork.html#Dealing-with-a-Fork" title="Dealing with a Fork">
-<link rel="next" href="Network-Service-Revisited.html#Network-Service-Revisited" title="Network Service Revisited">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Branching-and-Merging"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Network-Service-Revisited.html#Network-Service-Revisited">Network Service Revisited</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Dealing-with-a-Fork.html#Dealing-with-a-Fork">Dealing with a Fork</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Tutorial.html#Tutorial">Tutorial</a>
-<hr>
-</div>
+<title>monotone documentation: Branching and Merging</title>
 
+<meta name="description" content="monotone documentation: Branching and Merging">
+<meta name="keywords" content="monotone documentation: Branching and Merging">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tutorial.html#Tutorial" rel="up" title="Tutorial">
+<link href="Network-Service-Revisited.html#Network-Service-Revisited" rel="next" title="Network Service Revisited">
+<link href="Dealing-with-a-Fork.html#Dealing-with-a-Fork" rel="prev" title="Dealing with a Fork">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Branching-and-Merging"></a>
+<div class="header">
+<p>
+Next: <a href="Network-Service-Revisited.html#Network-Service-Revisited" accesskey="n" rel="next">Network Service Revisited</a>, Previous: <a href="Dealing-with-a-Fork.html#Dealing-with-a-Fork" accesskey="p" rel="prev">Dealing with a Fork</a>, Up: <a href="Tutorial.html#Tutorial" accesskey="u" rel="up">Tutorial</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Branching-and-Merging-1"></a>
 <h3 class="section">2.12 Branching and Merging</h3>
 
-<p>So by now you're familiar with making changes, sharing them with other
+<p>So by now you&rsquo;re familiar with making changes, sharing them with other
 people, and integrating your changes with their changes.  Sometimes,
 though, you may want to make some changes, and <em>not</em> integrate them
-with other people's &mdash; or at least not right away.  One way to do this
-would be to simply never run <samp><span class="command">mtn merge</span></samp>; but it would
+with other people&rsquo;s &mdash; or at least not right away.  One way to do this
+would be to simply never run <code>mtn merge</code>; but it would
 quickly become confusing to try and keep track of which changes were in
 which revisions.  This is where <em>branches</em> are useful.
-
-<p>Continuing our example, suppose that Jim is so impressed by Beth's work
-on banana juice support that he assigns her to work on the JuiceBot 7's
+</p>
+<p>Continuing our example, suppose that Jim is so impressed by Beth&rsquo;s work
+on banana juice support that he assigns her to work on the JuiceBot 7&rsquo;s
 surprise new feature: muffins.  In the mean time, Abe will continue
-working on the JuiceBot's basic juice-related functions.
-
+working on the JuiceBot&rsquo;s basic juice-related functions.
+</p>
 <p>The changes required to support muffins are somewhat complicated, and
 Beth is worried that her work might destabilize the program, and
-interfere with Abe's work.  In fact, she isn't even sure her first
+interfere with Abe&rsquo;s work.  In fact, she isn&rsquo;t even sure her first
 attempt will turn out to be the right approach; she might work on it for
 a while and then decide it was a bad idea, and should be discarded.  For
 all these reasons, she decides that she will work on a branch, and then
 once she is satisfied with the new code, she will merge back onto the
 mainline.
-
+</p>
 <p>She decides that since main development is in branch
 <code>jp.co.juicebot.jb7</code>, she will use branch
 <code>jp.co.juicebot.jb7.muffins</code>.  So, she makes the first few edits to
 the new muffins code, and commits it on a new branch by simply passing
-<samp><span class="option">--branch</span></samp> to commit:
-
+<samp>--branch</samp> to commit:
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn commit --branch=jp.co.juicebot.jb7.muffins --message='autobake framework'
 mtn: beginning commit on branch 'jp.co.juicebot.jb7.muffins'
 mtn: committed revision d33caefd61823ecbb605c39ffb84705dec449857
-</pre>
+</pre></div>
+
 <p>Alternately, she could not specify a message on the command line, and
 edit the &ldquo;Branch&rdquo; field in the changelog editor.
-
-<p>That's all there is to it &mdash; there is now a
+</p>
+<p>That&rsquo;s all there is to it &mdash; there is now a
 <code>jp.co.juicebot.jb7.muffins</code> branch, with her initial checkin on
 it.  She can make further checkins from the same workspace, and they
 will automatically go to the muffins branch; if anyone else wants to
 help her work on muffins, they can check out that branch as usual.
-
+</p>
 <p>Of course, while Beth is working on the new muffins code, Abe is still
 making fixes to the main line.  Occasionally, Beth wants to integrate
-his latest work into the muffins branch, so that her version doesn't
-fall too far behind.  She does this by using the <samp><span class="command">propagate</span></samp>
+his latest work into the muffins branch, so that her version doesn&rsquo;t
+fall too far behind.  She does this by using the <code>propagate</code>
 command:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn propagate jp.co.juicebot.jb7 jp.co.juicebot.jb7.muffins
 mtn: propagating jp.co.juicebot.jb7 -&gt; jp.co.juicebot.jb7.muffins
 mtn: [source] da003f115752ac6e4750b89aaca9dbba178ac80c
@@ -89,20 +116,23 @@ mtn: [target] d0e5c93bb61e5fd25a0dadf41426f209b73f40af
 mtn: common ancestor 853b8c7ac5689181d4b958504adfb5d07fd959ab jim@juicebot.co.jp 2004-10-26T:12:44:23 found
 mtn: trying 3-way merge
 mtn: [merged] 89585b3c5e51a5a75f5d1a05dda859c5b7dde52f
-</pre>
-<p>The <samp><span class="command">propagate</span></samp> merges all of the new changes on one branch onto
-another.
+</pre></div>
 
+<p>The <code>propagate</code> merges all of the new changes on one branch onto
+another.
+</p>
 <p>When the muffins code is eventually stable and ready to be integrated
 into the main line of development, she simply propagates the other way:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn propagate jp.co.juicebot.jb7.muffins jp.co.juicebot.jb7
 mtn: propagating jp.co.juicebot.jb7.muffins -&gt; jp.co.juicebot.jb7
 mtn: [source] 4e48e2c9a3d2ca8a708cb0cc545700544efb5021
 mtn: [target] bd29b2bfd07644ab370f50e0d68f26dcfd3bb4af
 mtn: common ancestor 652b1035343281a0d2a5de79919f9a31a30c9028 jim@juicebot.co.jp 2004-10-26T:15:25:05 found
 mtn: [merged] 03f7495b51cc70b76872ed019d19dee1b73e89b6
-</pre>
+</pre></div>
+
 <p>Monotone always records the full history of all merges, and is designed
 to handle an arbitrarily complicated graph of changes.  You can make a
 branch, then branch off from that branch, propagate changes between
@@ -110,21 +140,22 @@ arbitrary branches, and so on; monotone will track all of it, and do
 something sensible for each merge.  Of course, it is still probably a
 good idea to come up with some organization of branches and a plan for
 which should be merged to which other ones.  Monotone may keep track of
-graphs of arbitrary complexity &mdash; but you will have more trouble. 
+graphs of arbitrary complexity &mdash; but you will have more trouble.
 Whatever arrangement of branches you come up with, though, monotone
 should be able to handle it.
-
+</p>
 <p>If you are unsure of the name of a branch, you can list all branches using
-the <samp><span class="command">ls branches</span></samp> command.  This is very useful, but if you create
+the <code>ls branches</code> command.  This is very useful, but if you create
 a lot of branches then the list can become very long and unwieldy.  To help
-this monotone has the <samp><span class="command">suspend</span></samp> command which partially hides
+this monotone has the <code>suspend</code> command which partially hides
 revisions/branches you are no longer using.  Further commits on hidden branches
 will automatically unhide the branches.
-
+</p>
 <p>For example, if Beth is now finished with the muffins branch, she can stop
 it from cluttering the list of branches by suspending the last revision in
 that branch:
-
+</p>
+<div class="smallexample">
 <pre class="smallexample">$ mtn ls branches
 jp.co.juicebot.jb7
 jp.co.juicebot.jb7.muffins
@@ -134,6 +165,15 @@ mtn: branch 'jp.co.juicebot.jb7.muffins' is currently merged:
 $ mtn suspend 4e48e2c9a3d2ca8a708cb0cc545700544efb5021
 $ mtn ls branches
 jp.co.juicebot.jb7
-</pre>
-</body></html>
+</pre></div>
 
+<hr>
+<div class="header">
+<p>
+Next: <a href="Network-Service-Revisited.html#Network-Service-Revisited" accesskey="n" rel="next">Network Service Revisited</a>, Previous: <a href="Dealing-with-a-Fork.html#Dealing-with-a-Fork" accesskey="p" rel="prev">Dealing with a Fork</a>, Up: <a href="Tutorial.html#Tutorial" accesskey="u" rel="up">Tutorial</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

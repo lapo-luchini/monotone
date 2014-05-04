@@ -1,52 +1,76 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Inodeprints - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Scripting.html#Scripting" title="Scripting">
-<link rel="next" href="Merge-Conflicts.html#Merge-Conflicts" title="Merge Conflicts">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Inodeprints"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Scripting.html#Scripting">Scripting</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Inodeprints</title>
 
+<meta name="description" content="monotone documentation: Inodeprints">
+<meta name="keywords" content="monotone documentation: Inodeprints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Merge-Conflicts.html#Merge-Conflicts" rel="next" title="Merge Conflicts">
+<link href="Scripting.html#Scripting" rel="prev" title="Scripting">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Inodeprints"></a>
+<div class="header">
+<p>
+Next: <a href="Merge-Conflicts.html#Merge-Conflicts" accesskey="n" rel="next">Merge Conflicts</a>, Previous: <a href="Scripting.html#Scripting" accesskey="p" rel="prev">Scripting</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Inodeprints-1"></a>
 <h3 class="section">3.5 Inodeprints</h3>
 
 <p>Fairly often, in order to accomplish its job, monotone has to look at
 your workspace and figure out what has been changed in it since your
-last commit.  Commands that do this include <samp><span class="command">status</span></samp>,
-<samp><span class="command">diff</span></samp>, <samp><span class="command">update</span></samp>, <samp><span class="command">commit</span></samp>, and others.  There
+last commit.  Commands that do this include <code>status</code>,
+<code>diff</code>, <code>update</code>, <code>commit</code>, and others.  There
 are two different techniques it can use to do this.  The default, which
 is sufficient for most projects, is to simply read every file in the
-workspace, compute their <span class="sc">sha1</span> hash, and compare them to the
+workspace, compute their <small>SHA1</small> hash, and compare them to the
 hashes monotone has stored.  This is very safe and reliable, and turns
 out to be fast enough for most projects.  However, on very large
 projects, ones whose source trees are many megabytes in size, it can
 become unacceptably slow.
-
+</p>
 <p>The other technique, known as <em>inodeprints</em>, is designed for this
 situation.  When running in inodeprints mode, monotone does not read the
 whole workspace; rather, it keeps a cache of interesting information
@@ -54,19 +78,27 @@ about each file (its size, its last modification time, and so on), and
 skips reading any file for which these values have not changed.  This is
 inherently somewhat less safe, and, as mentioned above, unnecessary for
 most projects, so it is disabled by default.
-
+</p>
 <p>If you do determine that it is necessary to use inodeprints with your
-project, it is simple to enable them.  Simply run <samp><span class="command">mtn
-refresh_inodeprints</span></samp>; this will enable inodeprints mode and generate an
+project, it is simple to enable them.  Simply run <code>mtn
+refresh_inodeprints</code>; this will enable inodeprints mode and generate an
 initial cache.  If you ever wish to turn them off again, simply delete
-the file <samp><span class="file">_MTN/inodeprints</span></samp>.  You can at any time delete or truncate
-the <samp><span class="file">_MTN/inodeprints</span></samp> file; monotone uses it only as a cache and
+the file <samp>_MTN/inodeprints</samp>.  You can at any time delete or truncate
+the <samp>_MTN/inodeprints</samp> file; monotone uses it only as a cache and
 will continue to operate correctly.
-
+</p>
 <p>Normally, instead of enabling this up on a per-workspace basis, you
 will want to simply define the <code>use_inodeprints</code> hook to return
 <code>true</code>; this will automatically enable inodeprints mode in any new
 workspaces you create.  See <a href="Lua-Reference.html#Lua-Reference">Lua Reference</a> for details.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Merge-Conflicts.html#Merge-Conflicts" accesskey="n" rel="next">Merge Conflicts</a>, Previous: <a href="Scripting.html#Scripting" accesskey="p" rel="prev">Scripting</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

@@ -1,177 +1,338 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Global Options - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Global-and-Common-Options.html#Global-and-Common-Options" title="Global and Common Options">
-<link rel="prev" href="Global-and-Common-Options.html#Global-and-Common-Options" title="Global and Common Options">
-<link rel="next" href="Common-Options.html#Common-Options" title="Common Options">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
+<title>monotone documentation: Global Options</title>
+
+<meta name="description" content="monotone documentation: Global Options">
+<meta name="keywords" content="monotone documentation: Global Options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Global-and-Common-Options.html#Global-and-Common-Options" rel="up" title="Global and Common Options">
+<link href="Common-Options.html#Common-Options" rel="next" title="Common Options">
+<link href="Global-and-Common-Options.html#Global-and-Common-Options" rel="prev" title="Global and Common Options">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
 <link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
 </head>
-<body>
-<div class="node">
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
 <a name="Global-Options"></a>
+<div class="header">
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Common-Options.html#Common-Options">Common Options</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Global-and-Common-Options.html#Global-and-Common-Options">Global and Common Options</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Global-and-Common-Options.html#Global-and-Common-Options">Global and Common Options</a>
-<hr>
+Next: <a href="Common-Options.html#Common-Options" accesskey="n" rel="next">Common Options</a>, Previous: <a href="Global-and-Common-Options.html#Global-and-Common-Options" accesskey="p" rel="prev">Global and Common Options</a>, Up: <a href="Global-and-Common-Options.html#Global-and-Common-Options" accesskey="u" rel="up">Global and Common Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-
+<hr>
+<a name="Global-Options-1"></a>
 <h4 class="subsection">4.1.1 Global Options</h4>
-
 <p>These options are available on all commands.
-
-     <dl>
-<a name="g_t_002d_002dconfdir"></a><dt><samp><span class="command">--confdir &lt;arg&gt;</span></samp><a name="index-g_t_002d_002dconfdir-_003carg_003e-1"></a><dd>Set the location of the configuration directory (default
-<samp><span class="file">$HOME/.monotone</span></samp> on Unix and Cygwin, <samp><span class="file">%APPDATA%\monotone%</span></samp> on
+</p>
+<dl compact="compact">
+<dd><a name="g_t_002d_002dconfdir"></a></dd>
+<dt><code>--confdir &lt;arg&gt;</code>
+<a name="index-_002d_002dconfdir-_003carg_003e"></a>
+</dt>
+<dd><p>Set the location of the configuration directory (default
+<samp>$HOME/.monotone</samp> on Unix and Cygwin, <samp>%APPDATA%\monotone%</samp> on
 Windows MinGW). In this manual, references to these specific directories are
 actually references to the directory specified by
-<samp><span class="option">--confdir</span></samp>.
-
-     <p>The configuration directory is where monotone finds:
-
-          <dl>
-<dt><code>keys</code><dd>in <samp><span class="file">confdir/keys</span></samp>; see <a href="Certificates.html#Certificates">Certificates</a>, <a href="Generating-Keys.html#Generating-Keys">Generating Keys</a>. The location of the keys directory can be overridden separately
-with the <samp><span class="option">--keydir</span></samp> option.
-
-          <br><dt><code>monotonerc</code><dd>which is a per-user configuration file containing Lua code
-(see <a href="rcfiles.html#rcfiles">rcfiles</a>) that is run each time monotone starts up.
-
-          <br><dt><code>default database</code><dd>In file <samp><span class="file">confdir/databases/default.mtn</span></samp>; see <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>.
-
-     </dl>
-
-     <p>In addition, monotone may write a dump file to the configuration
-directory when it fails (if it can't write to <samp><span class="file">_MTN</span></samp> in a
-workspace).
-
-     <br><dt><samp><span class="command">--date-format &lt;arg&gt;</span></samp><a name="index-g_t_002d_002ddate_002dformat-_003carg_003e-2"></a><dd><code>strftime(3)</code> format specification for printing dates. The
-default format is given by the <code><a href="get_005fdate_005fformat_005fspec.html#get_005fdate_005fformat_005fspec">get_date_format_spec</a></code> hook;
-the default hook returns <code>%x</code> for dates, <code>%X</code> for times,
-<code>%x %X</code> for both.
-
-     <br><dt><samp><span class="command">--db &lt;arg&gt;</span></samp><a name="index-g_t_002d_002ddb-_003carg_003e-3"></a><dd>Set the database to use; defaults to the database specified in the
-current workspace (stored in <samp><span class="file">_MTN/options</span></samp>; see <a href="Storage-and-workflow.html#Storage-and-workflow">Storage and workflow</a>), or to nothing if not in a workspace. However, some
-commands default to a <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>; that is specified in
-those commands.
-
-     <p>An argument of <code>:memory:</code> specifies a memory-only database; any
-changes are not saved to a file. One use for this is on the client
-side of a remote automate connection to the server, if you are
-executing commands that don't actually need a local database but the
-automate command requires one.
-
-     <br><dt><samp><span class="command">--dump &lt;arg&gt;</span></samp><a name="index-g_t_002d_002ddump-_003carg_003e-4"></a><dd>File to dump debugging log to, on failure; default
-<samp><span class="file">confdir/dump</span></samp> if not in a workspace, <samp><span class="file">_MTN/debug</span></samp> if in a
-workspace.
-
-     <br><dt><samp><span class="command">--help</span></samp><a name="index-g_t_002d_002dhelp-5"></a><dd>Display help information. This is the same as the <samp><span class="command">mtn help</span></samp>
-command, but note that it can be placed at the end of a command line,
-while <samp><span class="command">mtn help</span></samp> must be the first non-option on the command line.
-
-     <br><dt><samp><span class="command">--ignore-suspend-certs</span></samp><a name="index-g_t_002d_002dignore_002dsuspend_002dcerts-6"></a><dt><samp><span class="command">--no-ignore-suspend-certs</span></samp><a name="index-g_t_002d_002dno_002dignore_002dsuspend_002dcerts-7"></a><dd>Do not ignore revisions marked as suspended; see the <samp><span class="command">mtn
-suspend</span></samp> command.
-
-     <p><a name="g_t_002d_002dkey"></a><br><dt><samp><span class="command">--key &lt;arg&gt;</span></samp><a name="index-g_t_002d_002dkey-_003carg_003e-8"></a><dt><samp><span class="command">--use-default-key</span></samp><a name="index-g_t_002d_002duse_002ddefault_002dkey-9"></a><dd>Set the key for signatures or network authentication, using either the
-key name or the key hash (see <a href="Generating-Keys.html#Generating-Keys">Generating Keys</a>).
-
-     <p>monotone determines the key to use as follows:
-
-          <ol type=1 start=1>
-<li>If <samp><span class="option">--key</span></samp> is given, that is the key.
-
-          <li>If <var>key</var> is given in <samp><span class="file">_MTN/options</span></samp>, that is the key.
-
-          <p>Each time <samp><span class="option">--key</span></samp> is given, it will be stored in
-<samp><span class="file">_MTN/options</span></samp> for future use.
-
-          <li>For a non-netsync command, the Lua hook <code><a href="get_005fbranch_005fkey.html#get_005fbranch_005fkey">get_branch_key</a></code> is
-called.
-
-          <p>For a client-side netsync command, the Lua hook
-<code><a href="get_005fnetsync_005fclient_005fkey.html#get_005fnetsync_005fclient_005fkey">get_netsync_client_key</a></code> is called.
-
-          <p>For a command that starts a monotone server, the Lua hook
-<code><a href="get_005fnetsync_005fserver_005fkey.html#get_005fnetsync_005fserver_005fkey">get_netsync_server_key</a></code> is used.
-
-          <p>If any of the aforementioned hooks returns non-nil, the return value
-is the name of the key.
-
-          <li>If there is only one key in the keydir, that is the key.
-
-          <li>Otherwise there is no key; an error occurs.
-
-          </ol>
-
-     <br><dt><samp><span class="command">--keydir &lt;arg&gt;</span></samp><a name="index-g_t_002d_002dkeydir-_003carg_003e-10"></a><dd>Set the key directory (where the &ldquo;key store&rdquo; is located); default is
-<samp><span class="file">confir/keys</span></samp>.
-
-     <br><dt><samp><span class="command">--log &lt;arg&gt;</span></samp><a name="index-g_t_002d_002dlog-_003carg_003e-11"></a><dd>Specifiy a file to which the log (consisting of all debug,
-informational, and warning messages) is written; default is the
-<code>stderr</code> process output.
-
-     <br><dt><samp><span class="command">--no-builtin-rcfile</span></samp><a name="index-g_t_002d_002dno_002dbuiltin_002drcfile-12"></a><dt><samp><span class="command">--builtin-rcfile</span></samp><a name="index-g_t_002d_002dbuiltin_002drcfile-13"></a><dd>Do not load the built-in rcfile with the default hooks. This means
-all hooks will have null definitions (unless overridden by other
-<a href="rcfiles.html#rcfiles">rcfiles</a>).
-
-     <br><dt><samp><span class="command">--no-default-confdir</span></samp><a name="index-g_t_002d_002dno_002ddefault_002dconfdir-14"></a><dt><samp><span class="command">--allow-default-confdir</span></samp><a name="index-g_t_002d_002dallow_002ddefault_002dconfdir-15"></a><dd>Don't use a default confdir; <samp><span class="option">--confdir</span></samp> must be specified if
-a configuration file is needed.
-
-     <br><dt><samp><span class="command">--no-format-dates</span></samp><a name="index-g_t_002d_002dno_002dformat_002ddates-16"></a><dd>Don't use the format provided by a previous <samp><span class="option">--date-format</span></samp>,
-nor the format returned by <code><a href="get_005fdate_005fformat_005fspec.html#get_005fdate_005fformat_005fspec">get_date_format_spec</a></code>; instead,
-print dates in the format &ldquo;yyyy-mm-ddThh:mm:ss&rdquo;.
-
-     <br><dt><samp><span class="command">--[no-]standard-rcfiles</span></samp><a name="index-g_t_002d_002d_005bno_002d_005dstandard_002drcfiles-17"></a><dd>Do not load the standard rcfiles, which are
-<samp><span class="file">$HOME/.monotone/monotonerc</span></samp> on Unix or
-<samp><span class="file">%APPDATA%\monotone\monotonerc</span></samp> on Windows, and
-<samp><span class="file">_MTN/monotonerc</span></samp> in the current workspace. See <a href="rcfiles.html#rcfiles">rcfiles</a>.
-
-     <br><dt><samp><span class="command">--no-workspace</span></samp><a name="index-g_t_002d_002dno_002dworkspace-18"></a><dt><samp><span class="command">--allow-workspace</span></samp><a name="index-g_t_002d_002dallow_002dworkspace-19"></a><dd>Don't look for a workspace; this means options that normally get their
-default values from the workspace will not have those default values.
-
-     <br><dt><samp><span class="command">--non-interactive</span></samp><a name="index-g_t_002d_002dnon_002dinteractive-20"></a><dt><samp><span class="command">--interactive</span></samp><a name="index-g_t_002d_002dinteractive-21"></a><dd>Do not prompt the user for input; fail instead. For example, don't
-prompt for a key passphrase, or when doing a merge, do not start the
-external merger to resolve a conflict.
-
-     <br><dt><samp><span class="command">--quiet</span></samp><a name="index-g_t_002d_002dquiet-22"></a><dt><samp><span class="command">--verbose</span></samp><a name="index-g_t_002d_002dverbose-23"></a><dd>Decrease or increase verbosity. There are four levels of verbosity;
-debug, information, warning, and none. The default is information.
-
-     <br><dt><samp><span class="command">--rcfile &lt;arg&gt;</span></samp><a name="index-g_t_002d_002drcfile-_003carg_003e-24"></a><dd>Specify an extra rcfile to load. See <a href="rcfiles.html#rcfiles">rcfiles</a>.
-
-     <br><dt><samp><span class="command">--clear-rcfiles</span></samp><a name="index-g_t_002d_002dclear_002drcfiles-25"></a><dd>Cancel all previous <samp><span class="option">--rcfile</span></samp> options (standard rcfiles are
-still loaded). See <a href="rcfiles.html#rcfiles">rcfiles</a>.
-
-     <dt><samp><span class="command">--root &lt;arg&gt;</span></samp><a name="index-g_t_002d_002droot-_003carg_003e-26"></a><dd>Limit the search for a workspace to the specified root directory
-
-     <br><dt><samp><span class="command">--ssh-sign &lt;arg&gt;</span></samp><a name="index-g_t_002d_002dssh_002dsign-_003carg_003e-27"></a><dd>Controls use of ssh-agent. Valid arguments are: 'yes' to use ssh-agent
-to make signatures if possible, 'no' to force use of monotone's
-internal code, 'only' to force use of ssh-agent, 'check' to sign with
-both and compare.
-
-     <br><dt><samp><span class="command">--ticker &lt;arg&gt;</span></samp><a name="index-g_t_002d_002dticker-_003carg_003e-28"></a><dd>Set ticker style; one of 'count', 'dot', or 'none'
-
-     <br><dt><samp><span class="command">--timestamps</span></samp><a name="index-g_t_002d_002dtimestamps-29"></a><dd>Show timestamps in front of error, warning, and progress messages.
-
-     <br><dt><samp><span class="command">--version</span></samp><a name="index-g_t_002d_002dversion-30"></a><dd>Print version number, then exit; same as <samp><span class="command">mtn version</span></samp>.
-
-     <br><dt><samp><span class="command">--xargs &lt;arg&gt;</span></samp><a name="index-g_t_002d_002dxargs-_003carg_003e-31"></a><dt><samp><span class="command">-@ &lt;arg&gt;</span></samp><a name="index-g_t_002d_0040_0040-_003carg_003e-32"></a><dd>Insert command line arguments taken from the given file. 
+<samp>--confdir</samp>.
+</p>
+<p>The configuration directory is where monotone finds:
+</p>
+<dl compact="compact">
+<dt><code>keys</code></dt>
+<dd><p>in <samp>confdir/keys</samp>; see <a href="Certificates.html#Certificates">Certificates</a>, <a href="Generating-Keys.html#Generating-Keys">Generating Keys</a>. The location of the keys directory can be overridden separately
+with the <samp>--keydir</samp> option.
+</p>
+</dd>
+<dt><code>monotonerc</code></dt>
+<dd><p>which is a per-user configuration file containing Lua code
+(see <a href="Lua-Reference.html#rcfiles">rcfiles</a>) that is run each time monotone starts up.
+</p>
+</dd>
+<dt><code>default database</code></dt>
+<dd><p>In file <samp>confdir/databases/default.mtn</samp>; see <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>.
+</p>
+</dd>
 </dl>
 
-</body></html>
+<p>In addition, monotone may write a dump file to the configuration
+directory when it fails (if it can&rsquo;t write to <samp>_MTN</samp> in a
+workspace).
+</p>
+</dd>
+<dt><code>--date-format &lt;arg&gt;</code>
+<a name="index-_002d_002ddate_002dformat-_003carg_003e"></a>
+</dt>
+<dd><p><code>strftime(3)</code> format specification for printing dates. The
+default format is given by the <code><a href="User-Defaults.html#get_005fdate_005fformat_005fspec">get_date_format_spec</a></code> hook;
+the default hook returns <code>%x</code> for dates, <code>%X</code> for times,
+<code>%x %X</code> for both.
+</p>
+</dd>
+<dt><code>--db &lt;arg&gt;</code>
+<a name="index-_002d_002ddb-_003carg_003e"></a>
+</dt>
+<dd><p>Set the database to use; defaults to the database specified in the
+current workspace (stored in <samp>_MTN/options</samp>; see <a href="Storage-and-workflow.html#Storage-and-workflow">Storage and workflow</a>), or to nothing if not in a workspace. However, some
+commands default to a <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>; that is specified in
+those commands.
+</p>
+<p>An argument of <code>:memory:</code> specifies a memory-only database; any
+changes are not saved to a file. One use for this is on the client
+side of a remote automate connection to the server, if you are
+executing commands that don&rsquo;t actually need a local database but the
+automate command requires one.
+</p>
+</dd>
+<dt><code>--dump &lt;arg&gt;</code>
+<a name="index-_002d_002ddump-_003carg_003e"></a>
+</dt>
+<dd><p>File to dump debugging log to, on failure; default
+<samp>confdir/dump</samp> if not in a workspace, <samp>_MTN/debug</samp> if in a
+workspace.
+</p>
+</dd>
+<dt><code>--help</code>
+<a name="index-_002d_002dhelp"></a>
+</dt>
+<dd><p>Display help information. This is the same as the <code>mtn help</code>
+command, but note that it can be placed at the end of a command line,
+while <code>mtn help</code> must be the first non-option on the command line.
+</p>
+</dd>
+<dt><code>--ignore-suspend-certs</code>
+<a name="index-_002d_002dignore_002dsuspend_002dcerts"></a>
+</dt>
+<dt><code>--no-ignore-suspend-certs</code>
+<a name="index-_002d_002dno_002dignore_002dsuspend_002dcerts"></a>
+</dt>
+<dd><p>Do not ignore revisions marked as suspended; see the <code>mtn
+suspend</code> command.
+</p>
+<a name="g_t_002d_002dkey"></a></dd>
+<dt><code>--key &lt;arg&gt;</code>
+<a name="index-_002d_002dkey-_003carg_003e"></a>
+</dt>
+<dt><code>--use-default-key</code>
+<a name="index-_002d_002duse_002ddefault_002dkey"></a>
+</dt>
+<dd><p>Set the key for signatures or network authentication, using either the
+key name or the key hash (see <a href="Generating-Keys.html#Generating-Keys">Generating Keys</a>).
+</p>
+<p>monotone determines the key to use as follows:
+</p>
+<ol>
+<li> If <samp>--key</samp> is given, that is the key.
 
+</li><li> If <var>key</var> is given in <samp>_MTN/options</samp>, that is the key.
+
+<p>Each time <samp>--key</samp> is given, it will be stored in
+<samp>_MTN/options</samp> for future use.
+</p>
+</li><li> For a non-netsync command, the Lua hook <code><a href="User-Defaults.html#get_005fbranch_005fkey">get_branch_key</a></code> is
+called.
+
+<p>For a client-side netsync command, the Lua hook
+<code><a href="User-Defaults.html#get_005fnetsync_005fclient_005fkey">get_netsync_client_key</a></code> is called.
+</p>
+<p>For a command that starts a monotone server, the Lua hook
+<code><a href="User-Defaults.html#get_005fnetsync_005fserver_005fkey">get_netsync_server_key</a></code> is used.
+</p>
+<p>If any of the aforementioned hooks returns non-nil, the return value
+is the name of the key.
+</p>
+</li><li> If there is only one key in the keydir, that is the key.
+
+</li><li> Otherwise there is no key; an error occurs.
+
+</li></ol>
+
+
+</dd>
+<dt><code>--keydir &lt;arg&gt;</code>
+<a name="index-_002d_002dkeydir-_003carg_003e"></a>
+</dt>
+<dd><p>Set the key directory (where the &ldquo;key store&rdquo; is located); default is
+<samp>confir/keys</samp>.
+</p>
+</dd>
+<dt><code>--log &lt;arg&gt;</code>
+<a name="index-_002d_002dlog-_003carg_003e"></a>
+</dt>
+<dd><p>Specifiy a file to which the log (consisting of all debug,
+informational, and warning messages) is written; default is the
+<code>stderr</code> process output.
+</p>
+</dd>
+<dt><code>--no-builtin-rcfile</code>
+<a name="index-_002d_002dno_002dbuiltin_002drcfile"></a>
+</dt>
+<dt><code>--builtin-rcfile</code>
+<a name="index-_002d_002dbuiltin_002drcfile"></a>
+</dt>
+<dd><p>Do not load the built-in rcfile with the default hooks. This means
+all hooks will have null definitions (unless overridden by other
+<a href="Lua-Reference.html#rcfiles">rcfiles</a>).
+</p>
+</dd>
+<dt><code>--no-default-confdir</code>
+<a name="index-_002d_002dno_002ddefault_002dconfdir"></a>
+</dt>
+<dt><code>--allow-default-confdir</code>
+<a name="index-_002d_002dallow_002ddefault_002dconfdir"></a>
+</dt>
+<dd><p>Don&rsquo;t use a default confdir; <samp>--confdir</samp> must be specified if
+a configuration file is needed.
+</p>
+</dd>
+<dt><code>--no-format-dates</code>
+<a name="index-_002d_002dno_002dformat_002ddates"></a>
+</dt>
+<dd><p>Don&rsquo;t use the format provided by a previous <samp>--date-format</samp>,
+nor the format returned by <code><a href="User-Defaults.html#get_005fdate_005fformat_005fspec">get_date_format_spec</a></code>; instead,
+print dates in the format &ldquo;yyyy-mm-ddThh:mm:ss&rdquo;.
+</p>
+</dd>
+<dt><code>--[no-]standard-rcfiles</code>
+<a name="index-_002d_002d_005bno_002d_005dstandard_002drcfiles"></a>
+</dt>
+<dd><p>Do not load the standard rcfiles, which are
+<samp>$HOME/.monotone/monotonerc</samp> on Unix or
+<samp>%APPDATA%\monotone\monotonerc</samp> on Windows, and
+<samp>_MTN/monotonerc</samp> in the current workspace. See <a href="Lua-Reference.html#rcfiles">rcfiles</a>.
+</p>
+</dd>
+<dt><code>--no-workspace</code>
+<a name="index-_002d_002dno_002dworkspace"></a>
+</dt>
+<dt><code>--allow-workspace</code>
+<a name="index-_002d_002dallow_002dworkspace"></a>
+</dt>
+<dd><p>Don&rsquo;t look for a workspace; this means options that normally get their
+default values from the workspace will not have those default values.
+</p>
+</dd>
+<dt><code>--non-interactive</code>
+<a name="index-_002d_002dnon_002dinteractive"></a>
+</dt>
+<dt><code>--interactive</code>
+<a name="index-_002d_002dinteractive"></a>
+</dt>
+<dd><p>Do not prompt the user for input; fail instead. For example, don&rsquo;t
+prompt for a key passphrase, or when doing a merge, do not start the
+external merger to resolve a conflict.
+</p>
+</dd>
+<dt><code>--quiet</code>
+<a name="index-_002d_002dquiet"></a>
+</dt>
+<dt><code>--verbose</code>
+<a name="index-_002d_002dverbose"></a>
+</dt>
+<dd><p>Decrease or increase verbosity. There are four levels of verbosity;
+debug, information, warning, and none. The default is information.
+</p>
+</dd>
+<dt><code>--rcfile &lt;arg&gt;</code>
+<a name="index-_002d_002drcfile-_003carg_003e"></a>
+</dt>
+<dd><p>Specify an extra rcfile to load. See <a href="Lua-Reference.html#rcfiles">rcfiles</a>.
+</p>
+</dd>
+<dt><code>--clear-rcfiles</code>
+<a name="index-_002d_002dclear_002drcfiles"></a>
+</dt>
+<dd><p>Cancel all previous <samp>--rcfile</samp> options (standard rcfiles are
+still loaded). See <a href="Lua-Reference.html#rcfiles">rcfiles</a>.
+</p>
+</dd>
+<dt><code>--root &lt;arg&gt;</code>
+<a name="index-_002d_002droot-_003carg_003e"></a>
+</dt>
+<dd><p>Limit the search for a workspace to the specified root directory
+</p>
+</dd>
+<dt><code>--ssh-sign &lt;arg&gt;</code>
+<a name="index-_002d_002dssh_002dsign-_003carg_003e"></a>
+</dt>
+<dd><p>Controls use of ssh-agent. Valid arguments are: &rsquo;yes&rsquo; to use ssh-agent
+to make signatures if possible, &rsquo;no&rsquo; to force use of monotone&rsquo;s
+internal code, &rsquo;only&rsquo; to force use of ssh-agent, &rsquo;check&rsquo; to sign with
+both and compare.
+</p>
+</dd>
+<dt><code>--ticker &lt;arg&gt;</code>
+<a name="index-_002d_002dticker-_003carg_003e"></a>
+</dt>
+<dd><p>Set ticker style; one of &rsquo;count&rsquo;, &rsquo;dot&rsquo;, or &rsquo;none&rsquo;
+</p>
+</dd>
+<dt><code>--timestamps</code>
+<a name="index-_002d_002dtimestamps"></a>
+</dt>
+<dd><p>Show timestamps in front of error, warning, and progress messages.
+</p>
+</dd>
+<dt><code>--version</code>
+<a name="index-_002d_002dversion"></a>
+</dt>
+<dd><p>Print version number, then exit; same as <code>mtn version</code>.
+</p>
+</dd>
+<dt><code>--xargs &lt;arg&gt;</code>
+<a name="index-_002d_002dxargs-_003carg_003e"></a>
+</dt>
+<dt><code>-@ &lt;arg&gt;</code>
+<a name="index-_002d_0040-_003carg_003e"></a>
+</dt>
+<dd><p>Insert command line arguments taken from the given file. A &rsquo;-&rsquo;
+can be used to read the arguments from standard input.
+e.g. <code>--xargs=-</code>
+</p></dd>
+</dl>
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="Common-Options.html#Common-Options" accesskey="n" rel="next">Common Options</a>, Previous: <a href="Global-and-Common-Options.html#Global-and-Common-Options" accesskey="p" rel="prev">Global and Common Options</a>, Up: <a href="Global-and-Common-Options.html#Global-and-Common-Options" accesskey="u" rel="up">Global and Common Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

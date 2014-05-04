@@ -1,72 +1,109 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Validation Hooks - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Hooks.html#Hooks" title="Hooks">
-<link rel="prev" href="GIT-Export-Hooks.html#GIT-Export-Hooks" title="GIT Export Hooks">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Validation-Hooks"></a>
-<p>
-Previous:&nbsp;<a rel="previous" accesskey="p" href="GIT-Export-Hooks.html#GIT-Export-Hooks">GIT Export Hooks</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
-<hr>
-</div>
+<title>monotone documentation: Validation Hooks</title>
 
+<meta name="description" content="monotone documentation: Validation Hooks">
+<meta name="keywords" content="monotone documentation: Validation Hooks">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hooks.html#Hooks" rel="up" title="Hooks">
+<link href="Additional-Lua-Functions.html#Additional-Lua-Functions" rel="next" title="Additional Lua Functions">
+<link href="GIT-Export-Hooks.html#GIT-Export-Hooks" rel="prev" title="GIT Export Hooks">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Validation-Hooks"></a>
+<div class="header">
+<p>
+Previous: <a href="GIT-Export-Hooks.html#GIT-Export-Hooks" accesskey="p" rel="prev">GIT Export Hooks</a>, Up: <a href="Hooks.html#Hooks" accesskey="u" rel="up">Hooks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Validation-Hooks-1"></a>
 <h4 class="subsection">6.1.12 Validation Hooks</h4>
 
 <p>If there is a policy decision to make, Monotone defines certain hooks to
 allow a client to validate or reject certain behaviors.
-
-     <dl>
-<dt><code>validate_changes (</code><var>revision_text</var><code>, </code><var>branchname</var><code>)</code><a name="index-validate_005fchanges-_0028_0040var_007brevision_005ftext_007d_002c-_0040var_007bbranchname_007d_0029-313"></a><dd>
-This hook is called by <samp><span class="command"><a href="mtn-commit.html#mtn-commit">mtn commit</a></span></samp> just after the
+</p>
+<dl compact="compact">
+<dt><code>validate_changes (<var>revision_text</var>, <var>branchname</var>)</code>
+<a name="index-validate_005fchanges-_0028revision_005ftext_002c-branchname_0029"></a>
+</dt>
+<dd>
+<p>This hook is called by <code><a href="Workspace.html#mtn-commit">mtn commit</a></code> just after the
 to-be-committed changes and the branch have been logically verified
-and before the user enters his/her commit message. 
+and before the user enters his/her commit message.
 <var>revision_text</var> is the full text of the changes for this revision,
-which can be parsed with the <code><a href="parse_005fbasic_005fio.html#parse_005fbasic_005fio">parse_basic_io</a></code> function. The
+which can be parsed with the <code><a href="Additional-Lua-Functions.html#parse_005fbasic_005fio">parse_basic_io</a></code> function. The
 second parameter, <var>branchname</var>, is the branch for this commit -
-unless it gets changed in <code><a href="edit_005fcomment.html#edit_005fcomment">edit_comment</a></code> later on.
-
-     <p>If the hook finds the changes satisfactory, it should return
-<code>true, ""</code>. If it finds fault, then it should return <code>false,
+unless it gets changed in <code><a href="User-Defaults.html#edit_005fcomment">edit_comment</a></code> later on.
+</p>
+<p>If the hook finds the changes satisfactory, it should return
+<code>true, &quot;&quot;</code>. If it finds fault, then it should return <code>false,
 reason</code> where <var>reason</var> is a string containing the reason the
 changes were rejected. By default, this hook is not defined and acts
-as if it returned <code>true, ""</code>.
-
-     <br><dt><code>validate_commit_message (</code><var>message</var><code>, </code><var>revision_text</var><code>, </code><var>branchname</var><code>)</code><a name="index-validate_005fcommit_005fmessage-_0028_0040var_007bmessage_007d_002c-_0040var_007brevision_005ftext_007d_002c-_0040var_007bbranchname_007d_0029-314"></a><dd>
-This hook is called by <samp><span class="command"><a href="mtn-commit.html#mtn-commit">mtn commit</a></span></samp> after
-<code><a href="edit_005fcomment.html#edit_005fcomment">edit_comment</a></code>.  <var>message</var> is the result of
+as if it returned <code>true, &quot;&quot;</code>.
+</p>
+</dd>
+<dt><code>validate_commit_message (<var>message</var>, <var>revision_text</var>, <var>branchname</var>)</code>
+<a name="index-validate_005fcommit_005fmessage-_0028message_002c-revision_005ftext_002c-branchname_0029"></a>
+</dt>
+<dd>
+<p>This hook is called by <code><a href="Workspace.html#mtn-commit">mtn commit</a></code> after
+<code><a href="User-Defaults.html#edit_005fcomment">edit_comment</a></code>.  <var>message</var> is the result of
 <code>edit_comment</code> and <var>revision_text</var> is the full text of the
 changes for this revision, which can be parsed with the
-<code><a href="parse_005fbasic_005fio.html#parse_005fbasic_005fio">parse_basic_io</a></code> function.  <var>branchname</var> is parsed from
+<code><a href="Additional-Lua-Functions.html#parse_005fbasic_005fio">parse_basic_io</a></code> function.  <var>branchname</var> is parsed from
 the result of <code>edit_comment</code>.
-
-     <p>If the hook finds the commit message satisfactory, it should return
-<code>true, ""</code>. If it finds fault, then it should return <code>false,
+</p>
+<p>If the hook finds the commit message satisfactory, it should return
+<code>true, &quot;&quot;</code>. If it finds fault, then it should return <code>false,
 reason</code> where <var>reason</var> is a string containing the reason the
 message was rejected. By default, this hook is not defined and acts as
-if it returned <code>true, ""</code>.
-
+if it returned <code>true, &quot;&quot;</code>.
+</p>
+</dd>
 </dl>
 
-</body></html>
 
+
+
+</body>
+</html>

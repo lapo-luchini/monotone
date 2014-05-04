@@ -1,57 +1,96 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Hooks - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Lua-Reference.html#Lua-Reference" title="Lua Reference">
-<link rel="prev" href="Lua-Reference.html#Lua-Reference" title="Lua Reference">
-<link rel="next" href="Additional-Lua-Functions.html#Additional-Lua-Functions" title="Additional Lua Functions">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Hooks"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Additional-Lua-Functions.html#Additional-Lua-Functions">Additional Lua Functions</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Lua-Reference.html#Lua-Reference">Lua Reference</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Lua-Reference.html#Lua-Reference">Lua Reference</a>
-<hr>
-</div>
+<title>monotone documentation: Hooks</title>
 
+<meta name="description" content="monotone documentation: Hooks">
+<meta name="keywords" content="monotone documentation: Hooks">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Lua-Reference.html#Lua-Reference" rel="up" title="Lua Reference">
+<link href="Common-Data-Types.html#Common-Data-Types" rel="next" title="Common Data Types">
+<link href="Lua-Reference.html#Lua-Reference" rel="prev" title="Lua Reference">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Hooks"></a>
+<div class="header">
+<p>
+Next: <a href="Additional-Lua-Functions.html#Additional-Lua-Functions" accesskey="n" rel="next">Additional Lua Functions</a>, Previous: <a href="Lua-Reference.html#Lua-Reference" accesskey="p" rel="prev">Lua Reference</a>, Up: <a href="Lua-Reference.html#Lua-Reference" accesskey="u" rel="up">Lua Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Hooks-1"></a>
 <h3 class="section">6.1 Hooks</h3>
 
 <p>This section documents the existing hook functions and their default
 definitions.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Common-Data-Types.html#Common-Data-Types" accesskey="1">Common Data Types</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers" accesskey="2">Event Notifications and Triggers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="User-Defaults.html#User-Defaults" accesskey="3">User Defaults</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks" accesskey="4">Netsync Permission Hooks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks" accesskey="5">Netsync Transport Hooks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks" accesskey="6">Trust Evaluation Hooks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="External-Diff-Tools.html#External-Diff-Tools" accesskey="7">External Diff Tools</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="External-Merge-Tools.html#External-Merge-Tools" accesskey="8">External Merge Tools</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Selector-Expansion.html#Selector-Expansion" accesskey="9">Selector Expansion</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Attribute-Handling.html#Attribute-Handling">Attribute Handling</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="GIT-Export-Hooks.html#GIT-Export-Hooks">GIT Export Hooks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Validation-Hooks.html#Validation-Hooks">Validation Hooks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
 
-<ul class="menu">
-<li><a accesskey="1" href="Common-Data-Types.html#Common-Data-Types">Common Data Types</a>
-<li><a accesskey="2" href="Event-Notifications-and-Triggers.html#Event-Notifications-and-Triggers">Event Notifications and Triggers</a>
-<li><a accesskey="3" href="User-Defaults.html#User-Defaults">User Defaults</a>
-<li><a accesskey="4" href="Netsync-Permission-Hooks.html#Netsync-Permission-Hooks">Netsync Permission Hooks</a>
-<li><a accesskey="5" href="Netsync-Transport-Hooks.html#Netsync-Transport-Hooks">Netsync Transport Hooks</a>
-<li><a accesskey="6" href="Trust-Evaluation-Hooks.html#Trust-Evaluation-Hooks">Trust Evaluation Hooks</a>
-<li><a accesskey="7" href="External-Diff-Tools.html#External-Diff-Tools">External Diff Tools</a>
-<li><a accesskey="8" href="External-Merge-Tools.html#External-Merge-Tools">External Merge Tools</a>
-<li><a accesskey="9" href="Selector-Expansion.html#Selector-Expansion">Selector Expansion</a>
-<li><a href="Attribute-Handling.html#Attribute-Handling">Attribute Handling</a>
-<li><a href="GIT-Export-Hooks.html#GIT-Export-Hooks">GIT Export Hooks</a>
-<li><a href="Validation-Hooks.html#Validation-Hooks">Validation Hooks</a>
-</ul>
 
-</body></html>
 
+
+</body>
+</html>

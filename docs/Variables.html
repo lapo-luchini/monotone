@@ -1,63 +1,109 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Variables - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Command-Reference.html#Command-Reference" title="Command Reference">
-<link rel="prev" href="Review.html#Review" title="Review">
-<link rel="next" href="Key-and-Cert.html#Key-and-Cert" title="Key and Cert">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
+<title>monotone documentation: Variables</title>
+
+<meta name="description" content="monotone documentation: Variables">
+<meta name="keywords" content="monotone documentation: Variables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Command-Reference.html#Command-Reference" rel="up" title="Command Reference">
+<link href="Key-and-Cert.html#Key-and-Cert" rel="next" title="Key and Cert">
+<link href="Review.html#Review" rel="prev" title="Review">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
 <link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
 </head>
-<body>
-<div class="node">
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
 <a name="Variables"></a>
+<div class="header">
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Key-and-Cert.html#Key-and-Cert">Key and Cert</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Review.html#Review">Review</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference.html#Command-Reference">Command Reference</a>
-<hr>
+Next: <a href="Key-and-Cert.html#Key-and-Cert" accesskey="n" rel="next">Key and Cert</a>, Previous: <a href="Review.html#Review" accesskey="p" rel="prev">Review</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-
+<hr>
+<a name="Variables-1"></a>
 <h3 class="section">4.7 Variables</h3>
-
-     <dl>
-<dt><samp><span class="command">mtn cleanup_workspace_list</span></samp><a name="index-mtn-cleanup_005fworkspace_005flist-162"></a><dd>Removes all invalid workspaces from the list of registered workspaces
+<dl compact="compact">
+<dt><code>mtn cleanup_workspace_list</code>
+<a name="index-mtn-cleanup_005fworkspace_005flist"></a>
+</dt>
+<dd><p>Removes all invalid workspaces from the list of registered workspaces
 of the current database.  A workspace is considered invalid if its
-path does either not contain an <samp><span class="file">_MTN</span></samp> directory anymore or if
+path does either not contain an <samp>_MTN</samp> directory anymore or if
 the configured database for the workspace is a different from the
 current database.
-
-     <p><a name="mtn-register_005fworkspace"></a><br><dt><samp><span class="command">mtn register_workspace [</span><var>workspace_path</var><span class="command">]</span></samp><a name="index-mtn-register_005fworkspace-_005b_0040var_007bworkspace_005fpath_007d_005d-163"></a><dd>
-Registers the given workspace (default the current workspace) in the
-current database, so that it will show up in the output of <samp><span class="command"><a href="mtn-list-databases.html#mtn-list-databases">mtn list databases</a></span></samp> (the database has to be in a managed location for
-<samp><span class="command">list databases</span></samp> to work; see <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>).
-
-     <br><dt><samp><span class="command">mtn set </span><var>domain</var> <var>name</var> <var>value</var></samp><a name="index-mtn-set-_0040var_007bdomain_007d-_0040var_007bname_007d-_0040var_007bvalue_007d-164"></a><dd>Associates <var>value</var> to <var>name</var> in domain <var>domain</var>. 
+</p>
+<a name="mtn-register_005fworkspace"></a></dd>
+<dt><code>mtn register_workspace [<var>workspace_path</var>]</code>
+<a name="index-mtn-register_005fworkspace-_005bworkspace_005fpath_005d"></a>
+</dt>
+<dd>
+<p>Registers the given workspace (default the current workspace) in the
+current database, so that it will show up in the output of <code><a href="Informative.html#mtn-list-databases">mtn list databases</a></code> (the database has to be in a managed location for
+<code>list databases</code> to work; see <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a>).
+</p>
+</dd>
+<dt><code>mtn set <var>domain</var> <var>name</var> <var>value</var></code>
+<a name="index-mtn-set-domain-name-value"></a>
+</dt>
+<dd><p>Associates <var>value</var> to <var>name</var> in domain <var>domain</var>.
 See <a href="Vars.html#Vars">Vars</a> for more information.
-
-     <p><a name="mtn-unregister_005fworkspace"></a><br><dt><samp><span class="command">mtn unregister_workspace [</span><var>workspace_path</var><span class="command">]</span></samp><a name="index-mtn-unregister_005fworkspace-_005b_0040var_007bworkspace_005fpath_007d_005d-165"></a><dd>Unregisters the given workspace (default the current workspace) from
+</p>
+<a name="mtn-unregister_005fworkspace"></a></dd>
+<dt><code>mtn unregister_workspace [<var>workspace_path</var>]</code>
+<a name="index-mtn-unregister_005fworkspace-_005bworkspace_005fpath_005d"></a>
+</dt>
+<dd><p>Unregisters the given workspace (default the current workspace) from
 the current database, so that it will no longer show up in the output
-of <samp><span class="command"><a href="mtn-list-databases.html#mtn-list-databases">mtn list databases</a></span></samp>.
-
-     <br><dt><samp><span class="command">mtn unset </span><var>domain</var> <var>name</var></samp><a name="index-mtn-unset-_0040var_007bdomain_007d-_0040var_007bname_007d-166"></a><dd>Deletes any value associated with <var>name</var> in <var>domain</var>.  See
+of <code><a href="Informative.html#mtn-list-databases">mtn list databases</a></code>.
+</p>
+</dd>
+<dt><code>mtn unset <var>domain</var> <var>name</var></code>
+<a name="index-mtn-unset-domain-name"></a>
+</dt>
+<dd><p>Deletes any value associated with <var>name</var> in <var>domain</var>.  See
 <a href="Vars.html#Vars">Vars</a> for more information.
-
+</p>
+</dd>
 </dl>
 
-</body></html>
 
+
+
+</body>
+</html>

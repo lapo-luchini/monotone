@@ -1,53 +1,88 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Concepts - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="prev" href="index.html#Top" title="Top">
-<link rel="next" href="Tutorial.html#Tutorial" title="Tutorial">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Concepts"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Tutorial.html#Tutorial">Tutorial</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="index.html#Top">Top</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="index.html#Top">Top</a>
-<hr>
-</div>
+<title>monotone documentation: Concepts</title>
 
+<meta name="description" content="monotone documentation: Concepts">
+<meta name="keywords" content="monotone documentation: Concepts">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Versions-of-files.html#Versions-of-files" rel="next" title="Versions of files">
+<link href="index.html#Top" rel="prev" title="Top">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Concepts"></a>
+<div class="header">
+<p>
+Next: <a href="Tutorial.html#Tutorial" accesskey="n" rel="next">Tutorial</a>, Previous: <a href="index.html#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="index.html#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Concepts-1"></a>
 <h2 class="chapter">1 Concepts</h2>
 
 <p>This chapter should familiarize you with the concepts, terminology,
 and behavior described in the remainder of the user manual.  Please
 take a moment to read it, as later sections will assume familiarity
 with these terms.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Versions-of-files.html#Versions-of-files" accesskey="1">Versions of files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tracking changes to single files
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Versions-of-trees.html#Versions-of-trees" accesskey="2">Versions of trees</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tracking changes to collections of files
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Historical-records.html#Historical-records" accesskey="3">Historical records</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tracking the history of changes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Certificates.html#Certificates" accesskey="4">Certificates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tracking extended information
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Storage-and-workflow.html#Storage-and-workflow" accesskey="5">Storage and workflow</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Saving, sending, and receiving changes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Forks-and-merges.html#Forks-and-merges" accesskey="6">Forks and merges</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Managing divergence of code
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Branches.html#Branches" accesskey="7">Branches</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Intentional divergence and automatic merging
+</td></tr>
+</table>
 
-<ul class="menu">
-<li><a accesskey="1" href="Versions-of-files.html#Versions-of-files">Versions of files</a>:            Tracking changes to single files
-<li><a accesskey="2" href="Versions-of-trees.html#Versions-of-trees">Versions of trees</a>:            Tracking changes to collections of files
-<li><a accesskey="3" href="Historical-records.html#Historical-records">Historical records</a>:           Tracking the history of changes
-<li><a accesskey="4" href="Certificates.html#Certificates">Certificates</a>:                 Tracking extended information
-<li><a accesskey="5" href="Storage-and-workflow.html#Storage-and-workflow">Storage and workflow</a>:         Saving, sending, and receiving changes
-<li><a accesskey="6" href="Forks-and-merges.html#Forks-and-merges">Forks and merges</a>:             Managing divergence of code
-<li><a accesskey="7" href="Branches.html#Branches">Branches</a>:                     Intentional divergence and automatic merging
-</ul>
 
-</body></html>
 
+
+</body>
+</html>

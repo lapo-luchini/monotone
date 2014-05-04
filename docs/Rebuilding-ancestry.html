@@ -1,109 +1,133 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Rebuilding ancestry - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Special-Topics.html#Special-Topics" title="Special Topics">
-<link rel="prev" href="Hash-Integrity.html#Hash-Integrity" title="Hash Integrity">
-<link rel="next" href="Regexps.html#Regexps" title="Regexps">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Rebuilding-ancestry"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Regexps.html#Regexps">Regexps</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Hash-Integrity.html#Hash-Integrity">Hash Integrity</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Special-Topics.html#Special-Topics">Special Topics</a>
-<hr>
-</div>
+<title>monotone documentation: Rebuilding ancestry</title>
 
+<meta name="description" content="monotone documentation: Rebuilding ancestry">
+<meta name="keywords" content="monotone documentation: Rebuilding ancestry">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Special-Topics.html#Special-Topics" rel="up" title="Special Topics">
+<link href="Regexps.html#Regexps" rel="next" title="Regexps">
+<link href="Hash-Integrity.html#Hash-Integrity" rel="prev" title="Hash Integrity">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Rebuilding-ancestry"></a>
+<div class="header">
+<p>
+Next: <a href="Regexps.html#Regexps" accesskey="n" rel="next">Regexps</a>, Previous: <a href="Hash-Integrity.html#Hash-Integrity" accesskey="p" rel="prev">Hash Integrity</a>, Up: <a href="Special-Topics.html#Special-Topics" accesskey="u" rel="up">Special Topics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Rebuilding-ancestry-1"></a>
 <h3 class="section">7.3 Rebuilding ancestry</h3>
 
 <p>As described in <a href="Historical-records.html#Historical-records">Historical records</a>, monotone revisions contain the
-<span class="sc">sha1</span> hashes of their predecessors, which in turn contain the
-<span class="sc">sha1</span> hashes of <em>their</em> predecessors, and so on until the
+<small>SHA1</small> hashes of their predecessors, which in turn contain the
+<small>SHA1</small> hashes of <em>their</em> predecessors, and so on until the
 beginning of history.  This means that it is <em>mathematically
 impossible</em> to modify the history of a revision, without some way to
-defeat <span class="sc">sha1</span>.  This is generally a good thing; having immutable
+defeat <small>SHA1</small>.  This is generally a good thing; having immutable
 history is the point of a version control system, after all, and it
 turns out to be very important to building a <em>distributed</em> version
 control system like monotone.
-
+</p>
 <p>It does have one unfortunate consequence, though.  It means that in the
 rare occasion where one <em>needs</em> to change a historical revision, it
-will change the <span class="sc">sha1</span> of that revision, which will change the text
-of its children, which will change their <span class="sc">sha1</span>s, and so on;
+will change the <small>SHA1</small> of that revision, which will change the text
+of its children, which will change their <small>SHA1</small>s, and so on;
 basically the entire history graph will diverge from that point
 (invalidating all certs in the process).
-
+</p>
 <p>In practice there are two situations where this might be necessary:
-     <ul>
-<li>bugs: monotone has occasionally allowed nonsense, uninterpretable
+</p><ul>
+<li> bugs: monotone has occasionally allowed nonsense, uninterpretable
 changesets to be generated and stored in the database, and this was not
-detected until further work had been based off of them. 
-<li>advances in crypto: if or when <span class="sc">sha1</span> is broken, we will need to
-migrate to a different secure hash. 
-</ul>
+detected until further work had been based off of them.
+</li><li> advances in crypto: if or when <small>SHA1</small> is broken, we will need to
+migrate to a different secure hash.
+</li></ul>
 
-<p>Obviously, we hope neither of these things will happen, and we've taken
+<p>Obviously, we hope neither of these things will happen, and we&rsquo;ve taken
 lots of precautions against the first recurring; but it is better to be
 prepared.
-
+</p>
 <p>If either of these events occur, we will provide migration commands and
 explain how to use them for the situation in question; this much is
-necessarily somewhat unpredictable.  In the past we've used the (now
-defunct) <samp><span class="command">db rebuild</span></samp> command, and more recently the <samp><span class="command">db
-rosterify</span></samp> command, for such changes as monotone developed.  These
+necessarily somewhat unpredictable.  In the past we&rsquo;ve used the (now
+defunct) <code>db rebuild</code> command, and more recently the <code>db
+rosterify</code> command, for such changes as monotone developed.  These
 commands were used to recreate revisions with new formats.  Because the
-revision id's changed, all the existing certs that you trust also must
-be reissued, signed with your key.<a rel="footnote" href="#fn-1" name="fnd-1"><sup>1</sup></a>
-
+revision id&rsquo;s changed, all the existing certs that you trust also must
+be reissued, signed with your key.<a name="DOCF2" href="#FOOT2"><sup>2</sup></a>
+</p>
 <p>While such commands can reconstruct the ancestry graph in <em>your</em>
 database, there are practical problems which arise when working in a
 distributed work group.  For example, suppose our group consists of the
 fictional developers Jim and Beth, and they need to rebuild their
 ancestry graph. Jim performs a rebuild, and sends Beth an email telling
-her that he has done so, but the email gets caught by Beth's spam
-filter, she doesn't see it, and she blithely syncs her database with
-Jim's. This creates a problem: Jim and Beth have combined the
+her that he has done so, but the email gets caught by Beth&rsquo;s spam
+filter, she doesn&rsquo;t see it, and she blithely syncs her database with
+Jim&rsquo;s. This creates a problem: Jim and Beth have combined the
 pre-rebuild and post-rebuild databases.  Their databases now contain two
-complete, parallel (but possibly overlapping) copies of their project's
+complete, parallel (but possibly overlapping) copies of their project&rsquo;s
 ancestry.  The &ldquo;bad&rdquo; old revisions that they were trying to get rid of
 are still there, mixed up with the &ldquo;good&rdquo; new revisions.
-
+</p>
 <p>To prevent such messy situations, monotone keeps a table of branch
-<dfn>epochs</dfn> in each database. An epoch is just a large bit string
-associated with a branch. Initially each branch's epoch is zero. Most
+<em>epochs</em> in each database. An epoch is just a large bit string
+associated with a branch. Initially each branch&rsquo;s epoch is zero. Most
 monotone commands ignore epochs; they are relevant in only two
 circumstances:
-
-     <ul>
-<li>When monotone rebuilds ancestry, it generates a new <em>random</em>
+</p>
+<ul>
+<li> When monotone rebuilds ancestry, it generates a new <em>random</em>
 epoch for each branch in the database.
 
-     <li>When monotone runs netsync between databases, it checks to make sure
+</li><li> When monotone runs netsync between databases, it checks to make sure
 that all branches involved in the synchronization have the same
 epochs. If any epochs differ, the netsync is aborted with no changes
 made to either database. If either side is seeing a branch for the
 first time, it adopts the epoch of the other side.
 
-</ul>
+</li></ul>
 
 <p>Thus, when a user rebuilds their ancestry graph, they select a new
 epoch and thus effectively disassociate with the group of colleagues
@@ -111,58 +135,68 @@ they had previously been communicating with. Other members of that
 group can then decide whether to follow the rebuild user into a new
 group &mdash; by pulling the newly rebuilt ancestry &mdash; or to remain
 behind in the old group.
-
-<p>In our example, if Jim and Beth have epochs, Jim's rebuild creates a
+</p>
+<p>In our example, if Jim and Beth have epochs, Jim&rsquo;s rebuild creates a
 new epoch for their branch, in his database.  This causes monotone to
-reject netsync operations between Jim and Beth; it doesn't matter if
-Beth loses Jim's email. When she tries to synchronize with him, she
+reject netsync operations between Jim and Beth; it doesn&rsquo;t matter if
+Beth loses Jim&rsquo;s email. When she tries to synchronize with him, she
 receives an error message indicating that the epoch does not
 match. She must then discuss the matter with Jim and settle on a new
-course of action &mdash; probably pulling Jim's database into a fresh
-database on Beth's end &ndash; before future synchronizations will succeed.
-
+course of action &mdash; probably pulling Jim&rsquo;s database into a fresh
+database on Beth&rsquo;s end &ndash; before future synchronizations will succeed.
+</p>
+<a name="Best-practices"></a>
 <h3 class="heading">Best practices</h3>
 
 <p>The previous section described the theory and rationale behind rebuilds
 and epochs.  Here we discuss the practical consequences of that
 discussion.
-
+</p>
 <p>If you decide you must rebuild your ancestry graph &mdash; generally by
 announcement of a bug from the monotone developers &mdash; the first thing
 to do is get everyone to sync their changes with the central server;
 if people have unshared changes when the database is rebuilt, they
 will have trouble sharing them afterwards.
-
+</p>
 <p>Next, the project should pick a designated person to take down the
 netsync server, rebuild their database, and put the server back up
 with the rebuilt ancestry in it.  Everybody else should then pull this
 history into a fresh database, check out again from this database, and
 continue working as normal.
-
+</p>
 <p>In complicated situations, where people have private branches, or
-ancestries cross organizational boundaries, matters are more complex. 
+ancestries cross organizational boundaries, matters are more complex.
 The basic approach is to do a local rebuild, then after carefully
 examining the new revision IDs to convince yourself that the rebuilt
-graph is the same as the upstream subgraph, use the special <samp><span class="command">db
-epoch</span></samp> commands to force your local epochs to match the upstream ones. 
+graph is the same as the upstream subgraph, use the special <code>db
+epoch</code> commands to force your local epochs to match the upstream ones.
 (You may also want to do some fiddling with certs, to avoid getting
 duplicate copies of all of them; if this situation ever arises in real
-life we'll figure out how exactly that should work.)  Be very careful
-when doing this; you're explicitly telling monotone to let you shoot
+life we&rsquo;ll figure out how exactly that should work.)  Be very careful
+when doing this; you&rsquo;re explicitly telling monotone to let you shoot
 yourself in the foot, and it will let you.
-
+</p>
 <p>Fortunately, this process should be extremely rare; with luck, it will
-never happen at all.  But this way we're prepared.
-
+never happen at all.  But this way we&rsquo;re prepared.
+</p>
 <div class="footnote">
 <hr>
-<h4>Fotnoter</h4><p class="footnote"><small>[<a name="fn-1" href="#fnd-1">1</a>]</small> Regardless of who originally
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT2" href="#DOCF2">(2)</a></h3>
+<p>Regardless of who originally
 signed the certs, after the rebuild they will be signed by you.  This
 means you should be somewhat careful when rebuilding, but it is
-unavoidable &mdash; if you could sign with other people's keys, that would
+unavoidable &mdash; if you could sign with other people&rsquo;s keys, that would
 be a rather serious security problem!</p>
+</div>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Regexps.html#Regexps" accesskey="n" rel="next">Regexps</a>, Previous: <a href="Hash-Integrity.html#Hash-Integrity" accesskey="p" rel="prev">Hash Integrity</a>, Up: <a href="Special-Topics.html#Special-Topics" accesskey="u" rel="up">Special Topics</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-<hr></div>
 
-</body></html>
 
+</body>
+</html>

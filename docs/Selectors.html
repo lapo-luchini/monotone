@@ -1,216 +1,314 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Selectors - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Other-Transports.html#Other-Transports" title="Other Transports">
-<link rel="next" href="Restrictions.html#Restrictions" title="Restrictions">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Selectors"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Restrictions.html#Restrictions">Restrictions</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Other-Transports.html#Other-Transports">Other Transports</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Selectors</title>
 
+<meta name="description" content="monotone documentation: Selectors">
+<meta name="keywords" content="monotone documentation: Selectors">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Restrictions.html#Restrictions" rel="next" title="Restrictions">
+<link href="Other-Transports.html#Other-Transports" rel="prev" title="Other Transports">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Selectors"></a>
+<div class="header">
+<p>
+Next: <a href="Restrictions.html#Restrictions" accesskey="n" rel="next">Restrictions</a>, Previous: <a href="Other-Transports.html#Other-Transports" accesskey="p" rel="prev">Other Transports</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Selectors-1"></a>
 <h3 class="section">3.2 Selectors</h3>
 
 <p>Revisions can be specified on the monotone command line, precisely, by
-entering the entire 40-character hexadecimal <span class="sc">sha1</span> code. This can
+entering the entire 40-character hexadecimal <small>SHA1</small> code. This can
 be cumbersome, so monotone also allows a more general syntax called
 &ldquo;selectors&rdquo; which is less precise but more &ldquo;human friendly&rdquo;. Any
 command which expects a precise revision ID can also accept a selector
 in its place; in fact a revision ID is just a special type of selector
 which is very precise.
-
+</p>
+<a name="Simple-examples"></a>
 <h3 class="heading">Simple examples</h3>
 
 <p>Some selector examples are helpful in clarifying the idea:
-
-     <dl>
-<dt><code>a432</code><dd>Revision IDs beginning with the string <code>a432</code>
-<br><dt><code>graydon@pobox.com/2004-04</code><dd>Revisions written by <code>graydon@pobox.com</code> in April 2004. 
-<br><dt><code>"jrh@example.org/2 weeks ago"</code><dd>Revisions written by <code>jrh@example.org</code> 2 weeks ago. 
-<br><dt><code>graydon/net.venge.monotone.win32/yesterday</code><dd>Revisions in the <code>net.venge.monotone.win32</code> branch, written by
-<code>graydon</code>, yesterday. 
+</p>
+<dl compact="compact">
+<dt><code>a432</code></dt>
+<dd><p>Revision IDs beginning with the string <code>a432</code>
+</p></dd>
+<dt><code>graydon@pobox.com/2004-04</code></dt>
+<dd><p>Revisions written by <code>graydon@pobox.com</code> in April 2004.
+</p></dd>
+<dt><code>&quot;jrh@example.org/2 weeks ago&quot;</code></dt>
+<dd><p>Revisions written by <code>jrh@example.org</code> 2 weeks ago.
+</p></dd>
+<dt><code>graydon/net.venge.monotone.win32/yesterday</code></dt>
+<dd><p>Revisions in the <code>net.venge.monotone.win32</code> branch, written by
+<code>graydon</code>, yesterday.
+</p></dd>
 </dl>
 
-<p>A moment's examination reveals that these specifications are &ldquo;fuzzy&rdquo;
+<p>A moment&rsquo;s examination reveals that these specifications are &ldquo;fuzzy&rdquo;
 and indeed may return multiple values, or may be ambiguous. When
 ambiguity arises, monotone will inform you that more detail is
 required, and list various possibilities. The precise specification
 of selectors follows.
+</p>
 
+<a name="Selectors-in-detail"></a>
 <h3 class="heading">Selectors in detail</h3>
 
 <p>A selector is a combination of a selector type, which is a single
 ASCII character, followed by a <code>:</code> character and a selector
 string. All selectors strings except for selector type <code>c</code>
 are just values. The value is matched against identifiers or certs,
-depending on its type, in an attempt to match a single revision. 
+depending on its type, in an attempt to match a single revision.
 Selectors are matched as prefixes. The current set of selection
 types are:
-
-     <dl>
-<dt>Generic cert selector<dd>Uses selector type <code>c</code>.  The selector string has the syntax
+</p>
+<dl compact="compact">
+<dt>Generic cert selector</dt>
+<dd><p>Uses selector type <code>c</code>.  The selector string has the syntax
 <var>name</var> or <var>name</var><code>=</code><var>value</var>.  The former syntax will
 select any revision that has a cert with that name, regardless of
 value; the latter will match any revision that has a cert with that
 name and value.  Values to match for can have shell wildcards.  For
 example, <code>c:tag</code> matches all revisions that have a tag, and
 <code>c:tag=monotone-0.25</code> will match the revision tagged
-<code>monotone-0.25</code>.  (See also the <code>t</code> selector below.) 
-<br><dt>Author selection<dd>Uses selector type <code>a</code>. For example, <code>a:graydon</code> matches
-<code>author</code> certs where the cert value contains <code>graydon</code>. 
-<br><dt>Key selection<dd>Uses selector type <code>k</code>. For example, <code>k:graydon@pobox.com</code> matches
+<code>monotone-0.25</code>.  (See also the <code>t</code> selector below.)
+</p></dd>
+<dt>Author selection</dt>
+<dd><p>Uses selector type <code>a</code>. For example, <code>a:graydon</code> matches
+<code>author</code> certs where the cert value contains <code>graydon</code>.
+</p></dd>
+<dt>Key selection</dt>
+<dd><p>Uses selector type <code>k</code>. For example, <code>k:graydon@pobox.com</code> matches
 all revisions where at least one cert was signed by the key
-<code>graydon@pobox.com</code>.  Instead of the key's given name, the local
-name or the full hash ID of the key can be specified as well. 
-<br><dt>Branch selection<dd>Uses selector type <code>b</code>. For example, <code>b:net.venge.monotone</code> matches
-<code>branch</code> certs where the cert value is <code>net.venge.monotone</code>. 
+<code>graydon@pobox.com</code>.  Instead of the key&rsquo;s given name, the local
+name or the full hash ID of the key can be specified as well.
+</p></dd>
+<dt>Branch selection</dt>
+<dd><p>Uses selector type <code>b</code>. For example, <code>b:net.venge.monotone</code> matches
+<code>branch</code> certs where the cert value is <code>net.venge.monotone</code>.
 Values to match for can have shell wildcards.  If you give a bare <code>b:</code>
 monotone will require you to be in a workspace, and will use the branch
-value recorded in your _MTN/options file. 
-<br><dt>Heads selection<dd>Uses selector type <code>h</code>. For example, <code>h:net.venge.monotone</code> matches
+value recorded in your _MTN/options file.
+</p></dd>
+<dt>Heads selection</dt>
+<dd><p>Uses selector type <code>h</code>. For example, <code>h:net.venge.monotone</code> matches
 <code>branch</code> certs where the cert value is <code>net.venge.monotone</code> and
 the associated revision is a head revision on that branch.  Values to match
 for can have shell wildcards like the branch selector.  If you give a bare
 <code>h:</code> monotone will require you to be in a workspace, and use the branch
-recorded in your _MTN/options file. 
-<br><dt>Date selection<dd>Uses selector type <code>d</code>. For example, <code>d:2004-04</code> matches
+recorded in your _MTN/options file.
+</p></dd>
+<dt>Date selection</dt>
+<dd><p>Uses selector type <code>d</code>. For example, <code>d:2004-04</code> matches
 <code>date</code> certs where the cert value begins with
-<code>2004-04</code>. This selector also accepts expanded date syntax (see below). 
-<br><dt>Message selection<dd>Uses selector type <code>m</code>. For example <code>m:*foobar*</code> matches
+<code>2004-04</code>. This selector also accepts expanded date syntax (see below).
+</p></dd>
+<dt>Message selection</dt>
+<dd><p>Uses selector type <code>m</code>. For example <code>m:*foobar*</code> matches
 <code>changelog</code> and <code>comment</code> certs where the cert value
-contains the glob <code>*foobar*</code>. 
-<br><dt>"Earlier or equal than" selection<dd>Uses selector type <code>e</code>. For example, <code>e:2004-04-25</code> matches
+contains the glob <code>*foobar*</code>.
+</p></dd>
+<dt>&quot;Earlier or equal than&quot; selection</dt>
+<dd><p>Uses selector type <code>e</code>. For example, <code>e:2004-04-25</code> matches
 <code>date</code> certs where the cert value is less or equal than
 <code>2004-04-25T00:00:00</code>. If the time component is unspecified,
 monotone will assume 00:00:00. This selector also accepts expanded date
 syntax (see below)
-<br><dt>"Later than" selection<dd>Uses selector type <code>l</code>. For example, <code>l:2004-04-25</code> matches
+</p></dd>
+<dt>&quot;Later than&quot; selection</dt>
+<dd><p>Uses selector type <code>l</code>. For example, <code>l:2004-04-25</code> matches
 <code>date</code> certs where the cert value is strictly greater than
 <code>2004-04-25T00:00:00</code>. If the time component is unspecified,
 monotone will assume 00:00:00. This selector also accepts expanded date
 syntax (see below)
-<br><dt>Identifier selection<dd>Uses selector type <code>i</code>. For example, <code>i:0f3a</code> matches
-revision IDs which begin with <code>0f3a</code>. 
-<br><dt>Parent selection<dd>Uses selector type <code>p</code>. For example, <code>p:0f3a</code> matches the
+</p></dd>
+<dt>Identifier selection</dt>
+<dd><p>Uses selector type <code>i</code>. For example, <code>i:0f3a</code> matches
+revision IDs which begin with <code>0f3a</code>.
+</p></dd>
+<dt>Parent selection</dt>
+<dd><p>Uses selector type <code>p</code>. For example, <code>p:0f3a</code> matches the
 revision IDs which are the parent of the revision ID which begins with
 <code>0f3a</code>. If you give a bare <code>p:</code>, monotone will require you to be in
-a workspace, and query the parent of the base workspace revision. 
-<br><dt>Update selection<dd>Uses selector type <code>u</code>. This selector must be used from within a
+a workspace, and query the parent of the base workspace revision.
+</p></dd>
+<dt>Update selection</dt>
+<dd><p>Uses selector type <code>u</code>. This selector must be used from within a
 workspace and must not have any associated value. It matches the base
-revision ID of the workspace before the last <samp><span class="command">update</span></samp> command
+revision ID of the workspace before the last <code>update</code> command
 was executed. This can be useful for reviewing incoming
 revisions. After each update operation, or at least before the next
 update operation, run a command similar to the following:
-     <pre class="smallexample">     $ mtn log --to u: --diffs
-</pre>
-     <p>to log all revisions back to the last update. It can also be
+</p><div class="smallexample">
+<pre class="smallexample">$ mtn log --to u: --diffs
+</pre></div>
+<p>to log all revisions back to the last update. It can also be
 used for quickly jumping between two different revisions. For example,
 the following command:
-     <pre class="smallexample">     $ mtn update -r u:
-</pre>
-     <p>will update back to the previous update revision. Repeating this
-command will swap the current and previous update revision. 
-<br><dt>Tag selection<dd>Uses selector type <code>t</code>. For example, <code>t:monotone-0.11</code> matches
-<code>tag</code> certs where the cert value begins with <code>monotone-0.11</code>. 
-Values to match for can have shell wildcards. 
-<br><dt>Workspace base revision<dd>Uses selector type <code>w</code>. This selector must be used from within a
+</p><div class="smallexample">
+<pre class="smallexample">$ mtn update -r u:
+</pre></div>
+<p>will update back to the previous update revision. Repeating this
+command will swap the current and previous update revision.
+</p></dd>
+<dt>Tag selection</dt>
+<dd><p>Uses selector type <code>t</code>. For example, <code>t:monotone-0.11</code> matches
+<code>tag</code> certs where the cert value begins with <code>monotone-0.11</code>.
+Values to match for can have shell wildcards.
+</p></dd>
+<dt>Workspace base revision</dt>
+<dd><p>Uses selector type <code>w</code>. This selector must be used from within a
 workspace and must not have any associated value. It matches the base
-revision ID(s) this workspace is based on. 
+revision ID(s) this workspace is based on.
+</p></dd>
 </dl>
 
 <p>Further selector types may be added in the future.
-
+</p>
+<a name="Composite-selectors"></a>
 <h3 class="heading">Composite selectors</h3>
 
 <p>Selectors may be combined with <code>and</code> and <code>or</code> operators and
-parentheses, and may be modified using a function-call style syntax. 
+parentheses, and may be modified using a function-call style syntax.
 The recognized special characters are <code>/</code>, <code>|</code>, <code>;</code>, <code>(</code>
 and <code>)</code>, and <code>\</code> (forward slash, pipe, semicolon, left and right
 parentheses, and backslash); to use any of these characters in a selector value,
 precede it with a backslash (<code>\</code>).
-
+</p>
 <p>The <code>and</code> operator is the <code>/</code> character. For example,
 the selector <code>a:graydon/d:2004-04</code> can be used to select a
 revision which has an <code>author</code> cert beginning with <code>graydon</code>
 <em>as well as</em> a <code>date</code> cert beginning with <code>2004-04</code>.
-
+</p>
 <p>The <code>or</code> operator is the <code>|</code> character. For example, the selector
 <code>h:some-feature-branch|h:other-feature-branch</code> can be used to select the
 heads of two specific branches.
-
+</p>
 <p>There are also several selector functions defined, which take one or more
 selectors as arguments. The general form for these is
 <code>name '(' selector [ ';' selector ... ] ')'</code>, that is, arguments are
 enclosed in parentheses and separated by semicolons. These are:
-     <dl>
-<dt><code>difference(A;B)</code><dd>Set difference; this returns all revisions selected by A but not by B. For
+</p><dl compact="compact">
+<dt><code>difference(A;B)</code></dt>
+<dd><p>Set difference; this returns all revisions selected by A but not by B. For
 example, <code>difference(a:graydon;b:net.venge.monotone)</code> would return all
 revisions which have an <code>author</code> cert beginning with <code>graydon</code> which
-are not in the branch <code>net.venge.monotone</code>. 
-<br><dt><code>lca(A;B)</code><dd>Least common ancestors; this is identical to
+are not in the branch <code>net.venge.monotone</code>.
+</p></dd>
+<dt><code>not(A)</code></dt>
+<dd><p>Set complement; this returns all revisions not selected by A. For example,
+<code>not(c:testresult)</code> would return all revisions which do not have any
+<code>testresult</code> certs. Conceptually <code>not(A)</code> is equivalent to
+<code>difference(*, A)</code>, where <code>*</code> selects all revisions. The previous
+example to return all revisions which have an <code>author</code> cert beginning
+with <code>graydon</code> and are not in the branch <code>net.venge.monotone</code>,
+can be written as <code>a:graydon/not(b:net.venge.monotone)</code>.
+</p></dd>
+<dt><code>lca(A;B)</code></dt>
+<dd><p>Least common ancestors; this is identical to
 <code>max((ancestors(A)|A)/(ancestors(B)|B))</code>,
 but it may be faster and is certainly more convenient to type. For example,
 <code>lca(h:net.venge.monotone;h:net.venge.monotone.extended-selectors)</code> would
 return the last propagate between the given branches, or the branch point if
 there were no subsequent propagates yet. This could be particularly useful with
-the <code>diff</code> command, to see exactly what has changed on a given branch. 
-<br><dt><code>max(A)</code><dd>Erase ancestors; this returns all revisions selected by <code>A</code> which are not
+the <code>diff</code> command, to see exactly what has changed on a given branch.
+</p></dd>
+<dt><code>max(A)</code></dt>
+<dd><p>Erase ancestors; this returns all revisions selected by <code>A</code> which are not
 ancestors of other revisions selected by <code>A</code>. For example,
 <code>max(b:net.venge.monotone/a:graydon)</code> would return the latest revision(s)
 on branch <code>net.venge.monotone</code> which have an <code>author</code> cert beginning
-with <code>graydon</code>. 
-<br><dt><code>ancestors(A)</code><dd>Strict ancestors; returns all revisions which are an ancestor of a revision
+with <code>graydon</code>.
+</p></dd>
+<dt><code>min(A)</code></dt>
+<dd><p>Erase descendants; this returns all revisions selected by <code>A</code> which are not
+descendants of other revisions selected by <code>A</code>. For example,
+<code>min(b:net.venge.monotone)</code> would return the earliest revision(s)
+on branch <code>net.venge.monotone</code>.
+</p></dd>
+<dt><code>ancestors(A)</code></dt>
+<dd><p>Strict ancestors; returns all revisions which are an ancestor of a revision
 selected by <code>A</code>. For example, <code>ancestors(b:net.venge.monotone)</code>
 would return all revisions in branch <code>net.venge.monotone</code> except for the
 branch heads, and all revisions in branches which have been merged back into
-<code>net.venge.monotone</code>. 
-<br><dt><code>descendants(A)</code><dd>Strict descendants; returns all revisions which are a descendant of a revision
+<code>net.venge.monotone</code>.
+</p></dd>
+<dt><code>descendants(A)</code></dt>
+<dd><p>Strict descendants; returns all revisions which are a descendant of a revision
 selected by <code>A</code>. For example,
 <code>descendants(b:net.venge.monotone/a:graydon)</code> would return all revisions
 which are descended from a revision which is in branch <code>net.venge.monotone</code>
-and has an <code>author</code> cert beginning with <code>graydon</code>. 
-<br><dt><code>parents(A)</code><dd>Returns all revisions which are a parent of a revision selected by <code>A</code>. 
+and has an <code>author</code> cert beginning with <code>graydon</code>.
+</p></dd>
+<dt><code>parents(A)</code></dt>
+<dd><p>Returns all revisions which are a parent of a revision selected by <code>A</code>.
 For example, <code>parents(m:*foobar*)</code> would return the parents of any
 revisions which have <code>comment</code> or <code>changelog</code> certs containing the
-word <code>foobar</code>. 
-<br><dt><code>children(A)</code><dd>Returns all revisions which are a child of a revision selected by <code>A</code>. 
+word <code>foobar</code>.
+</p></dd>
+<dt><code>children(A)</code></dt>
+<dd><p>Returns all revisions which are a child of a revision selected by <code>A</code>.
 For example, <code>children(m:*foobar*)</code> would return the children of any
 revisions which have <code>comment</code> or <code>changelog</code> certs containing the
-word <code>foobar</code>. 
-<br><dt><code>pick(A)</code><dd>Picks one of the revisions selected by <code>A</code>, and returns that. For example,
+word <code>foobar</code>.
+</p></dd>
+<dt><code>pick(A)</code></dt>
+<dd><p>Picks one of the revisions selected by <code>A</code>, and returns that. For example,
 <code>h:some-branch</code> is often used with <code>mtn update</code>, but will fail if
 <code>some-branch</code> has multiple heads. Using <code>pick(h:some-branch)</code> instead
-will always choose a single head, and not fail if there is more than one. 
+will always choose a single head, and not fail if there is more than one.
+</p></dd>
 </dl>
 
+<a name="Selector-expansion"></a>
 <h3 class="heading">Selector expansion</h3>
 
 <p>Before selectors are passed to the database, they are expanded using a
-Lua hook: <a href="expand_005fselector.html#expand_005fselector">expand_selector</a>. The default definition of this hook
+Lua hook: <a href="Selector-Expansion.html#expand_005fselector">expand_selector</a>. The default definition of this hook
 attempts to guess a number of common forms for selection, allowing you
 to omit selector types in many cases. For example, the hook guesses
 that the typeless selector <code>jrh@example.org</code> is an author
@@ -219,40 +317,62 @@ selector, due to its syntactic form, so modifies it to read
 type to values which &ldquo;look like&rdquo; partial hex strings, email
 addresses, branch names, or date specifications. For the complete
 source code of the hook, see <a href="Default-hooks.html#Default-hooks">Default hooks</a>.
-
+</p>
+<a name="Expanding-dates"></a>
 <h3 class="heading">Expanding dates</h3>
 
 <p>All date-related selectors (<code>d</code>, <code>e</code>, <code>l</code>) support an
 English-like syntax similar to CVS.  This syntax is expanded to the
-numeric format by the Lua hook <a href="expand_005fdate.html#expand_005fdate">expand_date</a>. 
+numeric format by the Lua hook <a href="Selector-Expansion.html#expand_005fdate">expand_date</a>.
 The allowed date formats are:
-     <dl>
-<dt><code>now</code><dd>Expands to the current date and time. 
-<br><dt><code>today</code><dd>Expands to today's date. <code>e</code> and <code>l</code> selectors assume time 00:00:00
-<br><dt><code>yesterday</code><dd>Expands to yesterday's date. <code>e</code> and <code>l</code> selectors assume
+</p><dl compact="compact">
+<dt><code>now</code></dt>
+<dd><p>Expands to the current date and time.
+</p></dd>
+<dt><code>today</code></dt>
+<dd><p>Expands to today&rsquo;s date. <code>e</code> and <code>l</code> selectors assume time 00:00:00
+</p></dd>
+<dt><code>yesterday</code></dt>
+<dd><p>Expands to yesterday&rsquo;s date. <code>e</code> and <code>l</code> selectors assume
 time 00:00:00
-<br><dt><code>&lt;number&gt; {minute|hour} &lt;ago&gt;</code><dd>Expands to today date and time, minus the specified <code>number</code> of
-minutes|hours. 
-<br><dt><code>&lt;number&gt; {day|week|month|year} &lt;ago&gt;</code><dd>Expands to today date, minus the specified <code>number</code> of
+</p></dd>
+<dt><code>&lt;number&gt; {minute|hour} &lt;ago&gt;</code></dt>
+<dd><p>Expands to today date and time, minus the specified <code>number</code> of
+minutes|hours.
+</p></dd>
+<dt><code>&lt;number&gt; {day|week|month|year} &lt;ago&gt;</code></dt>
+<dd><p>Expands to today date, minus the specified <code>number</code> of
 days|weeks|months|years. <code>e</code> and <code>l</code> selectors assume time
 00:00:00
-<br><dt><code>&lt;year&gt;-&lt;month&gt;[-day[Thour:minute:second]]</code><dd>Expands to the supplied year/month. The day and time component are
+</p></dd>
+<dt><code>&lt;year&gt;-&lt;month&gt;[-day[Thour:minute:second]]</code></dt>
+<dd><p>Expands to the supplied year/month. The day and time component are
 optional. If missing, <code>e</code> and <code>l</code> selectors assume the first
-day of month and time 00:00:00. 
-The time component, if supplied, must be complete to the second. 
+day of month and time 00:00:00.
+The time component, if supplied, must be complete to the second.
+</p></dd>
 </dl>
 
+<a name="Typeless-selection"></a>
 <h3 class="heading">Typeless selection</h3>
 
 <p>If, after expansion, a selector still has no type, it is matched as a
 special &ldquo;unknown&rdquo; selector type, which will match either a tag, an
 author, or a branch. This costs slightly more database access, but
-often permits simple selection using an author's login name and a
+often permits simple selection using an author&rsquo;s login name and a
 date. For example, the selector
 <code>graydon/net.venge.monotone.win32/yesterday</code> would pass through
 the selector <code>graydon</code> as an unknown selector; so long as there
 are no branches or tags beginning with the string <code>graydon</code> this
 is just as effective as specifying <code>a:graydon</code>.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Restrictions.html#Restrictions" accesskey="n" rel="next">Restrictions</a>, Previous: <a href="Other-Transports.html#Other-Transports" accesskey="p" rel="prev">Other Transports</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

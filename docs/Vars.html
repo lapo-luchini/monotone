@@ -1,113 +1,164 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Vars - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Advanced-Uses.html#Advanced-Uses" title="Advanced Uses">
-<link rel="prev" href="Quality-Assurance.html#Quality-Assurance" title="Quality Assurance">
-<link rel="next" href="Managed-Databases.html#Managed-Databases" title="Managed Databases">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Vars"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Managed-Databases.html#Managed-Databases">Managed Databases</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Quality-Assurance.html#Quality-Assurance">Quality Assurance</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Advanced-Uses.html#Advanced-Uses">Advanced Uses</a>
-<hr>
-</div>
+<title>monotone documentation: Vars</title>
 
+<meta name="description" content="monotone documentation: Vars">
+<meta name="keywords" content="monotone documentation: Vars">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Uses.html#Advanced-Uses" rel="up" title="Advanced Uses">
+<link href="Managed-Databases.html#Managed-Databases" rel="next" title="Managed Databases">
+<link href="Quality-Assurance.html#Quality-Assurance" rel="prev" title="Quality Assurance">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Vars"></a>
+<div class="header">
+<p>
+Next: <a href="Managed-Databases.html#Managed-Databases" accesskey="n" rel="next">Managed Databases</a>, Previous: <a href="Quality-Assurance.html#Quality-Assurance" accesskey="p" rel="prev">Quality Assurance</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Vars-1"></a>
 <h3 class="section">3.9 Vars</h3>
 
-<p>Every monotone database has a set of <em>vars</em> associated with it. 
+<p>Every monotone database has a set of <em>vars</em> associated with it.
 Vars are simple configuration variables that monotone refers to in some
 circumstances; they are used for configuration that monotone needs to be
 able to modify itself, and that should be per-database (rather than
 per-user or per-workspace, both of which are supported by
-<samp><span class="file">monotonerc</span></samp> scripts).  Vars are local to a database, and never
+<samp>monotonerc</samp> scripts).  Vars are local to a database, and never
 transferred by netsync.
-
-<p>A var is a <em>name</em> = <em>value</em> pairing inside a <em>domain</em>. 
+</p>
+<p>A var is a <em>name</em> = <em>value</em> pairing inside a <em>domain</em>.
 Domains define what the vars inside it are used for; for instance, one
 domain might contain database-global settings, and particular vars
-inside it would define things like that database's default netsync
+inside it would define things like that database&rsquo;s default netsync
 server.  Another domain might contain key fingerprints for servers that
 monotone has interacted with in the past, to detect man-in-the-middle
 attacks; the vars inside this domain would map server names to their
 fingerprints.
-
-<p>You can set vars with the <samp><span class="command">set</span></samp> command, delete them with the
-<samp><span class="command">unset</span></samp> command, and see them with the <samp><span class="command">ls vars</span></samp>
+</p>
+<p>You can set vars with the <code>set</code> command, delete them with the
+<code>unset</code> command, and see them with the <code>ls vars</code>
 command.  See the documentation for these specific commands for more
 details.
-
+</p>
+<a name="Existing-vars"></a>
 <h3 class="heading">Existing vars</h3>
 
 <p>There are several pre-defined domains that monotone knows about:
-
-     <dl>
-<dt><code>database</code><dd>Contains database-global configuration information.  Defined names are:
-
-          <dl>
-<dt><code>default-include-pattern</code><dd>The default global branch glob pattern for netsync operations to use. 
+</p>
+<dl compact="compact">
+<dt><code>database</code></dt>
+<dd><p>Contains database-global configuration information.  Defined names are:
+</p>
+<dl compact="compact">
+<dt><code>default-include-pattern</code></dt>
+<dd><p>The default global branch glob pattern for netsync operations to use.
 Automatically set by first use of netsync, and by any netsync that
-uses the <samp><span class="option">--set-default</span></samp> option. 
-<br><dt><code>default-exclude-pattern</code><dd>The default global branch exclusion glob pattern for netsync operations to
+uses the <samp>--set-default</samp> option.
+</p></dd>
+<dt><code>default-exclude-pattern</code></dt>
+<dd><p>The default global branch exclusion glob pattern for netsync operations to
 use. Automatically set by first use of netsync, and by any netsync
-that uses the <samp><span class="option">--set-default</span></samp> option. 
-<br><dt><code>default-server</code><dd>The default server for netsync operations to use.  Automatically set
+that uses the <samp>--set-default</samp> option.
+</p></dd>
+<dt><code>default-server</code></dt>
+<dd><p>The default server for netsync operations to use.  Automatically set
 by first use of netsync, and by any netsync that uses the
-<samp><span class="option">--set-default</span></samp> option. 
-<br><dt><code>delta-direction</code><dd>This tells monotone whether to store &lsquo;<samp><span class="samp">reverse</span></samp>&rsquo; deltas (the default),
-&lsquo;<samp><span class="samp">forward</span></samp>&rsquo; deltas, or &lsquo;<samp><span class="samp">both</span></samp>&rsquo; kinds of deltas for reconstructing
+<samp>--set-default</samp> option.
+</p></dd>
+<dt><code>delta-direction</code></dt>
+<dd><p>This tells monotone whether to store &lsquo;<samp>reverse</samp>&rsquo; deltas (the default),
+&lsquo;<samp>forward</samp>&rsquo; deltas, or &lsquo;<samp>both</samp>&rsquo; kinds of deltas for reconstructing
 versions of files. Reverse deltas are faster when inspecting recent files,
 while forward deltas are much faster for sending over the network. This
-should probably be set to &lsquo;<samp><span class="samp">both</span></samp>&rsquo; for a server database, unless disk
+should probably be set to &lsquo;<samp>both</samp>&rsquo; for a server database, unless disk
 space is severely limited. Note that as <em>receiving</em> deltas involves
 reconstructing the file version that the delta was made against, a server
 using a database with only forward deltas will be somewhat slower at
 receiving new revisions unless your particular history graph is highly
 linear.
-
-          <p>Changing this value does not affect deltas that have already been stored. 
-<br><dt><code>known-workspaces</code><dd>Records all registered workspaces for the current databases.  monotone will
-track the contents of this variable automatically for you in the background. 
+</p>
+<p>Changing this value does not affect deltas that have already been stored.
+</p></dd>
+<dt><code>known-workspaces</code></dt>
+<dd><p>Records all registered workspaces for the current databases.  monotone will
+track the contents of this variable automatically for you in the background.
+</p></dd>
 </dl>
 
-     <br><dt><code>known-servers</code><dd>Contains key hashes for servers that we have netsynced with in the
-past.  Analogous to <samp><span class="command">ssh</span></samp>'s <samp><span class="file">known_hosts</span></samp> file, this is
+</dd>
+<dt><code>known-servers</code></dt>
+<dd><p>Contains key hashes for servers that we have netsynced with in the
+past.  Analogous to <code>ssh</code>&rsquo;s <samp>known_hosts</samp> file, this is
 needed to detect man-in-the-middle attacks.  Automatically set the first
-time you netsync with any given server.  If that server's key later
+time you netsync with any given server.  If that server&rsquo;s key later
 changes, monotone will notice, and refuse to connect until you have run
-<samp><span class="command">mtn unset known-servers </span><var>server-name</var></samp>.
-
-     <br><dt><code>server-include</code><dd>Contains server-specific branch inclusion globs.  These overrule
+<code>mtn unset known-servers <var>server-name</var></code>.
+</p>
+</dd>
+<dt><code>server-include</code></dt>
+<dd><p>Contains server-specific branch inclusion globs.  These overrule
 <var>default-include-pattern</var> if existant and are recorded automatically
 the first time you connect to a specific server or use the
-<samp><span class="option">--set-default</span></samp> option for a netsync operation.
-
-     <br><dt><code>server-exclude</code><dd>Likewise, this variable contains server-specific branch exclusion
+<samp>--set-default</samp> option for a netsync operation.
+</p>
+</dd>
+<dt><code>server-exclude</code></dt>
+<dd><p>Likewise, this variable contains server-specific branch exclusion
 globs, which overrule <var>default-exclude-pattern</var> if existant and
 are also automatically set on the first connection or when the option
-<samp><span class="option">--set-default</span></samp> is present.
-
+<samp>--set-default</samp> is present.
+</p>
+</dd>
 </dl>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Managed-Databases.html#Managed-Databases" accesskey="n" rel="next">Managed Databases</a>, Previous: <a href="Quality-Assurance.html#Quality-Assurance" accesskey="p" rel="prev">Quality Assurance</a>, Up: <a href="Advanced-Uses.html#Advanced-Uses" accesskey="u" rel="up">Advanced Uses</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

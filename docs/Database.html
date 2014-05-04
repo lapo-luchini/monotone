@@ -1,129 +1,159 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Database - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Command-Reference.html#Command-Reference" title="Command Reference">
-<link rel="prev" href="Packet-I_002fO.html#Packet-I_002fO" title="Packet I/O">
-<link rel="next" href="Automation.html#Automation" title="Automation">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
+<title>monotone documentation: Database</title>
+
+<meta name="description" content="monotone documentation: Database">
+<meta name="keywords" content="monotone documentation: Database">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Command-Reference.html#Command-Reference" rel="up" title="Command Reference">
+<link href="Automation.html#Automation" rel="next" title="Automation">
+<link href="Packet-I_002fO.html#Packet-I_002fO" rel="prev" title="Packet I/O">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
 <link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
 </head>
-<body>
-<div class="node">
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
 <a name="Database"></a>
+<div class="header">
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Automation.html#Automation">Automation</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Packet-I_002fO.html#Packet-I_002fO">Packet I/O</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference.html#Command-Reference">Command Reference</a>
-<hr>
+Next: <a href="Automation.html#Automation" accesskey="n" rel="next">Automation</a>, Previous: <a href="Packet-I_002fO.html#Packet-I_002fO" accesskey="p" rel="prev">Packet I/O</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-
+<hr>
+<a name="Database-1"></a>
 <h3 class="section">4.10 Database</h3>
-
 <p>All of these commands require that the database is specified, either
-via <samp><span class="option">--db</span></samp> or the current workspace.
-
-     <dl>
-<dt><samp><span class="command">mtn db changesetify [--db=</span><var>dbfile</var><span class="command">]</span></samp><a name="index-mtn-db-changesetify-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-177"></a><dd>Converts the database to the changeset format.
-
-     <p>This is only needed when upgrading very old monotone databases,
+via <samp>--db</samp> or the current workspace.
+</p>
+<dl compact="compact">
+<dt><code>mtn db changesetify [--db=<var>dbfile</var>]</code>
+<a name="index-mtn-db-changesetify-_005b_002d_002ddb_003ddbfile_005d"></a>
+</dt>
+<dd><p>Converts the database to the changeset format.
+</p>
+<p>This is only needed when upgrading very old monotone databases,
 created with monotone versions less than 0.15.
-
-     <br><dt><samp><span class="command">mtn db check [--db=</span><var>dbfile</var><span class="command">]</span></samp><a name="index-mtn-db-check-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-178"></a><dd>
-Monotone always works hard to verify the data it creates and accesses. 
+</p>
+</dd>
+<dt><code>mtn db check [--db=<var>dbfile</var>]</code>
+<a name="index-mtn-db-check-_005b_002d_002ddb_003ddbfile_005d"></a>
+</dt>
+<dd>
+<p>Monotone always works hard to verify the data it creates and accesses.
 For instance, if you have hard drive problems that corrupt data in
-monotone's database, and you attempt to retrieve this data, then
+monotone&rsquo;s database, and you attempt to retrieve this data, then
 monotone will notice the problem and stop, instead of silently giving
 you garbage data.
-
-     <p>However, it's also nice to notice such problems early, and in rarely
-used parts of history, while you still have backups.  That's what this
+</p>
+<p>However, it&rsquo;s also nice to notice such problems early, and in rarely
+used parts of history, while you still have backups.  That&rsquo;s what this
 command is for.  It systematically checks the database <var>dbfile</var> to
 ensure that it is complete and consistent. The following problems are
 detected:
-
-          <ul>
-<li>missing files
-that are referenced by their <span class="sc">sha1</span> hash from some manifest but do not
+</p>
+<ul>
+<li> missing files
+that are referenced by their <small>SHA1</small> hash from some manifest but do not
 exist in the database.  This is a serious problem; it means that your
 history is not fully reconstructible.  You can fix it by finding the
 file with the given hash, and loading it into your database with
-<samp><span class="command">fload</span></samp>.
+<code>fload</code>.
 
-          <li>unreferenced files
-that exist in the database but are not referenced by their <span class="sc">sha1</span>
+</li><li> unreferenced files
+that exist in the database but are not referenced by their <small>SHA1</small>
 hash from any existing manifest.  In itself, this only indicates some
-wasted space, and is not a problem; it's possible it could arise under
+wasted space, and is not a problem; it&rsquo;s possible it could arise under
 normal use (for instance, in some strange corner cases following an
 incomplete netsync).  It could also arise, though, as a symptom of some
 other more serious problem.
 
-          <li>missing manifests
-that are referenced by their <span class="sc">sha1</span> hash from some revision but do
+</li><li> missing manifests
+that are referenced by their <small>SHA1</small> hash from some revision but do
 not exist in the database.  This is a serious problem; it means that
 your history is not fully reconstructible.  You can fix it by finding a
-database containing the manifest, and using <samp><span class="command">mdata</span></samp> on that
+database containing the manifest, and using <code>mdata</code> on that
 database to create a manifest data packet, which can be loaded into your
-database with <samp><span class="command">read</span></samp>.
+database with <code>read</code>.
 
-          <li>unreferenced rosters
-that exist in the database but are not referenced by their <span class="sc">sha1</span>
+</li><li> unreferenced rosters
+that exist in the database but are not referenced by their <small>SHA1</small>
 hash from any existing revision.  In itself, this only indicates some
-wasted space, and is not a problem; it's possible it could arise under
-normal use (for instance, if you have run <samp><span class="command">local kill_revision</span></samp>,
+wasted space, and is not a problem; it&rsquo;s possible it could arise under
+normal use (for instance, if you have run <code>local kill_revision</code>,
 or in some strange-but-harmless corner cases following an incomplete
 netsync).  It could also arise, though, as a symptom of some other more
 serious problem.
 
-          <li>incomplete manifests
+</li><li> incomplete manifests
 that exist in the database but contain references to files that do not
 exist in the database.  For diagnosis and solution, see &ldquo;missing
 files&rdquo; above.
 
-          <li>missing revisions
-that are referenced by their <span class="sc">sha1</span> hash from some other revision or
+</li><li> missing revisions
+that are referenced by their <small>SHA1</small> hash from some other revision or
 revision cert but do not exist in the database.  This may be a serious
 problem; it may indicate that your history is not fully reconstructible
 (if the reference is from another revision) or that someone is creating
 bogus certs (if the reference is from a cert).  You can fix it by
-finding a database containing the revision, and using <samp><span class="command">rdata</span></samp> on
+finding a database containing the revision, and using <code>rdata</code> on
 that database to create a revision data packet, which can be loaded into
-your database with <samp><span class="command">read</span></samp>.
+your database with <code>read</code>.
 
-          <li>incomplete revisions
+</li><li> incomplete revisions
 that exist in the database but contain references to missing manifests,
 incomplete manifests or missing revisions.  This always occurs with some
 more detailed error; see above.
 
-          <li>revisions with mismatched parents
+</li><li> revisions with mismatched parents
 that disagree with the cached revision ancestry on their parent
 revisions.  This may cause problems in using the database, and suggests
-the presence of a bug in monotone's caching system, but does not involve
+the presence of a bug in monotone&rsquo;s caching system, but does not involve
 data loss.
 
-          <li>revisions with mismatched children
+</li><li> revisions with mismatched children
 that disagree with the cached revision ancestry on their child
 revisions.  This may cause problems in using the database, and suggests
-the presence of a bug in monotone's caching system, but does not involve
+the presence of a bug in monotone&rsquo;s caching system, but does not involve
 data loss.
 
-          <li>revisions with bad history
-that exist in the database but fail monotone's normal sanity checks for
+</li><li> revisions with bad history
+that exist in the database but fail monotone&rsquo;s normal sanity checks for
 consistent and correct history.  This is a serious problem; it indicates
 that your history record is somehow malformed.  This should not be
 possible, since monotone carefully checks every revision before storing
@@ -133,162 +163,225 @@ some history &mdash; for instance, renames may be degraded into delete/add
 pairs &mdash; but the actual contents of every revision will still be
 reproducible.
 
-          <li>revisions with missing certs
+</li><li> revisions with missing certs
 that exist in the database lacking at least one author, branch,
 changelog or date cert. All revisions are expected to have at least one
 of each of these certs.  In itself, this is not necessarily a problem,
 but it is peculiar, and some operations such as netsync may behave
 strangely.
 
-          <li>revisions with mismatched certs
+</li><li> revisions with mismatched certs
 that exist in the database with differing numbers of author, changelog
 and date certs. These certs are expected to appear together, as each
 revision committed should have an author, changelog and date associated
 with it.  In itself, this is not a problem, but it is peculiar.  All
 operations should behave normally.
 
-          <li>missing keys
+</li><li> missing keys
 that have been used to sign certs but do not exist in the database.  In
 itself, this is not a problem, except that monotone will ignore any
 certs signed by the missing key.  You can fix it by finding a database
-containing the key in question, and using <samp><span class="command">pubkey</span></samp> on that
+containing the key in question, and using <code>pubkey</code> on that
 database to create a public key packet, which can be loaded into your
-database with <samp><span class="command">read</span></samp>.
+database with <code>read</code>.
 
-          <li>certs with bad signatures
+</li><li> certs with bad signatures
 that exist in the database with signatures that are invalid.  In itself,
-this is not a problem, except that monotone will ignore any such certs. 
+this is not a problem, except that monotone will ignore any such certs.
 You may also wish to find out who is creating certs with bad
 signatures; it may indicate some kind of security attack.
 
-          <li>certs with unchecked signatures
+</li><li> certs with unchecked signatures
 that exist in the database but cannot have their signatures checked
 because the signing key is missing.  In itself, this is not a problem,
-except that monotone will ignore any certs signed by the missing key. 
+except that monotone will ignore any certs signed by the missing key.
 You can fix it by finding a database containing the key in question, and
-using <samp><span class="command">pubkey</span></samp> on that database to create a public key packet,
-which can be loaded into your database with <samp><span class="command">read</span></samp>.
+using <code>pubkey</code> on that database to create a public key packet,
+which can be loaded into your database with <code>read</code>.
 
-          <li>branches not used or with incorrect head count or missing
+</li><li> branches not used or with incorrect head count or missing
 in the cache of branch heads. This is a serious problem; it suggests
-the presence of a bug in monotone's caching system, but does not
+the presence of a bug in monotone&rsquo;s caching system, but does not
 involve data loss; please report this on the monotone mailing
-list. You can fix it by running <samp><span class="command">db regenerate_caches</span></samp>.
+list. You can fix it by running <code>db regenerate_caches</code>.
 
-     </ul>
+</li></ul>
 
-     <p>This command also verifies that the <span class="sc">sha1</span> hash of every file, manifest,
+<p>This command also verifies that the <small>SHA1</small> hash of every file, manifest,
 and revision is correct.
-
-     <br><dt><samp><span class="command">mtn db dump [--db=</span><var>dbfile</var><span class="command">]</span></samp><a name="index-mtn-db-dump-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-179"></a><dd>
-This command dumps a sequence of SQL instructions representing the
+</p>
+</dd>
+<dt><code>mtn db dump [--db=<var>dbfile</var>]</code>
+<a name="index-mtn-db-dump-_005b_002d_002ddb_003ddbfile_005d"></a>
+</dt>
+<dd>
+<p>This command dumps a sequence of SQL instructions representing the
 entire state of <var>dbfile</var> to the standard output stream. It is a
 very low-level command, and produces the most &ldquo;recoverable&rdquo; dumps of
 your database possible. It is sometimes also useful when migrating
 databases between variants of the underlying SQLite database format.
-
-     <br><dt><samp><span class="command">mtn db execute [--db=</span><var>dbfile</var><span class="command">] </span><var>sql-statement</var></samp><a name="index-mtn-db-execute-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-_0040var_007bsql_002dstatement_007d-180"></a><dd>
-This is a debugging command which executes <var>sql-statement</var> against
+</p>
+</dd>
+<dt><code>mtn db execute [--db=<var>dbfile</var>] <var>sql-statement</var></code>
+<a name="index-mtn-db-execute-_005b_002d_002ddb_003ddbfile_005d-sql_002dstatement"></a>
+</dt>
+<dd>
+<p>This is a debugging command which executes <var>sql-statement</var> against
 your database, and prints any results of the expression in a tabular
 form.  It can be used to investigate the state of your database, or
 help diagnose failures.
-
-     <br><dt><samp><span class="command">mtn db fix_certs [--db=</span><var>dbfile</var><span class="command">] [--drop-bad-certs]</span></samp><a name="index-mtn-db-fix_005fcerts-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-_005b_002d_002ddrop_002dbad_002dcerts_005d-181"></a><dd>Attempt to fix bad certs.
-
-     <p>Older monotone versions could sometimes associate certs with the wrong
+</p>
+</dd>
+<dt><code>mtn db fix_certs [--db=<var>dbfile</var>] [--drop-bad-certs]</code>
+<a name="index-mtn-db-fix_005fcerts-_005b_002d_002ddb_003ddbfile_005d-_005b_002d_002ddrop_002dbad_002dcerts_005d"></a>
+</dt>
+<dd><p>Attempt to fix bad certs.
+</p>
+<p>Older monotone versions could sometimes associate certs with the wrong
 key. This fixes such certs if you have the correct key, and if
-<samp><span class="option">--drop-bad-certs</span></samp> is given, drops any certs that you don't
+<samp>--drop-bad-certs</samp> is given, drops any certs that you don&rsquo;t
 have the correct key for. This should only be needed if you had such
 certs in your db when upgrading from monotone 0.44 or earlier, or if
-you loaded such certs with 'mtn read'.
-
-     <br><dt><samp><span class="command">mtn db info [--db=</span><var>dbfile</var><span class="command">] [--full | --concise]</span></samp><a name="index-mtn-db-info-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-_005b_002d_002dfull-_007c-_002d_002dconcise_005d-182"></a><dd>This command prints information about the monotone database
+you loaded such certs with &rsquo;mtn read&rsquo;.
+</p>
+</dd>
+<dt><code>mtn db info [--db=<var>dbfile</var>] [--full | --concise]</code>
+<a name="index-mtn-db-info-_005b_002d_002ddb_003ddbfile_005d-_005b_002d_002dfull-_007c-_002d_002dconcise_005d"></a>
+</dt>
+<dd><p>This command prints information about the monotone database
 <var>dbfile</var>, including its schema version and various table size
-statistics. <samp><span class="option">--full</span></samp> prints additional info about timestamps;
-the default is <samp><span class="option">--concise</span></samp>.
-
-     <br><dt><samp><span class="command">mtn db init [--db=</span><var>dbfile</var><span class="command">]</span></samp><a name="index-mtn-db-init-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-183"></a><dd>This command creates and initializes a new monotone database at <var>dbfile</var>.
-
-     <br><dt><samp><span class="command">mtn db load [--db=</span><var>dbfile</var><span class="command">]</span></samp><a name="index-mtn-db-load-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-184"></a><dd>This command applies a raw SQL statement, read from the standard input
+statistics. <samp>--full</samp> prints additional info about timestamps;
+the default is <samp>--concise</samp>.
+</p>
+</dd>
+<dt><code>mtn db init [--db=<var>dbfile</var>]</code>
+<a name="index-mtn-db-init-_005b_002d_002ddb_003ddbfile_005d"></a>
+</dt>
+<dd><p>This command creates and initializes a new monotone database at <var>dbfile</var>.
+</p>
+</dd>
+<dt><code>mtn db load [--db=<var>dbfile</var>]</code>
+<a name="index-mtn-db-load-_005b_002d_002ddb_003ddbfile_005d"></a>
+</dt>
+<dd><p>This command applies a raw SQL statement, read from the standard input
 stream, to the database <var>dbfile</var>. It is most useful when loading
-a database dumped with the <samp><span class="command">dump</span></samp> command.
-
-     <p>Note that when reloading a dumped database, the schema of the dumped
+a database dumped with the <code>dump</code> command.
+</p>
+<p>Note that when reloading a dumped database, the schema of the dumped
 database is <em>included</em> in the dump, so you should not try to
-<samp><span class="command">init</span></samp> your database before a <samp><span class="command">load</span></samp>.
-
-     <br><dt><samp><span class="command">mtn db migrate [--db=</span><var>dbfile</var><span class="command">]</span></samp><a name="index-mtn-db-migrate-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-185"></a><dd>This command attempts to migrate the database <var>dbfile</var> to the
+<code>init</code> your database before a <code>load</code>.
+</p>
+</dd>
+<dt><code>mtn db migrate [--db=<var>dbfile</var>]</code>
+<a name="index-mtn-db-migrate-_005b_002d_002ddb_003ddbfile_005d"></a>
+</dt>
+<dd><p>This command attempts to migrate the database <var>dbfile</var> to the
 newest schema known by the version of monotone you are currently
 running.  If the migration fails, no changes should be made to the
 database.
-
-     <p>If you have important information in your database, you should back up
+</p>
+<p>If you have important information in your database, you should back up
 a copy of it before migrating, in case there is an untrapped error
 during migration.
-
-     <br><dt><samp><span class="command">mtn db regenerate_caches</span></samp><a name="index-mtn-db-regenerate_005fcaches-186"></a><dd>Regenerates the caches stored in the database.
-
-     <p>This is only needed to recover from a newly discovered bug in
+</p>
+</dd>
+<dt><code>mtn db regenerate_caches</code>
+<a name="index-mtn-db-regenerate_005fcaches"></a>
+</dt>
+<dd><p>Regenerates the caches stored in the database.
+</p>
+<p>This is only needed to recover from a newly discovered bug in
 monotone, or if your database becomes corrupted for some other reason.
-
-     <br><dt><samp><span class="command">mtn db rosterify</span></samp><a name="index-mtn-db-rosterify-187"></a><dd>Converts the database to the rosters format.
-
-     <p>This is only needed when upgrading very old monotone databases,
+</p>
+</dd>
+<dt><code>mtn db rosterify</code>
+<a name="index-mtn-db-rosterify"></a>
+</dt>
+<dd><p>Converts the database to the rosters format.
+</p>
+<p>This is only needed when upgrading very old monotone databases,
 created with monotone versions less than 0.15.
-
-     <br><dt><samp><span class="command">mtn db set_epoch </span><var>branch</var> <var>epoch</var></samp><a name="index-mtn-db-set_005fepoch-_0040var_007bbranch_007d-_0040var_007bepoch_007d-188"></a><dd>Sets the branch's epoch. See <a href="Rebuilding-ancestry.html#Rebuilding-ancestry">Rebuilding ancestry</a> for discussion of epochs.
-
-     <br><dt><samp><span class="command">mtn db version [--db=</span><var>dbfile</var><span class="command">]</span></samp><a name="index-mtn-db-version-_005b_002d_002ddb_003d_0040var_007bdbfile_007d_005d-189"></a><dd>This command prints out just the schema version of the monotone
+</p>
+</dd>
+<dt><code>mtn db set_epoch <var>branch</var> <var>epoch</var></code>
+<a name="index-mtn-db-set_005fepoch-branch-epoch"></a>
+</dt>
+<dd><p>Sets the branch&rsquo;s epoch. See <a href="Rebuilding-ancestry.html#Rebuilding-ancestry">Rebuilding ancestry</a> for discussion of epochs.
+</p>
+</dd>
+<dt><code>mtn db version [--db=<var>dbfile</var>]</code>
+<a name="index-mtn-db-version-_005b_002d_002ddb_003ddbfile_005d"></a>
+</dt>
+<dd><p>This command prints out just the schema version of the monotone
 database <var>dbfile</var>.
-
-     <br><dt><samp><span class="command">mtn local kill_certs </span><var>selector</var> <var>certname</var><span class="command"> [</span><var>certval</var><span class="command">]</span></samp><a name="index-mtn-local-kill_005fcerts-_0040var_007bselector_007d-_0040var_007bcertname_007d-_005b_0040var_007bcertval_007d_005d-190"></a><dd>This command deletes certs with the given name on revisions that match
-the given selector. If a value is given, it restricts itself to only
-delete certs that also have that same value. Like <samp><span class="command"><a href="mtn-local-kill_005frevision.html#mtn-local-kill_005frevision">mtn local kill_revision</a></span></samp>, it is a very dangerous command; it permanently
-and irrevocably deletes historical information from your
-database. Also like <samp><span class="command">kill_revision</span></samp>, this only deletes the
-certs from your local database; if there are other databases that you
-sync with which have these certs they will reappear when you sync,
-unless the owners of those databases also delete those certificates
-locally.
-
-     <p>Early versions of monotone had <samp><span class="command">db kill_tag_locally</span></samp> and
-<samp><span class="command">db kill_branch_certs_locally</span></samp> commands. These can be emulated with
-<samp><span class="command">local kill_certs i: tag TAG</span></samp> and
-<samp><span class="command">local kill_certs i: branch BRANCH</span></samp>, respectively.
-
-     <p><a name="mtn-local-kill_005frevision"></a><br><dt><samp><span class="command">mtn local kill_revision </span><var>id</var></samp><a name="index-mtn-local-kill_005frevision-_0040var_007bid_007d-191"></a><dd>This command &ldquo;kills&rdquo;, i.e., deletes, a given revision, as well as
-any certs attached to it.  It is a very dangerous command; it
-permanently and irrevocably deletes historical information from your
-database.  If you execute this command in a workspace, whose parent
-revision is the one you are about to delete, the killed revision is
-re-applied to this workspace which makes it possible for you to fix a
-problem and commit again later on easily. For this to work, the
-workspace may not have any changes and/or missing files.
-
-     <p>There are a number of other caveats with this command:
-          <ul>
-<li>It can only be applied to revisions that have no descendants.  If you
+</p>
+</dd>
+<dt><code>mtn local kill_certs <var>selector</var> <var>certname</var> [<var>certval</var>]</code>
+<a name="index-mtn-local-kill_005fcerts-selector-certname-_005bcertval_005d"></a>
+</dt>
+<dd><p>This command deletes certs with the given name on revisions that match
+the given selector (see <a href="Selectors.html#Selectors">Selectors</a>). If a value is given, it
+restricts itself to only delete certs that also have that same
+value. Like <code><a href="#mtn-local-kill_005frevision">mtn local kill_revision</a></code>, it is a very
+dangerous command; it permanently and irrevocably deletes historical
+information from your database. Also like <code>kill_revision</code>,
+this only deletes the certs from your local database; if there are
+other databases that you sync with which have these certs they will
+reappear when you sync, unless the owners of those databases also
+delete those certificates locally.
+</p>
+<p>Early versions of monotone had <code>db kill_tag_locally</code> and
+<code>db kill_branch_certs_locally</code> commands. These can be emulated with
+<code>local kill_certs i: tag TAG</code> and
+<code>local kill_certs i: branch BRANCH</code>, respectively.
+</p>
+<a name="mtn-local-kill_005frevision"></a></dd>
+<dt><code>mtn local kill_revision <var>id</var></code>
+<a name="index-mtn-local-kill_005frevision-id"></a>
+</dt>
+<dd><p>This command &ldquo;kills&rdquo;, i.e., deletes, a given revision (see
+<a href="Selectors.html#Selectors">Selectors</a>), as well as any certs attached to it.  It is a very
+dangerous command; it permanently and irrevocably deletes historical
+information from your database.  If you execute this command in a
+workspace, whose parent revision is the one you are about to delete,
+the killed revision is re-applied to this workspace which makes it
+possible for you to fix a problem and commit again later on
+easily. For this to work, the workspace may not have any changes
+and/or missing files.
+</p>
+<p>There are a number of other caveats with this command:
+</p><ul>
+<li> It can only be applied to revisions that have no descendants.  If you
 want to kill a revision that has descendants, you must kill all of the
-descendants first. 
-<li>It only removes the revision from your local database (hence the
+descendants first.
+</li><li> It only removes the revision from your local database (hence the
 &ldquo;local&rdquo; in the command name).  If you have already pushed this
 revision out to another database, then the next time you pull from that
 database it may come back again.  There is no way to delete a revision
-from somebody else's database except to ask them to delete it for you. 
-<li>It does not actually delete the revision's files or manifest from your
-database.  If you run this command, and then run <samp><span class="command">db check</span></samp>, it
+from somebody else&rsquo;s database except to ask them to delete it for you.
+</li><li> It does not actually delete the revision&rsquo;s files or manifest from your
+database.  If you run this command, and then run <code>db check</code>, it
 will note that you have an &ldquo;unreferenced roster&rdquo;.  If you wish to
 eliminate this data for good (and thus free up the space), you may use
-netsync to <samp><span class="command">pull</span></samp> from your current database into a new
+netsync to <code>pull</code> from your current database into a new
 database; this creates a copy of your old database, without the
 unreferenced data.  However, having this data in your database will not
 cause any problems, and acts as a safety net; if you later realize that
 you do, after all, need to retrieve the data in <var>id</var>, then
-<samp><span class="command">db check</span></samp> will let you see which manifest it was, and with some
-work you can extract <var>id</var>'s data. 
-</ul>
+<code>db check</code> will let you see which manifest it was, and with some
+work you can extract <var>id</var>&rsquo;s data.
+</li></ul>
 
+</dd>
 </dl>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Automation.html#Automation" accesskey="n" rel="next">Automation</a>, Previous: <a href="Packet-I_002fO.html#Packet-I_002fO" accesskey="p" rel="prev">Packet I/O</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>

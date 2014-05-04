@@ -1,96 +1,120 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Storage and workflow - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Concepts.html#Concepts" title="Concepts">
-<link rel="prev" href="Certificates.html#Certificates" title="Certificates">
-<link rel="next" href="Forks-and-merges.html#Forks-and-merges" title="Forks and merges">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="Storage-and-workflow"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Forks-and-merges.html#Forks-and-merges">Forks and merges</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Certificates.html#Certificates">Certificates</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Concepts.html#Concepts">Concepts</a>
-<hr>
-</div>
+<title>monotone documentation: Storage and workflow</title>
 
+<meta name="description" content="monotone documentation: Storage and workflow">
+<meta name="keywords" content="monotone documentation: Storage and workflow">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Concepts.html#Concepts" rel="up" title="Concepts">
+<link href="Forks-and-merges.html#Forks-and-merges" rel="next" title="Forks and merges">
+<link href="Certificates.html#Certificates" rel="prev" title="Certificates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Storage-and-workflow"></a>
+<div class="header">
+<p>
+Next: <a href="Forks-and-merges.html#Forks-and-merges" accesskey="n" rel="next">Forks and merges</a>, Previous: <a href="Certificates.html#Certificates" accesskey="p" rel="prev">Certificates</a>, Up: <a href="Concepts.html#Concepts" accesskey="u" rel="up">Concepts</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Storage-and-workflow-1"></a>
 <h3 class="section">1.5 Storage and workflow</h3>
 
 <p>Monotone moves information in and out of four different types of
 storage:
+</p>
+<ul>
+<li> a <i>keystore</i> in your home directory
+</li><li> a <i>workspace</i> in the local file system
+</li><li> a <i>local database</i> in the local file system
+</li><li> a <i>remote database</i> elsewhere on the internet
+</li></ul>
 
-     <ul>
-<li>a <i>keystore</i> in your home directory
-<li>a <i>workspace</i> in the local file system
-<li>a <i>local database</i> in the local file system
-<li>a <i>remote database</i> elsewhere on the internet
-</ul>
-
-<p>The <dfn>keystore</dfn> is a directory <samp><span class="file">.monotone/keys</span></samp> in your home directory
+<p>The <em>keystore</em> is a directory <samp>.monotone/keys</samp> in your home directory
 which contains copies of all your private keys. Each key is stored in a file
-whose name is the key identifier with some characters converted to underscores. 
+whose name is the key identifier with some characters converted to underscores.
 When you use a key to sign a cert, the public half of that key is copied into
 your local database along with the cert.
-
+</p>
 <p>All information passes <em>through</em> your local database, en route to
 some other destination. For example, when changes are made in a
 workspace, you may save those changes to your database, and later
-you may synchronize your database with someone else's. Monotone will
+you may synchronize your database with someone else&rsquo;s. Monotone will
 not move information directly between a workspace and a remote
 database, or between workspaces. Your local database is always
 the &ldquo;switching point&rdquo; for communication.
+</p>
+<img src="figures/general-workflow.png" alt="figures/general-workflow">
 
-<div class="block-image"><img src="figures/general-workflow.png" alt="figures/general-workflow.png"></div>
-
-<p>A <dfn>workspace</dfn> is a tree of files in your file system, arranged
+<p>A <em>workspace</em> is a tree of files in your file system, arranged
 according to the list of file paths and IDs in a particular
-manifest. A special directory called <samp><span class="file">_MTN</span></samp> exists in the root of
-any workspace. Monotone keeps some special files in the <samp><span class="file">_MTN</span></samp>
+manifest. A special directory called <samp>_MTN</samp> exists in the root of
+any workspace. Monotone keeps some special files in the <samp>_MTN</samp>
 directory, in order to track changes you make to your workspace.  If
 you ever want to know if a directory is a monotone workspace, just
-look for this <samp><span class="file">_MTN</span></samp> directory.
-
-<p>Aside from the special <samp><span class="file">_MTN</span></samp> directory, a workspace is just a
+look for this <samp>_MTN</samp> directory.
+</p>
+<p>Aside from the special <samp>_MTN</samp> directory, a workspace is just a
 normal tree of files. You can directly edit the files in a workspace
 using a plain text editor or other program; monotone will
 automatically notice when you make this kind of change, and include
 them in the next commit.
-
-<p><a name="g_t_005fMTN_002frevision"></a>If you add files, remove files, or move files
+</p>
+<a name="g_t_005fMTN_002frevision"></a><p>If you add files, remove files, or move files
 within your workspace, you must tell monotone explicitly what you are
 doing, as these actions cannot be deduced. Monotone stores these
-changes in <samp><span class="file">_MTN/revision</span></samp>; they will be part of the next commit.
-
-<p>If you do not yet have a workspace, you can <dfn>check out</dfn> a
+changes in <samp>_MTN/revision</samp>; they will be part of the next commit.
+</p>
+<p>If you do not yet have a workspace, you can <em>check out</em> a
 workspace from a database, or construct one from scratch and
-<dfn>add</dfn> it into a database. As you work, you will occasionally
-<dfn>commit</dfn> changes you have made in a workspace to a database,
-and <dfn>update</dfn> a workspace to receive changes that have arrived
+<em>add</em> it into a database. As you work, you will occasionally
+<em>commit</em> changes you have made in a workspace to a database,
+and <em>update</em> a workspace to receive changes that have arrived
 in a database. Committing and updating take place purely between a
 database and a workspace; the network is not involved.
+</p>
+<img src="figures/local-workflow.png" alt="figures/local-workflow">
 
-<div class="block-image"><img src="figures/local-workflow.png" alt="figures/local-workflow.png"></div>
-
-<p>A <dfn>database</dfn> is a single, regular file. You can copy or back it up
+<p>A <em>database</em> is a single, regular file. You can copy or back it up
 using standard methods. Typically you keep a database in your home
 directory. Databases are portable between different machine types. You
 can have multiple databases and divide your work between them, or keep
@@ -100,45 +124,45 @@ send them to your friends.  Underneath, databases are accessed using a
 standard, robust data manager, which makes using even very large
 databases efficient.  In dire emergencies, you can directly examine and
 manipulate a database using a simple SQL interface.
-
+</p>
 <p>A database contains many files, manifests, revisions, and
 certificates, some of which are not immediately of interest, some of
 which may be unwanted or even false. It is a collection of information
 received from network servers, workspaces, and other
 databases. You can inspect and modify your databases without affecting
 your workspaces, and vice-versa.
-
+</p>
 <p>Monotone knows how to exchange information in your database with other
-remote databases, using an interactive protocol called <dfn>netsync</dfn>. 
+remote databases, using an interactive protocol called <em>netsync</em>.
 It supports three modes of exchange: pushing, pulling, and
-synchronizing. A <dfn>pull</dfn> operation copies data from a remote
-database to your local database. A <dfn>push</dfn> operation copies data
-from your local database to a remote database. A <dfn>sync</dfn> operation
+synchronizing. A <em>pull</em> operation copies data from a remote
+database to your local database. A <em>push</em> operation copies data
+from your local database to a remote database. A <em>sync</em> operation
 copies data both directions. In each case, only the data missing from
 the destination is copied. The netsync protocol calculates the data to
 send &ldquo;on the fly&rdquo; by exchanging partial hash values of each
 database.
-
-<div class="block-image"><img src="figures/network-workflow.png" alt="figures/network-workflow.png"></div>
+</p>
+<img src="figures/network-workflow.png" alt="figures/network-workflow">
 
 <p>In general, work flow with monotone involves 3 distinct stages:
-
-     <ul>
-<li>When you <i>commit</i> changes from your workspace to your database,
+</p>
+<ul>
+<li> When you <i>commit</i> changes from your workspace to your database,
 your database stores the changes but does not communicate with the
 network. Your commits happen immediately, without consulting any other
 party, and do not require network connectivity.
 
-     <li>When you are ready to <i>exchange</i> work with someone else, you can
+</li><li> When you are ready to <i>exchange</i> work with someone else, you can
 push, pull, or sync with other databases on the network. When you talk
 to other servers on the network, your database may change, but your
 workspace will not. In fact, you do not need a workspace at all
 when exchanging work.
 
-     <li>When you <i>update</i> your workspace, some (but not all) of the
+</li><li> When you <i>update</i> your workspace, some (but not all) of the
 changes which your database received from the network are applied to
-your workspace. The network is not consulted during updates. 
-</ul>
+your workspace. The network is not consulted during updates.
+</li></ul>
 
 <p>The last stage of workflow is worth clarifying: monotone does
 <em>not</em> blindly apply all changes it receives from a remote
@@ -147,7 +171,7 @@ because remote databases are not always trustworthy systems. Rather,
 monotone evaluates the certificates it has received along with the
 changes, and decides which particular changes are safe and desirable
 to apply to your workspace.
-
+</p>
 <p>You can always adjust the criteria monotone uses to judge the
 trustworthiness and desirability of changes in your database. But keep
 in mind that it always uses <em>some</em> criteria; receiving changes
@@ -155,10 +179,18 @@ from a remote server is a <em>different</em> activity than applying
 changes to a workspace. Sometimes you may receive changes which
 monotone judges to be untrusted or bad; such changes may stay in your
 database but will <em>not</em> be applied to your workspace.
-
+</p>
 <p>Remote databases, in other words, are just untrusted &ldquo;buckets&rdquo; of
 data, which you can trade with promiscuously. There is no trust
 implied in communication.
+</p>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Forks-and-merges.html#Forks-and-merges" accesskey="n" rel="next">Forks and merges</a>, Previous: <a href="Certificates.html#Certificates" accesskey="p" rel="prev">Certificates</a>, Up: <a href="Concepts.html#Concepts" accesskey="u" rel="up">Concepts</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
-</body></html>
 
+
+</body>
+</html>

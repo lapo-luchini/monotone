@@ -1,68 +1,103 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>GIT Export Hooks - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Hooks.html#Hooks" title="Hooks">
-<link rel="prev" href="Attribute-Handling.html#Attribute-Handling" title="Attribute Handling">
-<link rel="next" href="Validation-Hooks.html#Validation-Hooks" title="Validation Hooks">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
-<link rel="stylesheet" type="text/css" href="texinfo.css">
-</head>
-<body>
-<div class="node">
-<a name="GIT-Export-Hooks"></a>
-<p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Validation-Hooks.html#Validation-Hooks">Validation Hooks</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Attribute-Handling.html#Attribute-Handling">Attribute Handling</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Hooks.html#Hooks">Hooks</a>
-<hr>
-</div>
+<title>monotone documentation: GIT Export Hooks</title>
 
+<meta name="description" content="monotone documentation: GIT Export Hooks">
+<meta name="keywords" content="monotone documentation: GIT Export Hooks">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Hooks.html#Hooks" rel="up" title="Hooks">
+<link href="Validation-Hooks.html#Validation-Hooks" rel="next" title="Validation Hooks">
+<link href="Attribute-Handling.html#Attribute-Handling" rel="prev" title="Attribute Handling">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+<link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="GIT-Export-Hooks"></a>
+<div class="header">
+<p>
+Next: <a href="Validation-Hooks.html#Validation-Hooks" accesskey="n" rel="next">Validation Hooks</a>, Previous: <a href="Attribute-Handling.html#Attribute-Handling" accesskey="p" rel="prev">Attribute Handling</a>, Up: <a href="Hooks.html#Hooks" accesskey="u" rel="up">Hooks</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="GIT-Export-Hooks-1"></a>
 <h4 class="subsection">6.1.11 GIT Export Hooks</h4>
 
 <p>Exporting monotone revisions in git-fast-import(1) format often
 requires translation of monotone author cert values and associated
 signing keys into corresponding git author and committer
 values. Translation of author and committer values and validation of
-the results is controlled by these hooks. See <samp><span class="command"><a href="mtn-git_005fexport.html#mtn-git_005fexport">mtn git_export</a></span></samp>.
-
-     <dl>
-<dt><code>unmapped_git_author(</code><var>author</var><code>)</code><a name="index-unmapped_005fgit_005fauthor_0028_0040var_007bauthor_007d_0029-311"></a><dd>
-This hook is called for any git author or committer value that does
+the results is controlled by these hooks. See <code><a href="VCS.html#mtn-git_005fexport">mtn git_export</a></code>.
+</p>
+<dl compact="compact">
+<dt><code>unmapped_git_author(<var>author</var>)</code>
+<a name="index-unmapped_005fgit_005fauthor_0028author_0029"></a>
+</dt>
+<dd>
+<p>This hook is called for any git author or committer value that does
 not come from the current <em>author map</em> file, specified by
-<samp><span class="option">--authors-file</span></samp>. If no <em>author map</em> file is specified
+<samp>--authors-file</samp>. If no <em>author map</em> file is specified
 this hook will be called for <em>every</em> unique git author and
 committer value.  It may return the value unchanged or modify it in
 some way in an effort to ensure that it is valid. The default
 implementation attempts several common pattern replacements to produce
 valid authors from monotone authors.
-
-     <br><dt><code>validate_git_author(</code><var>author</var><code>)</code><a name="index-validate_005fgit_005fauthor_0028_0040var_007bauthor_007d_0029-312"></a><dd>
-This hook is called before the git author or committer value is
+</p>
+</dd>
+<dt><code>validate_git_author(<var>author</var>)</code>
+<a name="index-validate_005fgit_005fauthor_0028author_0029"></a>
+</dt>
+<dd>
+<p>This hook is called before the git author or committer value is
 written to the export output stream. The <var>author</var> value is either
 the mapped value from the current <em>author map</em> file or the value
 produced by the <code>unmapped_git_author</code> hook. This hook may return
 true if the author is valid or false if it is not. The export will be
 aborted if this hook returns false for any value.
-
-     <p>The default definition enforces the <code>Name &lt;email&gt;</code> pattern.
-
+</p>
+<p>The default definition enforces the <code>Name &lt;email&gt;</code> pattern.
+</p>
+</dd>
 </dl>
 
-</body></html>
 
+
+
+</body>
+</html>

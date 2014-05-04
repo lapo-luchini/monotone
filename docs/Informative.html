@@ -1,501 +1,753 @@
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>Informative - monotone documentation</title>
-<meta http-equiv="Content-Type" content="text/html">
-<meta name="description" content="monotone documentation">
-<meta name="generator" content="makeinfo 4.13">
-<link title="Top" rel="start" href="index.html#Top">
-<link rel="up" href="Command-Reference.html#Command-Reference" title="Command Reference">
-<link rel="prev" href="Network.html#Network" title="Network">
-<link rel="next" href="Review.html#Review" title="Review">
-<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<style type="text/css"><!--
-  pre.display { font-family:inherit }
-  pre.format  { font-family:inherit }
-  pre.smalldisplay { font-family:inherit; font-size:smaller }
-  pre.smallformat  { font-family:inherit; font-size:smaller }
-  pre.smallexample { font-size:smaller }
-  pre.smalllisp    { font-size:smaller }
-  span.sc    { font-variant:small-caps }
-  span.roman { font-family:serif; font-weight:normal; } 
-  span.sansserif { font-family:sans-serif; font-weight:normal; } 
---></style>
+<title>monotone documentation: Informative</title>
+
+<meta name="description" content="monotone documentation: Informative">
+<meta name="keywords" content="monotone documentation: Informative">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="General-Index.html#General-Index" rel="index" title="General Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Command-Reference.html#Command-Reference" rel="up" title="Command Reference">
+<link href="Review.html#Review" rel="next" title="Review">
+<link href="Network.html#Network" rel="prev" title="Network">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
 <link rel="stylesheet" type="text/css" href="texinfo.css">
+
+
 </head>
-<body>
-<div class="node">
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
 <a name="Informative"></a>
+<div class="header">
 <p>
-Next:&nbsp;<a rel="next" accesskey="n" href="Review.html#Review">Review</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Network.html#Network">Network</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="Command-Reference.html#Command-Reference">Command Reference</a>
-<hr>
+Next: <a href="Review.html#Review" accesskey="n" rel="next">Review</a>, Previous: <a href="Network.html#Network" accesskey="p" rel="prev">Network</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
 </div>
-
+<hr>
+<a name="Informative-1"></a>
 <h3 class="section">4.5 Informative</h3>
-
-     <dl>
-<dt><samp><span class="command">mtn annotate </span><var>file</var></samp><a name="index-mtn-annotate-_0040var_007bfile_007d-100"></a><dt><samp><span class="command">mtn annotate [--revision=</span><var>id</var><span class="command">] [--revs-only] </span><var>file</var></samp><a name="index-mtn-annotate-_005b_002d_002drevision_003d_0040var_007bid_007d_005d-_005b_002d_002drevs_002donly_005d-_0040var_007bfile_007d-101"></a><dd>
-Dumps an annotated copy of the file to stdout. The output is in the
+<dl compact="compact">
+<dt><code>mtn annotate <var>file</var></code>
+<a name="index-mtn-annotate-file"></a>
+</dt>
+<dt><code>mtn annotate [--revision=<var>id</var>] [--revs-only] <var>file</var></code>
+<a name="index-mtn-annotate-_005b_002d_002drevision_003did_005d-_005b_002d_002drevs_002donly_005d-file"></a>
+</dt>
+<dd><p>See <a href="Selectors.html#Selectors">Selectors</a>.
+</p>
+<p>Dumps an annotated copy of the file to stdout. The output is in the
 form:
+</p>
+<div class="example">
+<pre class="example">&lt;short revision id&gt;.. by &lt;author&gt; &lt;date&gt;: &lt;line&gt;
+</pre></div>
 
-     <pre class="example">     &lt;short revision id&gt;.. by &lt;author&gt; &lt;date&gt;: &lt;line&gt;
-</pre>
-     <p>&lt;revision id&gt; is the revision in which that line of the file was last
+<p>&lt;revision id&gt; is the revision in which that line of the file was last
 edited; &lt;author&gt; is the author cert on that revision, &lt;date&gt; is the
 date cert on that revision.
-
-     <p>Only the first 8 characters of the revision id are displayed, the
+</p>
+<p>Only the first 8 characters of the revision id are displayed, the
 author cert value is truncated at the first <code>@</code> or space
 character and the date field is truncated to remove the time of day.
+</p>
+<p>If <samp>--revs-only</samp> is specified, the output format is:
+</p><div class="example">
+<pre class="example"> &lt;revision id&gt;: &lt;line&gt;
+</pre></div>
 
-     <p>If <samp><span class="option">--revs-only</span></samp> is specified, the output format is:
-     <pre class="example">      &lt;revision id&gt;: &lt;line&gt;
-</pre>
-     <br><dt><samp><span class="command">mtn bisect bad [--revision=</span><var>id</var><span class="command"> ...] [--[no-]move-conflicting-paths]</span></samp><a name="index-mtn-bisect-bad-_005b_002d_002drevision_003d_0040var_007bid_007d-_002e_002e_002e_005d-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-102"></a><dd>Mark the specified revisions as &ldquo;bad&rdquo; for the current bisection
-operation (see <a href="Bisecting.html#Bisecting">Bisecting</a>). If no bisection operation is in
-progress a new bisection is initialized. If a bisection operation is
-in progress the next update target is selected and the workspace is
-updated to the selected revision.
-
-     <p>If the update is blocked by conflicting unversioned paths existing in
+</dd>
+<dt><code>mtn bisect bad [--revision=<var>id</var> ...] [--[no-]move-conflicting-paths]</code>
+<a name="index-mtn-bisect-bad-_005b_002d_002drevision_003did-_002e_002e_002e_005d-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d"></a>
+</dt>
+<dd><p>Mark the specified revisions as &ldquo;bad&rdquo; for the current bisection
+operation (see <a href="Bisecting.html#Bisecting">Bisecting</a>, see <a href="Selectors.html#Selectors">Selectors</a>). If no bisection
+operation is in progress a new bisection is initialized. If a
+bisection operation is in progress the next update target is selected
+and the workspace is updated to the selected revision.
+</p>
+<p>If the update is blocked by conflicting unversioned paths existing in
 the workspace this command may be re-issued with the
-<samp><span class="option">--move-conflicting-paths</span></samp> option. Alternatively, the
-<samp><span class="command">bisect update</span></samp> command can be used with this option to update
+<samp>--move-conflicting-paths</samp> option. Alternatively, the
+<code>bisect update</code> command can be used with this option to update
 the workspace and move the conflicting paths out of the way.
-
-     <br><dt><samp><span class="command">mtn bisect good [--revision=</span><var>id</var><span class="command"> ...] [--[no-]move-conflicting-paths]</span></samp><a name="index-mtn-bisect-good-_005b_002d_002drevision_003d_0040var_007bid_007d-_002e_002e_002e_005d-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-103"></a><dd>Mark the specified revisions as &ldquo;good&rdquo; for the current bisection
-operation (see <a href="Bisecting.html#Bisecting">Bisecting</a>). If no bisection operation is in
-progress a new bisection is initialized. If a bisection operation is
-in progress the next update target is selected and the workspace is
-updated to the selected revision.
-
-     <p>If the update is blocked by conflicting unversioned paths existing in
+</p>
+</dd>
+<dt><code>mtn bisect good [--revision=<var>id</var> ...] [--[no-]move-conflicting-paths]</code>
+<a name="index-mtn-bisect-good-_005b_002d_002drevision_003did-_002e_002e_002e_005d-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d"></a>
+</dt>
+<dd><p>Mark the specified revisions as &ldquo;good&rdquo; for the current bisection
+operation (see <a href="Bisecting.html#Bisecting">Bisecting</a>, see <a href="Selectors.html#Selectors">Selectors</a>). If no bisection
+operation is in progress a new bisection is initialized. If a
+bisection operation is in progress the next update target is selected
+and the workspace is updated to the selected revision.
+</p>
+<p>If the update is blocked by conflicting unversioned paths existing in
 the workspace this command may be re-issued with the
-<samp><span class="option">--move-conflicting-paths</span></samp> option. Alternatively, the
-<samp><span class="command">bisect update</span></samp> command can be used with this option to update
+<samp>--move-conflicting-paths</samp> option. Alternatively, the
+<code>bisect update</code> command can be used with this option to update
 the workspace and move the conflicting paths out of the way.
-
-     <br><dt><samp><span class="command">mtn bisect reset</span></samp><a name="index-mtn-bisect-reset-104"></a><dd>Reset the current bisection operation by updating the workspace back
+</p>
+</dd>
+<dt><code>mtn bisect reset</code>
+<a name="index-mtn-bisect-reset"></a>
+</dt>
+<dd><p>Reset the current bisection operation by updating the workspace back
 to the revision from which the bisection was started and clearing the
 current bisection information.
-
-     <br><dt><samp><span class="command">mtn bisect skip [--revision=</span><var>id</var><span class="command"> ...] [--[no-]move-conflicting-paths]</span></samp><a name="index-mtn-bisect-skip-_005b_002d_002drevision_003d_0040var_007bid_007d-_002e_002e_002e_005d-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-105"></a><dd>Mark the specified revisions as &ldquo;skipped&rdquo; for the current bisection
-operation (see <a href="Bisecting.html#Bisecting">Bisecting</a>). If no bisection operation is in
-progress a new bisection is initialized. If a bisection operation is
-in progress the next update target is selected and the workspace is
-updated to the selected revision.
-
-     <p>If the update is blocked by conflicting unversioned paths existing in
+</p>
+</dd>
+<dt><code>mtn bisect skip [--revision=<var>id</var> ...] [--[no-]move-conflicting-paths]</code>
+<a name="index-mtn-bisect-skip-_005b_002d_002drevision_003did-_002e_002e_002e_005d-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d"></a>
+</dt>
+<dd><p>Mark the specified revisions as &ldquo;skipped&rdquo; for the current bisection
+operation (see <a href="Bisecting.html#Bisecting">Bisecting</a>, see <a href="Selectors.html#Selectors">Selectors</a>). If no bisection
+operation is in progress a new bisection is initialized. If a
+bisection operation is in progress the next update target is selected
+and the workspace is updated to the selected revision.
+</p>
+<p>If the update is blocked by conflicting unversioned paths existing in
 the workspace this command may be re-issued with the
-<samp><span class="option">--move-conflicting-paths</span></samp> option. Alternatively, the
-<samp><span class="command">bisect update</span></samp> command can be used with this option to update
+<samp>--move-conflicting-paths</samp> option. Alternatively, the
+<code>bisect update</code> command can be used with this option to update
 the workspace and move the conflicting paths out of the way.
-
-     <br><dt><samp><span class="command">mtn bisect status</span></samp><a name="index-mtn-bisect-status-106"></a><dd>Report the status of the current bisection operation including the
+</p>
+</dd>
+<dt><code>mtn bisect status</code>
+<a name="index-mtn-bisect-status"></a>
+</dt>
+<dd><p>Report the status of the current bisection operation including the
 number of revisions that remain to be tested, the number of revisions
 that have been tested and the next revision that will selected for
 testing.
-
-     <br><dt><samp><span class="command">mtn bisect update [--[no-]move-conflicting-paths]</span></samp><a name="index-mtn-bisect-update-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d-107"></a><dd>Update the workspace to the next revision selected by the previous
+</p>
+</dd>
+<dt><code>mtn bisect update [--[no-]move-conflicting-paths]</code>
+<a name="index-mtn-bisect-update-_005b_002d_002d_005bno_002d_005dmove_002dconflicting_002dpaths_005d"></a>
+</dt>
+<dd><p>Update the workspace to the next revision selected by the previous
 bisect operation (see <a href="Bisecting.html#Bisecting">Bisecting</a>). This command can be useful
 when the previous bisect operation fails to update the workspace
 because of conflicting unversioned paths existing in the workspace.
+</p>
+</dd>
+<dt><code>mtn cat [--revision=<var>id</var>] <var>path</var></code>
+<a name="index-mtn-cat-_005b_002d_002drevision_003did_005d-path"></a>
+</dt>
+<dd><p>Write the contents of a specific file <var>path</var> in revision <var>id</var>
+(see <a href="Selectors.html#Selectors">Selectors</a>; default to workspace base revision) to standard
+output.
+</p>
+</dd>
+<dt><code>mtn complete file <var>partial-id</var></code>
+<a name="index-mtn-complete-file-partial_002did"></a>
+</dt>
+<dt><code>mtn complete key <var>partial-id</var></code>
+<a name="index-mtn-complete-key-partial_002did"></a>
+</dt>
+<dt><code>mtn complete revision <var>partial-id</var></code>
+<a name="index-mtn-complete-revision-partial_002did"></a>
+</dt>
+<dd>
+<p>These commands print out all known completions of a partial <small>SHA1</small>
+value (<em>not</em> a selector), listing completions which are
+<code>file</code>, <code>manifest</code> or <code>revision</code> IDs depending on which
+variant is used. For example, suppose you enter this command and get
+this result:
+</p>
+<div class="smallexample">
+<pre class="smallexample">$ mtn complete revision fa36
+fa36deead87811b0e15208da2853c39d2f6ebe90
+fa36b76dd0139177b28b379fe1d56b22342e5306
+fa36965ec190bee14c5afcac235f1b8e2239bb2a
+</pre></div>
 
-     <br><dt><samp><span class="command">mtn cat [--revision=</span><var>id</var><span class="command">] </span><var>path</var></samp><a name="index-mtn-cat-_005b_002d_002drevision_003d_0040var_007bid_007d_005d-_0040var_007bpath_007d-108"></a><dd>Write the contents of a specific file <var>path</var> in revision <var>id</var>
-(default to workspace base revision) to standard output.
-
-     <br><dt><samp><span class="command">mtn complete file </span><var>partial-id</var></samp><a name="index-mtn-complete-file-_0040var_007bpartial_002did_007d-109"></a><dt><samp><span class="command">mtn complete key </span><var>partial-id</var></samp><a name="index-mtn-complete-key-_0040var_007bpartial_002did_007d-110"></a><dt><samp><span class="command">mtn complete revision </span><var>partial-id</var></samp><a name="index-mtn-complete-revision-_0040var_007bpartial_002did_007d-111"></a><dd>
-These commands print out all known completions of a partial <span class="sc">sha1</span>
-value, listing completions which are <code>file</code>, <code>manifest</code> or
-<code>revision</code> IDs depending on which variant is used. For
-example, suppose you enter this command and get this result:
-
-     <pre class="smallexample">     $ mtn complete revision fa36
-     fa36deead87811b0e15208da2853c39d2f6ebe90
-     fa36b76dd0139177b28b379fe1d56b22342e5306
-     fa36965ec190bee14c5afcac235f1b8e2239bb2a
-</pre>
-     <p>Then monotone is telling you that there are 3 revisions it knows
+<p>Then monotone is telling you that there are 3 revisions it knows
 about, in its database, which begin with the 4 hex digits
 <code>fa36</code>. This command is intended to be used by programmable
-completion systems, such as those in <samp><span class="command">bash</span></samp> and <samp><span class="command">zsh</span></samp>.
-
-     <p><a name="mtn-diff"></a><br><dt><samp><span class="command">mtn diff [--unified] [--[no-]show-encloser]</span></samp><a name="index-mtn-diff-_005b_002d_002dunified_005d-_005b_002d_002d_005bno_002d_005dshow_002dencloser_005d-112"></a><dt><samp><span class="command">mtn diff --context [--[no-]show-encloser]</span></samp><a name="index-mtn-diff-_002d_002dcontext-_005b_002d_002d_005bno_002d_005dshow_002dencloser_005d-113"></a><dt><samp><span class="command">mtn diff --external [--diff-args=</span><var>argstring</var><span class="command">]</span></samp><a name="index-mtn-diff-_002d_002dexternal-_005b_002d_002ddiff_002dargs_003d_0040var_007bargstring_007d_005d-114"></a><dt><samp><span class="command">mtn diff </span><var>pathname...</var></samp><a name="index-mtn-diff-_0040var_007bpathname_002e_002e_002e_007d-115"></a><dt><samp><span class="command">mtn diff [--reverse] --revision=</span><var>id</var></samp><a name="index-mtn-diff-_005b_002d_002dreverse_005d-_002d_002drevision_003d_0040var_007bid_007d-116"></a><dt><samp><span class="command">mtn diff --revision=</span><var>id</var> <var>pathname...</var></samp><a name="index-mtn-diff-_002d_002drevision_003d_0040var_007bid_007d-_0040var_007bpathname_002e_002e_002e_007d-117"></a><dt><samp><span class="command">mtn diff --revision=</span><var>id1</var><span class="command"> --revision=</span><var>id2</var></samp><a name="index-mtn-diff-_002d_002drevision_003d_0040var_007bid1_007d-_002d_002drevision_003d_0040var_007bid2_007d-118"></a><dt><samp><span class="command">mtn diff --revision=</span><var>id1</var><span class="command"> --revision=</span><var>id2</var> <var>pathname...</var></samp><a name="index-mtn-diff-_002d_002drevision_003d_0040var_007bid1_007d-_002d_002drevision_003d_0040var_007bid2_007d-_0040var_007bpathname_002e_002e_002e_007d-119"></a><dt><samp><span class="command">mtn di</span></samp><a name="index-mtn-di-120"></a><dd><samp><span class="command">di</span></samp> is an alias for <samp><span class="command">diff</span></samp>. See online help for more options.
-
-     <p>These commands print out textual difference listings between various
-manifest versions. With no <samp><span class="option">--revision</span></samp> options, <samp><span class="command">diff</span></samp>
+completion systems, such as those in <code>bash</code> and <code>zsh</code>.
+</p>
+<a name="mtn-diff"></a></dd>
+<dt><code>mtn diff [--unified] [--[no-]show-encloser]</code>
+<a name="index-mtn-diff-_005b_002d_002dunified_005d-_005b_002d_002d_005bno_002d_005dshow_002dencloser_005d"></a>
+</dt>
+<dt><code>mtn diff --context [--[no-]show-encloser]</code>
+<a name="index-mtn-diff-_002d_002dcontext-_005b_002d_002d_005bno_002d_005dshow_002dencloser_005d"></a>
+</dt>
+<dt><code>mtn diff --external [--diff-args=<var>argstring</var>]</code>
+<a name="index-mtn-diff-_002d_002dexternal-_005b_002d_002ddiff_002dargs_003dargstring_005d"></a>
+</dt>
+<dt><code>mtn diff <var>pathname...</var></code>
+<a name="index-mtn-diff-pathname_002e_002e_002e"></a>
+</dt>
+<dt><code>mtn diff [--reverse] --revision=<var>id</var></code>
+<a name="index-mtn-diff-_005b_002d_002dreverse_005d-_002d_002drevision_003did"></a>
+</dt>
+<dt><code>mtn diff --revision=<var>id</var> <var>pathname...</var></code>
+<a name="index-mtn-diff-_002d_002drevision_003did-pathname_002e_002e_002e"></a>
+</dt>
+<dt><code>mtn diff --revision=<var>id1</var> --revision=<var>id2</var></code>
+<a name="index-mtn-diff-_002d_002drevision_003did1-_002d_002drevision_003did2"></a>
+</dt>
+<dt><code>mtn diff --revision=<var>id1</var> --revision=<var>id2</var> <var>pathname...</var></code>
+<a name="index-mtn-diff-_002d_002drevision_003did1-_002d_002drevision_003did2-pathname_002e_002e_002e"></a>
+</dt>
+<dt><code>mtn di</code>
+<a name="index-mtn-di"></a>
+</dt>
+<dd><p><code>di</code> is an alias for <code>diff</code>. See online help for more
+options. See <a href="Selectors.html#Selectors">Selectors</a>.
+</p>
+<p>These commands print out textual difference listings between various
+manifest versions. With no <samp>--revision</samp> options, <code>diff</code>
 will print the difference from the base revision to the current
 revision in the workspace.
-
-     <p>With one <samp><span class="option">--revision</span></samp> option, <samp><span class="command">diff</span></samp> will print the
+</p>
+<p>With one <samp>--revision</samp> option, <code>diff</code> will print the
 difference from the revision <var>id</var> to the current revision in the
-workspace. If <samp><span class="option">--reverse</span></samp> is given, the order of the diff is
+workspace. If <samp>--reverse</samp> is given, the order of the diff is
 reversed.
-
-     <p>With two <samp><span class="option">--revision</span></samp> options <samp><span class="command">diff</span></samp> will print the
+</p>
+<p>With two <samp>--revision</samp> options <code>diff</code> will print the
 difference from revision <var>id1</var> to <var>id2</var>, ignoring any
 workspace.
-
-     <p>In all cases, monotone will print a textual summary &ndash; identical to
-the summary presented by <samp><span class="command">mtn status</span></samp> &ndash; of the logical
+</p>
+<p>In all cases, monotone will print a textual summary &ndash; identical to
+the summary presented by <code>mtn status</code> &ndash; of the logical
 differences between revisions in lines proceeding the diff. These
 lines begin with a single hash mark <code>#</code>, and should be ignored by
-a program processing the diff, such as <samp><span class="command">patch</span></samp>.
-
-     <p>Specifying pathnames to the <samp><span class="command">diff</span></samp> command restricts the set of
+a program processing the diff, such as <code>patch</code>.
+</p>
+<p>Specifying pathnames to the <code>diff</code> command restricts the set of
 changes that are visible and results in only a partial diff between
 two revisions. Changes to files not included in the specified set of
 pathnames will be ignored.
-
-     <p>From within a subdirectory of the workspace the <samp><span class="command">diff</span></samp> command
-will, by default, include <em>all changes</em> in the workspace. 
-Specifying only the pathname "." will restrict <samp><span class="command">diff</span></samp> to files
+</p>
+<p>From within a subdirectory of the workspace the <code>diff</code> command
+will, by default, include <em>all changes</em> in the workspace.
+Specifying only the pathname &quot;.&quot; will restrict <code>diff</code> to files
 changed within the current subdirectory of the workspace.
-
-     <p>The output format of <samp><span class="command">diff</span></samp> is controlled by the options
-<samp><span class="option">--unified</span></samp>, <samp><span class="option">--context</span></samp>, <samp><span class="option">--no-show-encloser</span></samp>, and
-<samp><span class="option">--external</span></samp>.  By default, monotone uses its built-in diff
+</p>
+<p>The output format of <code>diff</code> is controlled by the options
+<samp>--unified</samp>, <samp>--context</samp>, <samp>--no-show-encloser</samp>, and
+<samp>--external</samp>.  By default, monotone uses its built-in diff
 algorithm to produce a listing in &ldquo;unified diff&rdquo; format (analogous
-to running the program <samp><span class="command">diff </span><samp><span class="option">-u</span></samp></samp>); you can also explicitly
-request this with <samp><span class="option">--unified</span></samp>.  The built-in diff algorithm can
-also produce &ldquo;context diff&rdquo; format (analogous to <samp><span class="command">diff </span><samp><span class="option">-c</span></samp></samp>),
-which you request by specifying <samp><span class="option">--context</span></samp>.  The short options
-that <samp><span class="command">diff</span></samp> accepts for these modes, <samp><span class="option">-u</span></samp> and
-<samp><span class="option">-c</span></samp>, also work.
-
-     <p>In either of these modes, monotone prints the name of the top-level
+to running the program <code>diff <samp>-u</samp></code>); you can also explicitly
+request this with <samp>--unified</samp>.  The built-in diff algorithm can
+also produce &ldquo;context diff&rdquo; format (analogous to <code>diff <samp>-c</samp></code>),
+which you request by specifying <samp>--context</samp>.  The short options
+that <code>diff</code> accepts for these modes, <samp>-u</samp> and
+<samp>-c</samp>, also work.
+</p>
+<p>In either of these modes, monotone prints the name of the top-level
 code construct that encloses each &ldquo;hunk&rdquo; of changes, unless
-suppressed with the <samp><span class="option">--no-show-encloser</span></samp>.  The options that
-<samp><span class="command">diff</span></samp> accepts for this mode, <samp><span class="option">-p</span></samp> and
-<samp><span class="option">--show-c-function</span></samp>, also work.  Monotone finds the enclosing
+suppressed with the <samp>--no-show-encloser</samp>.  The options that
+<code>diff</code> accepts for this mode, <samp>-p</samp> and
+<samp>--show-c-function</samp>, also work.  Monotone finds the enclosing
 construct by scanning backward from the first changed line in each
 hunk for a line that matches a regular expression.  The default
 regular expression is correct for many programming languages.  You can
 adjust the expression used with the Lua hook
-<a href="get_005fencloser_005fpattern.html#get_005fencloser_005fpattern">get_encloser_pattern</a>.  For the regular expression syntax, see
+<a href="External-Diff-Tools.html#get_005fencloser_005fpattern">get_encloser_pattern</a>.  For the regular expression syntax, see
 <a href="Regexps.html#Regexps">Regexps</a>.
-
-     <p>Sometimes, you may want more flexibility in output formats; for these
-cases, you can use <samp><span class="option">--external</span></samp>, which causes monotone to
+</p>
+<p>Sometimes, you may want more flexibility in output formats; for these
+cases, you can use <samp>--external</samp>, which causes monotone to
 invoke an external program to generate the actual output.  By default,
 the external program is <code>diff</code>, and you can use the option
-<samp><span class="option">--diff-args</span></samp> to pass additional arguments controlling
-formatting.  The actual invocation of <samp><span class="command">diff</span></samp>, default
+<samp>--diff-args</samp> to pass additional arguments controlling
+formatting.  The actual invocation of <code>diff</code>, default
 arguments passed to it, and so on, are controlled by the hook
-<a href="external_005fdiff.html#external_005fdiff">external_diff</a>.
-
-     <br><dt><samp><span class="command">mtn help [--[no-]hidden] </span><var>command...</var></samp><a name="index-mtn-help-_005b_002d_002d_005bno_002d_005dhidden_005d-_0040var_007bcommand_002e_002e_002e_007d-121"></a><dd>Displays help about commands and options.
-
-     <p><a name="mtn-list-branches"></a><br><dt><samp><span class="command">mtn list branches [</span><var>pattern</var><span class="command">] [--exclude=</span><var>pattern</var><span class="command">]</span></samp><a name="index-mtn-list-branches-_005b_0040var_007bpattern_007d_005d-_005b_002d_002dexclude_003d_0040var_007bpattern_007d_005d-122"></a><dt><samp><span class="command">mtn ls branches</span></samp><a name="index-mtn-ls-branches-123"></a><dd><samp><span class="command">ls branches</span></samp> is an alias for <samp><span class="command">list branches</span></samp>.
-
-     <p>This command lists all known branches in your database. If
+<a href="External-Diff-Tools.html#external_005fdiff">external_diff</a>.
+</p>
+</dd>
+<dt><code>mtn help [--[no-]hidden] <var>command...</var></code>
+<a name="index-mtn-help-_005b_002d_002d_005bno_002d_005dhidden_005d-command_002e_002e_002e"></a>
+</dt>
+<dd><p>Displays help about commands and options.
+</p>
+<a name="mtn-list-branches"></a></dd>
+<dt><code>mtn list branches [<var>pattern</var>] [--exclude=<var>pattern</var>]</code>
+<a name="index-mtn-list-branches-_005bpattern_005d-_005b_002d_002dexclude_003dpattern_005d"></a>
+</dt>
+<dt><code>mtn ls branches</code>
+<a name="index-mtn-ls-branches"></a>
+</dt>
+<dd><p><code>ls branches</code> is an alias for <code>list branches</code>.
+</p>
+<p>This command lists all known branches in your database. If
 <var>pattern</var> is provided, it is used as a glob to select the branches
-listed, otherwise all branches are listed.  If <samp><span class="option">-exclude</span></samp>
+listed, otherwise all branches are listed.  If <samp>-exclude</samp>
 options are provided they are used as globs to exclude specified
 branches. In addition, branches for which the Lua hook
-<a href="ignore_005fbranch.html#ignore_005fbranch">ignore_branch</a> returns true are excluded.
-
-     <p>Normally, branches that have been suspended are not listed; the global
-option <samp><span class="option">--ignore-suspend-certs</span></samp> causes suspended branches to
-be listed; see <samp><span class="command"><a href="mtn-suspend.html#mtn-suspend">mtn suspend</a></span></samp>.
-
-     <br><dt><samp><span class="command">mtn list certs </span><var>id</var></samp><a name="index-mtn-list-certs-_0040var_007bid_007d-124"></a><dt><samp><span class="command">mtn ls certs</span></samp><a name="index-mtn-ls-certs-125"></a><dd><samp><span class="command">ls certs</span></samp> is an alias for <samp><span class="command">list certs</span></samp>.
-
-     <p>This command will print out a list of certificates associated with
+<a href="User-Defaults.html#ignore_005fbranch">ignore_branch</a> returns true are excluded.
+</p>
+<p>Normally, branches that have been suspended are not listed; the global
+option <samp>--ignore-suspend-certs</samp> causes suspended branches to
+be listed; see <code><a href="Review.html#mtn-suspend">mtn suspend</a></code>.
+</p>
+</dd>
+<dt><code>mtn list certs <var>id</var></code>
+<a name="index-mtn-list-certs-id"></a>
+</dt>
+<dt><code>mtn ls certs</code>
+<a name="index-mtn-ls-certs"></a>
+</dt>
+<dd><p><code>ls certs</code> is an alias for <code>list certs</code>.
+</p>
+<p>This command will print out a list of certificates associated with
 a particular revision <var>id</var>. Each line of the print out will
 indicate:
-          <ul>
-<li>The key used to sign the certificate
-<li>Whether the signature on the certificate is <code>ok</code> or <code>bad</code>
-<li>The name of the certificate
-<li>The value of the certificate
-</ul>
+</p><ul>
+<li> The key used to sign the certificate
+</li><li> Whether the signature on the certificate is <code>ok</code> or <code>bad</code>
+</li><li> The name of the certificate
+</li><li> The value of the certificate
+</li></ul>
 
-     <p>For example, this command lists the certificates associated with a
+<p>For example, this command lists the certificates associated with a
 particular version of monotone itself, in the monotone development
 branch:
+</p>
+<div class="smallexample">
+<pre class="smallexample">$ mtn list certs 4a96
+mtn: expanding partial id '4a96'
+mtn: expanded to '4a96a230293456baa9c6e7167cafb3c5b52a8e7f'
+-----------------------------------------------------------------
+Key   : graydon@pobox.com (10b5b36b4a...)
+Sig   : ok
+Name  : author
+Value : graydon@dub.venge.net
+-----------------------------------------------------------------
+Key   : graydon@pobox.com (10b5b36b4a...)
+Sig   : ok
+Name  : branch
+Value : monotone
+-----------------------------------------------------------------
+Key   : graydon@pobox.com (10b5b36b4a...)
+Sig   : ok
+Name  : date
+Value : 2003-10-17T03:20:27
+-----------------------------------------------------------------
+Key   : graydon@pobox.com (10b5b36b4a...)
+Sig   : ok
+Name  : changelog
+Value : 2003-10-16  graydon hoare  &lt;graydon@pobox.com&gt;
+      :
+      :         * sanity.hh: Add a const version of idx().
+      :         * diff_patch.cc: Change to using idx() everywhere.
+      :         * cert.cc (find_common_ancestor): Rewrite to recursive
+      :         form, stepping over historic merges.
+      :         * tests/t_cross.at: New test for merging merges.
+      :         * testsuite.at: Call t_cross.at.
+      :
+</pre></div>
 
-     <pre class="smallexample">     $ mtn list certs 4a96
-     mtn: expanding partial id '4a96'
-     mtn: expanded to '4a96a230293456baa9c6e7167cafb3c5b52a8e7f'
-     -----------------------------------------------------------------
-     Key   : graydon@pobox.com (10b5b36b4a...)
-     Sig   : ok
-     Name  : author
-     Value : graydon@dub.venge.net
-     -----------------------------------------------------------------
-     Key   : graydon@pobox.com (10b5b36b4a...)
-     Sig   : ok
-     Name  : branch
-     Value : monotone
-     -----------------------------------------------------------------
-     Key   : graydon@pobox.com (10b5b36b4a...)
-     Sig   : ok
-     Name  : date
-     Value : 2003-10-17T03:20:27
-     -----------------------------------------------------------------
-     Key   : graydon@pobox.com (10b5b36b4a...)
-     Sig   : ok
-     Name  : changelog
-     Value : 2003-10-16  graydon hoare  &lt;graydon@pobox.com&gt;
-           :
-           :         * sanity.hh: Add a const version of idx().
-           :         * diff_patch.cc: Change to using idx() everywhere.
-           :         * cert.cc (find_common_ancestor): Rewrite to recursive
-           :         form, stepping over historic merges.
-           :         * tests/t_cross.at: New test for merging merges.
-           :         * testsuite.at: Call t_cross.at.
-           :
-</pre>
-     <br><dt><samp><span class="command">mtn list changed [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-list-changed-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-126"></a><dt><samp><span class="command">mtn ls changed</span></samp><a name="index-mtn-ls-changed-127"></a><dd><samp><span class="command">ls changed</span></samp> is an alias for <samp><span class="command">list changed</span></samp>. 
+</dd>
+<dt><code>mtn list changed [<var>pathname...</var>]</code>
+<a name="index-mtn-list-changed-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dt><code>mtn ls changed</code>
+<a name="index-mtn-ls-changed"></a>
+</dt>
+<dd><p><code>ls changed</code> is an alias for <code>list changed</code>.
 See online help for more options.
-
-     <p>This command lists all files in your workspace that have changed
+</p>
+<p>This command lists all files in your workspace that have changed
 compared to the base revision, including files that are dropped, added
 or renamed.
-
-     <p>Specifying pathnames to the <samp><span class="command">list changed</span></samp> command restricts
+</p>
+<p>Specifying pathnames to the <code>list changed</code> command restricts
 the set of paths that are checked for changes. Files not included in the
 specified set of pathnames will not be listed.
-
-     <p>From within a subdirectory of the workspace the <samp><span class="command">list
-changed</span></samp> command will, by default, search the entire workspace. 
-Specifying only the pathname "." will restrict the search for known
+</p>
+<p>From within a subdirectory of the workspace the <code>list
+changed</code> command will, by default, search the entire workspace.
+Specifying only the pathname &quot;.&quot; will restrict the search for known
 files to the current subdirectory of the workspace.
-
-     <p><a name="mtn-list-databases"></a><br><dt><samp><span class="command">mtn list databases</span></samp><a name="index-mtn-list-databases-128"></a><dt><samp><span class="command">mtn list dbs</span></samp><a name="index-mtn-list-dbs-129"></a><dt><samp><span class="command">mtn ls databases</span></samp><a name="index-mtn-ls-databases-130"></a><dt><samp><span class="command">mtn ls dbs</span></samp><a name="index-mtn-ls-dbs-131"></a><dd>
-Show all <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a> and the workspaces registered in
-them. The commands <samp><span class="command"><a href="mtn-register_005fworkspace.html#mtn-register_005fworkspace">mtn register_workspace</a></span></samp> and
-<samp><span class="command"><a href="mtn-unregister_005fworkspace.html#mtn-unregister_005fworkspace">mtn unregister_workspace</a></span></samp> can be used to explicitely
+</p>
+<a name="mtn-list-databases"></a></dd>
+<dt><code>mtn list databases</code>
+<a name="index-mtn-list-databases"></a>
+</dt>
+<dt><code>mtn list dbs</code>
+<a name="index-mtn-list-dbs"></a>
+</dt>
+<dt><code>mtn ls databases</code>
+<a name="index-mtn-ls-databases"></a>
+</dt>
+<dt><code>mtn ls dbs</code>
+<a name="index-mtn-ls-dbs"></a>
+</dt>
+<dd>
+<p>Show all <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a> and the workspaces registered in
+them. The commands <code><a href="Variables.html#mtn-register_005fworkspace">mtn register_workspace</a></code> and
+<code><a href="Variables.html#mtn-unregister_005fworkspace">mtn unregister_workspace</a></code> can be used to explicitely
 register and unregister workspaces shown within this list.
-
-     <br><dt><samp><span class="command">mtn list duplicates [--revision=</span><var>id</var><span class="command">]</span></samp><a name="index-mtn-list-duplicates-_005b_002d_002drevision_003d_0040var_007bid_007d_005d-132"></a><dt><samp><span class="command">mtn ls duplicates</span></samp><a name="index-mtn-ls-duplicates-133"></a><dd><samp><span class="command">ls duplicates</span></samp> is an alias for <samp><span class="command">list duplicates</span></samp>.
-
-     <p>This command lists duplicate files in a given revision (defaults to
+</p>
+</dd>
+<dt><code>mtn list duplicates [--revision=<var>id</var>]</code>
+<a name="index-mtn-list-duplicates-_005b_002d_002drevision_003did_005d"></a>
+</dt>
+<dt><code>mtn ls duplicates</code>
+<a name="index-mtn-ls-duplicates"></a>
+</dt>
+<dd><p><code>ls duplicates</code> is an alias for <code>list duplicates</code>. See
+<a href="Selectors.html#Selectors">Selectors</a>.
+</p>
+<p>This command lists duplicate files in a given revision (defaults to
 the workspace base revision). Ignored and unknown files are excluded
 from the listing.
-
-     <p>Two or more files are considered duplicates if the <span class="sc">sha1</span> hashes of their
+</p>
+<p>Two or more files are considered duplicates if the <small>SHA1</small> hashes of their
 contents are equal.
-
-     <br><dt><samp><span class="command">mtn list ignored [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-list-ignored-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-134"></a><dt><samp><span class="command">mtn ls ignored</span></samp><a name="index-mtn-ls-ignored-135"></a><dd><samp><span class="command">ls ignored</span></samp> is an alias for <samp><span class="command">list ignored</span></samp>.
-
-     <p>This command lists all files in your workspace that monotone is
-intentionally ignoring, due to the results of the <a href="ignore_005ffile.html#ignore_005ffile">ignore_file</a>
+</p>
+</dd>
+<dt><code>mtn list ignored [--[no-]recursive] [<var>pathname...</var>]</code>
+<a name="index-mtn-list-ignored-_005b_002d_002d_005bno_002d_005drecursive_005d-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dt><code>mtn ls ignored</code>
+<a name="index-mtn-ls-ignored"></a>
+</dt>
+<dd><p><code>ls ignored</code> is an alias for <code>list ignored</code>.
+</p>
+<p>This command lists all files in your workspace that monotone is
+intentionally ignoring, due to the results of the <a href="User-Defaults.html#ignore_005ffile">ignore_file</a>
 hook.
-
-     <p>Specifying pathnames to the <samp><span class="command">list ignored</span></samp> command restricts the
+</p>
+<p>Specifying pathnames to the <code>list ignored</code> command restricts the
 set of paths that are searched for ignored files. Ignored files not
 included in the specified set of pathnames will not be listed.
-
-     <p>From within a subdirectory of the workspace the <samp><span class="command">list
-ignored</span></samp> command will, by default, search the entire workspace. 
-Specifying only the pathname "." will restrict the search for ignored
+</p>
+<p>From within a subdirectory of the workspace the <code>list
+ignored</code> command will, by default, search the entire workspace.
+Specifying only the pathname &quot;.&quot; will restrict the search for ignored
 files to the current subdirectory of the workspace.
-
-     <br><dt><samp><span class="command">mtn list keys [</span><var>pattern</var><span class="command">]</span></samp><a name="index-mtn-list-keys-_005b_0040var_007bpattern_007d_005d-136"></a><dt><samp><span class="command">mtn ls keys</span></samp><a name="index-mtn-ls-keys-137"></a><dd><samp><span class="command">ls keys</span></samp> is an alias for <samp><span class="command">list keys</span></samp>.
-
-     <p>These commands list <span class="sc">rsa</span> keys held in your keystore and current database. 
+</p>
+<p>Default is <samp>--recursive</samp>; all directories will be
+traversed. Specifying <samp>--no-recursive</samp> restricts the listing to
+the root directory of the specified path (or the workspace, if no path
+is given).
+</p>
+</dd>
+<dt><code>mtn list keys [<var>pattern</var>]</code>
+<a name="index-mtn-list-keys-_005bpattern_005d"></a>
+</dt>
+<dt><code>mtn ls keys</code>
+<a name="index-mtn-ls-keys"></a>
+</dt>
+<dd><p><code>ls keys</code> is an alias for <code>list keys</code>.
+</p>
+<p>These commands list <small>RSA</small> keys held in your keystore and current database.
 They do not print out any cryptographic information; they simply list the
 names of public and private keys you have on hand.
-
-     <p>If <var>pattern</var> is provided, it is used as a glob to limit the keys
+</p>
+<p>If <var>pattern</var> is provided, it is used as a glob to limit the keys
 listed. Otherwise all keys in your database are listed.
-
-     <br><dt><samp><span class="command">mtn list known [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-list-known-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-138"></a><dt><samp><span class="command">mtn ls known</span></samp><a name="index-mtn-ls-known-139"></a><dd><samp><span class="command">ls known</span></samp> is an alias for <samp><span class="command">list known</span></samp>.
-
-     <p>This command lists all files which would become part of the manifest of
+</p>
+</dd>
+<dt><code>mtn list known [<var>pathname...</var>]</code>
+<a name="index-mtn-list-known-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dt><code>mtn ls known</code>
+<a name="index-mtn-ls-known"></a>
+</dt>
+<dd><p><code>ls known</code> is an alias for <code>list known</code>.
+</p>
+<p>This command lists all files which would become part of the manifest of
 the next revision if you committed your workspace at this point.
-
-     <p>Specifying pathnames to the <samp><span class="command">list known</span></samp> command restricts
+</p>
+<p>Specifying pathnames to the <code>list known</code> command restricts
 the set of paths that are searched for manifest files. Files not
 included in the specified set of pathnames will not be listed.
-
-     <p>From within a subdirectory of the workspace the <samp><span class="command">list
-known</span></samp> command will, by default, search the entire workspace. 
-Specifying only the pathname "." will restrict the search for known
+</p>
+<p>From within a subdirectory of the workspace the <code>list
+known</code> command will, by default, search the entire workspace.
+Specifying only the pathname &quot;.&quot; will restrict the search for known
 files to the current subdirectory of the workspace.
-
-     <br><dt><samp><span class="command">mtn list missing [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-list-missing-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-140"></a><dt><samp><span class="command">mtn ls missing</span></samp><a name="index-mtn-ls-missing-141"></a><dd><samp><span class="command">ls missing</span></samp> is an alias for <samp><span class="command">list missing</span></samp>.
-
-     <p>This command lists all files in your workspace's base manifest,
+</p>
+</dd>
+<dt><code>mtn list missing [<var>pathname...</var>]</code>
+<a name="index-mtn-list-missing-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dt><code>mtn ls missing</code>
+<a name="index-mtn-ls-missing"></a>
+</dt>
+<dd><p><code>ls missing</code> is an alias for <code>list missing</code>.
+</p>
+<p>This command lists all files in your workspace&rsquo;s base manifest,
 which are not present in the workspace.
-
-     <p>Specifying pathnames to the <samp><span class="command">list missing</span></samp> command restricts the
+</p>
+<p>Specifying pathnames to the <code>list missing</code> command restricts the
 set of paths that are searched for missing files. Missing files not
 included in the specified set of pathnames will not be listed.
-
-     <p>From within a subdirectory of the workspace the <samp><span class="command">list
-missing</span></samp> command will, by default, search the entire workspace. 
-Specifying only the pathname "." will restrict the search for missing
+</p>
+<p>From within a subdirectory of the workspace the <code>list
+missing</code> command will, by default, search the entire workspace.
+Specifying only the pathname &quot;.&quot; will restrict the search for missing
 files to the current subdirectory of the workspace.
-
-     <br><dt><samp><span class="command">mtn list tags [</span><var>pattern</var><span class="command">] [--exclude=</span><var>pattern</var><span class="command">]</span></samp><a name="index-mtn-list-tags-_005b_0040var_007bpattern_007d_005d-_005b_002d_002dexclude_003d_0040var_007bpattern_007d_005d-142"></a><dt><samp><span class="command">mtn ls tags</span></samp><a name="index-mtn-ls-tags-143"></a><dd><samp><span class="command">ls tags</span></samp> is an alias for <samp><span class="command">list tags</span></samp>.
-
-     <p>This command lists all known tags in your database that match the
-given <var>pattern</var> (default all tags).  If <samp><span class="option">--exclude</span></samp>
+</p>
+</dd>
+<dt><code>mtn list tags [<var>pattern</var>] [--exclude=<var>pattern</var>]</code>
+<a name="index-mtn-list-tags-_005bpattern_005d-_005b_002d_002dexclude_003dpattern_005d"></a>
+</dt>
+<dt><code>mtn ls tags</code>
+<a name="index-mtn-ls-tags"></a>
+</dt>
+<dd><p><code>ls tags</code> is an alias for <code>list tags</code>.
+</p>
+<p>This command lists all known tags in your database that match the
+given <var>pattern</var> (default all tags).  If <samp>--exclude</samp>
 options are provided they are used as globs to exclude specified tags.
-
-     <br><dt><samp><span class="command">mtn list unknown [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-list-unknown-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-144"></a><dt><samp><span class="command">mtn ls unknown</span></samp><a name="index-mtn-ls-unknown-145"></a><dd><samp><span class="command">ls unknown</span></samp> is an alias for <samp><span class="command">list unknown</span></samp>.
-
-     <p>This command lists all files in your workspace that monotone knows
+</p>
+</dd>
+<dt><code>mtn list unknown [--[no-]recursive] [<var>pathname...</var>]</code>
+<a name="index-mtn-list-unknown-_005b_002d_002d_005bno_002d_005drecursive_005d-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dt><code>mtn ls unknown</code>
+<a name="index-mtn-ls-unknown"></a>
+</dt>
+<dd><p><code>ls unknown</code> is an alias for <code>list unknown</code>.
+</p>
+<p>This command lists all files in your workspace that monotone knows
 nothing about.
-
-     <p>Specifying pathnames to the <samp><span class="command">list unknown</span></samp> command restricts the
+</p>
+<p>Specifying pathnames to the <code>list unknown</code> command restricts the
 set of paths that are searched for unknown files. Unknown files not
 included in the specified set of pathnames will not be listed.
-
-     <p>From within a subdirectory of the workspace the <samp><span class="command">list
-unknown</span></samp> command will, by default, search the entire workspace. 
-Specifying only the pathname "." will restrict the search for unknown
+</p>
+<p>From within a subdirectory of the workspace the <code>list
+unknown</code> command will, by default, search the entire workspace.
+Specifying only the pathname &quot;.&quot; will restrict the search for unknown
 files to the current subdirectory of the workspace.
-
-     <dt><samp><span class="command">mtn list vars [</span><var>domain</var><span class="command">]</span></samp><a name="index-mtn-list-vars-_005b_0040var_007bdomain_007d_005d-146"></a><dt><samp><span class="command">mtn ls vars</span></samp><a name="index-mtn-ls-vars-147"></a><dd><samp><span class="command">ls vars</span></samp> is an alias for <samp><span class="command">list vars</span></samp>.
-
-     <p>This command lists all vars in your database, or all vars within a given
+</p>
+<p>Default is <samp>--recursive</samp>; all directories will be
+traversed. Specifying <samp>--no-recursive</samp> restricts the listing to
+the root directory of the specified path (or the workspace, if no path
+is given).
+</p>
+</dd>
+<dt><code>mtn list vars [<var>domain</var>]</code>
+<a name="index-mtn-list-vars-_005bdomain_005d"></a>
+</dt>
+<dt><code>mtn ls vars</code>
+<a name="index-mtn-ls-vars"></a>
+</dt>
+<dd><p><code>ls vars</code> is an alias for <code>list vars</code>.
+</p>
+<p>This command lists all vars in your database, or all vars within a given
 <var>domain</var>.  See <a href="Vars.html#Vars">Vars</a> for more information.
-
-     <p><a name="mtn-list-workspaces"></a><br><dt><samp><span class="command">mtn list workspaces</span></samp><a name="index-mtn-list-workspaces-148"></a><dt><samp><span class="command">mtn ls workspaces</span></samp><a name="index-mtn-ls-workspaces-149"></a><dd><samp><span class="command">ls workspaces</span></samp> is an alias for <samp><span class="command">list workspaces</span></samp>.
-
-     <p>This command shows all registered workspaces for a database, be it
+</p>
+<a name="mtn-list-workspaces"></a></dd>
+<dt><code>mtn list workspaces</code>
+<a name="index-mtn-list-workspaces"></a>
+</dt>
+<dt><code>mtn ls workspaces</code>
+<a name="index-mtn-ls-workspaces"></a>
+</dt>
+<dd><p><code>ls workspaces</code> is an alias for <code>list workspaces</code>.
+</p>
+<p>This command shows all registered workspaces for a database, be it
 managed or unmanaged.  If no database is given explicitely, defaults to
-the workspace' database in which the command is executed.  The commands
-<samp><span class="command"><a href="mtn-register_005fworkspace.html#mtn-register_005fworkspace">mtn register_workspace</a></span></samp> and <samp><span class="command"><a href="mtn-unregister_005fworkspace.html#mtn-unregister_005fworkspace">mtn unregister_workspace</a></span></samp>
+the workspace&rsquo; database in which the command is executed.  The commands
+<code><a href="Variables.html#mtn-register_005fworkspace">mtn register_workspace</a></code> and <code><a href="Variables.html#mtn-unregister_005fworkspace">mtn unregister_workspace</a></code>
 can be used to explicitely register and unregister workspaces shown
 within this list.  See <a href="Managed-Databases.html#Managed-Databases">Managed Databases</a> for more information.
-
-     <p><a name="mtn-log"></a><br><dt><samp><span class="command">mtn log</span></samp><a name="index-mtn-log-150"></a><dt><samp><span class="command">mtn log [--last=</span><var>n</var><span class="command">] [--next=</span><var>n</var><span class="command">] [--from=</span><var>id</var><span class="command"> [...]] [--clear-from] [--to=</span><var>id</var><span class="command"> [...]] [--clear-to] [--revision=</span><var>id</var><span class="command"> [...]] [--[no-]brief] [--[no-]merges] [--[no-]files] [--[no-]graph] [--[no-]diffs] [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-log-_005b_002d_002dlast_003d_0040var_007bn_007d_005d-_005b_002d_002dnext_003d_0040var_007bn_007d_005d-_005b_002d_002dfrom_003d_0040var_007bid_007d-_005b_002e_002e_002e_005d_005d-_005b_002d_002dclear_002dfrom_005d-_005b_002d_002dto_003d_0040var_007bid_007d-_005b_002e_002e_002e_005d_005d-_005b_002d_002dclear_002dto_005d-_005b_002d_002drevision_003d_0040var_007bid_007d-_005b_002e_002e_002e_005d_005d-_005b_002d_002d_005bno_002d_005dbrief_005d-_005b_002d_002d_005bno_002d_005dmerges_005d-_005b_002d_002d_005bno_002d_005dfiles_005d-_005b_002d_002d_005bno_002d_005dgraph_005d-_005b_002d_002d_005bno_002d_005ddiffs_005d-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-151"></a><dd>See the online help for more options.
-
-     <p>This command prints out a log, in forward ancestry order by default
-but optionally in reverse ancestry order, of small history summaries. 
+</p>
+<a name="mtn-log"></a></dd>
+<dt><code>mtn log</code>
+<a name="index-mtn-log"></a>
+</dt>
+<dt><code>mtn log [--last=<var>n</var>] [--next=<var>n</var>] [--from=<var>id</var> [...]] [--clear-from] [--to=<var>id</var> [...]] [--clear-to] [--revision=<var>id</var> [...]] [--[no-]brief] [--[no-]merges] [--[no-]files] [--[no-]graph] [--[no-]diffs] [<var>pathname...</var>]</code>
+<a name="index-mtn-log-_005b_002d_002dlast_003dn_005d-_005b_002d_002dnext_003dn_005d-_005b_002d_002dfrom_003did-_005b_002e_002e_002e_005d_005d-_005b_002d_002dclear_002dfrom_005d-_005b_002d_002dto_003did-_005b_002e_002e_002e_005d_005d-_005b_002d_002dclear_002dto_005d-_005b_002d_002drevision_003did-_005b_002e_002e_002e_005d_005d-_005b_002d_002d_005bno_002d_005dbrief_005d-_005b_002d_002d_005bno_002d_005dmerges_005d-_005b_002d_002d_005bno_002d_005dfiles_005d-_005b_002d_002d_005bno_002d_005dgraph_005d-_005b_002d_002d_005bno_002d_005ddiffs_005d-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dd><p>See the online help for more options. See <a href="Selectors.html#Selectors">Selectors</a>.
+</p>
+<p>This command prints out a log, in forward ancestry order by default
+but optionally in reverse ancestry order, of small history summaries.
 Each summary contains author, date, branch, changelog and comment
 information associated with a revision.
-
-     <p>If <samp><span class="option">--brief</span></samp> is given, the output consists of two lines per
+</p>
+<p>If <samp>--brief</samp> is given, the output consists of two lines per
 revision with the revision ID, the author, the date and the branches
-(separated with commas). If the <samp><span class="option">--no-graph</span></samp> option is also
+(separated with commas). If the <samp>--no-graph</samp> option is also
 given the output contains only one line per revision.
-
-     <p>If <samp><span class="option">--last=</span></samp><var>n</var> is given, at most <var>n</var> log entries will
+</p>
+<p>If <samp>--last=</samp><var>n</var> is given, at most <var>n</var> log entries will
 be given and log will trace through history in reverse-ancestry order,
 from newer revisions to older revisions.
-
-     <p>If <samp><span class="option">--next=</span></samp><var>n</var> is given, at most <var>n</var> log entries will
+</p>
+<p>If <samp>--next=</samp><var>n</var> is given, at most <var>n</var> log entries will
 be given and log will trace through history in forward-ancestry order,
 from older revisions to newer revisions. This is useful to review
-changes that will be applied to the workspace when <samp><span class="command">update</span></samp> is
+changes that will be applied to the workspace when <code>update</code> is
 run.
-
-     <p>If <samp><span class="option">--from=</span></samp><var>id</var> is given, log starts tracing through
+</p>
+<p>If <samp>--from=</samp><var>id</var> is given, log starts tracing through
 history from the specified revisions, otherwise it starts from the
 base revision of your workspace. Log will stop when it reaches the end
-of the revision history or revisions specified by the <samp><span class="option">--to</span></samp>
+of the revision history or revisions specified by the <samp>--to</samp>
 option.
-
-     <p><samp><span class="option">--clear-from</span></samp> erases the effect of all previous
-<samp><span class="option">--from</span></samp> options. <samp><span class="option">--clear-to</span></samp> erases the effect of all
-previous <samp><span class="option">--to</span></samp> options.
-
-     <p>When tracing through history in reverse-ancestry order and
-<samp><span class="option">--to=</span></samp><var>id</var> is given, log will stop when it reaches the
+</p>
+<p><samp>--clear-from</samp> erases the effect of all previous
+<samp>--from</samp> options. <samp>--clear-to</samp> erases the effect of all
+previous <samp>--to</samp> options.
+</p>
+<p>When tracing through history in reverse-ancestry order and
+<samp>--to=</samp><var>id</var> is given, log will stop when it reaches the
 specified revisions or any of their ancestors or the end of the
 revision history. When tracing through history in forward-ancestry
 order log will stop when it reaches the specified revisions or any of
 their descendants or the end of the revision history.
-
-     <p>If <samp><span class="option">--revision=</span></samp><var>id</var> is given, log will print only the
+</p>
+<p>If <samp>--revision=</samp><var>id</var> is given, log will print only the
 specified revisions.
-
-     <p>If both <samp><span class="option">--from</span></samp> and <samp><span class="option">--revision</span></samp> are given only
+</p>
+<p>If both <samp>--from</samp> and <samp>--revision</samp> are given only
 revisions included by both options will be logged. Revisions specified
-by <samp><span class="option">--revision</span></samp> that are beyond the starting points specified
-by <samp><span class="option">--from</span></samp> will be excluded.
-
-     <p>Additionally, each of the <samp><span class="option">--from</span></samp>, <samp><span class="option">--to</span></samp> and
-<samp><span class="option">--revision</span></samp> options accept selectors, see
+by <samp>--revision</samp> that are beyond the starting points specified
+by <samp>--from</samp> will be excluded.
+</p>
+<p>Additionally, each of the <samp>--from</samp>, <samp>--to</samp> and
+<samp>--revision</samp> options accept selectors, see
 <a href="Selectors.html#Selectors">Selectors</a>. These can be used in various ways to log interesting
 revisions.  For example:
-<pre class="verbatim">     $ mtn log --revision b:
-     $ mtn log --revision today
-     $ mtn log --revision bob
-</pre>
-will log all revisions from the current branch, all revisions dated
+</p><pre class="verbatim">$ mtn log --revision b:
+$ mtn log --revision today
+$ mtn log --revision bob
+</pre><p>will log all revisions from the current branch, all revisions dated
 today and all revisions with bob as the author, respectively.
-
-     <p>By default, the log entries for merge nodes are shown.  If
-<samp><span class="option">--no-merges</span></samp> is given, the log entries for these nodes will be
+</p>
+<p>By default, the log entries for merge nodes are shown.  If
+<samp>--no-merges</samp> is given, the log entries for these nodes will be
 excluded.
-
-     <p>If <samp><span class="option">--no-files</span></samp> is given, the log output excludes the list of
+</p>
+<p>If <samp>--no-files</samp> is given, the log output excludes the list of
 files changed in each revision.
-
-     <p>If <samp><span class="option">--no-graph</span></samp> is given, the log output excludes the ASCII revision graph
+</p>
+<p>If <samp>--no-graph</samp> is given, the log output excludes the ASCII revision graph
 prefix on log output lines.
-
-     <p>Specifying <samp><span class="option">--diffs</span></samp> causes the log output to include a unified
+</p>
+<p>Specifying <samp>--diffs</samp> causes the log output to include a unified
 diff of the changes in each revision.
-
-     <p>If one or more files are given, the command will only log the revisions
+</p>
+<p>If one or more files are given, the command will only log the revisions
 where those files are changed.
-
-     <p><a name="mtn-manpage"></a><br><dt><samp><span class="command">mtn manpage [--formatted/--plain] [--[no-]hidden]</span></samp><a name="index-mtn-manpage-_005b_002d_002dformatted_002f_002d_002dplain_005d-_005b_002d_002d_005bno_002d_005dhidden_005d-152"></a><dd>The manpage command generates a complete (and if monotone is available
+</p>
+<a name="mtn-manpage"></a></dd>
+<dt><code>mtn manpage [--formatted/--plain] [--[no-]hidden]</code>
+<a name="index-mtn-manpage-_005b_002d_002dformatted_002f_002d_002dplain_005d-_005b_002d_002d_005bno_002d_005dhidden_005d"></a>
+</dt>
+<dd><p>The manpage command generates a complete (and if monotone is available
 in your language, also localized) manual page for all available commands,
 including all user-defined Lua commands.
-
-     <p>The default for <samp><span class="option">--formatted/--plain</span></samp> depends on whether
-<samp><span class="command">mtn manpage</span></samp> is run from a terminal, or from a shell
-script. From a terminal, the default is <samp><span class="option">--formatted</span></samp>; from a
-script, it is <samp><span class="option">--plain</span></samp>.
-
-     <p>If <samp><span class="option">--formatted</span></samp>, the output is formatted and displayed using
+</p>
+<p>The default for <samp>--formatted/--plain</samp> depends on whether
+<code>mtn manpage</code> is run from a terminal, or from a shell
+script. From a terminal, the default is <samp>--formatted</samp>; from a
+script, it is <samp>--plain</samp>.
+</p>
+<p>If <samp>--formatted</samp>, the output is formatted and displayed using
 the command given by the Lua hook
-<code><a href="get_005fman_005fpage_005fformatter_005fcommand.html#get_005fman_005fpage_005fformatter_005fcommand">get_man_page_formatter_command</a></code> (defaults to
-<samp><span class="command">nroff | less</span></samp>).
-
-     <p>If <samp><span class="option">--plain</span></samp>, the output is nroff markup.
-
-     <p>The option <samp><span class="option">--hidden</span></samp> additionally enables the output of hidden
+<code><a href="User-Defaults.html#get_005fman_005fpage_005fformatter_005fcommand">get_man_page_formatter_command</a></code> (defaults to
+<code>nroff | less</code>).
+</p>
+<p>If <samp>--plain</samp>, the output is nroff markup.
+</p>
+<p>The option <samp>--hidden</samp> additionally enables the output of hidden
 commands and options, which is deactivated by default.
-
-     <br><dt><samp><span class="command">mtn show_conflicts </span><var>rev</var> <var>rev</var></samp><a name="index-mtn-show_005fconflicts-_0040var_007brev_007d-_0040var_007brev_007d-153"></a><dd>This command shows what conflicts would need to be resolved in order to merge
-the given revisions; see <a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a>.
-
-     <p>Note that this does not show conflicts due to update commands, since
+</p>
+</dd>
+<dt><code>mtn show_conflicts <var>rev</var> <var>rev</var></code>
+<a name="index-mtn-show_005fconflicts-rev-rev"></a>
+</dt>
+<dd><p>This command shows what conflicts would need to be resolved in order to merge
+the given revisions; see <a href="Merge-Conflicts.html#Merge-Conflicts">Merge Conflicts</a>, see <a href="Selectors.html#Selectors">Selectors</a>.
+</p>
+<p>Note that this does not show conflicts due to update commands, since
 in that case one revision is the workspace.
-
-     <br><dt><samp><span class="command">mtn status [</span><var>pathname...</var><span class="command">]</span></samp><a name="index-mtn-status-_005b_0040var_007bpathname_002e_002e_002e_007d_005d-154"></a><dd>This command prints a description of the &ldquo;status&rdquo; of your workspace. 
+</p>
+</dd>
+<dt><code>mtn status [<var>pathname...</var>]</code>
+<a name="index-mtn-status-_005bpathname_002e_002e_002e_005d"></a>
+</dt>
+<dd><p>This command prints a description of the &ldquo;status&rdquo; of your workspace.
 In particular, it prints:
-          <ul>
-<li>The branch currently selected in <samp><span class="file">_MTN/options</span></samp> for the
-workspace. 
-<li>The revision id of the &ldquo;parent&rdquo; revision of the workspace, on which
-your in-progress changes are based. 
-<li>A list of logical changes between the base and current manifest
-versions, such as adds, drops, renames, and patches. 
-</ul>
+</p><ul>
+<li> The branch currently selected in <samp>_MTN/options</samp> for the
+workspace.
+</li><li> The revision id of the &ldquo;parent&rdquo; revision of the workspace, on which
+your in-progress changes are based.
+</li><li> A list of logical changes between the base and current manifest
+versions, such as adds, drops, renames, and patches.
+</li></ul>
 
-     <p>Specifying optional <var>pathname...</var> arguments to the <samp><span class="command">status</span></samp>
+<p>Specifying optional <var>pathname...</var> arguments to the <code>status</code>
 command restricts the set of changes that are visible and results in
 only a partial status of the workspace. Changes to files not included
 in the specified set of pathnames will be ignored.
-
-     <p>From within a subdirectory of the workspace the <samp><span class="command">status</span></samp> command
-will, by default, include <em>all changes</em> in the workspace. 
-Specifying only the pathname "." will restrict <samp><span class="command">status</span></samp> to files
+</p>
+<p>From within a subdirectory of the workspace the <code>status</code> command
+will, by default, include <em>all changes</em> in the workspace.
+Specifying only the pathname &quot;.&quot; will restrict <code>status</code> to files
 changed within the current subdirectory of the workspace.
+</p>
+</dd>
+<dt><code>mtn version [--full | --concise]</code>
+<a name="index-mtn-version-_005b_002d_002dfull-_007c-_002d_002dconcise_005d"></a>
+</dt>
+<dd><p>Shows the program version.
+</p>
+<p>The concise version is one line, for example:
+</p><div class="example">
+<pre class="example">monotone 1.0dev (base revision: c91edf22b20f5a8b750a8a02af763412d6b936e8)
+</pre></div>
 
-     <br><dt><samp><span class="command">mtn version [--full | --concise]</span></samp><a name="index-mtn-version-_005b_002d_002dfull-_007c-_002d_002dconcise_005d-155"></a><dd>Shows the program version.
-
-     <p>The concise version is one line, for example:
-     <pre class="example">     monotone 1.0dev (base revision: c91edf22b20f5a8b750a8a02af763412d6b936e8)
-</pre>
-     <p>The full version gives more information, including a changelist of the
+<p>The full version gives more information, including a changelist of the
 monotone source tree from the base revision at the time the executable
 was compiled.
-
+</p>
+</dd>
 </dl>
 
-</body></html>
+<hr>
+<div class="header">
+<p>
+Next: <a href="Review.html#Review" accesskey="n" rel="next">Review</a>, Previous: <a href="Network.html#Network" accesskey="p" rel="prev">Network</a>, Up: <a href="Command-Reference.html#Command-Reference" accesskey="u" rel="up">Command Reference</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="General-Index.html#General-Index" title="Index" rel="index">Index</a>]</p>
+</div>
 
+
+
+</body>
+</html>
