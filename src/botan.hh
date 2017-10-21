@@ -41,3 +41,13 @@
 #else
   typedef Botan::SecureVector<Botan::byte> secure_byte_vector;
 #endif
+
+
+typedef std::runtime_error Passphrase_Required;
+
+// A simplistic function throwing the above error whenever called.
+#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
+extern std::function<std::string ()> pass_req_throw_func;
+#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
+extern std::function<std::pair<bool, std::string> ()> pass_req_throw_func;
+#endif
