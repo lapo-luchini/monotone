@@ -98,7 +98,8 @@ template <> void dump(unsigned long long const & obj, std::string & out);
 #define N_(str) gettext_noop(str)
 
 // include it here so that it gets loaded before "sanity.hh"
-// as it defines an "E" macro which conflicts with it
+// as both define an "E" macro which conflicts with it
+#include <boost/throw_exception.hpp>
 #include "botan/exceptn.h"
 
 #endif // __BASE_HH__

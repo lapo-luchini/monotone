@@ -18,6 +18,10 @@
 // definitions and so we don't actually expose it here. Unfortunately, this
 // means we have to hope this pair of forward declarations will not change...
 
+#if PCRE_MAJOR == 8 && PCRE_MINOR >= 42
+#define real_pcre real_pcre8_or_16
+#endif
+
 struct real_pcre;
 struct pcre_extra;
 
