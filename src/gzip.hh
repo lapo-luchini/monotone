@@ -12,22 +12,13 @@
 
 #include "botan_glue.hh"
 #include <botan/version.h>
+#include <botan/types.h>
 #include <botan/filter.h>
 #include <botan/pipe.h>
 
-namespace Botan {
+// Botan 3.0.0+ has proper memory exception handling
 
-#if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,9,4)
-// Botan versions between 1.7.12 and 1.9.3 (including) keep their
-// Memory_Exception private. Give this gzip implementation something
-// compatible to work with.
-class Memory_Exhaustion : public Exception
-{
-public:
-  Memory_Exhaustion() :
-    Exception("Ran out of memory, allocation failed") {}
-};
-#endif
+namespace Botan {
 
 namespace GZIP {
 
@@ -48,11 +39,7 @@ namespace GZIP {
 
 }
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,11)
 typedef size_t filter_length_t;
-#else
-typedef u32bit filter_length_t;
-#endif
 
 /*************************************************
 * Gzip Compression Filter                        *
@@ -65,17 +52,17 @@ class Gzip_Compression : public Filter
       void end_msg();
       std::string name() const { return "Gzip_Compression"; }
 
-      Gzip_Compression(u32bit = 1);
+      Gzip_Compression(uint32_t = 1);
       ~Gzip_Compression();
    private:
       void clear();
       void put_header();
       void put_footer();
-      const u32bit level;
+      const uint32_t level;
       secure_byte_vector buffer;
       class Zlib_Stream* zlib;
       Pipe pipe; /* A pipe for the crc32 processing */
-      u32bit count;
+      uint32_t count;
    };
 
 /*************************************************
@@ -92,22 +79,22 @@ class Gzip_Decompression : public Filter
       Gzip_Decompression();
       ~Gzip_Decompression();
    private:
-      u32bit eat_footer(const byte input[], u32bit length);
+      uint32_t eat_footer(const byte input[], uint32_t length);
       void check_footer();
       void clear();
       secure_byte_vector buffer;
       class Zlib_Stream* zlib;
       bool no_writes;
-      u32bit pos; /* Current position in the message */
+      uint32_t pos; /* Current position in the message */
       Pipe pipe; /* A pipe for the crc32 processing */
-      u32bit datacount; /* Amount of uncompressed output */
+      uint32_t datacount; /* Amount of uncompressed output */
       secure_byte_vector footer;
       bool in_footer;
    };
 
-}
+} // namespace Botan
 
-#endif
+#endif // BOTAN_EXT_GZIP_H__
 
 // Local Variables:
 // mode: C++

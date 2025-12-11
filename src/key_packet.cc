@@ -111,12 +111,7 @@ namespace
     void validate_public_key_data(string const & name, string const & keydata) const
     {
       string decoded = decode_base64_as<string>(keydata, origin::user);
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
       vector<byte> key_block(decoded.begin(), decoded.end());
-#else
-      secure_byte_vector key_block
-        (reinterpret_cast<Botan::byte const *>(decoded.c_str()), decoded.size());
-#endif
       try
         {
           Botan::X509::load_key(key_block);

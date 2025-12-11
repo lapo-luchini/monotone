@@ -150,34 +150,9 @@ cpp_main(int argc, char ** argv)
         Botan::version_major(), Botan::version_minor(),
         Botan::version_patch());
 
-      // In Botan 1.9.9, the DataSink_Stream cannot be instantiated per
-      // se. As 1.10.1 is already out, let's simply disable support for
-      // that specific (testing) version of botan.
-      E(linked_botan_version != BOTAN_VERSION_CODE_FOR(1,9,9), origin::system,
-        F("monotone does not support Botan 1.9.9"));
-
-#if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,8,0)
-#error Botan versions older than 1.8.0 are no longer supported.
-#elif BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,9,4)
-      // motonote binary compiled against botan 1.8.0 - 1.9.3
-      E(linked_botan_version >= BOTAN_VERSION_CODE_FOR(1,8,0), origin::system,
-        F("this monotone binary requires Botan 1.8.0 or newer"));
-      E(linked_botan_version < BOTAN_VERSION_CODE_FOR(1,9,4), origin::system,
-        F("this monotone binary does not work with Botan 1.9.4 or newer"));
-
-#elif BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,9,11)
-      // motonote binary compiled against botan 1.9.4 - 1.9.10
-#pragma message ( "The resulting monotone binary won't be able to run with any stable release of botan." )
-      E(linked_botan_version >= BOTAN_VERSION_CODE_FOR(1,9,4), origin::system,
-        F("this monotone binary requires Botan 1.9.4 or newer"));
-      E(linked_botan_version < BOTAN_VERSION_CODE_FOR(1,9,11), origin::system,
-        F("this monotone binary does not work with Botan 1.9.11 or newer"));
-
-#else
-      // motonote binary compiled against botan 1.9.11 and newer
-      E(linked_botan_version >= BOTAN_VERSION_CODE_FOR(1,9,11), origin::system,
-        F("this monotone binary requires Botan 1.9.11 or newer"));
-#endif
+      // monotone now requires Botan 3.0.0 or newer
+      E(linked_botan_version >= BOTAN_VERSION_CODE_FOR(3,0,0), origin::system,
+        F("this monotone binary requires Botan 3.0.0 or newer"));
 
       app_state app;
       try

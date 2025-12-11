@@ -24,11 +24,7 @@ class lazy_rng
   Botan::RandomNumberGenerator * rng;
   lazy_rng()
     {
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
       rng = new Botan::AutoSeeded_RNG();
-#else
-      rng = Botan::RandomNumberGenerator::make_rng();
-#endif
     }
   ~lazy_rng() { delete rng; }
 

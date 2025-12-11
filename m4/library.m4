@@ -180,15 +180,12 @@ rm -f conftest.candcfg conftest.candpc
 # ships the shim.
 
 AC_DEFUN([MTN_FIND_BOTAN],
-[MTN_CHECK_MODULE([botan], [2.0.0],
+[MTN_CHECK_MODULE([botan], [3.0.0],
   [AC_LANG_PROGRAM(
     [#include <botan/version.h>
      #include <botan/auto_rng.h>
-     #if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(2,0,0)
-     #error Botan 2.x or later is required
-     #endif
-     #if BOTAN_VERSION_CODE == BOTAN_VERSION_CODE_FOR(1,7,14)
-     #error version 1.7.14 is not usable for monotone
+     #if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(3,0,0)
+     #error Botan 3.0.0 or later is required
      #endif],
     [Botan::AutoSeeded_RNG rng;])
   ])
