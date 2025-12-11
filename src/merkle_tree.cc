@@ -13,7 +13,8 @@
 #include <sstream>
 
 #include <boost/dynamic_bitset.hpp>
-#include <botan/sha160.h>
+// Botan 3 uses HashFunction interface for SHA-1
+#include <botan/hash.h>
 
 #include "constants.hh"
 #include "merkle_tree.hh"
@@ -73,11 +74,11 @@ netcmd_item_type_to_string(netcmd_item_type t, string & typestr)
 string
 raw_sha1(string const & in)
 {
-  Botan::SHA_160 hash;
-  hash.update(reinterpret_cast<Botan::byte const *>(in.data()),
-              static_cast<unsigned int>(in.size()));
+  auto hash = Botan::HashFunction::create_or_throw("SHA-1");
+  hash->update(reinterpret_cast<Botan::byte const *>(in.data()),
+               static_cast<unsigned int>(in.size()));
   char digest[constants::sha1_digest_length];
-  hash.final(reinterpret_cast<Botan::byte *>(digest));
+  hash->final(reinterpret_cast<Botan::byte *>(digest));
   string out(digest, constants::sha1_digest_length);
   return out;
 }

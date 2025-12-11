@@ -22,7 +22,8 @@ chained_hmac::chained_hmac(netsync_session_key const & session_key, bool active)
   active(active),
   key(reinterpret_cast<Botan::byte const *>(session_key().data()),
       session_key().size()),
-  engine(new Botan::MAC_Filter("HMAC(SHA-160)", key,
+  // Botan 3 uses "SHA-1" instead of "SHA-160"
+  engine(new Botan::MAC_Filter("HMAC(SHA-1)", key,
                                constants::sha1_digest_length))
 {
   chain_val.assign(hmac_length, 0x00);
@@ -36,7 +37,7 @@ chained_hmac::set_key(netsync_session_key const & session_key)
       key = Botan::SymmetricKey(reinterpret_cast<Botan::byte const *>(session_key().data()),
                                 session_key().size());
       engine.reset();
-      engine.append(new Botan::MAC_Filter("HMAC(SHA-160)", key,
+      engine.append(new Botan::MAC_Filter("HMAC(SHA-1)", key,
                                           constants::sha1_digest_length));
     }
 }

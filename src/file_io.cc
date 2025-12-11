@@ -486,7 +486,8 @@ calculate_ident(file_path const & file)
 {
   // no conversions necessary, use streaming form
   static cached_botan_pipe
-    p(new Botan::Pipe(new Botan::Hash_Filter("SHA-160")));
+    // Botan 3 uses "SHA-1" instead of "SHA-160"
+    p(new Botan::Pipe(new Botan::Hash_Filter("SHA-1")));
 
   // Best to be safe and check it isn't a dir.
   assert_path_is_file(file);

@@ -90,7 +90,7 @@ extern "C"
         s = lua_tostring(LS, -1);
         if (s == NULL)
           return luaL_error(
-            LS, LUA_QL("tostring") " must return a string to ", LUA_QL("print")
+            LS, "`tostring' must return a string to `print'"
           );
 
         if (i > 1)

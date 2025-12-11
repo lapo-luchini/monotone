@@ -19,7 +19,7 @@
       {                                                \
         size_t operator()(enc<INNER> const & t) const  \
         {                                              \
-          return hash<std::string>()(t());             \
+          return std::hash<std::string>()(t());        \
         }                                              \
       };                                               \
   }
@@ -32,7 +32,7 @@
       {                                                \
         size_t operator()(dec<INNER> const & t) const  \
         {                                              \
-          return hash<INNER>()(t.inner());             \
+          return std::hash<INNER>()(t.inner());        \
         }                                              \
       };                                               \
   }
@@ -40,11 +40,11 @@
 #define ATOMIC(ty)                                     \
   namespace std {                                      \
     template<>                                         \
-      struct hash<ty>                                  \
+      struct hash< ::ty>                                  \
       {                                                \
-        size_t operator()(ty const & t) const          \
+        size_t operator()(::ty const & t) const          \
         {                                              \
-          return hash<std::string>()(t());             \
+          return std::hash<std::string>()(t());        \
         }                                              \
       };                                               \
   }
@@ -56,7 +56,7 @@
       {                                                \
         size_t operator()(ty const & t) const          \
         {                                              \
-          return hash<std::string>()(t());             \
+          return std::hash<std::string>()(t());        \
         }                                              \
       };                                               \
   }

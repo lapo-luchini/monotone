@@ -13,7 +13,8 @@
 #include <algorithm>
 #include <iterator>
 
-#include <botan/sha160.h>
+// Botan 3 uses HashFunction interface for SHA-1
+#include <botan/hash.h>
 
 #include "inodeprint.hh"
 #include "sanity.hh"
@@ -108,22 +109,22 @@ write_inodeprint_map(inodeprint_map const & ipm,
 class my_iprint_calc : public inodeprint_calculator
 {
   std::string res;
-  Botan::SHA_160 hash;
+  std::unique_ptr<Botan::HashFunction> hash;
   bool too_close;
   void add_item(void *dat, size_t size)
   {
-    hash.update(reinterpret_cast<Botan::byte const *>(&size),
-                sizeof(size));
-    hash.update(reinterpret_cast<Botan::byte const *>(dat),
-                size);
+    hash->update(reinterpret_cast<Botan::byte const *>(&size),
+                 sizeof(size));
+    hash->update(reinterpret_cast<Botan::byte const *>(dat),
+                 size);
   }
 public:
-  my_iprint_calc() : too_close(false)
+  my_iprint_calc() : too_close(false), hash(Botan::HashFunction::create_or_throw("SHA-1"))
   {}
   std::string str()
   {
     char digest[constants::sha1_digest_length];
-    hash.final(reinterpret_cast<Botan::byte *>(digest));
+    hash->final(reinterpret_cast<Botan::byte *>(digest));
     return std::string(digest, constants::sha1_digest_length);
   }
   void note_nowish(bool n)

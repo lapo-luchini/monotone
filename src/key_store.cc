@@ -12,7 +12,6 @@
 #include <sstream>
 
 #include "botan_glue.hh"
-#include <botan/lookup.h>
 #include <botan/pem.h>
 #include <botan/pkcs8.h>
 #include <botan/rsa.h>
@@ -50,8 +49,15 @@ using std::vector;
 
 using Botan::RSA_PrivateKey;
 using Botan::RSA_PublicKey;
-using Botan::X509_PublicKey;
+using Botan::Public_Key;
+// Botan 3 changed the class name for private keys
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+using Botan::Private_Key;
+using PrivateKeyPtr = std::shared_ptr<Private_Key>;
+#else
 using Botan::PKCS8_PrivateKey;
+using PrivateKeyPtr = std::shared_ptr<PKCS8_PrivateKey>;
+#endif
 using Botan::PK_Decryptor;
 using Botan::PK_Signer;
 using Botan::Pipe;
@@ -561,7 +567,7 @@ key_store_state::decrypt_private_key(key_id const & id,
 
   L(FL("%d-byte private key") % kp.priv().size());
 
-  shared_ptr<PKCS8_PrivateKey> pkcs8_key;
+  PrivateKeyPtr pkcs8_key;
   try // with empty passphrase
     {
       pkcs8_key = load_pkcs8_key(name(), kp.priv());
@@ -591,9 +597,9 @@ key_store_state::decrypt_private_key(key_id const & id,
       for (;;)
         try
           {
-            Botan::DataSource_Memory ds(kp.priv());
-            pkcs8_key.reset(Botan::PKCS8::load_key(ds, lazy_rng::get(),
-                                                   phrase()));
+            // Botan 3 renamed DataSource_Memory to DataSource_Stream
+            Botan::DataSource_Stream ds(kp.priv());
+            pkcs8_key = std::shared_ptr<Botan::Private_Key>(Botan::PKCS8::load_key(ds, phrase()));
             break;
           }
 #if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,4)
@@ -893,8 +899,8 @@ key_store::make_signature(database & db,
            key.pub().size());
 #endif
         L(FL("make_signature: building %d-byte pub key") % pub_block.size());
-        shared_ptr<X509_PublicKey> x509_key =
-          shared_ptr<X509_PublicKey>(Botan::X509::load_key(pub_block));
+        shared_ptr<Public_Key> x509_key =
+          shared_ptr<Public_Key>(Botan::X509::load_key(pub_block));
         shared_ptr<RSA_PublicKey> pub_key =
           dynamic_pointer_cast<RSA_PublicKey>(x509_key);
 
@@ -946,7 +952,11 @@ key_store::make_signature(database & db,
             L(FL("make_signature: adding private key (%s) to ssh-agent") % id);
             agent.add_identity(*priv_key, name());
           }
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
+#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+          signer = shared_ptr<PK_Signer>(
+                     new PK_Signer(*priv_key, lazy_rng::get(),
+                                   "EMSA_PKCS1(SHA-1)"));
+#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
           signer = shared_ptr<PK_Signer>(
                      new PK_Signer(*priv_key, lazy_rng::get(),
                                    "EMSA3(SHA-1)"));
@@ -1071,7 +1081,7 @@ key_store_state::migrate_old_key_pair
   keypair kp;
   secure_byte_vector arc4_key;
   utf8 phrase;
-  shared_ptr<PKCS8_PrivateKey> pkcs8_key;
+  PrivateKeyPtr pkcs8_key;
   shared_ptr<RSA_PrivateKey> priv_key;
 
   // See whether a lua hook will tell us the passphrase.
@@ -1098,7 +1108,7 @@ key_store_state::migrate_old_key_pair
                      phrase().size());
 #endif
 
-        Pipe arc4_decryptor(get_cipher("ARC4", arc4_key, Botan::DECRYPTION));
+        Pipe arc4_decryptor(get_cipher("ARC4", Botan::SymmetricKey(arc4_key), Botan::Cipher_Dir::Decryption));
 
         arc4_decryptor.process_msg(old_priv());
 
@@ -1106,9 +1116,10 @@ key_store_state::migrate_old_key_pair
         // recognize an unencrypted, raw-BER blob as such, but gets it
         // right if it's PEM-coded.
         secure_byte_vector arc4_decrypt(arc4_decryptor.read_all());
-        Botan::DataSource_Memory ds(Botan::PEM_Code::encode(arc4_decrypt,
-                                                            "PRIVATE KEY"));
-        pkcs8_key.reset(Botan::PKCS8::load_key(ds, lazy_rng::get()));
+        // Botan 3 renamed DataSource_Memory to DataSource_Stream
+        Botan::DataSource_Stream ds(Botan::PEM_Code::encode(arc4_decrypt,
+                                                              "PRIVATE KEY"));
+        pkcs8_key = std::shared_ptr<Botan::Private_Key>(Botan::PKCS8::load_key(ds));
         break;
       }
 #if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,4)

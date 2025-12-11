@@ -39,7 +39,7 @@ using std::vector;
 using Botan::RSA_PublicKey;
 using Botan::RSA_PrivateKey;
 using Botan::BigInt;
-using Botan::X509_PublicKey;
+using Botan::Public_Key;
 using Botan::byte;
 
 class ssh_agent_state : public ssh_agent_platform
@@ -404,8 +404,8 @@ ssh_agent::has_key(const keypair & key)
      key.pub().size());
 #endif
   L(FL("has_key: building %d-byte pub key") % pub_block.size());
-  shared_ptr<X509_PublicKey> x509_key =
-    shared_ptr<X509_PublicKey>(Botan::X509::load_key(pub_block));
+  shared_ptr<Public_Key> x509_key =
+    shared_ptr<Public_Key>(Botan::X509::load_key(pub_block));
   shared_ptr<RSA_PublicKey> pub_key =
     dynamic_pointer_cast<RSA_PublicKey>(x509_key);
 

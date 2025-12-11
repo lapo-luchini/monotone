@@ -14,7 +14,20 @@
  * being available. the Gzip Compressor would just be a subclass of
  * Zlib Compressor, with window_bits+=16 for deflateInit2(), etc */
 
+// Define BOTAN_DEFAULT_BUFFER_SIZE if not defined (Botan 3 compatibility)
+#ifndef BOTAN_DEFAULT_BUFFER_SIZE
+#define BOTAN_DEFAULT_BUFFER_SIZE 4096
+#endif
+
 #include "base.hh"
+#include <botan/types.h>
+
+// Helper function to extract byte from multi-byte value (Botan 3 compatibility)
+// For gzip footer validation, we need to extract bytes in reverse order
+static inline Botan::byte get_byte(size_t byte_num, Botan::u32bit value)
+{
+    return static_cast<Botan::byte>((value >> (8 * (3 - byte_num))) & 0xFF);
+}
 
 #include "botan_glue.hh"
 #include <cstring>

@@ -20,17 +20,32 @@
 #include <stdexcept>
 
 #include <botan/version.h>
-#include <botan/loadstor.h>
+
+// Botan 3 reorganized headers - loadstor.h was split into multiple headers
+#include <botan/data_src.h>
+#include <botan/mem_ops.h>
+
 #include <botan/filters.h>
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
+// Botan 3 uses different header organization
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+  #include <botan/pubkey.h>
+#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
+  #include <botan/pk_keys.h>
+#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
   #include <botan/pubkey.h>
 #else
   #include <botan/look_pk.h>
 #endif
 
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,10) \
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0) \
+    && defined(BOTAN_HAS_ZLIB)
+  #include <botan/filter.h>
+#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0) \
+    && defined(BOTAN_HAS_ZLIB)
+  #include <botan/filter.h>
+#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,10) \
     && defined(BOTAN_HAS_ZLIB)
   #include <botan/comp_filter.h>
 #else
@@ -38,21 +53,29 @@
 #endif
 
 
-#if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,11,14)
+// Botan 3 doesn't need explicit initialization
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(3,0,0) \
+    && BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(2,0,0)
   #include <botan/init.h>
 #endif
 
 // In Botan revision d8021f3e (back when it still used monotone) the name
 // of SHA-1 changed to SHA-160.
 const static char * PBE_PKCS5_KEY_FORMAT =
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
+#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+  "PBE-PKCS5v20(SHA-160,TripleDES/CBC)";
+#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
+  "PBE-PKCS5v20(SHA-160,TripleDES/CBC)";
+#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
   "PBE-PKCS5v20(SHA-160,TripleDES/CBC)";
 #else
   "PBE-PKCS5v20(SHA-1,TripleDES/CBC)";
 #endif
 
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+  typedef Botan::secure_vector<Botan::byte> secure_byte_vector;
+#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
   typedef Botan::secure_vector<Botan::byte> secure_byte_vector;
 #else
   typedef Botan::SecureVector<Botan::byte> secure_byte_vector;
@@ -64,7 +87,15 @@ extern void initialize_botan(bool for_testing = false);
 class Passphrase_Required : public std::runtime_error
   { using std::runtime_error::runtime_error; };
 
-extern std::shared_ptr<Botan::PKCS8_PrivateKey>
-load_pkcs8_key(std::string const & name, std::string const & kp);
+// Botan 3 changed the class name for private keys
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+using PrivateKeyPtr = std::shared_ptr<Botan::Private_Key>;
+#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
+using PrivateKeyPtr = std::shared_ptr<Botan::PKCS8_PrivateKey>;
+#else
+using PrivateKeyPtr = std::shared_ptr<Botan::PKCS8_PrivateKey>;
+#endif
+
+extern PrivateKeyPtr load_pkcs8_key(std::string const & name, std::string const & kp);
 
 #endif   // __BOTAN_GLUE_H__

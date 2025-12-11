@@ -103,13 +103,18 @@ using std::function;
 
 using boost::lexical_cast;
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,5)
+// Botan 3 uses different namespace organization for some classes
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+using Botan::PK_Encryptor_EME;
+#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
+using Botan::PK_Encryptor_EME;
+#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,5)
 using Botan::PK_Encryptor_EME;
 #else
 using Botan::PK_Encryptor;
 #endif
 using Botan::PK_Verifier;
-using Botan::X509_PublicKey;
+using Botan::Public_Key;
 using Botan::RSA_PublicKey;
 
 int const one_row = 1;
@@ -3359,7 +3364,7 @@ database::encrypt_rsa(key_id const & pub_id,
     (reinterpret_cast<Botan::byte const *>(pub().data()), pub().size());
 #endif
 
-  shared_ptr<X509_PublicKey> x509_key(Botan::X509::load_key(pub_block));
+  shared_ptr<Public_Key> x509_key(Botan::X509::load_key(pub_block));
   shared_ptr<RSA_PublicKey> pub_key
     = dynamic_pointer_cast<RSA_PublicKey>(x509_key);
   if (!pub_key)
@@ -3430,14 +3435,16 @@ database::check_signature(key_id const & id,
 #endif
 
       L(FL("building verifier for %d-byte pub key") % pub().size());
-      shared_ptr<X509_PublicKey> x509_key(Botan::X509::load_key(pub_block));
+      shared_ptr<Public_Key> x509_key(Botan::X509::load_key(pub_block));
       shared_ptr<RSA_PublicKey> pub_key
         = std::dynamic_pointer_cast<RSA_PublicKey>(x509_key);
 
       E(pub_key, id.inner().made_from,
         F("failed to get RSA verifying key for %s") % id);
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
+#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+      verifier = make_shared<Botan::PK_Verifier>(*pub_key, "EMSA_PKCS1(SHA-1)");
+#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
       verifier = make_shared<Botan::PK_Verifier>(*pub_key, "EMSA3(SHA1)");
 #else
       verifier.reset(Botan::get_pk_verifier(*pub_key, "EMSA3(SHA-1)"));

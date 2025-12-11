@@ -13,7 +13,8 @@
 #include "base.hh"
 
 #include <botan/version.h>
-#include <botan/sha160.h>
+// Botan 3 uses HashFunction interface for SHA-1
+#include <botan/hash.h>
 
 // Botan 1.7.23+ and 1.8.x specific sha1 benchmarking code uses botan's
 // own timer and measures botan's different SHA1 providers, instead of
