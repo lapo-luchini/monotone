@@ -60,7 +60,7 @@
 namespace
 {
 #   if !defined(_WIN32) && !defined(_WIN64)
-        struct unlink_functor : public std::unary_function<std::string, void>
+        struct unlink_functor
         {
             void operator() (const std::string &file)
             { unlink(file.c_str()); }
@@ -76,7 +76,7 @@ Netxx::ServerBase::~ServerBase (void)
 {
 #   if !defined(_WIN32) && !defined(_WIN64)
         if (sockets_ && !files_.empty()) {
-            std::for_each(sockets_, sockets_ + sockets_size_, std::mem_fun_ref(&Socket::close));
+            std::for_each(sockets_, sockets_ + sockets_size_, [](Socket &s) { s.close(); });
             std::for_each(files_.begin(), files_.end(), unlink_functor());
         }
 #   endif

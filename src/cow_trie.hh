@@ -52,7 +52,7 @@ private:
 	else
 	  d = std::make_shared<leaf_node_type>();
       }
-    if (!d.unique())
+    if (d.use_count() != 1)
       {
 	if (level > 0)
 	  d = std::make_shared<middle_node_type>

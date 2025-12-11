@@ -276,7 +276,7 @@ namespace option {
       out.has_arg = has_arg;
 
       if (setter)
-        out.setter = std::bind1st(setter, obj);
+        out.setter = std::bind(setter, obj, std::placeholders::_1);
       if (resetter)
         out.resetter = binder_only<T>(resetter, obj);
 

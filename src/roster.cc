@@ -217,7 +217,7 @@ marking_t const & marking_map::get_marking_for_update(node_id nid)
   I(m);
   if (cow_version == m->cow_version)
     return m;
-  if (m.unique())
+  if (m.use_count() == 1)
     {
       m->cow_version = cow_version;
       return m;
@@ -855,7 +855,7 @@ roster_t::unshare(node_t & n, bool is_in_node_map)
   // we can't get at the (possibly shared) pointer in the node_map,
   // so if we were given the only pointer then we know the node
   // isn't in any other rosters
-  if (n.unique())
+  if (n.use_count() == 1)
     {
       n->cow_version = cow_version;
       return;

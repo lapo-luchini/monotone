@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <stack>
+#include <random>
 
 #include <boost/dynamic_bitset.hpp>
 
@@ -37,6 +38,14 @@ using std::stack;
 using std::vector;
 
 using boost::dynamic_bitset;
+
+// Helper function to shuffle a vector using modern C++ random facilities
+static void random_shuffle_vector(std::vector<revision_id> &vec)
+{
+  static std::random_device rd;
+  static std::mt19937 gen(rd());
+  std::shuffle(vec.begin(), vec.end(), gen);
+}
 
 // For a surprisingly long time, we have been using an algorithm which
 // is nonsense, based on a misunderstanding of what "LCA" means. The
@@ -316,7 +325,7 @@ erase_ancestors_and_failures(database & db,
     }
 
   vector<revision_id> todo(candidates.begin(), candidates.end());
-  std::random_shuffle(todo.begin(), todo.end());
+  random_shuffle_vector(todo);
 
   size_t predicates = 0;
   while (!todo.empty())
@@ -436,7 +445,7 @@ erase_descendants_and_failures(database & db,
     }
 
   vector<revision_id> todo(candidates.begin(), candidates.end());
-  std::random_shuffle(todo.begin(), todo.end());
+  random_shuffle_vector(todo);
 
   size_t predicates = 0;
   while (!todo.empty())
