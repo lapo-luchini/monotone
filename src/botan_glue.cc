@@ -12,7 +12,6 @@
 #include <memory>
 
 #include "botan_glue.hh"
-// Botan 3 reorganized headers
 #include <botan/pkcs8.h>
 #include <botan/pk_keys.h>
 #include <botan/rng.h>
@@ -27,7 +26,6 @@
     BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,11,0)
   #include <botan/ui.h>
 #endif
-
 #include "gzip.hh"
 #include "lazy_rng.hh"
 #include "sanity.hh"
@@ -35,10 +33,8 @@
 using std::make_shared;
 using std::shared_ptr;
 using std::string;
-// Botan 3 changed the class name for private keys
 #if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
 using Botan::Private_Key;
-using PrivateKeyPtr = std::shared_ptr<Private_Key>;
 #else
 using Botan::PKCS8_PrivateKey;
 using PrivateKeyPtr = std::shared_ptr<PKCS8_PrivateKey>;
@@ -113,15 +109,13 @@ std::function<std::pair<bool, std::string> ()> pass_req_throw_func =
 // a pointer to the loaded key, if successful, throws a Passphrase_Required
 // exception, if a password is required or throws a Decoding_error in case
 // of invalid data.
-PrivateKeyPtr
+shared_ptr<Private_Key>
 load_pkcs8_key(string const & name, string const & priv_key)
 {
   try
     {
-      // Botan 3 renamed DataSource_Memory to DataSource_Stream
-      Botan::DataSource_Stream ds(priv_key);
-      // Botan 3 uses a different API for loading keys
-      return PrivateKeyPtr(
+      Botan::DataSource_Memory ds(priv_key);
+      return shared_ptr<Private_Key>(
         Botan::PKCS8::load_key(ds, pass_req_throw_func));
     }
   catch (Botan::Decoding_Error const & e)

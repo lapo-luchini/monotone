@@ -567,7 +567,7 @@ key_store_state::decrypt_private_key(key_id const & id,
 
   L(FL("%d-byte private key") % kp.priv().size());
 
-  PrivateKeyPtr pkcs8_key;
+  shared_ptr<Private_Key> pkcs8_key;
   try // with empty passphrase
     {
       pkcs8_key = load_pkcs8_key(name(), kp.priv());
@@ -597,8 +597,7 @@ key_store_state::decrypt_private_key(key_id const & id,
       for (;;)
         try
           {
-            // Botan 3 renamed DataSource_Memory to DataSource_Stream
-            Botan::DataSource_Stream ds(kp.priv());
+            Botan::DataSource_Memory ds(kp.priv());
             pkcs8_key = std::shared_ptr<Botan::Private_Key>(Botan::PKCS8::load_key(ds, phrase()));
             break;
           }
@@ -1081,7 +1080,7 @@ key_store_state::migrate_old_key_pair
   keypair kp;
   secure_byte_vector arc4_key;
   utf8 phrase;
-  PrivateKeyPtr pkcs8_key;
+  shared_ptr<Private_Key> pkcs8_key;
   shared_ptr<RSA_PrivateKey> priv_key;
 
   // See whether a lua hook will tell us the passphrase.
@@ -1116,8 +1115,7 @@ key_store_state::migrate_old_key_pair
         // recognize an unencrypted, raw-BER blob as such, but gets it
         // right if it's PEM-coded.
         secure_byte_vector arc4_decrypt(arc4_decryptor.read_all());
-        // Botan 3 renamed DataSource_Memory to DataSource_Stream
-        Botan::DataSource_Stream ds(Botan::PEM_Code::encode(arc4_decrypt,
+        Botan::DataSource_Memory ds(Botan::PEM_Code::encode(arc4_decrypt,
                                                               "PRIVATE KEY"));
         pkcs8_key = std::shared_ptr<Botan::Private_Key>(Botan::PKCS8::load_key(ds));
         break;
