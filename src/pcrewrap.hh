@@ -18,11 +18,11 @@
 // definitions and so we don't actually expose it here. Unfortunately, this
 // means we have to hope this pair of forward declarations will not change...
 
-#if PCRE_MAJOR == 8 && PCRE_MINOR >= 42
+#if PCRE_USES_8_OR_16
 #define real_pcre real_pcre8_or_16
 #endif
 
-struct real_pcre8_or_16;
+struct real_pcre;
 struct pcre_extra;
 
 namespace pcre
@@ -65,7 +65,7 @@ namespace pcre
     regex & operator=(regex const &);
 
     // data
-    struct real_pcre8_or_16 const * basedat;
+    struct real_pcre const * basedat;
     struct pcre_extra const * extradat;
 
     // used by constructors

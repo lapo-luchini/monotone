@@ -219,8 +219,30 @@ AC_DEFUN([MTN_FIND_LUA],
   ])
 ])
 
+AC_DEFUN([MTN_AC_PCRE_842],
+[
+  AC_CACHE_CHECK([if pcre.h uses real_pcre8_or_16], mtn_ac_header_pcre_h,
+  [AC_TRY_COMPILE(
+    [#include <pcre.h>],
+    [const char *e;
+     int dummy;
+     int o;
+     /* Make sure some definitions are present. */
+     dummy = PCRE_NEWLINE_CR;
+     dummy = PCRE_DUPNAMES;
+     struct real_pcre8_or_16 *re = pcre_compile("foo", 0, &e, &o, 0);],
+    mtn_ac_header_pcre_h=yes,
+    mtn_ac_header_pcre_h=no)])
+  if test $mtn_ac_header_pcre_h = yes; then
+    AC_DEFINE_UNQUOTED(PCRE_USES_8_OR_16, 1,
+[Define if <pcre.h> uses real_pcre8_or_16 or not. ])
+  fi
+])
+
 AC_DEFUN([MTN_FIND_PCRE],
-[MTN_CHECK_MODULE([pcre], [7.4],
+[
+  AC_REQUIRE([MTN_AC_PCRE_842])
+  MTN_CHECK_MODULE([pcre], [7.4],
   [AC_LANG_PROGRAM(
     [#include <pcre.h>
      #if PCRE_MAJOR < 7 || (PCRE_MAJOR == 7 && PCRE_MINOR < 4)
