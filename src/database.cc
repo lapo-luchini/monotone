@@ -103,12 +103,7 @@ using std::function;
 
 using boost::lexical_cast;
 
-// Botan 3 uses different namespace organization for some classes
-#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
-using Botan::PK_Encryptor_EME;
-#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
-using Botan::PK_Encryptor_EME;
-#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,5)
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,5)
 using Botan::PK_Encryptor_EME;
 #else
 using Botan::PK_Encryptor;

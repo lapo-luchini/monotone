@@ -567,7 +567,7 @@ key_store_state::decrypt_private_key(key_id const & id,
 
   L(FL("%d-byte private key") % kp.priv().size());
 
-  shared_ptr<Private_Key> pkcs8_key;
+  PrivateKeyPtr pkcs8_key;
   try // with empty passphrase
     {
       pkcs8_key = load_pkcs8_key(name(), kp.priv());
@@ -1080,7 +1080,7 @@ key_store_state::migrate_old_key_pair
   keypair kp;
   secure_byte_vector arc4_key;
   utf8 phrase;
-  shared_ptr<Private_Key> pkcs8_key;
+  PrivateKeyPtr pkcs8_key;
   shared_ptr<RSA_PrivateKey> priv_key;
 
   // See whether a lua hook will tell us the passphrase.
@@ -1107,7 +1107,11 @@ key_store_state::migrate_old_key_pair
                      phrase().size());
 #endif
 
+#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
         Pipe arc4_decryptor(get_cipher("ARC4", Botan::SymmetricKey(arc4_key), Botan::Cipher_Dir::Decryption));
+#else
+        Pipe arc4_decryptor(get_cipher("ARC4", arc4_key, Botan::DECRYPTION));
+#endif
 
         arc4_decryptor.process_msg(old_priv());
 

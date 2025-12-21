@@ -28,11 +28,7 @@
 #include <botan/filters.h>
 
 // Botan 3 uses different header organization
-#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
-  #include <botan/pubkey.h>
-#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
-  #include <botan/pk_keys.h>
-#elif defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
+#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
   #include <botan/pubkey.h>
 #else
   #include <botan/look_pk.h>
