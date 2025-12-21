@@ -100,6 +100,13 @@ MTN_GNU_GETTEXT
 
 AC_SEARCH_LIBS([deflate], [z], , AC_MSG_FAILURE([zlib is required]))
 
+# check for language features and compiler bugs
+AX_CXX_COMPILE_STDCXX(11, , mandatory)
+AX_CXX_COMPILE_STDCXX(20, , optional) # necessary for Botan3
+AC_CXX_TEMPLATE_STATIC_CONST_BUG
+AC_CXX_SYNC_WITH_STDIO_WORKS
+AC_CXX_MKTIME_64BIT_WORKS
+
 BOOST_VERSION_CHECK
 BOOST_VERSION_SPECIFIC_BUGS
 
@@ -119,12 +126,6 @@ dnl pointless nowadays.  This is the best thing I can come up with.
 dnl (A line with nothing but a # on it is ignored by the preprocessor.)
 
 AC_CHECK_HEADERS([cxxabi.h fcntl.h netinet/in.h],,, [#])
-
-# check for language features and compiler bugs
-AX_CXX_COMPILE_STDCXX_11(, mandatory)
-AC_CXX_TEMPLATE_STATIC_CONST_BUG
-AC_CXX_SYNC_WITH_STDIO_WORKS
-AC_CXX_MKTIME_64BIT_WORKS
 
 # Checks for typedefs and structures.
 MTN_NUMERIC_VOCAB
