@@ -219,28 +219,8 @@ AC_DEFUN([MTN_FIND_LUA],
   ])
 ])
 
-AC_DEFUN([MTN_AC_PCRE_842],
-[
-  AC_CACHE_CHECK([if pcre.h uses real_pcre8_or_16], mtn_ac_cv_pcre_uses_8_or_16,
-  [AC_COMPILE_IFELSE(
-    [AC_LANG_PROGRAM(
-    [#include <pcre.h>],
-    [const char *e;
-     int o;
-     struct real_pcre8_or_16 *re = pcre_compile("foo", 0, &e, &o, 0);])
-    ],
-    [mtn_ac_cv_pcre_uses_8_or_16=yes],
-    [mtn_ac_cv_pcre_uses_8_or_16=no])]
-  )
-  if test $mtn_ac_cv_pcre_uses_8_or_16 = yes; then
-    AC_DEFINE_UNQUOTED(PCRE_USES_8_OR_16, 1,
-[Define if <pcre.h> uses real_pcre8_or_16 or not. ])
-  fi
-])
-
 AC_DEFUN([MTN_FIND_PCRE],
 [
-  AC_REQUIRE([MTN_AC_PCRE_842])
   MTN_CHECK_MODULE([pcre], [7.4],
   [AC_LANG_PROGRAM(
     [#include <pcre.h>
@@ -255,6 +235,27 @@ AC_DEFUN([MTN_FIND_PCRE],
      dummy = PCRE_DUPNAMES;
      pcre *re = pcre_compile("foo", 0, &e, &o, 0);])
   ])
+  save_CPPFLAGS="$CPPFLAGS"
+  CPPFLAGS="$CPPFLAGS $pcre_CPPFLAGS"
+  AC_CACHE_CHECK([if pcre.h uses real_pcre8_or_16], mtn_ac_cv_pcre_uses_8_or_16,
+  [
+  AC_LANG_PUSH([C++])
+  AC_COMPILE_IFELSE(
+    [AC_LANG_PROGRAM(
+    [#include <pcre.h>],
+    [const char *e;
+     int o;
+     struct real_pcre8_or_16 *re = pcre_compile("foo", 0, &e, &o, 0);])
+    ],
+    [mtn_ac_cv_pcre_uses_8_or_16=yes],
+    [mtn_ac_cv_pcre_uses_8_or_16=no])]
+  )
+  AC_LANG_POP([C++])
+  if test $mtn_ac_cv_pcre_uses_8_or_16 = yes; then
+    AC_DEFINE_UNQUOTED(PCRE_USES_8_OR_16, 1,
+      [Define if <pcre.h> uses real_pcre8_or_16. ])
+  fi
+  CPPFLAGS="$save_CPPFLAGS"
 ])
 
 AC_DEFUN([MTN_FIND_SQLITE],
