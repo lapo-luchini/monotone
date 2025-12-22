@@ -103,11 +103,7 @@ using std::function;
 
 using boost::lexical_cast;
 
-#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,5)
 using Botan::PK_Encryptor_EME;
-#else
-using Botan::PK_Encryptor;
-#endif
 using Botan::PK_Verifier;
 using Botan::Public_Key;
 using Botan::RSA_PublicKey;
@@ -3352,12 +3348,7 @@ database::encrypt_rsa(key_id const & pub_id,
   rsa_pub_key pub;
   get_key(pub_id, pub);
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
   vector<Botan::byte> pub_block(pub().begin(), pub().end());
-#else
-  secure_byte_vector pub_block
-    (reinterpret_cast<Botan::byte const *>(pub().data()), pub().size());
-#endif
 
   shared_ptr<Public_Key> x509_key(Botan::X509::load_key(pub_block));
   shared_ptr<RSA_PublicKey> pub_key
@@ -3366,38 +3357,16 @@ database::encrypt_rsa(key_id const & pub_id,
     throw recoverable_failure(origin::system,
                               "Failed to get RSA encrypting key");
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
   vector<Botan::byte> ct;
-#else
-  secure_byte_vector ct;
-#endif
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
   PK_Encryptor_EME encryptor(*pub_key, lazy_rng::get(),
                              "EME1(SHA-1)");
   ct = encryptor.encrypt(
           reinterpret_cast<Botan::byte const *>(plaintext.data()),
           plaintext.size(), lazy_rng::get());
-#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,5)
-  PK_Encryptor_EME encryptor(*pub_key, "EME1(SHA-1)");
-  ct = encryptor.encrypt(
-          reinterpret_cast<Botan::byte const *>(plaintext.data()),
-          plaintext.size(), lazy_rng::get());
-#else
-  shared_ptr<PK_Encryptor>
-    encryptor(get_pk_encryptor(*pub_key, "EME1(SHA-1)"));
-
-  ct = encryptor->encrypt(
-          reinterpret_cast<Botan::byte const *>(plaintext.data()),
-          plaintext.size(), lazy_rng::get());
-#endif
 
   ciphertext = rsa_oaep_sha_data(
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
     string(ct.begin(), ct.end()),
-#else
-    string(reinterpret_cast<char const *>(ct.begin()), ct.size()),
-#endif
     origin::database);
 }
 
@@ -3422,12 +3391,7 @@ database::check_signature(key_id const & id,
         return cert_unknown;
 
       get_key(id, pub);
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
       vector<Botan::byte> pub_block(pub().begin(), pub().end());
-#else
-      secure_byte_vector pub_block
-        (reinterpret_cast<Botan::byte const *>(pub().data()), pub().size());
-#endif
 
       L(FL("building verifier for %d-byte pub key") % pub().size());
       shared_ptr<Public_Key> x509_key(Botan::X509::load_key(pub_block));
@@ -3437,13 +3401,7 @@ database::check_signature(key_id const & id,
       E(pub_key, id.inner().made_from,
         F("failed to get RSA verifying key for %s") % id);
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
-      verifier = make_shared<Botan::PK_Verifier>(*pub_key, "EMSA_PKCS1(SHA-1)");
-#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
       verifier = make_shared<Botan::PK_Verifier>(*pub_key, "EMSA3(SHA1)");
-#else
-      verifier.reset(Botan::get_pk_verifier(*pub_key, "EMSA3(SHA-1)"));
-#endif
 
       /* XXX This is ugly. We need to keep the key around
        * as long as the verifier is around, but the shared_ptr will go

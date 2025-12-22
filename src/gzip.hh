@@ -17,18 +17,6 @@
 
 namespace Botan {
 
-#if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,9,4)
-// Botan versions between 1.7.12 and 1.9.3 (including) keep their
-// Memory_Exception private. Give this gzip implementation something
-// compatible to work with.
-class Memory_Exhaustion : public Exception
-{
-public:
-  Memory_Exhaustion() :
-    Exception("Ran out of memory, allocation failed") {}
-};
-#endif
-
 namespace GZIP {
 
    /* A basic header - we only need to set the IDs and compression method */
@@ -48,11 +36,7 @@ namespace GZIP {
 
 }
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,11)
 typedef size_t filter_length_t;
-#else
-typedef u32bit filter_length_t;
-#endif
 
 /*************************************************
 * Gzip Compression Filter                        *

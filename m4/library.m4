@@ -186,9 +186,6 @@ AC_DEFUN([MTN_FIND_BOTAN],
      #include <botan/auto_rng.h>
      #if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(2,0,0)
      #error Botan 2.x or later is required
-     #endif
-     #if BOTAN_VERSION_CODE == BOTAN_VERSION_CODE_FOR(1,7,14)
-     #error version 1.7.14 is not usable for monotone
      #endif],
     [Botan::AutoSeeded_RNG rng;])
   ])
@@ -220,8 +217,7 @@ AC_DEFUN([MTN_FIND_LUA],
 ])
 
 AC_DEFUN([MTN_FIND_PCRE],
-[
-  MTN_CHECK_MODULE([pcre], [7.4],
+[MTN_CHECK_MODULE([pcre], [7.4],
   [AC_LANG_PROGRAM(
     [#include <pcre.h>
      #if PCRE_MAJOR < 7 || (PCRE_MAJOR == 7 && PCRE_MINOR < 4)

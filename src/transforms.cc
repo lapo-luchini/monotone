@@ -11,7 +11,6 @@
 #include "base.hh"
 #include <iterator>
 #include <botan/filters.h>
-// Botan 3 uses HashFunction interface for SHA-1
 #include <botan/hash.h>
 
 #include "botan_pipe_cache.hh"
@@ -261,7 +260,6 @@ template void unpack<delta>(base64< gzip<delta> > const &, delta &);
 id
 calculate_ident(data const & dat)
 {
-  // Botan 3 uses "SHA-1" instead of "SHA-160"
   static cached_botan_pipe p(new Pipe(new Hash_Filter("SHA-1")));
   try
     {

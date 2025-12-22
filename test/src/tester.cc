@@ -897,15 +897,7 @@ int main(int argc, char **argv)
   try
     {
       global_sanity.initialize(argc, argv, "C");
-      // Set up secure memory allocation etc
-
-#if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(2,0,0)
-      Botan::LibraryInitializer acquire_botan("thread_safe=0 selftest=0 "
-                                              "seed_rng=1 use_engines=0 "
-                                              "secure_memory=1 fips140=0");
-#endif
-
-      // and caching for botan pipes
+      // Set up caching for botan pipes
       pipe_cache_cleanup acquire_botan_pipe_caching;
       unfiltered_pipe = new Botan::Pipe;
       new (unfiltered_pipe_cleanup_mem) cached_botan_pipe(unfiltered_pipe);

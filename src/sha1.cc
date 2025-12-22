@@ -13,17 +13,7 @@
 #include "base.hh"
 
 #include <botan/version.h>
-// Botan 3 uses HashFunction interface for SHA-1
 #include <botan/hash.h>
-
-// Botan 1.7.23+ and 1.8.x specific sha1 benchmarking code uses botan's
-// own timer and measures botan's different SHA1 providers, instead of
-// only measuring one.
-#if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,11,0)
-  #include <botan/auto_rng.h>
-  #include <botan/libstate.h>
-  #include <botan/benchmark.h>
-#endif
 
 #include "sanity.hh"
 #include "ui.hh"
@@ -40,38 +30,6 @@ CMD_HIDDEN(benchmark_sha1, "benchmark_sha1", "", CMD_REF(debug), "",
 {
   P(F("Benchmarking botan's SHA-1 core"));
 
-#if BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,11,0)
-
-  Botan::AutoSeeded_RNG rng;
-  Botan::Algorithm_Factory& af =
-    Botan::global_state().algorithm_factory();
-
-  const int milliseconds = 5000;
-
-  // timer argument was removed in 1.9.4
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
-  std::map<std::string, double> results =
-    Botan::algorithm_benchmark("SHA-1",  af, rng,
-                               std::chrono::milliseconds(milliseconds), 16);
-#elif BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,9,4)
-  Botan::Default_Benchmark_Timer timer;
-  std::map<std::string, double> results =
-    Botan::algorithm_benchmark("SHA-1",  milliseconds, timer, rng, af);
-#elif BOTAN_VERSION_CODE < BOTAN_VERSION_CODE_FOR(1,9,11)
-  std::map<std::string, double> results =
-    Botan::algorithm_benchmark("SHA-1",  milliseconds, rng, af);
-#else
-  std::map<std::string, double> results =
-    Botan::algorithm_benchmark("SHA-1",  af, rng, milliseconds, 16);
-#endif
-
-  for(std::map<std::string, double>::const_iterator i = results.begin();
-      i != results.end(); ++i)
-    {
-      P(F("SHA-1 provider '%s': %s MiB/s") % i->first % i->second);
-    }
-
-#else
   int mebibytes = 100;
   string test_str(mebibytes << 20, 'a');
   data test_data(test_str, origin::internal);
@@ -80,7 +38,6 @@ CMD_HIDDEN(benchmark_sha1, "benchmark_sha1", "", CMD_REF(debug), "",
   double end = cpu_now();
   double mebibytes_per_sec = mebibytes / (end - start);
   P(F("%s MiB/s") % mebibytes_per_sec);
-#endif
 }
 
 // Local Variables:

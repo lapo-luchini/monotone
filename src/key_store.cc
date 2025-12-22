@@ -50,8 +50,7 @@ using std::vector;
 using Botan::RSA_PrivateKey;
 using Botan::RSA_PublicKey;
 using Botan::Public_Key;
-// Botan 3 changed the class name for private keys
-#if defined(BOTAN_VERSION_CODE) && BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
 using Botan::Private_Key;
 using PrivateKeyPtr = std::shared_ptr<Private_Key>;
 #else
@@ -601,11 +600,7 @@ key_store_state::decrypt_private_key(key_id const & id,
             pkcs8_key = std::shared_ptr<Botan::Private_Key>(Botan::PKCS8::load_key(ds, phrase()));
             break;
           }
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,4)
         catch (Botan::Invalid_Argument)
-#else
-        catch (Botan::Exception & e)
-#endif
           {
             cycles++;
             L(FL("decrypt_private_key: failure %d to load encrypted key: %s")
@@ -690,26 +685,14 @@ key_store::create_key_pair(database & db,
   secure_byte_vector /* pubkey, */ privkey;
 
   unfiltered_pipe->start_msg();
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
   if ((*maybe_passphrase)().length())
     unfiltered_pipe->write(
       Botan::PKCS8::BER_encode(priv, lazy_rng::get(),
                                (*maybe_passphrase)(),
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
                                std::chrono::milliseconds(100),
-#endif
                                PBE_PKCS5_KEY_FORMAT));
   else
     unfiltered_pipe->write(Botan::PKCS8::PEM_encode(priv));
-#else
-  if ((*maybe_passphrase)().length())
-    Botan::PKCS8::encrypt_key(priv, *unfiltered_pipe, lazy_rng::get(),
-                              (*maybe_passphrase)(),
-                              PBE_PKCS5_KEY_FORMAT,
-                              Botan::RAW_BER);
-  else
-    Botan::PKCS8::encode(priv, *unfiltered_pipe);
-#endif
   unfiltered_pipe->end_msg();
 
   kp.priv = rsa_priv_key(
@@ -718,11 +701,7 @@ key_store::create_key_pair(database & db,
 
   // serialize the public key
   unfiltered_pipe->start_msg();
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
   unfiltered_pipe->write(Botan::X509::BER_encode(priv));
-#else
-  Botan::X509::encode(priv, *unfiltered_pipe, Botan::RAW_BER);
-#endif
   unfiltered_pipe->end_msg();
   kp.pub = rsa_pub_key(unfiltered_pipe->read_all_as_string(Pipe::LAST_MESSAGE),
                        origin::internal);
@@ -787,26 +766,14 @@ key_store::change_key_passphrase(key_id const & id)
   get_passphrase(new_phrase, name, id, true, false);
 
   unfiltered_pipe->start_msg();
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
   if (new_phrase().length())
     unfiltered_pipe->write(
       Botan::PKCS8::BER_encode(*priv, lazy_rng::get(),
                                new_phrase(),
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
                                std::chrono::milliseconds(100),
-#endif
                                PBE_PKCS5_KEY_FORMAT));
   else
     unfiltered_pipe->write(Botan::PKCS8::PEM_encode(*priv));
-#else
-  if (new_phrase().length())
-    Botan::PKCS8::encrypt_key(*priv, *unfiltered_pipe, lazy_rng::get(),
-                              new_phrase(),
-                              PBE_PKCS5_KEY_FORMAT,
-                              Botan::RAW_BER);
-  else
-    Botan::PKCS8::encode(*priv, *unfiltered_pipe);
-#endif
 
   unfiltered_pipe->end_msg();
   kp.priv = rsa_priv_key(unfiltered_pipe->read_all_as_string(Pipe::LAST_MESSAGE),
@@ -827,36 +794,14 @@ key_store::decrypt_rsa(key_id const & id,
       load_key_pair(*this, id, kp);
       shared_ptr<RSA_PrivateKey> priv_key = s->decrypt_private_key(id);
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
       Botan::PK_Decryptor_EME decryptor(*priv_key, lazy_rng::get(),
                                         "EME1(SHA-1)");
       secure_byte_vector plain =
         decryptor.decrypt(reinterpret_cast<byte const *>(ciphertext().data()),
                           ciphertext().size());
       plaintext = string(plain.begin(), plain.end());
-#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
-      Botan::PK_Decryptor_EME decryptor(*priv_key, "EME1(SHA-1)");
-
-      secure_byte_vector plain =
-        decryptor.decrypt(reinterpret_cast<byte const *>(ciphertext().data()),
-                          ciphertext().size());
-      plaintext = string(plain.begin(), plain.end());
-#else
-      shared_ptr<PK_Decryptor>
-        decryptor(Botan::get_pk_decryptor(*priv_key, "EME1(SHA-1)"));
-
-      secure_byte_vector plain =
-        decryptor->decrypt(reinterpret_cast<byte const *>(ciphertext().data()),
-                           ciphertext().size());
-      plaintext = string(reinterpret_cast<char const*>(plain.begin()),
-                         plain.size());
-#endif
     }
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,4)
   catch (std::exception & e)
-#else
-  catch (Botan::Exception & e)
-#endif
     {
       E(false, ciphertext.made_from,
         F("Botan error decrypting data: '%s'") % e.what());
@@ -890,13 +835,7 @@ key_store::make_signature(database & db,
     {
       if (agent.connected()) {
         //grab the monotone public key as an RSA_PublicKey
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
         vector<byte> pub_block(key.pub().begin(), key.pub().end());
-#else
-        secure_byte_vector pub_block
-          (reinterpret_cast<byte const *>(key.pub().data()),
-           key.pub().size());
-#endif
         L(FL("make_signature: building %d-byte pub key") % pub_block.size());
         shared_ptr<Public_Key> x509_key =
           shared_ptr<Public_Key>(Botan::X509::load_key(pub_block));
@@ -923,11 +862,7 @@ key_store::make_signature(database & db,
       || s->ssh_sign_mode == "check"
       || s->ssh_sign_mode == "no")
     {
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
       vector<byte> sig;
-#else
-      secure_byte_vector sig;
-#endif
 
       // we permit the user to relax security here, by caching a decrypted key
       // (if they permit it) through the life of a program run. this helps when
@@ -951,21 +886,9 @@ key_store::make_signature(database & db,
             L(FL("make_signature: adding private key (%s) to ssh-agent") % id);
             agent.add_identity(*priv_key, name());
           }
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
-          signer = shared_ptr<PK_Signer>(
-                     new PK_Signer(*priv_key, lazy_rng::get(),
-                                   "EMSA_PKCS1(SHA-1)"));
-#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(2,0,0)
           signer = shared_ptr<PK_Signer>(
                      new PK_Signer(*priv_key, lazy_rng::get(),
                                    "EMSA3(SHA-1)"));
-#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
-          signer = shared_ptr<PK_Signer>(
-                     new PK_Signer(*priv_key, "EMSA3(SHA-1)"));
-#else
-          signer = shared_ptr<PK_Signer>(
-                    Botan::get_pk_signer(*priv_key, "EMSA3(SHA-1)"));
-#endif
 
           /* If persist_phrase is true, the RSA_PrivateKey object is
              cached in s->active_keys and will survive as long as the
@@ -978,12 +901,7 @@ key_store::make_signature(database & db,
         reinterpret_cast<byte const *>(tosign.data()),
         tosign.size(), lazy_rng::get());
 
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
       sig_string = string(sig.begin(), sig.end());
-#else
-      sig_string = string(reinterpret_cast<char const*>(sig.begin()),
-                          sig.size());
-#endif
     }
 
   if (s->ssh_sign_mode == "check" && ssh_sig.length() > 0)
@@ -1045,24 +963,14 @@ key_store::export_key_for_agent(key_id const & id,
   // This pipe cannot sensibly be recycled.
   Pipe p(new Botan::DataSink_Stream(os));
   p.start_msg();
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
   if (new_phrase().length())
     p.write(Botan::PKCS8::PEM_encode(*priv,
                                      lazy_rng::get(),
                                      new_phrase(),
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
                                      std::chrono::milliseconds(100),
-#endif
                                      PBE_PKCS5_KEY_FORMAT));
   else
     p.write(Botan::PKCS8::PEM_encode(*priv));
-#else
-  if (new_phrase().length())
-    Botan::PKCS8::encrypt_key(*priv, p, lazy_rng::get(), new_phrase(),
-                              PBE_PKCS5_KEY_FORMAT);
-  else
-    Botan::PKCS8::encode(*priv, p);
-#endif
   p.end_msg();
 }
 
@@ -1096,16 +1004,7 @@ key_store_state::migrate_old_key_pair
   for (;;)
     try
       {
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
         arc4_key = secure_byte_vector(phrase().begin(), phrase().end());
-#elif BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,11)
-        arc4_key.resize(phrase().size());
-        arc4_key.copy(reinterpret_cast<byte const *>(phrase().data()),
-                      phrase().size());
-#else
-        arc4_key.set(reinterpret_cast<byte const *>(phrase().data()),
-                     phrase().size());
-#endif
 
 #if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
         Pipe arc4_decryptor(get_cipher("ARC4", Botan::SymmetricKey(arc4_key), Botan::Cipher_Dir::Decryption));
@@ -1124,11 +1023,7 @@ key_store_state::migrate_old_key_pair
         pkcs8_key = std::shared_ptr<Botan::Private_Key>(Botan::PKCS8::load_key(ds));
         break;
       }
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,9,4)
     catch (Botan::Invalid_Argument & e)
-#else
-    catch (Botan::Exception & e)
-#endif
       {
         L(FL("migrate_old_key_pair: failure %d to load old private key: %s")
           % cycles % e.what());
@@ -1147,22 +1042,10 @@ key_store_state::migrate_old_key_pair
 
   // now we can write out the new key
   unfiltered_pipe->start_msg();
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
   unfiltered_pipe->write(Botan::PKCS8::BER_encode(
     *priv_key, lazy_rng::get(), phrase(),
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
     std::chrono::milliseconds(100),
-#endif
     PBE_PKCS5_KEY_FORMAT));
-#else
-  Botan::PKCS8::encrypt_key(*priv_key, *unfiltered_pipe, lazy_rng::get(),
-                            phrase(),
-                            PBE_PKCS5_KEY_FORMAT,
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,11,0)
-                            std::chrono::milliseconds(100),
-#endif
-                            Botan::RAW_BER);
-#endif
   unfiltered_pipe->end_msg();
   kp.priv = rsa_priv_key(unfiltered_pipe->read_all_as_string(Pipe::LAST_MESSAGE),
                          origin::internal);
@@ -1171,11 +1054,7 @@ key_store_state::migrate_old_key_pair
   // Botan for the X.509 encoding of the private key implies that we want
   // it to derive and produce the public key)
   unfiltered_pipe->start_msg();
-#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(1,10,0)
   unfiltered_pipe->write(Botan::X509::BER_encode(*priv_key));
-#else
-  Botan::X509::encode(*priv_key, *unfiltered_pipe, Botan::RAW_BER);
-#endif
   unfiltered_pipe->end_msg();
   kp.pub = rsa_pub_key(unfiltered_pipe->read_all_as_string(Pipe::LAST_MESSAGE),
                        origin::internal);

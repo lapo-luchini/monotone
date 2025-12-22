@@ -13,7 +13,6 @@
 #include <sstream>
 
 #include <boost/dynamic_bitset.hpp>
-// Botan 3 uses HashFunction interface for SHA-1
 #include <botan/hash.h>
 
 #include "constants.hh"

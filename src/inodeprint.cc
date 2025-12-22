@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <iterator>
 
-// Botan 3 uses HashFunction interface for SHA-1
 #include <botan/hash.h>
 
 #include "inodeprint.hh"
