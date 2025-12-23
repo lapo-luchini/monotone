@@ -232,7 +232,7 @@ AC_DEFUN([MTN_FIND_PCRE],
      pcre *re = pcre_compile("foo", 0, &e, &o, 0);])
   ])
   save_CPPFLAGS="$CPPFLAGS"
-  CPPFLAGS="$CPPFLAGS $pcre_CPPFLAGS"
+  CPPFLAGS="$CPPFLAGS $pcre_CFLAGS"
   AC_CACHE_CHECK([if pcre.h uses real_pcre8_or_16], mtn_ac_cv_pcre_uses_8_or_16,
   [
   AC_LANG_PUSH([C++])
