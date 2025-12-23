@@ -3401,7 +3401,11 @@ database::check_signature(key_id const & id,
       E(pub_key, id.inner().made_from,
         F("failed to get RSA verifying key for %s") % id);
 
+#if BOTAN_VERSION_CODE >= BOTAN_VERSION_CODE_FOR(3,0,0)
+      verifier = make_shared<Botan::PK_Verifier>(*pub_key, "EMSA_PKCS1(SHA-1)");
+#else
       verifier = make_shared<Botan::PK_Verifier>(*pub_key, "EMSA3(SHA1)");
+#endif
 
       /* XXX This is ugly. We need to keep the key around
        * as long as the verifier is around, but the shared_ptr will go
