@@ -1,4 +1,5 @@
 # Copyright (C) 2006 Zack Weinberg <zackw@panix.com>
+# Copyright (C) 2025 Lapo Luchini <lapo@lapo.it>
 #
 # This program is made available under the GNU GPL version 2.0 or
 # greater. See the accompanying file COPYING for details.
@@ -8,25 +9,25 @@
 # PURPOSE.
 
 # Check for suitably new version of boost.
-AC_DEFUN([BOOST_VERSION_CHECK],
+AC_DEFUN([BOOST_VERSION_CHECK], 
 [AC_LANG_ASSERT([C++])
  AC_CACHE_CHECK([for boost version 1.35.0 or newer],
                  ac_cv_boost_version_least_1_35_0,
  [
-  AC_COMPILE_IFELSE([AC_LANG_SOURCE(
-  [#include <boost/version.hpp>
-  #if BOOST_VERSION >= 103500
-  int main() { return 0; }
-  #else
-  #error boost version is too old
-  #endif
-  ],
-  ac_cv_boost_version_least_1_35_0=yes,
-  ac_cv_boost_version_least_1_35_0=no)
- ])])
-  if test x$ac_cv_boost_version_least_1_35_0 = xno; then
-    AC_MSG_FAILURE([boost 1.35.0 or newer required])
-  fi
+  AC_COMPILE_IFELSE(
+    [AC_LANG_SOURCE([[
+      #include <boost/version.hpp>
+      #if BOOST_VERSION >= 103500
+      int main() { return 0; }
+      #else
+      #error boost version is too old
+      #endif
+    ]])],
+    [ac_cv_boost_version_least_1_35_0=yes],
+    [ac_cv_boost_version_least_1_35_0=no])
+ ])
+ AS_IF([test x$ac_cv_boost_version_least_1_35_0 = xno],
+       [AC_MSG_FAILURE([boost 1.35.0 or newer required])])
 ])
 
 # We currently don't need any checks for boost version-specific bugs,
