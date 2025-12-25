@@ -8,6 +8,9 @@
 ^compile$
 ^config\.(guess|h(\.in)?|log|rpath|status|sub)$
 ^configure$
+^contrib/git-mirror/git-branches.txt$
+^contrib/git-mirror/git-marks1.txt$
+^contrib/git-mirror/git-marks2.txt$
 ^depcomp$
 ^doc/Makefile(\.in)?$
 ^doc/html$
