@@ -17,4 +17,3 @@ mtn --quiet --authors=git-authors.txt --branches-file=git-branches.txt --import-
     git fast-import --import-marks=git-marks2.txt --export-marks=git-marks2.txt
 git push --mirror origin
 git push --mirror lapo
-git reset # to update working copy state (doesn't change files)
