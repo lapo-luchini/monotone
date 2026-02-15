@@ -2,9 +2,9 @@
 dir=_MTN/mtn2git
 git="git -C $dir"
 if [ ! -d _MTN ]; then
-    echo "Usage: $0 [remote]"
-    echo "You need to execute this from the repository root."
-    exit 1
+  echo "Usage: $0 [remote]"
+  echo "You need to execute this from the repository root."
+  exit 1
 fi
 if [ ! -d "$dir" ]; then
   if [ $# -lt 1 ]; then
@@ -25,7 +25,7 @@ mtn ls branches --ignore-suspend-certs | sort -V | awk '
   { d = length($0) - len; print $0 " = " (d > 0 ? substr($0, len+2) : "trunk") }
 ' > $dir/branches.txt
 mtn --quiet --authors=$dir/authors.txt --branches-file=$dir/branches.txt --import-marks=$dir/marks1.txt --export-marks=$dir/marks1.txt git_export | \
-    $git fast-import --import-marks=marks2.txt --export-marks=marks2.txt
+  $git fast-import --import-marks=marks2.txt --export-marks=marks2.txt
 for r in $($git remote); do
   echo "Mirroring to: $r"
   $git push --mirror $r
