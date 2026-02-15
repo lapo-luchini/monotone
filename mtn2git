@@ -1,5 +1,6 @@
 #!/bin/sh
 dir=_MTN/mtn2git
+git="git -C $dir"
 if [ ! -d _MTN ]; then
     echo "Usage: $0 [remote]"
     echo "You need to execute this from the repository root."
@@ -9,11 +10,12 @@ if [ ! -d "$dir" ]; then
   if [ $# -lt 1 ]; then
     echo "Usage: $0 [remote]"
     echo "You need to specify a remote on first usage."
+    echo "You can add more remotes using: $git remote add <name> <address>"
     exit 1
   fi
   mkdir -p $dir
-  git -C $dir init --bare --initial-branch=trunk
-  git -C $dir remote add origin "$1"
+  $git init --bare --initial-branch=trunk
+  $git remote add origin "$1"
 fi
 mtn sy
 touch $dir/marks1.txt $dir/marks2.txt
@@ -23,5 +25,8 @@ mtn ls branches --ignore-suspend-certs | sort -V | awk '
   { d = length($0) - len; print $0 " = " (d > 0 ? substr($0, len+2) : "trunk") }
 ' > $dir/branches.txt
 mtn --quiet --authors=$dir/authors.txt --branches-file=$dir/branches.txt --import-marks=$dir/marks1.txt --export-marks=$dir/marks1.txt git_export | \
-    git -C $dir fast-import --import-marks=marks2.txt --export-marks=marks2.txt
-git -C $dir push --mirror origin
+    $git fast-import --import-marks=marks2.txt --export-marks=marks2.txt
+for r in $($git remote); do
+  echo "Mirroring to: $r"
+  $git push --mirror $r
+done
