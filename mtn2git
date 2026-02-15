@@ -28,5 +28,5 @@ mtn --quiet --authors=$dir/authors.txt --branches-file=$dir/branches.txt --impor
   $git fast-import --import-marks=marks2.txt --export-marks=marks2.txt
 for r in $($git remote); do
   echo "Mirroring to: $r"
-  $git push --mirror $r
+  $git push --mirror "$r"
 done
