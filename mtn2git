@@ -13,20 +13,35 @@ if [ ! -d "$dir" ]; then
     echo "You can add more remotes using: $git remote add <name> <address>"
     exit 1
   fi
-  mkdir -p $dir
+  mkdir -p "$dir"
   $git init --bare --initial-branch=trunk
   $git remote add origin "$1"
 fi
+
+# ANSI color codes as variables for readability
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+RESET='\033[0m'
+
+printf "${GREEN}Syncing with monotone${RESET}\n"
 mtn sy
-touch $dir/marks1.txt $dir/marks2.txt
-[ -f $dir/authors.txt ] || echo 'lapo@lapo.it = Lapo Luchini <lapo@lapo.it>' > $dir/authors.txt
+
+printf "${GREEN}Exporting to git${RESET}\n"
+touch "$dir/marks1.txt" "$dir/marks2.txt"
+[ -f "$dir/authors.txt" ] || echo 'lapo@lapo.it = Lapo Luchini <lapo@lapo.it>' > "$dir/authors.txt"
+
 mtn ls branches --ignore-suspend-certs | sort -V | awk '
   NR == 1 { base = $0; len = length(base) }
   { d = length($0) - len; print $0 " = " (d > 0 ? substr($0, len+2) : "trunk") }
-' > $dir/branches.txt
-mtn --quiet --authors=$dir/authors.txt --branches-file=$dir/branches.txt --import-marks=$dir/marks1.txt --export-marks=$dir/marks1.txt git_export | \
+' > "$dir/branches.txt"
+
+mtn --quiet --authors="$dir/authors.txt" --branches-file="$dir/branches.txt" \
+    --import-marks="$dir/marks1.txt" --export-marks="$dir/marks1.txt" git_export | \
   $git fast-import --import-marks=marks2.txt --export-marks=marks2.txt
-for r in $($git remote); do
-  echo "Mirroring to: $r"
-  $git push --mirror "$r"
+for r in $( $git remote ); do
+  printf "${GREEN}Mirroring to: ${YELLOW}%s${RESET}\n" "$r"
+  if ! $git push --mirror "$r"; then
+    printf "${RED}Error pushing to %s${RESET}\n" "$r"
+  fi
 done
